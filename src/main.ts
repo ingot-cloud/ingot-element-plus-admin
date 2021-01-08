@@ -3,8 +3,14 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import theme from "./theme";
+import { registerComponent } from "./components";
 
-createApp(App)
+const application = createApp(App);
+
+// 注册组件
+registerComponent(application);
+
+application
   .use(store)
   .use(router)
   .use(theme)

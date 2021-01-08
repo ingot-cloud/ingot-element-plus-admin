@@ -1,12 +1,28 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
-import Home from "../views/Home.vue";
+import AppLayout from "@/views/layout/AppLayout.vue";
+import ManagementRoutes from "./module/management";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    name: "Home",
-    component: Home
+    redirect: "/home"
   },
+  {
+    path: "/home",
+    component: AppLayout,
+    children: [
+      {
+        path: "/home",
+        meta: {
+          title: "Ingot Cloud",
+          icon: ""
+        },
+        component: () => import("@/views/home/index.vue")
+      }
+    ]
+  },
+  // 系统管理路由
+  ...ManagementRoutes,
   {
     path: "/about",
     name: "About",
