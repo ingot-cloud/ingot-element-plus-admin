@@ -17,7 +17,7 @@ const vueConfig = {
     disableHostCheck: true,
     proxy: {
       "/api": {
-        target: "http://localhost:6954",
+        target: "http://localhost:8200",
         changeOrigin: true,
         pathRewrite: {
           "^/api": "/api"
