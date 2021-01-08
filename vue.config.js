@@ -28,6 +28,24 @@ const vueConfig = {
   // webpack configuration
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
   chainWebpack: config => {
+    const svgRule = config.module.rule("svg");
+
+    // 清除 svg 默认的所有 loader
+    // 如果不清楚现有 loader，接下来的 loader 会附加在该规则现有的 loader 之后。
+    svgRule.uses.clear();
+
+    svgRule
+      .test(/\.svg$/)
+      // include
+      .include.add(resolve("src/icons"))
+      .end()
+      // include end
+      .use("svg-sprite-loader")
+      .loader("svg-sprite-loader")
+      .options({
+        symbolId: "icon-[name]"
+      });
+
     // eslint import only src
     config.module
       .rule("eslint")

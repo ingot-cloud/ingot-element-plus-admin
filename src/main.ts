@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import theme from "./theme";
 import { registerComponent } from "./components";
+import "./icons";
 
 const application = createApp(App);
 
