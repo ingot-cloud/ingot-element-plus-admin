@@ -1,8 +1,6 @@
 <template>
   <ingot-app-bar />
-  <keep-alive :include="cacheViews">
-    <router-view />
-  </keep-alive>
+  <router-view />
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
