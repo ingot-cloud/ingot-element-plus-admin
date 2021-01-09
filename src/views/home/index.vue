@@ -1,9 +1,6 @@
 <template>
   <div>
     首页
-    <div style="background: red;">
-      <ingot-icon icon="management" />
-    </div>
   </div>
 </template>
 
