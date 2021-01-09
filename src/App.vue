@@ -1,7 +1,9 @@
 <template>
-  <keep-alive :include="cacheViews">
-    <router-view />
-  </keep-alive>
+  <router-view v-slot="{ Component }">
+    <keep-alive :include="cacheViews">
+      <component :is="Component" />
+    </keep-alive>
+  </router-view>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
