@@ -1,11 +1,15 @@
 <template>
   <div class="app-bar" :style="appBarStyle">
-    <div class="menu-icon-container" :style="menuIconStyle">
+    <div
+      class="menu-icon-container"
+      :style="menuIconStyle"
+      @click="onMenuClick"
+    >
       <ingot-icon icon="menu" className="menu-icon" />
     </div>
     <div class="logo" :style="logoStyle">
       <img class="logo-image" src="../assets/logo-orange.png" />
-      <span class="logo-text">Ingot</span>
+      <span class="logo-text">Ingot Cloud</span>
     </div>
     <div style="flex:1;"></div>
 
@@ -47,6 +51,11 @@ export default defineComponent({
   setup() {
     const { appBarStyle, menuIconStyle, logoStyle } = AppBarStyle();
     return { appBarStyle, menuIconStyle, logoStyle };
+  },
+  methods: {
+    onMenuClick() {
+      //
+    }
   }
 });
 </script>

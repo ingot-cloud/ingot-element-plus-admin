@@ -1,5 +1,6 @@
 import { App } from "vue";
 import IngotAppBar from "./IngotAppBar.vue";
+import IngotSidebarMenu from "./IngotSidebarMenu.vue";
 import IngotIcon from "./IngotIcon.vue";
 
 /**
@@ -8,5 +9,6 @@ import IngotIcon from "./IngotIcon.vue";
  */
 export function registerComponent(app: App) {
   app.component("ingot-app-bar", IngotAppBar);
+  app.component("ingot-sidebar-menu", IngotSidebarMenu);
   app.component("ingot-icon", IngotIcon);
 }

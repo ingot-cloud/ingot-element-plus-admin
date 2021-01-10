@@ -1,5 +1,6 @@
 <template>
   <ingot-app-bar />
+  <ingot-sidebar-menu />
   <router-view />
 </template>
 <script lang="ts">
