@@ -8,14 +8,16 @@ export const ThemeColor = {
   danger: "#F56C6C",
   info: "#909399",
   orange: "#FF6A00",
-  background: "#f1f1f2"
+  white: "#FFFFFF",
+  background: "#F1F1F2"
 };
 
 /**
  * 文字颜色
  */
 export const FontColor = {
-  white: "#fff"
+  white: "#fff",
+  default: "#303133"
 };
 
 /**
@@ -35,5 +37,23 @@ export function AppBarStyle() {
     appBarStyle,
     menuIconStyle,
     logoStyle
+  };
+}
+
+/**
+ * 边栏样式
+ */
+export function SidebarStyle() {
+  const scrollbarStyle = {
+    background: ThemeColor.white
+  };
+  const sidebarBackgroundColor = ThemeColor.white;
+  const sidebarTextColor = FontColor.default;
+  const sidebarActiveTextColor = ThemeColor.orange;
+  return {
+    scrollbarStyle,
+    sidebarBackgroundColor,
+    sidebarTextColor,
+    sidebarActiveTextColor
   };
 }

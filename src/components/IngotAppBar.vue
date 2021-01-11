@@ -65,11 +65,16 @@ export default defineComponent({
 @import "~@/theme/style/variables.styl";
 
 .app-bar
+  position fixed
+  top 0
+  left 0
+  width 100%
   height nav-bar-height
   display flex
   flex-direction row
   align-items center
   box-shadow rgba(0, 0, 0, 0.08) 0px 1px 4px 0px
+  z-index 1000 !important
   .menu-icon-container
     height nav-bar-height
     width 50px

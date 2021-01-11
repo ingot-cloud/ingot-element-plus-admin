@@ -1,6 +1,12 @@
 <template>
-  <el-scrollbar wrap-class="scrollbar-wrapper">
-    <el-menu @open="handleOpen" @close="handleClose">
+  <el-scrollbar wrap-class="scrollbar-wrapper" :style="scrollbarStyle">
+    <el-menu
+      @open="handleOpen"
+      @close="handleClose"
+      :background-color="sidebarBackgroundColor"
+      :text-color="sidebarTextColor"
+      :active-text-color="sidebarActiveTextColor"
+    >
       <el-submenu index="1">
         <template #title>
           <i class="el-icon-location"></i>
@@ -29,9 +35,25 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { SidebarStyle } from "@/theme";
 
 export default defineComponent({
   props: {},
+  setup() {
+    const {
+      scrollbarStyle,
+      sidebarBackgroundColor,
+      sidebarTextColor,
+      sidebarActiveTextColor
+    } = SidebarStyle();
+
+    return {
+      scrollbarStyle,
+      sidebarBackgroundColor,
+      sidebarTextColor,
+      sidebarActiveTextColor
+    };
+  },
   methods: {
     handleOpen() {
       //

@@ -1,0 +1,24 @@
+@import "./variables.styl"
+
+.content-container
+  padding-top nav-bar-height
+  height "calc(100vh - %s)" % nav-bar-height
+  margin-left 180px
+  transition @margin-left .28s
+
+.sidebar-container
+  transition width 0.28s
+  padding-top nav-bar-height
+  width 180px !important
+  height "calc(100vh - %s)" % nav-bar-height !important
+  z-index 100
+  overflow hidden
+  position fixed !important
+  top 0
+  left 0
+  bottom 0
+  .scrollbar-wrapper
+    overflow-x hidden !important
+    .el-scrollbar__view 
+      height 100%
+    

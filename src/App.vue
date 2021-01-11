@@ -18,10 +18,4 @@ export default defineComponent({
   }
 });
 </script>
-<style lang="stylus">
-@import "~@/theme/style/colors.styl";
-
-#app
-  background color-background
-  height 100vh
-</style>
+<style lang="stylus"></style>
