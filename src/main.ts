@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
-import store from "./store";
+import { store, key } from "./store";
 import theme from "./theme/element-plus";
 import "./theme/style/index.styl";
 import { registerComponent } from "./components";
@@ -13,7 +13,7 @@ const application = createApp(App);
 registerComponent(application);
 
 application
-  .use(store)
+  .use(store, key)
   .use(router)
   .use(theme)
   .mount("#app");
