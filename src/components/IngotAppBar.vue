@@ -1,15 +1,11 @@
 <template>
   <div class="app-bar" :style="appBarStyle">
-    <div
-      class="menu-icon-container"
-      :style="menuIconStyle"
-      @click="onMenuClick"
-    >
-      <ingot-icon icon="menu" className="menu-icon" />
+    <div class="menu-icon-container" :style="menuIconStyle" @click="toggleMenu">
+      <MenuIcon className="menu-icon" :isActive="opened" />
     </div>
     <div class="logo" :style="logoStyle">
       <img class="logo-image" src="../assets/logo-orange.png" />
-      <span class="logo-text">Ingot Cloud</span>
+      <span class="logo-text">{{ title }}</span>
     </div>
     <div style="flex:1;"></div>
 
@@ -41,21 +37,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 import { AppBarStyle } from "@/theme";
+import { getSidebarStatus, toggleMenu } from "@/store/composition/app";
+import MenuIcon from "./MenuIcon.vue";
+import { useStore } from "@/store";
 
 export default defineComponent({
-  props: {
-    title: String
+  components: {
+    MenuIcon
   },
   setup() {
+    const store = useStore();
+    const { opened } = getSidebarStatus(store);
     const { appBarStyle, menuIconStyle, logoStyle } = AppBarStyle();
-    return { appBarStyle, menuIconStyle, logoStyle };
-  },
-  methods: {
-    onMenuClick() {
-      //
-    }
+    return {
+      appBarStyle,
+      menuIconStyle,
+      logoStyle,
+      opened,
+      toggleMenu: () => toggleMenu(store),
+      title: computed(() => store.state.title)
+    };
   }
 });
 </script>
@@ -77,7 +80,7 @@ export default defineComponent({
   z-index 1000 !important
   .menu-icon-container
     height nav-bar-height
-    width 50px
+    width sidebar-min-width
     display flex
     align-items center
     justify-content center

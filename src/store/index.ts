@@ -5,6 +5,7 @@ import { AllState, RootState } from "./types";
 
 export const store = createStore<RootState>({
   state: {
+    title: "Ingot Cloud",
     theme: "Default"
   },
   mutations: {},
@@ -14,7 +15,7 @@ export const store = createStore<RootState>({
   }
 });
 
-export const key: InjectionKey<Store<RootState>> = Symbol();
+export const key: InjectionKey<Store<RootState>> = Symbol("storeKey");
 
 // define own `useStore` composition function
 export function useStore() {

@@ -17,8 +17,17 @@
   top 0
   left 0
   bottom 0
+  .horizontal-collapse-transition 
+    transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
+  .el-scrollbar__bar.is-vertical
+    right: 0px;
   .scrollbar-wrapper
     overflow-x hidden !important
     .el-scrollbar__view 
       height 100%
-    
+
+.hide-sidebar
+  .content-container
+    margin-left sidebar-min-width
+  .sidebar-container
+    width 64px !important
