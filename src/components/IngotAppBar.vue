@@ -98,7 +98,7 @@ export default defineComponent({
       width 35px
     .logo-text
       margin-left 2px
-      font-size 24px
+      font-size 20px
       font-weight blod
   .menu
     display flex

@@ -4,7 +4,7 @@ import { RootState, AppModuleState } from "../types";
 const appModule: Module<AppModuleState, RootState> = {
   state: {
     sidebar: {
-      opened: false
+      opened: true
     }
   },
   mutations: {

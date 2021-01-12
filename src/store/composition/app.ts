@@ -27,7 +27,7 @@ export function getAppLayoutClass(store: IngotStore) {
   return {
     appLayoutClass: computed(() => {
       return {
-        "hide-sidebar": store.state.app.sidebar.opened
+        "hide-sidebar": !store.state.app.sidebar.opened
       };
     })
   };

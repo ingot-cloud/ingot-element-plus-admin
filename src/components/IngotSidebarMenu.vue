@@ -1,50 +1,24 @@
 <template>
   <el-menu
-    :collapse="opened"
-    @open="handleOpen"
-    @close="handleClose"
+    class="ingot-sidebar-menu"
+    :collapse="!opened"
     :background-color="sidebarBackgroundColor"
     :text-color="sidebarTextColor"
     :active-text-color="sidebarActiveTextColor"
   >
     <el-submenu index="1">
       <template #title>
-        <ingot-icon icon="management" />
-        <span>导航一</span>
+        <ingot-icon icon="management" className="menu-icon" />
+        <span class="title">导航一</span>
       </template>
       <el-menu-item index="1-1">选项1</el-menu-item>
       <el-menu-item index="1-2">选项2</el-menu-item>
-      <el-menu-item index="1-3">选项3</el-menu-item>
-      <el-menu-item index="1-4-1">选项1</el-menu-item>
-
-      <el-menu-item index="1-1">选项1</el-menu-item>
-      <el-menu-item index="1-2">选项2</el-menu-item>
-      <el-menu-item index="1-3">选项3</el-menu-item>
-      <el-menu-item index="1-4-1">选项1</el-menu-item>
-      <el-menu-item index="1-1">选项1</el-menu-item>
-      <el-menu-item index="1-2">选项2</el-menu-item>
-      <el-menu-item index="1-3">选项3</el-menu-item>
-      <el-menu-item index="1-4-1">选项1</el-menu-item>
-      <el-menu-item index="1-1">选项1</el-menu-item>
-      <el-menu-item index="1-2">选项2</el-menu-item>
-      <el-menu-item index="1-3">选项3</el-menu-item>
-      <el-menu-item index="1-4-1">选项1</el-menu-item>
-      <el-menu-item index="1-1">选项1</el-menu-item>
-      <el-menu-item index="1-2">选项2</el-menu-item>
-      <el-menu-item index="1-3">选项3</el-menu-item>
-      <el-menu-item index="1-4-1">选项1</el-menu-item>
-      <el-menu-item index="1-1">选项1</el-menu-item>
-      <el-menu-item index="1-2">选项2</el-menu-item>
-      <el-menu-item index="1-3">选项3</el-menu-item>
-      <el-menu-item index="1-4-1">选项1</el-menu-item>
     </el-submenu>
     <el-menu-item index="2">
-      <i class="el-icon-menu"></i>
-      <template #title>导航二</template>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <i class="el-icon-setting"></i>
-      <template #title>导航四</template>
+      <ingot-icon icon="management" className="menu-icon" />
+      <template #title>
+        <span class="title">导航二</span>
+      </template>
     </el-menu-item>
   </el-menu>
 </template>
@@ -74,16 +48,23 @@ export default defineComponent({
       sidebarTextColor,
       sidebarActiveTextColor
     };
-  },
-  methods: {
-    handleOpen() {
-      //
-    },
-    handleClose() {
-      //
-    }
   }
 });
 </script>
 
-<style scoped lang="stylus"></style>
+<style lang="stylus">
+@import "~@/theme/style/variables.styl";
+
+.el-menu.ingot-sidebar-menu
+  border-right none !important
+  &>.el-menu-item
+  .el-submenu__title
+    height sidebar-menu-height
+    .title
+      margin-left 25px
+    .menu-icon
+      position absolute
+      width 20px
+      height 20px
+      top "calc((%s - %s) / 2)" % (sidebar-menu-height @height)
+</style>
