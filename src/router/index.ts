@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import AppLayout from "@/views/layout/AppLayout.vue";
 import ManagementRoutes from "./module/management";
 
-const routes: Array<RouteRecordRaw> = [
+export const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     redirect: "/home"

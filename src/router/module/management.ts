@@ -9,7 +9,7 @@ const managementRoutes: Array<RouteRecordRaw> = [
     redirect: "/management/user",
     meta: {
       title: "系统管理",
-      icon: ""
+      icon: "management"
     },
     children: [
       {
