@@ -1,14 +1,10 @@
 import { NavigationGuardWithThis } from "vue-router";
 import { fetchRouters } from "@/store/composition/router";
 
-const dynamicRouter: NavigationGuardWithThis<undefined> = () => {
-  return new Promise(resolve => {
-    fetchRouters().then(state => {
-      // todo 添加动态路由到 router
-      state.dynamicRoutes;
-      resolve(true);
-    });
-  });
+const dynamicRouter: NavigationGuardWithThis<undefined> = async to => {
+  // todo 添加动态路由到 router
+  const { dynamicRoutes } = await fetchRouters();
+  console.log("dynamic", dynamicRoutes, to.fullPath);
 };
 
 export default dynamicRouter;
