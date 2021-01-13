@@ -5,13 +5,16 @@
     :background-color="sidebarBackgroundColor"
     :text-color="sidebarTextColor"
     :active-text-color="sidebarActiveTextColor"
+    :default-active="activePath"
+    router
   >
     <SidebarItem v-for="route in menus" :key="route.path" :route="route" />
   </el-menu>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "@/store";
 import { getSidebarStatus } from "@/store/composition/app";
 import { getMenus } from "@/store/composition/router";
@@ -24,6 +27,7 @@ export default defineComponent({
   },
   props: {},
   setup() {
+    const router = useRouter();
     const store = useStore();
     const { opened } = getSidebarStatus(store);
     const {
@@ -39,6 +43,7 @@ export default defineComponent({
       sidebarBackgroundColor,
       sidebarTextColor,
       sidebarActiveTextColor,
+      activePath: computed(() => router.currentRoute.value.path),
       menus: getMenus(store)
     };
   }
