@@ -3,6 +3,23 @@ import { RouteRecordRaw } from "vue-router";
 import { RootState, RouterModuleState } from "../types";
 import { default as routes, notFound } from "@/router/routes";
 
+/**
+ * 清洗路由列表，过滤所有不需要显示的menu信息
+ * @param menu 需要清洗的路由列表
+ */
+const filterMenus = (menu: Array<RouteRecordRaw>): Array<RouteRecordRaw> => {
+  return menu
+    .map(item => {
+      if (item.children) {
+        item.children = filterMenus(item.children);
+      }
+      return item;
+    })
+    .filter(item => {
+      return item.meta && !item.meta.hidden;
+    });
+};
+
 const routerModule: Module<RouterModuleState, RootState> = {
   state: {
     menus: [],
@@ -28,10 +45,10 @@ const routerModule: Module<RouterModuleState, RootState> = {
       if (forceRefresh || menus.length === 0) {
         // todo 发送请求获取菜单列表，并且和固定的routes合并
         dynamicRoutes = [];
-        const finalRoutes = routes.concat(dynamicRoutes).concat(notFound);
-        menus = finalRoutes.filter(item => {
-          return item.component && item.meta && !item.meta.hidden;
-        });
+
+        dynamicRoutes = dynamicRoutes.concat(notFound);
+        menus = filterMenus(routes.concat(dynamicRoutes));
+
         commit("setMenu", menus);
         commit("setDynamicRouter", dynamicRoutes);
       }

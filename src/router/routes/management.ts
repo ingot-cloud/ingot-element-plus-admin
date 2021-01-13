@@ -4,6 +4,7 @@ import AppLayout from "@/views/layout/AppLayout.vue";
 // 系统管理路由
 const managementRoutes: Array<RouteRecordRaw> = [
   {
+    name: "SysManager",
     path: "/management",
     component: AppLayout,
     redirect: "/management/user",
@@ -13,9 +14,10 @@ const managementRoutes: Array<RouteRecordRaw> = [
     },
     children: [
       {
+        name: "SysManagerUserManager",
         meta: {
           title: "用户管理",
-          icon: ""
+          icon: "management"
         },
         path: "/management/user",
         component: () => import("@/views/management/user/index.vue")

@@ -6,20 +6,7 @@
     :text-color="sidebarTextColor"
     :active-text-color="sidebarActiveTextColor"
   >
-    <el-submenu index="1">
-      <template #title>
-        <ingot-icon icon="management" className="menu-icon" />
-        <span class="title">导航一</span>
-      </template>
-      <el-menu-item index="1-1">选项1</el-menu-item>
-      <el-menu-item index="1-2">选项2</el-menu-item>
-    </el-submenu>
-    <el-menu-item index="2">
-      <ingot-icon icon="management" className="menu-icon" />
-      <template #title>
-        <span class="title">导航二</span>
-      </template>
-    </el-menu-item>
+    <SidebarItem v-for="route in menus" :key="route.path" :route="route" />
   </el-menu>
 </template>
 
@@ -27,9 +14,14 @@
 import { defineComponent } from "vue";
 import { useStore } from "@/store";
 import { getSidebarStatus } from "@/store/composition/app";
+import { getMenus } from "@/store/composition/router";
 import { SidebarStyle } from "@/theme";
+import SidebarItem from "./SidebarItem.vue";
 
 export default defineComponent({
+  components: {
+    SidebarItem
+  },
   props: {},
   setup() {
     const store = useStore();
@@ -46,7 +38,8 @@ export default defineComponent({
       scrollbarStyle,
       sidebarBackgroundColor,
       sidebarTextColor,
-      sidebarActiveTextColor
+      sidebarActiveTextColor,
+      menus: getMenus(store)
     };
   }
 });
@@ -57,7 +50,7 @@ export default defineComponent({
 
 .el-menu.ingot-sidebar-menu
   border-right none !important
-  &>.el-menu-item
+  .el-menu-item
   .el-submenu__title
     height sidebar-menu-height
     .title
@@ -67,4 +60,7 @@ export default defineComponent({
       width 20px
       height 20px
       top "calc((%s - %s) / 2)" % (sidebar-menu-height @height)
+  .el-submenu .el-menu-item
+    height sidebar-menu-height
+    line-height @height
 </style>

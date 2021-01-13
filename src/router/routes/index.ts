@@ -15,6 +15,9 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/home",
     component: AppLayout,
+    meta: {
+      hidden: false
+    },
     children: [
       {
         path: "/home",

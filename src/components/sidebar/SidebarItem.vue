@@ -1,52 +1,55 @@
 <template>
-  <el-menu
-    class="ingot-sidebar-menu"
-    :collapse="!opened"
-    :background-color="sidebarBackgroundColor"
-    :text-color="sidebarTextColor"
-    :active-text-color="sidebarActiveTextColor"
+  <el-menu-item
+    v-if="isSingle"
+    :index="singleRoute.path"
+    :route="{ path: singleRoute.path }"
   >
-    <el-submenu index="1">
-      <template #title>
-        <ingot-icon icon="management" className="menu-icon" />
-        <span class="title">导航一</span>
-      </template>
-      <el-menu-item index="1-1">选项1</el-menu-item>
-      <el-menu-item index="1-2">选项2</el-menu-item>
-    </el-submenu>
-    <el-menu-item index="2">
-      <ingot-icon icon="management" className="menu-icon" />
-      <template #title>
-        <span class="title">导航二</span>
-      </template>
-    </el-menu-item>
-  </el-menu>
+    <template #title>
+      <ingot-icon :icon="singleRoute.meta.icon" className="menu-icon" />
+      <span class="title">
+        {{ singleRoute.meta.title }}
+      </span>
+    </template>
+  </el-menu-item>
+  <el-submenu v-else :index="route.path">
+    <template #title>
+      <ingot-icon :icon="route.meta.icon" className="menu-icon" />
+      <span class="title">
+        {{ route.meta.title }}
+      </span>
+    </template>
+    <SidebarItem
+      v-for="child in route.children"
+      :key="child.path"
+      :route="child"
+    />
+  </el-submenu>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { useStore } from "@/store";
-import { getSidebarStatus } from "@/store/composition/app";
-import { SidebarStyle } from "@/theme";
+import { defineComponent, computed } from "vue";
 
 export default defineComponent({
-  props: {},
-  setup() {
-    const store = useStore();
-    const { opened } = getSidebarStatus(store);
-    const {
-      scrollbarStyle,
-      sidebarBackgroundColor,
-      sidebarTextColor,
-      sidebarActiveTextColor
-    } = SidebarStyle();
-
+  props: {
+    route: {
+      type: Object,
+      default: null
+    }
+  },
+  setup(props) {
     return {
-      opened,
-      scrollbarStyle,
-      sidebarBackgroundColor,
-      sidebarTextColor,
-      sidebarActiveTextColor
+      isSingle: computed(() => {
+        const children = props.route.children;
+        return !children || children.length === 0 || children.length === 1;
+      }),
+      singleRoute: computed(() => {
+        const children = props.route.children;
+        if (!children || children.length === 0) {
+          return props.route;
+        }
+
+        return props.route.children[0];
+      })
     };
   }
 });

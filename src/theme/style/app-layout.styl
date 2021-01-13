@@ -1,15 +1,17 @@
 @import "./variables.styl"
 
+sidebar-width = 180px
+
 .content-container
   padding-top nav-bar-height
   height "calc(100vh - %s)" % nav-bar-height
-  margin-left 180px
+  margin-left sidebar-width
   transition @margin-left .28s
 
 .sidebar-container
   transition width 0.28s
   padding-top nav-bar-height
-  width 180px !important
+  width sidebar-width !important
   height "calc(100vh - %s)" % nav-bar-height !important
   z-index 100
   overflow hidden
