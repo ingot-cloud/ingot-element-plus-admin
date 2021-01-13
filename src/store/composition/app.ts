@@ -1,11 +1,11 @@
 import { computed } from "vue";
 import { IngotStore } from "@/store/types";
+import { store } from "@/store";
 
 /**
  * 导航条 menu 开关
- * @param store IngotStore 自定义 Store 类型
  */
-export function toggleMenu(store: IngotStore) {
+export function toggleMenu() {
   store.dispatch("toggleSidebar");
 }
 

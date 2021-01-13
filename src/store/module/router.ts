@@ -1,12 +1,17 @@
 import { Module } from "vuex";
 import { RouteRecordRaw } from "vue-router";
 import { RootState, RouterModuleState } from "../types";
-import { routes } from "@/router";
+import { default as routes, notFound } from "@/router/routes";
 
 const routerModule: Module<RouterModuleState, RootState> = {
   state: {
     menus: [],
     dynamicRoutes: []
+  },
+  getters: {
+    getMenus(state) {
+      return state.menus;
+    }
   },
   mutations: {
     setMenu(state, menus: Array<RouteRecordRaw>) {
@@ -17,12 +22,24 @@ const routerModule: Module<RouterModuleState, RootState> = {
     }
   },
   actions: {
-    fetchRouters({ commit }) {
-      // 目前不通过请求获取动态路由菜单
-      //   const menu = routes.filter(item => {
-      //       item.
-      //   })
-      // todo
+    fetchRouters({ state, commit }, forceRefresh) {
+      let menus = state.menus;
+      let dynamicRoutes = state.dynamicRoutes;
+      if (forceRefresh || menus.length === 0) {
+        // todo 发送请求获取菜单列表，并且和固定的routes合并
+        dynamicRoutes = [];
+        const finalRoutes = routes.concat(dynamicRoutes).concat(notFound);
+        menus = finalRoutes.filter(item => {
+          return item.component && item.meta && !item.meta.hidden;
+        });
+        commit("setMenu", menus);
+        commit("setDynamicRouter", dynamicRoutes);
+      }
+
+      return {
+        menus,
+        dynamicRoutes
+      };
     }
   }
 };

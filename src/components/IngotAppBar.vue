@@ -56,7 +56,7 @@ export default defineComponent({
       menuIconStyle,
       logoStyle,
       opened,
-      toggleMenu: () => toggleMenu(store),
+      toggleMenu,
       title: computed(() => store.state.title)
     };
   }
