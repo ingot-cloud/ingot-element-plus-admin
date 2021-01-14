@@ -5,6 +5,7 @@ import ManagementRoutes from "./management";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/404",
+    name: "NotFound",
     meta: { hidden: true },
     component: () => import("@/views/404.vue")
   },
@@ -28,6 +29,10 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/home/index.vue")
       }
     ]
+  },
+  {
+    path: "/login",
+    component: () => import("@/views/security/login/index.vue")
   },
   // 系统管理路由
   ...ManagementRoutes
