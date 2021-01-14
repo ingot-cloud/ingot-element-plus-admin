@@ -1,6 +1,9 @@
 import { StoreConfig } from "@/config";
 
-type StoreType = "session" | "local";
+export enum StoreType {
+  Local = "local",
+  Session = "session"
+}
 
 export interface StoreParams {
   key: string;
@@ -21,12 +24,12 @@ class IngotStore {
       type,
       datetime: new Date().getTime()
     };
-    const finalType = type || "local";
+    const finalType = type || StoreType.Local;
     switch (finalType) {
-      case "local":
+      case StoreType.Local:
         global.localStorage.setItem(finalKey, JSON.stringify(obj));
         break;
-      case "session":
+      case StoreType.Session:
         global.sessionStorage.setItem(finalKey, JSON.stringify(obj));
         break;
     }
@@ -35,15 +38,15 @@ class IngotStore {
   /**
    * 获取
    */
-  public get(key: string, type = "local") {
+  public get(key: string, type = StoreType.Local) {
     const finalKey = this.keyWrapper(key);
     let result = null;
 
     switch (type) {
-      case "local":
+      case StoreType.Local:
         result = global.localStorage.getItem(finalKey);
         break;
-      case "session":
+      case StoreType.Session:
         result = global.sessionStorage.getItem(finalKey);
         break;
     }
@@ -60,13 +63,13 @@ class IngotStore {
   /**
    * 删除
    */
-  public remove(key: string, type = "local") {
+  public remove(key: string, type = StoreType.Local) {
     const finalKey = this.keyWrapper(key);
     switch (type) {
-      case "local":
+      case StoreType.Local:
         global.localStorage.removeItem(finalKey);
         break;
-      case "session":
+      case StoreType.Session:
         global.sessionStorage.removeItem(finalKey);
         break;
     }
@@ -75,11 +78,11 @@ class IngotStore {
   /**
    * 获取全部
    */
-  public getAll(type = "local") {
+  public getAll(type = StoreType.Local) {
     const list = [];
     let key;
     switch (type) {
-      case "local":
+      case StoreType.Local:
         for (let i = 0, len = global.localStorage.length; i <= len; i++) {
           key = global.localStorage.key(i);
           if (key) {
@@ -90,7 +93,7 @@ class IngotStore {
           }
         }
         break;
-      case "session":
+      case StoreType.Session:
         for (let i = 0, len = global.sessionStorage.length; i <= len; i++) {
           key = global.sessionStorage.key(i);
           if (key) {
@@ -109,12 +112,12 @@ class IngotStore {
   /**
    * 清空全部
    */
-  public clear(type = "local") {
+  public clear(type = StoreType.Local) {
     switch (type) {
-      case "local":
+      case StoreType.Local:
         global.localStorage.clear();
         break;
-      case "session":
+      case StoreType.Session:
         global.sessionStorage.clear();
         break;
     }

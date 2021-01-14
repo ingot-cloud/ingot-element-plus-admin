@@ -15,6 +15,13 @@ const authModule: Module<AuthModuleState, RootState> = {
     },
     roles: []
   },
+  getters: {
+    getAccessToken(state) {
+      if (!state.token.accessToken || state.token.accessToken.length === 0) {
+        //
+      }
+    }
+  },
   mutations: {
     setToken(state, token: UserToken) {
       state.token = token;
