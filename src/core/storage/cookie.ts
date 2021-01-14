@@ -1,19 +1,23 @@
 import Cookies from "js-cookie";
 import { CookieConfig } from "@/config";
 
-export interface Cookie {
+export interface CookieParams {
   key: string;
   value: string | object;
-  expires: number; // 单位秒
+  expires?: number; // 单位秒
   path?: string;
 }
 
 class IngotCookie {
-  public set(cookie: Cookie) {
+  public set(cookie: CookieParams) {
     const { key, value, expires, path } = cookie;
     const finalKey = this.keyWrapper(key);
+    // 将单位转换为小时
+    const finalExpires = expires
+      ? expires / 60 / 60 / 24
+      : CookieConfig.DefaultExpireTime;
     Cookies.set(finalKey, value, {
-      expires: expires || CookieConfig.DefaultExpireTime,
+      expires: finalExpires,
       path: path || "/",
       domain: CookieConfig.Domain
     });
