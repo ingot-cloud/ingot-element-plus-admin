@@ -1,5 +1,6 @@
 import { Store } from "vuex";
 import { RouteRecordRaw } from "vue-router";
+import { UserToken, User } from "./security";
 
 /* Ingot Store */
 export type IngotStore = Store<AllState>;
@@ -40,16 +41,4 @@ export type Theme = "Default" | "Dark";
 
 export interface StateSideBar {
   opened?: boolean;
-}
-
-export interface UserToken {
-  accessToken: string;
-  tokenType: string;
-  refreshToken: string;
-  expiresIn: number;
-  scope: string;
-}
-
-export interface User {
-  username: string;
 }

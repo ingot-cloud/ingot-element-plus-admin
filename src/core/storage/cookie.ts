@@ -1,12 +1,6 @@
 import Cookies from "js-cookie";
 import { CookieConfig } from "@/config";
-
-export interface CookieParams {
-  key: string;
-  value: string | object;
-  expires?: number; // 单位秒
-  path?: string;
-}
+import { CookieParams } from "@/types";
 
 class IngotCookie {
   public set(cookie: CookieParams) {
@@ -40,7 +34,7 @@ class IngotCookie {
   }
 
   private keyWrapper(key: string) {
-    return CookieConfig.Prefix + key;
+    return `${CookieConfig.Prefix}:${key}`;
   }
 }
 

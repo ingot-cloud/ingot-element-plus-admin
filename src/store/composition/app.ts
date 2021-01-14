@@ -1,5 +1,5 @@
 import { computed } from "vue";
-import { IngotStore } from "@/store/types";
+import { IngotStore } from "@/types";
 import { store } from "@/store";
 
 /**

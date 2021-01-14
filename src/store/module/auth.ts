@@ -1,5 +1,11 @@
 import { Module } from "vuex";
-import { AuthModuleState, RootState, User, UserToken } from "@/store/types";
+import { AuthModuleState, RootState, User, UserToken } from "@/types";
+import { CookieManager } from "@/core/storage/cookie";
+
+enum Key {
+  Token = "token",
+  TokenType = "tokenType"
+}
 
 const authModule: Module<AuthModuleState, RootState> = {
   state: {
@@ -16,10 +22,14 @@ const authModule: Module<AuthModuleState, RootState> = {
     roles: []
   },
   getters: {
-    getAccessToken(state) {
+    getToken(state) {
       if (!state.token.accessToken || state.token.accessToken.length === 0) {
-        //
+        const value = CookieManager.get(Key.Token);
+        if (value) {
+          state.token = JSON.parse(value);
+        }
       }
+      return state.token.accessToken;
     }
   },
   mutations: {

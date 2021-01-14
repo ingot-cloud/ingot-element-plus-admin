@@ -1,6 +1,6 @@
 import { Module } from "vuex";
 import { RouteRecordRaw } from "vue-router";
-import { RootState, RouterModuleState } from "@/store/types";
+import { RootState, RouterModuleState } from "@/types";
 import { default as routes, notFound } from "@/router/routes";
 
 /**

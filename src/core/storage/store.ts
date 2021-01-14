@@ -1,15 +1,5 @@
 import { StoreConfig } from "@/config";
-
-export enum StoreType {
-  Local = "local",
-  Session = "session"
-}
-
-export interface StoreParams {
-  key: string;
-  value: object;
-  type?: StoreType;
-}
+import { StoreType, StoreParams } from "@/types";
 
 class IngotStore {
   /**
@@ -124,7 +114,7 @@ class IngotStore {
   }
 
   private keyWrapper(key: string) {
-    return StoreConfig.Prefix + key;
+    return `${StoreConfig.Prefix}:${key}`;
   }
 }
 
