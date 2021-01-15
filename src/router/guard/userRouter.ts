@@ -1,5 +1,5 @@
 import { NavigationGuardWithThis } from "vue-router";
-import { NavigationGuard } from "@/types";
+import { NavigationGuard } from "@/router/types";
 
 export class UserInfoGuard implements NavigationGuard {
   public static get() {
@@ -8,6 +8,9 @@ export class UserInfoGuard implements NavigationGuard {
 
   public exec(): NavigationGuardWithThis<undefined> {
     return to => {
+      if (to.skipNextGuard) {
+        return true;
+      }
       console.log("UserInfoGuard", to.fullPath);
 
       // 1. 判断用户信息是否存在，若存在则直接进入页面

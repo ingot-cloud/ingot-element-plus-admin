@@ -1,5 +1,5 @@
 import { NavigationGuardWithThis, Router } from "vue-router";
-import { NavigationGuard } from "@/types";
+import { NavigationGuard } from "@/router/types";
 import { store } from "@/store";
 
 export class AuthGuard implements NavigationGuard {
@@ -16,8 +16,12 @@ export class AuthGuard implements NavigationGuard {
         const token = store.getters.accessToken;
         if (!token || token.length === "") {
           router.replace({ path: "/login" });
+          // 终止导航重定向到 login
           return false;
         }
+      } else {
+        // 不执行下一个 NavigationGuard 的逻辑
+        to.skipNextGuard = true;
       }
     };
   }

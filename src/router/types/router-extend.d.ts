@@ -20,4 +20,12 @@ declare module "vue-router" {
      */
     permitAuth?: boolean;
   }
+
+  // eslint-disable-next-line @typescript-eslint/class-name-casing
+  interface _RouteLocationBase {
+    /**
+     * 跳过下一个 NavigationGuard 中执行的逻辑
+     */
+    skipNextGuard: boolean;
+  }
 }

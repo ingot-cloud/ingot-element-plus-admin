@@ -1,5 +1,5 @@
 import { Module } from "vuex";
-import { AuthModuleState, RootState, User, UserToken } from "@/types";
+import { AuthModuleState, RootState, User, UserToken } from "@/model";
 import { CookieManager } from "@/core/storage/cookie";
 
 enum Key {

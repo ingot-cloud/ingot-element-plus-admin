@@ -1,4 +1,4 @@
-import { NavigationGuard } from "@/types";
+import { NavigationGuard } from "@/router/types";
 import { AuthGuard } from "./authRouter";
 import { UserInfoGuard } from "./userRouter";
 import { DynamicRouterGuard } from "./dynamicRouter";

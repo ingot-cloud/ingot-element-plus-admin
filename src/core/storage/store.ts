@@ -1,5 +1,5 @@
 import { StoreConfig } from "@/config";
-import { StoreType, StoreParams } from "@/types";
+import { StoreType, StoreParams } from "@/model";
 
 class IngotStore {
   /**
