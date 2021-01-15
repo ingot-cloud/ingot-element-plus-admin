@@ -1,4 +1,4 @@
-import { NavigationGuardWithThis, Router } from "vue-router";
+import { NavigationGuardWithThis } from "vue-router";
 import { NavigationGuard } from "@/types";
 
 export class UserInfoGuard implements NavigationGuard {
@@ -6,7 +6,7 @@ export class UserInfoGuard implements NavigationGuard {
     return new UserInfoGuard();
   }
 
-  public exec(router: Router): NavigationGuardWithThis<undefined> {
+  public exec(): NavigationGuardWithThis<undefined> {
     return to => {
       console.log("UserInfoGuard", to.fullPath);
 
