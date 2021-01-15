@@ -1,8 +1,8 @@
 import { NavigationGuardWithThis, Router } from "vue-router";
-import { NavigationGuard } from "@/router/types";
+import { BaseNavigationGuard } from "@/router/types";
 import { store } from "@/store";
 
-export class AuthGuard implements NavigationGuard {
+export class AuthGuard extends BaseNavigationGuard {
   public static get() {
     return new AuthGuard();
   }
@@ -20,8 +20,8 @@ export class AuthGuard implements NavigationGuard {
           return false;
         }
       } else {
-        // 不执行下一个 NavigationGuard 的逻辑
-        to.skipNextGuard = true;
+        // 不执行后面所有 NavigationGuard 的逻辑
+        to.skipAfterGuard = true;
       }
     };
   }
