@@ -1,13 +1,17 @@
-import { NavigationGuardWithThis } from "vue-router";
+import { NavigationGuardWithThis, Router } from "vue-router";
+import { NavigationGuard } from "@/types";
 import { fetchRouters } from "@/store/composition/router";
 
-const dynamicRouter: NavigationGuardWithThis<undefined> = async to => {
-  if (to.terminateGuard) {
-    return false;
+export class DynamicRouterGuard implements NavigationGuard {
+  public static get() {
+    return new DynamicRouterGuard();
   }
-  // todo 添加动态路由到 router
-  const { dynamicRoutes } = await fetchRouters();
-  console.log("dynamic", dynamicRoutes, to.fullPath);
-};
 
-export default dynamicRouter;
+  public exec(router: Router): NavigationGuardWithThis<undefined> {
+    return async to => {
+      // todo 添加动态路由到 router
+      const { dynamicRoutes } = await fetchRouters();
+      console.log("DynamicRouterGuard", to.fullPath, dynamicRoutes);
+    };
+  }
+}

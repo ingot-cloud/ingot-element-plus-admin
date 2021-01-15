@@ -1,12 +1,12 @@
-import { NavigationGuardWithThis } from "vue-router";
-import authRouter from "./authRouter";
-import userRouter from "./userRouter";
-import dynamicRouter from "./dynamicRouter";
+import { NavigationGuard } from "@/types";
+import { AuthGuard } from "./authRouter";
+import { UserInfoGuard } from "./userRouter";
+import { DynamicRouterGuard } from "./dynamicRouter";
 
-const guardList: Array<NavigationGuardWithThis<undefined>> = [
-  authRouter,
-  userRouter,
-  dynamicRouter
+const guardList: Array<NavigationGuard> = [
+  AuthGuard.get(),
+  UserInfoGuard.get(),
+  DynamicRouterGuard.get()
 ];
 
 export default guardList;

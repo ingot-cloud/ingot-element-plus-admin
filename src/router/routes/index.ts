@@ -33,6 +33,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/login",
     name: "Login",
+    meta: {
+      permitAuth: true,
+      hidden: true
+    },
     component: () => import("@/views/security/login/index.vue")
   },
   // 系统管理路由

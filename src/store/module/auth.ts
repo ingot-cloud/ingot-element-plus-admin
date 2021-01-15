@@ -7,26 +7,33 @@ enum Key {
   TokenType = "tokenType"
 }
 
+const defaultToken = {
+  accessToken: "",
+  tokenType: "",
+  refreshToken: "",
+  expiresIn: 0,
+  scope: ""
+};
+const defaultUser = {
+  username: ""
+};
+
 const authModule: Module<AuthModuleState, RootState> = {
   state: {
-    token: {
-      accessToken: "",
-      tokenType: "",
-      refreshToken: "",
-      expiresIn: 0,
-      scope: ""
-    },
-    user: {
-      username: ""
-    },
+    token: defaultToken,
+    user: defaultUser,
     roles: []
   },
   getters: {
-    getToken(state) {
+    accessToken(state) {
       if (!state.token.accessToken || state.token.accessToken.length === 0) {
         const value = CookieManager.get(Key.Token);
         if (value) {
-          state.token = JSON.parse(value);
+          try {
+            state.token = JSON.parse(value);
+          } catch (e) {
+            state.token = defaultToken;
+          }
         }
       }
       return state.token.accessToken;
@@ -44,9 +51,6 @@ const authModule: Module<AuthModuleState, RootState> = {
     }
   },
   actions: {
-    fetchToken() {
-      //
-    },
     fetchUser() {
       //
     }

@@ -16,16 +16,8 @@ declare module "vue-router" {
      */
     hidden?: boolean;
     /**
-     * 是否需要进行身份验证
+     * 是否不需要进行身份验证
      */
-    requiresAuth?: boolean;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/class-name-casing
-  interface _RouteLocationBase {
-    /**
-     * 是否终止 NavigationGuard
-     */
-    terminateGuard?: boolean;
+    permitAuth?: boolean;
   }
 }
