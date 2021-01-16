@@ -8,7 +8,6 @@
   <div class="login-container">
     <el-tabs
       v-model="currentTab"
-      type="card"
       class="login-content"
       :style="content"
       stretch
@@ -36,12 +35,12 @@ export default defineComponent({
       currentTab: "1",
       tabs: [
         {
-          title: "Tab 1",
+          title: "账户密码登录",
           name: "1",
           content: "Tab 1 content"
         },
         {
-          title: "Tab 2",
+          title: "扫码登录",
           name: "2",
           content: "Tab 2 content"
         }
