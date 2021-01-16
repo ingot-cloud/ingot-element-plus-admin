@@ -1,14 +1,27 @@
 <template>
-  <div class="login-topbar">
-    <div class="topbar-content" :style="content">
+  <div class="login-topbar" :style="content">
+    <div class="topbar-content">
       <div class="title-left" :style="topbarTitleLeft">Ingot Cloud</div>
       <div class="title-right" :style="topbarTitleRight">登录</div>
     </div>
   </div>
   <div class="login-container">
-    <div class="login-container" :style="content">
-      container
-    </div>
+    <el-tabs
+      v-model="currentTab"
+      type="card"
+      class="login-content"
+      :style="content"
+      stretch
+    >
+      <el-tab-pane
+        v-for="item in tabs"
+        :key="item.name"
+        :label="item.title"
+        :name="item.name"
+      >
+        {{ item.content }}
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
@@ -18,6 +31,23 @@ import { LoginColorStyle } from "@/theme";
 
 export default defineComponent({
   components: {},
+  data() {
+    return {
+      currentTab: "1",
+      tabs: [
+        {
+          title: "Tab 1",
+          name: "1",
+          content: "Tab 1 content"
+        },
+        {
+          title: "Tab 2",
+          name: "2",
+          content: "Tab 2 content"
+        }
+      ]
+    };
+  },
   setup() {
     const { topbarTitleLeft, topbarTitleRight, content } = LoginColorStyle();
 
@@ -41,6 +71,7 @@ export default defineComponent({
   clear: both
   .topbar-content
     max-width 1200px
+    margin 0 auto
     height 80px
     display flex
     flex-direction row
@@ -59,7 +90,7 @@ export default defineComponent({
   flex-direction column
   justify-content center
   align-items center
-  .login-container
+  .login-content
     box-shadow 0 2px 15px rgba(0,0,0,.15)
     height 560px
     width 600px
