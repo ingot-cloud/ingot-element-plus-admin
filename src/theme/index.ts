@@ -7,7 +7,6 @@ export const ThemeColor = {
   warning: "#E6A23C",
   danger: "#F56C6C",
   info: "#909399",
-  orange: "#FF6A00",
   white: "#FFFFFF",
   background: "#F1F1F2"
 };
@@ -29,10 +28,10 @@ export function AppBarStyle() {
     background: "#fff"
   };
   const menuIconStyle = {
-    background: ThemeColor.orange
+    background: ThemeColor.primary
   };
   const logoStyle = {
-    color: ThemeColor.orange
+    color: ThemeColor.primary
   };
   return {
     appBarStyle,
@@ -50,7 +49,7 @@ export function SidebarStyle() {
   };
   const sidebarBackgroundColor = ThemeColor.white;
   const sidebarTextColor = FontColor.default;
-  const sidebarActiveTextColor = ThemeColor.orange;
+  const sidebarActiveTextColor = ThemeColor.primary;
   return {
     scrollbarStyle,
     sidebarBackgroundColor,
@@ -65,7 +64,7 @@ export function SidebarStyle() {
 export function LoginColorStyle() {
   return {
     topbarTitleLeft: {
-      color: ThemeColor.orange
+      color: ThemeColor.primary
     },
     topbarTitleRight: {
       color: FontColor.loginTitle

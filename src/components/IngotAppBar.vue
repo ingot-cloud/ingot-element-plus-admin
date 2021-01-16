@@ -4,7 +4,7 @@
       <MenuIcon className="menu-icon" :isActive="opened" />
     </div>
     <div class="logo" :style="logoStyle">
-      <img class="logo-image" src="../assets/logo-orange.png" />
+      <img class="logo-image" src="@/assets/logo.png" />
       <span class="logo-text">{{ title }}</span>
     </div>
     <div style="flex:1;"></div>
