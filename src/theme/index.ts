@@ -17,7 +17,8 @@ export const ThemeColor = {
  */
 export const FontColor = {
   white: "#fff",
-  default: "#303133"
+  default: "#303133",
+  loginTitle: "#181818"
 };
 
 /**
@@ -55,5 +56,22 @@ export function SidebarStyle() {
     sidebarBackgroundColor,
     sidebarTextColor,
     sidebarActiveTextColor
+  };
+}
+
+/**
+ * 登录颜色样式
+ */
+export function LoginColorStyle() {
+  return {
+    topbarTitleLeft: {
+      color: ThemeColor.orange
+    },
+    topbarTitleRight: {
+      color: FontColor.loginTitle
+    },
+    content: {
+      backgroundColor: ThemeColor.white
+    }
   };
 }
