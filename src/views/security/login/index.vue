@@ -12,7 +12,8 @@
           <template #label>
             <span><i class="el-icon-date"></i> {{ item.title }}</span>
           </template>
-          {{ item.content }}
+          <Password v-if="currentTab === LoginType.Password" />
+          <ScanCode v-if="currentTab === LoginType.ScanCode" />
         </el-tab-pane>
       </el-tabs>
       <div class="other-login" :style="otherLogin">其他登录方式</div>
@@ -22,23 +23,28 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import Password from "./Password.vue";
+import ScanCode from "./ScanCode.vue";
 import { LoginColorStyle } from "@/theme";
 
+enum LoginType {
+  Password = "password",
+  ScanCode = "scanCode"
+}
+
 export default defineComponent({
-  components: {},
+  components: { Password, ScanCode },
   data() {
     return {
-      currentTab: "1",
+      currentTab: LoginType.Password,
       tabs: [
         {
           title: "账户密码登录",
-          name: "1",
-          content: "Tab 1 content"
+          name: LoginType.Password
         },
         {
           title: "扫码登录",
-          name: "2",
-          content: "Tab 2 content"
+          name: LoginType.ScanCode
         }
       ]
     };
@@ -55,7 +61,8 @@ export default defineComponent({
       topbarTitleLeft,
       topbarTitleRight,
       content,
-      otherLogin
+      otherLogin,
+      LoginType
     };
   }
 });
@@ -107,6 +114,9 @@ login-content-pannel-height = "calc(%s - %s - %s)" % (login-content-height login
         line-height @height
     .el-tabs__content
       height login-content-pannel-height
+      display flex
+      align-items center
+      justify-content center
     .other-login
       border-top 1px solid #d8d8d8
       height login-content-other-login-height

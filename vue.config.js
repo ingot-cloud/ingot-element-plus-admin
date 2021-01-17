@@ -20,7 +20,7 @@ const vueConfig = {
         target: "http://localhost:8200",
         changeOrigin: true,
         pathRewrite: {
-          "^/api": "/api"
+          "^/api": "/"
         }
       }
     }

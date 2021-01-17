@@ -15,7 +15,7 @@ export class AuthGuard extends BaseNavigationGuard {
       if (!to.meta.permitAuth) {
         const token = store.getters.accessToken;
         if (!token || token.length === "") {
-          router.replace({ path: "/login" });
+          router.replace({ path: "/login", query: { redirect: to.fullPath } });
           // 终止导航重定向到 login
           return false;
         }
