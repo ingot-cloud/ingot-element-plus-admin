@@ -1,4 +1,5 @@
 <template>
+  <div class="title-container">密码登录</div>
   <el-form ref="formRef" :model="formModel" :rules="rules" label-width="0px">
     <el-form-item class="form-item" prop="username">
       <el-input
@@ -47,6 +48,12 @@ export default defineComponent({
 });
 </script>
 <style lang="stylus" scoped>
+.title-container
+  margin-top 80px
+  margin-bottom 22px
+  font-size 18px
+  font-weight 400
+  color #373d41
 .form-item
   width 330px
   .login-btn

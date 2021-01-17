@@ -115,10 +115,13 @@ login-content-pannel-height = "calc(%s - %s - %s)" % (login-content-height login
     .el-tabs__content
       height login-content-pannel-height
       display flex
+      flex-direction column
       align-items center
-      justify-content center
+      justify-content flex-start
     .other-login
       border-top 1px solid #d8d8d8
       height login-content-other-login-height
       line-height @height
+      font-size 14px
+      padding-left 20px
 </style>
