@@ -12,12 +12,10 @@
       :style="content"
       stretch
     >
-      <el-tab-pane
-        v-for="item in tabs"
-        :key="item.name"
-        :label="item.title"
-        :name="item.name"
-      >
+      <el-tab-pane v-for="item in tabs" :key="item.name" :name="item.name">
+        <template #label>
+          <span><i class="el-icon-date"></i> {{ item.title }}</span>
+        </template>
         {{ item.content }}
       </el-tab-pane>
     </el-tabs>
@@ -59,7 +57,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 .login-topbar
   box-shadow 0 2px 4px 0 rgba(0,0,0,.1);
   box-sizing border-box
@@ -93,4 +91,8 @@ export default defineComponent({
     box-shadow 0 2px 15px rgba(0,0,0,.15)
     height 560px
     width 600px
+    .el-tabs__header
+      margin 0
+    .el-tabs__content
+      height 100%
 </style>
