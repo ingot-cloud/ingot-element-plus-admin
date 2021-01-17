@@ -6,19 +6,17 @@
     </div>
   </div>
   <div class="login-container">
-    <el-tabs
-      v-model="currentTab"
-      class="login-content"
-      :style="content"
-      stretch
-    >
-      <el-tab-pane v-for="item in tabs" :key="item.name" :name="item.name">
-        <template #label>
-          <span><i class="el-icon-date"></i> {{ item.title }}</span>
-        </template>
-        {{ item.content }}
-      </el-tab-pane>
-    </el-tabs>
+    <div class="login-content" :style="content">
+      <el-tabs v-model="currentTab" stretch>
+        <el-tab-pane v-for="item in tabs" :key="item.name" :name="item.name">
+          <template #label>
+            <span><i class="el-icon-date"></i> {{ item.title }}</span>
+          </template>
+          {{ item.content }}
+        </el-tab-pane>
+      </el-tabs>
+      <div class="other-login" :style="otherLogin">其他登录方式</div>
+    </div>
   </div>
 </template>
 
@@ -46,18 +44,29 @@ export default defineComponent({
     };
   },
   setup() {
-    const { topbarTitleLeft, topbarTitleRight, content } = LoginColorStyle();
+    const {
+      topbarTitleLeft,
+      topbarTitleRight,
+      content,
+      otherLogin
+    } = LoginColorStyle();
 
     return {
       topbarTitleLeft,
       topbarTitleRight,
-      content
+      content,
+      otherLogin
     };
   }
 });
 </script>
 
 <style lang="stylus">
+login-content-height = 560px
+login-content-header-height = 52px
+login-content-other-login-height = 40px
+login-content-pannel-height = "calc(%s - %s - %s)" % (login-content-height login-content-header-height login-content-other-login-height)
+
 .login-topbar
   box-shadow 0 2px 4px 0 rgba(0,0,0,.1);
   box-sizing border-box
@@ -89,10 +98,17 @@ export default defineComponent({
   align-items center
   .login-content
     box-shadow 0 2px 15px rgba(0,0,0,.15)
-    height 560px
+    height login-content-height
     width 600px
     .el-tabs__header
       margin 0
+      .el-tabs__item
+        height login-content-header-height
+        line-height @height
     .el-tabs__content
-      height 100%
+      height login-content-pannel-height
+    .other-login
+      border-top 1px solid #d8d8d8
+      height login-content-other-login-height
+      line-height @height
 </style>

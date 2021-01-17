@@ -17,7 +17,8 @@ export const ThemeColor = {
 export const FontColor = {
   white: "#fff",
   default: "#303133",
-  loginTitle: "#181818"
+  loginTitle: "#181818",
+  gray: "#999"
 };
 
 /**
@@ -71,6 +72,9 @@ export function LoginColorStyle() {
     },
     content: {
       backgroundColor: ThemeColor.white
+    },
+    otherLogin: {
+      color: FontColor.gray
     }
   };
 }
