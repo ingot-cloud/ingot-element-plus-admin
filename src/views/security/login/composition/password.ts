@@ -18,15 +18,9 @@ const handleLogin = (formRef: Ref) => {
   form.validate((valid: boolean) => {
     if (valid) {
       loading.value = true;
-      login({ ...formModel })
-        .then(response => {
-          loading.value = false;
-          console.log(response);
-        })
-        .catch(e => {
-          console.log("error", e);
-          loading.value = false;
-        });
+      login({ ...formModel }).then(response => {
+        loading.value = false;
+      });
     }
   });
 };
