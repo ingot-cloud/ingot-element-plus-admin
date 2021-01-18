@@ -1,5 +1,5 @@
 import { Module } from "vuex";
-import { AuthModuleState, RootState, User, UserToken } from "@/core/model";
+import { AuthModuleState, RootState, UserInfo, UserToken } from "@/core/model";
 import { CookieManager } from "@/core/storage/cookie";
 import { CookieConfig } from "@/config";
 
@@ -68,16 +68,18 @@ const authModule: Module<AuthModuleState, RootState> = {
         expires: CookieConfig.RefreshTokenDefaultExpireTime
       });
     },
-    setUser(state, user: User) {
-      state.user = user;
-    },
-    setRoles(state, roles: Array<string>) {
-      state.roles = roles;
+    setUserInfo(state, info: UserInfo) {
+      state.user = info.user;
+      state.roles = info.roles;
     },
     removeToken(state) {
       state.token = defaultToken;
       CookieManager.remove(Key.Token);
       CookieManager.remove(Key.RefreshToken);
+    },
+    removeUserInfo(state) {
+      state.user = defaultUser;
+      state.roles = [];
     }
   },
   actions: {
@@ -86,6 +88,13 @@ const authModule: Module<AuthModuleState, RootState> = {
     },
     fetchUser() {
       //
+    },
+    clear({ commit }) {
+      return new Promise<void>(resolve => {
+        commit("removeToken");
+        commit("removeUserInfo");
+        resolve();
+      });
     }
   }
 };

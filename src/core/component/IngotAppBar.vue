@@ -26,7 +26,9 @@
                 </el-dropdown-item>
               </router-link>
               <el-dropdown-item divided>
-                <span style="display:block;">退出登录</span>
+                <span style="display:block;" @click="handleLogoutClick">
+                  退出登录
+                </span>
               </el-dropdown-item>
             </el-dropdown-menu>
           </template>
@@ -40,6 +42,7 @@
 import { computed, defineComponent } from "vue";
 import { AppBarStyle } from "@/theme";
 import { getSidebarStatus, toggleMenu } from "@/core/store/composition/app";
+import { handlLogout } from "@/core/security/auth";
 import MenuIcon from "./MenuIcon.vue";
 import { useStore } from "@/store";
 
@@ -57,7 +60,10 @@ export default defineComponent({
       logoStyle,
       opened,
       toggleMenu,
-      title: computed(() => store.state.title)
+      title: computed(() => store.state.title),
+      handleLogoutClick: () => {
+        handlLogout();
+      }
     };
   }
 });

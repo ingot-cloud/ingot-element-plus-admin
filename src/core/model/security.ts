@@ -9,3 +9,8 @@ export interface UserToken {
 export interface User {
   username: string;
 }
+
+export interface UserInfo {
+  user: User;
+  roles: Array<string>;
+}
