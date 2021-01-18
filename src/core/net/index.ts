@@ -5,7 +5,7 @@ import {
   onResponseFulfilled,
   onResponseRejected
 } from "./interceptor/response";
-import { IngotResponse } from "@/model";
+import { IngotResponse } from "@/core/model";
 
 class Http {
   private instance: AxiosInstance;

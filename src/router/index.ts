@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import routes from "./routes";
-import guardList from "./guard";
+import routes from "@/router/routes";
+import guardList from "@/core/router/guard";
 
 const router = createRouter({
   history: createWebHashHistory(),

@@ -1,5 +1,5 @@
 import { NavigationGuardWithThis } from "vue-router";
-import { BaseNavigationGuard } from "@/router/types";
+import { BaseNavigationGuard } from "@/core/router/types";
 
 export class UserInfoGuard extends BaseNavigationGuard {
   public static get() {

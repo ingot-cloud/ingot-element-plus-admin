@@ -16,7 +16,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useStore } from "@/store";
-import { getAppLayoutClass } from "@/store/composition/app";
+import { getAppLayoutClass } from "@/core/store/composition/app";
 import { SidebarStyle } from "@/theme";
 
 export default defineComponent({

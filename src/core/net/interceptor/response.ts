@@ -1,5 +1,5 @@
 import { AxiosResponse, AxiosError } from "axios";
-import { IngotResponse } from "@/model";
+import { IngotResponse } from "@/core/model";
 
 export const onResponseFulfilled = (response: AxiosResponse<IngotResponse>) => {
   console.log("onResponseFulfilled", response);

@@ -16,8 +16,8 @@
 import { defineComponent, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "@/store";
-import { getSidebarStatus } from "@/store/composition/app";
-import { getMenus } from "@/store/composition/router";
+import { getSidebarStatus } from "@/core/store/composition/app";
+import { getMenus } from "@/core/store/composition/router";
 import { SidebarStyle } from "@/theme";
 import SidebarItem from "./SidebarItem.vue";
 
