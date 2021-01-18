@@ -6,6 +6,7 @@
         v-model="formModel.username"
         placeholder="会员名称"
         clearable
+        @keyup.enter="handleLogin"
       ></el-input>
     </el-form-item>
     <el-form-item class="form-item" prop="password">
@@ -14,6 +15,7 @@
         placeholder="请输入登录密码"
         type="password"
         clearable
+        @keyup.enter="handleLogin"
       ></el-input>
     </el-form-item>
     <el-form-item class="form-item">

@@ -24,8 +24,8 @@ const handleLogin = (formRef: Ref) => {
           console.log(response);
         })
         .catch(e => {
+          console.log("error", e);
           loading.value = false;
-          console.log(e);
         });
     }
   });
