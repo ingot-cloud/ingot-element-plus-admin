@@ -1,5 +1,7 @@
 import { reactive, ref, Ref, unref } from "vue";
 import { login } from "@/core/api/auth";
+import { store } from "@/store";
+import { Router } from "vue-router";
 
 const formModel = reactive({
   username: "",
@@ -13,14 +15,29 @@ const rules = ref({
 
 const loading = ref(false);
 
-const handleLogin = (formRef: Ref) => {
+/**
+ * 密码登录逻辑
+ * @param formRef
+ */
+const handleLogin = (formRef: Ref, router: Router) => {
   const form = unref(formRef);
   form.validate((valid: boolean) => {
     if (valid) {
       loading.value = true;
-      login({ ...formModel }).then(response => {
-        loading.value = false;
-      });
+      login({ ...formModel })
+        .then(response => {
+          loading.value = false;
+          form.resetFields();
+          store.dispatch("updateToken", response.data);
+
+          const params = router.currentRoute.value.query;
+          router.replace({
+            path: params.redirect ? String(params.redirect) : "/"
+          });
+        })
+        .catch(() => {
+          loading.value = false;
+        });
     }
   });
 };

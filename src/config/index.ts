@@ -4,7 +4,8 @@
 export const CookieConfig = {
   Prefix: process.env.VUE_APP_STORE_PREFIX,
   Domain: process.env.VUE_APP_COOKIE_DOMAIN,
-  DefaultExpireTime: 2 / 24
+  DefaultExpireTime: 2 / 24,
+  RefreshTokenDefaultExpireTime: 7 * 24 * 60 * 60
 };
 
 /**

@@ -32,18 +32,22 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
 import password from "./composition/password";
 export default defineComponent({
   setup() {
     const { formModel, rules, loading, handleLogin } = password;
     const formRef = ref();
+
+    const router = useRouter();
+
     return {
       formRef,
       formModel,
       rules,
       loading,
       handleLogin: () => {
-        handleLogin(formRef);
+        handleLogin(formRef, router);
       }
     };
   }

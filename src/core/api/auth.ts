@@ -1,5 +1,6 @@
 import request from "@/core/net";
 import Qs from "qs";
+import { UserToken } from "@/core/model";
 
 const BasicToken = "Basic d2ViLWNsb3VkOndlYi1jbG91ZA==";
 
@@ -21,7 +22,7 @@ export function login({
     grant_type: "password",
     scope: "web"
   });
-  return request.post("/api/acs/oauth/token", data, {
+  return request.post<UserToken>("/api/acs/oauth/token", data, {
     headers: {
       Tenant: "1",
       Authorization: BasicToken
