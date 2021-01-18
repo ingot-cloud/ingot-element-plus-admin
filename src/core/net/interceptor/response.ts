@@ -2,6 +2,7 @@ import { AxiosResponse, AxiosError, AxiosRequestConfig } from "axios";
 import { ElMessage } from "element-plus";
 import { IngotResponse } from "@/core/model";
 import StatusCode from "@/core/net/statusCode";
+import { handlLogout } from "@/core/security/auth";
 
 /**
  * 未知响应实体
@@ -33,12 +34,20 @@ const bizResponseFailureHandler = (
   if (notTriggerBizFailureHandler) {
     return Promise.reject(response);
   }
+
+  const code = data.code;
+  switch (code) {
+    case StatusCode.TokenInvalid:
+    case StatusCode.TokenSignBack:
+      handlLogout();
+      break;
+  }
+
   ElMessage({
     showClose: true,
     message: data.message,
     type: "warning"
   });
-  // todo 业务逻辑
   return Promise.reject(response);
 };
 

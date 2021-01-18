@@ -8,10 +8,9 @@ export class DynamicRouterGuard extends BaseNavigationGuard {
   }
 
   public exec(): NavigationGuardWithThis<undefined> {
-    return async to => {
+    return async () => {
       // todo 添加动态路由到 router
-      const { dynamicRoutes } = await fetchRouters();
-      console.log("DynamicRouterGuard", to.fullPath, dynamicRoutes);
+      await fetchRouters();
     };
   }
 }

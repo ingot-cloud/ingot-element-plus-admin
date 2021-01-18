@@ -2,6 +2,7 @@ import { Module } from "vuex";
 import { AuthModuleState, RootState, UserInfo, UserToken } from "@/core/model";
 import { CookieManager } from "@/core/storage/cookie";
 import { CookieConfig } from "@/config";
+import { getUserInfo } from "@/core/api/user";
 
 enum Key {
   Token = "token",
@@ -48,6 +49,9 @@ const authModule: Module<AuthModuleState, RootState> = {
         }
       }
       return state.token.refreshToken;
+    },
+    existUserInfo(state) {
+      return state.roles.length !== 0;
     }
   },
   mutations: {
@@ -86,8 +90,18 @@ const authModule: Module<AuthModuleState, RootState> = {
     updateToken({ commit }, token: UserToken) {
       commit("setToken", token);
     },
-    fetchUser() {
-      //
+    fetchUserInfo({ commit }) {
+      return new Promise<UserInfo>((resolve, reject) => {
+        getUserInfo()
+          .then(response => {
+            const userInfo = response.data;
+            commit("setUserInfo", userInfo);
+            resolve(userInfo);
+          })
+          .catch(e => {
+            reject(e);
+          });
+      });
     },
     clear({ commit }) {
       return new Promise<void>(resolve => {
