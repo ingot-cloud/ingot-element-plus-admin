@@ -26,14 +26,14 @@ const handleLogin = (formRef: Ref, router: Router) => {
       loading.value = true;
       login({ ...formModel })
         .then(response => {
-          loading.value = false;
-          form.resetFields();
           store.dispatch("updateToken", response.data);
-
           const params = router.currentRoute.value.query;
           router.replace({
             path: params.redirect ? String(params.redirect) : "/"
           });
+
+          loading.value = false;
+          form.resetFields();
         })
         .catch(() => {
           loading.value = false;
