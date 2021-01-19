@@ -36,11 +36,7 @@ const authModule: Module<AuthModuleState, RootState> = {
       if (!state.token.accessToken || state.token.accessToken.length === 0) {
         const value = StoreManager.get(Key.Token, StoreType.Session);
         if (value) {
-          try {
-            state.token = JSON.parse(value);
-          } catch (e) {
-            state.token = defaultToken;
-          }
+          state.token = value;
         }
       }
       return state.token.accessToken;
