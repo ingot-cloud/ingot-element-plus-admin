@@ -5,7 +5,7 @@ export enum StoreType {
 
 export interface StoreParams {
   key: string;
-  value: object;
+  value: string | object;
   type?: StoreType;
 }
 

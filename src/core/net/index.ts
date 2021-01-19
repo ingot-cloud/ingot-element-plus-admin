@@ -6,6 +6,11 @@ import {
   onResponseRejected
 } from "./interceptor/response";
 import { IngotResponse } from "@/core/model";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+NProgress.configure({
+  showSpinner: false
+});
 
 class Http {
   private instance: AxiosInstance;
@@ -13,6 +18,7 @@ class Http {
     this.instance = axios.create({
       timeout: NetConfig.RequestTimeout
     });
+
     // default interceptors
     this.instance.interceptors.request.use(
       onRequestFulfilled,
@@ -21,6 +27,22 @@ class Http {
     this.instance.interceptors.response.use(
       onResponseFulfilled,
       onResponseRejected
+    );
+    // progress
+    this.instance.interceptors.request.use(config => {
+      NProgress.start();
+      return config;
+    });
+    this.instance.interceptors.response.use(
+      response => {
+        NProgress.done();
+        return response;
+      },
+      e => {
+        console.log("eerrr", e);
+        NProgress.done();
+        return e;
+      }
     );
   }
 

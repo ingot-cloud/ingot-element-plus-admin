@@ -1,12 +1,16 @@
 import { Module } from "vuex";
-import { AuthModuleState, RootState, UserInfo, UserToken } from "@/core/model";
-import { CookieManager } from "@/core/storage/cookie";
-import { CookieConfig } from "@/config";
+import {
+  AuthModuleState,
+  RootState,
+  StoreType,
+  UserInfo,
+  UserToken
+} from "@/core/model";
+import { StoreManager } from "@/core/storage/store";
 import { getUserInfo } from "@/core/api/user";
 
 enum Key {
   Token = "token",
-  TokenType = "tokenType",
   RefreshToken = "refreshToken"
 }
 
@@ -30,7 +34,7 @@ const authModule: Module<AuthModuleState, RootState> = {
   getters: {
     accessToken(state) {
       if (!state.token.accessToken || state.token.accessToken.length === 0) {
-        const value = CookieManager.get(Key.Token);
+        const value = StoreManager.get(Key.Token, StoreType.Session);
         if (value) {
           try {
             state.token = JSON.parse(value);
@@ -43,7 +47,7 @@ const authModule: Module<AuthModuleState, RootState> = {
     },
     refreshToken(state) {
       if (!state.token.refreshToken || state.token.refreshToken.length === 0) {
-        const value = CookieManager.get(Key.RefreshToken);
+        const value = StoreManager.get(Key.RefreshToken, StoreType.Session);
         if (value) {
           state.token.refreshToken = value;
         }
@@ -60,16 +64,16 @@ const authModule: Module<AuthModuleState, RootState> = {
       // 保存 token
       const accessToken = Object.assign({}, token);
       accessToken.refreshToken = "";
-      CookieManager.set({
+      StoreManager.set({
         key: Key.Token,
         value: accessToken,
-        expires: token.expiresIn
+        type: StoreType.Session
       });
       // 保存 refreshToken, 默认保存7天
-      CookieManager.set({
+      StoreManager.set({
         key: Key.RefreshToken,
         value: token.refreshToken,
-        expires: CookieConfig.RefreshTokenDefaultExpireTime
+        type: StoreType.Session
       });
     },
     setUserInfo(state, info: UserInfo) {
@@ -78,8 +82,8 @@ const authModule: Module<AuthModuleState, RootState> = {
     },
     removeToken(state) {
       state.token = defaultToken;
-      CookieManager.remove(Key.Token);
-      CookieManager.remove(Key.RefreshToken);
+      StoreManager.remove(Key.Token, StoreType.Session);
+      StoreManager.remove(Key.RefreshToken, StoreType.Session);
     },
     removeUserInfo(state) {
       state.user = defaultUser;
