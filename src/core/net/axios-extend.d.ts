@@ -8,5 +8,10 @@ declare module "axios" {
      * 默认触发
      */
     notTriggerBizFailureHandler?: boolean;
+
+    /**
+     * 是否为刷新token后的请求重试
+     */
+    refreshTokenAndRetry?: boolean;
   }
 }

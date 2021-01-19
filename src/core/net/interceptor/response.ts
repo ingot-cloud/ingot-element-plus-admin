@@ -1,8 +1,10 @@
 import { AxiosResponse, AxiosError, AxiosRequestConfig } from "axios";
-import { ElMessage } from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
 import { IngotResponse } from "@/core/model";
 import StatusCode from "@/core/net/statusCode";
 import { handlLogout } from "@/core/security/auth";
+import { store } from "@/store";
+import request from "@/core/net";
 
 /**
  * 未知响应实体
@@ -38,16 +40,60 @@ const bizResponseFailureHandler = (
   const code = data.code;
   switch (code) {
     case StatusCode.TokenInvalid:
+      if (config.refreshTokenAndRetry) {
+        return Promise.reject(response);
+      }
+      return new Promise((resolve, reject) => {
+        console.log("refresh");
+        store
+          .dispatch("refreshToken")
+          .then(userToken => {
+            // 刷新成功重试刚才的请求，替换token重新请求
+            // 避免再次请求失败，刷新token后的重试不走失效逻辑
+            const newConfig = Object.assign({}, config);
+            newConfig.refreshTokenAndRetry = true;
+            newConfig.headers[
+              "Authorization"
+            ] = `Bearer ${userToken.accessToken}`;
+
+            return request.rawRequest(newConfig);
+          })
+          .then(temp => {
+            resolve(temp);
+          })
+          .catch(() => {
+            // 刷新失败退出登录
+            handlLogout();
+            ElMessage({
+              showClose: true,
+              message: data.message,
+              type: "warning"
+            });
+            reject(response);
+          });
+      });
     case StatusCode.TokenSignBack:
-      handlLogout();
+      ElMessageBox.confirm(
+        "您已被签退，可以取消继续留在该页面，或者重新登录",
+        "提示",
+        {
+          confirmButtonText: "重新登录",
+          cancelButtonText: "取消",
+          type: "warning"
+        }
+      ).then(() => {
+        handlLogout();
+      });
+      break;
+    default:
+      ElMessage({
+        showClose: true,
+        message: data.message,
+        type: "warning"
+      });
       break;
   }
 
-  ElMessage({
-    showClose: true,
-    message: data.message,
-    type: "warning"
-  });
   return Promise.reject(response);
 };
 

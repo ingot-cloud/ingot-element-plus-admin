@@ -1,4 +1,9 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  AxiosError
+} from "axios";
 import { NetConfig } from "@/config";
 import { onRequestFulfilled, onRequestRejected } from "./interceptor/request";
 import {
@@ -12,6 +17,23 @@ NProgress.configure({
   showSpinner: false
 });
 
+// 拦截器
+const hookRequestFulfilled = (config: AxiosRequestConfig) => {
+  NProgress.start();
+  return onRequestFulfilled(config);
+};
+const hookRequestRejected = (error: unknown) => {
+  return onRequestRejected(error);
+};
+const hookResponseFulfilled = (response: AxiosResponse<IngotResponse>) => {
+  NProgress.done();
+  return onResponseFulfilled(response);
+};
+const hookResponseRejected = (error: AxiosError<IngotResponse>) => {
+  NProgress.done();
+  return onResponseRejected(error);
+};
+
 class Http {
   private instance: AxiosInstance;
   public constructor() {
@@ -21,28 +43,12 @@ class Http {
 
     // default interceptors
     this.instance.interceptors.request.use(
-      onRequestFulfilled,
-      onRequestRejected
+      hookRequestFulfilled,
+      hookRequestRejected
     );
     this.instance.interceptors.response.use(
-      onResponseFulfilled,
-      onResponseRejected
-    );
-    // progress
-    this.instance.interceptors.request.use(config => {
-      NProgress.start();
-      return config;
-    });
-    this.instance.interceptors.response.use(
-      response => {
-        NProgress.done();
-        return response;
-      },
-      e => {
-        console.log("eerrr", e);
-        NProgress.done();
-        return e;
-      }
+      hookResponseFulfilled,
+      hookResponseRejected
     );
   }
 
@@ -50,7 +56,7 @@ class Http {
    * 重构响应结构，转换为Promise<IngotResponse>
    * @param origin 请求原始返回的Promise
    */
-  restructure<T>(
+  private restructure<T>(
     origin: Promise<AxiosResponse<IngotResponse<T>>>
   ): Promise<IngotResponse<T>> {
     return new Promise((resolve, reject) => {
@@ -66,6 +72,12 @@ class Http {
           reject(result);
         });
     });
+  }
+
+  rawRequest<T, R = AxiosResponse<IngotResponse<T>>>(
+    config: AxiosRequestConfig
+  ) {
+    return this.instance.request<T, R>(config);
   }
 
   // 代理 Axios 请求方法

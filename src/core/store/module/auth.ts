@@ -8,6 +8,7 @@ import {
 } from "@/core/model";
 import { StoreManager } from "@/core/storage/store";
 import { getUserInfo } from "@/core/api/user";
+import { refreshToken } from "@/core/api/auth";
 
 enum Key {
   Token = "token",
@@ -65,7 +66,7 @@ const authModule: Module<AuthModuleState, RootState> = {
         value: accessToken,
         type: StoreType.Session
       });
-      // 保存 refreshToken, 默认保存7天
+      // 保存 refreshToken
       StoreManager.set({
         key: Key.RefreshToken,
         value: token.refreshToken,
@@ -89,6 +90,23 @@ const authModule: Module<AuthModuleState, RootState> = {
   actions: {
     updateToken({ commit }, token: UserToken) {
       commit("setToken", token);
+    },
+    refreshToken({ getters, commit }) {
+      return new Promise((resolve, reject) => {
+        const refreshTokenValue = getters.refreshToken;
+        if (!refreshTokenValue) {
+          reject();
+          return;
+        }
+        refreshToken(refreshTokenValue)
+          .then(response => {
+            commit("setToken", response.data);
+            resolve(response.data);
+          })
+          .catch(() => {
+            reject();
+          });
+      });
     },
     fetchUserInfo({ commit }) {
       return new Promise<UserInfo>((resolve, reject) => {

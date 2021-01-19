@@ -20,7 +20,8 @@ export function refreshToken(refreshToken: string) {
     headers: {
       Tenant: "1",
       Authorization: BasicToken
-    }
+    },
+    notTriggerBizFailureHandler: true
   });
 }
 
