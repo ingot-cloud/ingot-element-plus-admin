@@ -21,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
         path: "/home",
         meta: {
           title: "Ingot Cloud",
-          icon: "management"
+          icon: "dash-board"
         },
         component: () => import("@/views/home/index.vue")
       }

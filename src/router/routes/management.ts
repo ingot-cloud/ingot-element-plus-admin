@@ -17,7 +17,7 @@ const managementRoutes: Array<RouteRecordRaw> = [
         name: "SysManagerUserManager",
         meta: {
           title: "用户管理",
-          icon: "management"
+          icon: "user"
         },
         path: "/management/user",
         component: () => import("@/views/management/user/index.vue")
