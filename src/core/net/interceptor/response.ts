@@ -31,6 +31,11 @@ const bizResponseFailureHandler = (
   config: AxiosRequestConfig,
   response = UnknownResponse
 ): Promise<AxiosResponse<IngotResponse>> => {
+  // 如果响应结构非{ code, message, data }结构，而是字符串，那么为网络异常，response复制unknown
+  if (typeof response.data === "string") {
+    console.debug("response.data结构异常", response);
+    response = UnknownResponse;
+  }
   const data = response.data;
   const notTriggerBizFailureHandler = config.notTriggerBizFailureHandler;
   if (notTriggerBizFailureHandler) {
@@ -44,7 +49,6 @@ const bizResponseFailureHandler = (
         return Promise.reject(response);
       }
       return new Promise((resolve, reject) => {
-        console.log("refresh");
         store
           .dispatch("refreshToken")
           .then(userToken => {
