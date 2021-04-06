@@ -1,7 +1,7 @@
 <template>
   <el-menu-item v-if="isSingle" :index="singleRoute.path">
+    <ingot-icon :icon="singleRoute.meta.icon" className="menu-icon" />
     <template #title>
-      <ingot-icon :icon="singleRoute.meta.icon" className="menu-icon" />
       <span class="title">
         {{ singleRoute.meta.title }}
       </span>
