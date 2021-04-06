@@ -53,12 +53,13 @@ export default defineComponent({
 <style lang="stylus">
 @import "~@/theme/style/variables.styl";
 
+.el-menu--popup
 .el-menu.ingot-sidebar-menu
   border-right none !important
   .el-menu-item
   .el-submenu__title
     height sidebar-menu-height
-    .title
+    .menu-title
       margin-left 25px
     .menu-icon
       position absolute
