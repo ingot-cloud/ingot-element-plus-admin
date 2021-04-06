@@ -21,6 +21,15 @@ const managementRoutes: Array<RouteRecordRaw> = [
         },
         path: "/management/user",
         component: () => import("@/views/management/user/index.vue")
+      },
+      {
+        name: "SysManagerDeptManager",
+        meta: {
+          title: "部门管理",
+          icon: "dept"
+        },
+        path: "/management/dept",
+        component: () => import("@/views/management/dept/index.vue")
       }
     ]
   }
