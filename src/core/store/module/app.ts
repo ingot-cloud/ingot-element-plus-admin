@@ -4,7 +4,8 @@ import { RootState, AppModuleState } from "@/core/model";
 const appModule: Module<AppModuleState, RootState> = {
   state: {
     sidebar: {
-      opened: true
+      // 默认关闭
+      opened: false
     }
   },
   mutations: {

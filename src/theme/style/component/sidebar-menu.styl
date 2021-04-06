@@ -1,0 +1,18 @@
+@import "~@/theme/style/variables.styl";
+
+.el-menu--popup
+.el-menu.ingot-sidebar-menu
+  border-right none !important
+  .el-menu-item
+  .el-submenu__title
+    height sidebar-menu-height
+    .menu-title
+      margin-left 25px
+    .menu-icon
+      position absolute
+      width 20px
+      height 20px
+      top "calc((%s - %s) / 2)" % (sidebar-menu-height @height)
+  .el-submenu .el-menu-item
+    height sidebar-menu-height
+    line-height @height

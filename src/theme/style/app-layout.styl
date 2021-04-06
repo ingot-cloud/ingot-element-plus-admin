@@ -5,11 +5,12 @@ sidebar-width = 180px
 .content-container
   padding-top nav-bar-height
   height "calc(100vh - %s)" % nav-bar-height
-  margin-left sidebar-width
-  transition @margin-left .28s
+  // margin-left sidebar-width
+  // transition @margin-left .28s
 
 .sidebar-container
-  transition width 0.28s
+  box-shadow rgba(0, 0, 0, 0.08) 1px 0px 4px 0px
+  transition width 0.1s
   padding-top nav-bar-height
   width sidebar-width !important
   height "calc(100vh - %s)" % nav-bar-height !important
@@ -30,6 +31,8 @@ sidebar-width = 180px
 
 .hide-sidebar
   .content-container
-    margin-left sidebar-min-width
+    // margin-left sidebar-min-width
   .sidebar-container
-    width 64px !important
+    width 0px !important
+    // width sidebar-min-width !important 
+    // 隐藏时候不显示菜单，所以有如上注释

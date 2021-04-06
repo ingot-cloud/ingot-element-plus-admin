@@ -7,6 +7,7 @@
     :active-text-color="sidebarActiveTextColor"
     :default-active="activePath"
     router
+    @select="onNavMenuSelect"
   >
     <SidebarItem v-for="route in menus" :key="route.path" :route="route" />
   </el-menu>
@@ -16,7 +17,7 @@
 import { defineComponent, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "@/store";
-import { getSidebarStatus } from "@/core/store/composition/app";
+import { getSidebarStatus, toggleMenu } from "@/core/store/composition/app";
 import { getMenus } from "@/core/store/composition/router";
 import { SidebarStyle } from "@/theme";
 import SidebarItem from "./SidebarItem.vue";
@@ -44,29 +45,13 @@ export default defineComponent({
       sidebarTextColor,
       sidebarActiveTextColor,
       activePath: computed(() => router.currentRoute.value.path),
-      menus: getMenus(store)
+      menus: getMenus(store),
+      onNavMenuSelect: () => toggleMenu()
     };
   }
 });
 </script>
 
 <style lang="stylus">
-@import "~@/theme/style/variables.styl";
-
-.el-menu--popup
-.el-menu.ingot-sidebar-menu
-  border-right none !important
-  .el-menu-item
-  .el-submenu__title
-    height sidebar-menu-height
-    .menu-title
-      margin-left 25px
-    .menu-icon
-      position absolute
-      width 20px
-      height 20px
-      top "calc((%s - %s) / 2)" % (sidebar-menu-height @height)
-  .el-submenu .el-menu-item
-    height sidebar-menu-height
-    line-height @height
+@import "~@/theme/style/component/sidebar-menu.styl";
 </style>

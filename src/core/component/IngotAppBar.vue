@@ -1,7 +1,8 @@
 <template>
   <div class="app-bar" :style="appBarStyle">
     <div class="menu-icon-container" :style="menuIconStyle" @click="toggleMenu">
-      <MenuIcon className="menu-icon" :isActive="opened" />
+      <!-- <MenuIcon className="menu-icon" :isActive="opened" /> -->
+      <ingot-icon icon="nav-menu" className="nav-menu-icon" />
     </div>
     <div class="logo" :style="logoStyle">
       <img class="logo-image" src="@/assets/logo.png" />
@@ -43,12 +44,12 @@ import { computed, defineComponent } from "vue";
 import { AppBarStyle } from "@/theme";
 import { getSidebarStatus, toggleMenu } from "@/core/store/composition/app";
 import { handlLogout } from "@/core/security/auth";
-import MenuIcon from "./MenuIcon.vue";
+// import MenuIcon from "./MenuIcon.vue";
 import { useStore } from "@/store";
 
 export default defineComponent({
   components: {
-    MenuIcon
+    // MenuIcon
   },
   setup() {
     const store = useStore();
@@ -86,13 +87,14 @@ export default defineComponent({
   z-index 1000 !important
   .menu-icon-container
     height nav-bar-height
-    width sidebar-min-width
+    width nav-bar-height
     display flex
     align-items center
     justify-content center
-    .menu-icon
-      width 25px
-      height 25px
+    .nav-menu-icon
+      width 20px
+      height 20px
+      fill white
   .logo
     margin-left 10px
     display flex
