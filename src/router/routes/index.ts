@@ -1,6 +1,6 @@
 import { RouteRecordRaw } from "vue-router";
 import AppLayout from "@/views/layout/AppLayout.vue";
-import ManagementRoutes from "./management";
+import AuthorityRoutes from "./authority";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -36,8 +36,8 @@ const routes: Array<RouteRecordRaw> = [
     },
     component: () => import("@/views/security/login/index.vue")
   },
-  // 系统管理路由
-  ...ManagementRoutes
+  // 权限管理路由
+  ...AuthorityRoutes
 ];
 
 export const notFound: RouteRecordRaw = { path: "*", redirect: "/404" };

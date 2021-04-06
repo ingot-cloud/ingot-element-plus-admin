@@ -9,8 +9,8 @@ const managementRoutes: Array<RouteRecordRaw> = [
     component: AppLayout,
     redirect: "/management/user",
     meta: {
-      title: "系统管理",
-      icon: "management"
+      title: "权限管理",
+      icon: "authority"
     },
     children: [
       {

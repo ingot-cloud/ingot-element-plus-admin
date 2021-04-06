@@ -9,7 +9,7 @@ const router = createRouter({
 
 // 注册 guard
 guardList.forEach(async guard => {
-  router.beforeEach(await guard.proxy(router));
+  router.beforeEach(guard.proxy(router));
 });
 
 export default router;
