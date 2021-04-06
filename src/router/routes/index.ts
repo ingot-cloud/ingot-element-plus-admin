@@ -11,10 +11,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/",
-    redirect: "/home"
-  },
-  {
-    path: "/home",
+    redirect: "/home",
     component: AppLayout,
     meta: {
       hidden: false
@@ -24,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
         path: "/home",
         meta: {
           title: "Ingot Cloud",
-          icon: ""
+          icon: "management"
         },
         component: () => import("@/views/home/index.vue")
       }

@@ -16,7 +16,7 @@ declare module "vue-router" {
      */
     hidden?: boolean;
     /**
-     * 是否不需要进行身份验证
+     * 是否放行，即忽略身份验证
      */
     permitAuth?: boolean;
   }
