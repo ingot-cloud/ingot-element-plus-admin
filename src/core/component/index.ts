@@ -1,6 +1,6 @@
 import { App } from "vue";
-import IngotAppBar from "./IngotAppBar.vue";
-import IngotSidebarMenu from "./sidebar/IngotSidebarMenu.vue";
+import IngotAppBar from "./layout/IngotAppBar.vue";
+import IngotSidebarMenu from "./layout/sidebar/IngotSidebarMenu.vue";
 import IngotIcon from "./IngotIcon.vue";
 import IngotContainer from "./IngotContainer.vue";
 
