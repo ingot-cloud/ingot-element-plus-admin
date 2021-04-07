@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <slot />
+    <div class="inside">
+      <slot />
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -10,6 +12,7 @@ export default defineComponent({});
 
 <style scoped lang="stylus">
 .container
-  margin 10px
+  padding 10px
+.inside
   background white
 </style>

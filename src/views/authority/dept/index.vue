@@ -3,6 +3,7 @@
     部门
     <div>{{ user.username }}</div>
     <div>{{ roles }}</div>
+    <div style="height: 2000px; background:red;"></div>
   </ingot-container>
 </template>
 
