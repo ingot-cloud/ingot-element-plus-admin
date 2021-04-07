@@ -13,6 +13,9 @@
       width 20px
       height 20px
       top "calc((%s - %s) / 2)" % (sidebar-menu-height @height)
+      left "calc((%s - %s) / 2)" % (sidebar-collapse-width @width)
   .el-submenu .el-menu-item
     height sidebar-menu-height
     line-height @height
+.el-menu--collapse
+  width sidebar-collapse-width
