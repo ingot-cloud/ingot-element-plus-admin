@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
-import AppLayout from "@/views/layout/AppLayout.vue";
+import AppLayout from "@/core/component/layout/IngotAppLayout.vue";
 
 // 系统管理路由
 const managementRoutes: Array<RouteRecordRaw> = [
