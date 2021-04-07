@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <ingot-container>
     部门
     <div>{{ user.username }}</div>
     <div>{{ roles }}</div>
-  </div>
+  </ingot-container>
 </template>
 
 <script lang="ts">

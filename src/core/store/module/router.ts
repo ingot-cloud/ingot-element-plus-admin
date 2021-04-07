@@ -1,7 +1,7 @@
 import { Module } from "vuex";
 import { RouteRecordRaw } from "vue-router";
 import { RootState, RouterModuleState } from "@/core/model";
-import { default as routes, notFound } from "@/router/routes";
+import { default as routes } from "@/router/routes";
 
 /**
  * 清洗路由列表，过滤所有不需要显示的menu信息
@@ -28,6 +28,9 @@ const routerModule: Module<RouterModuleState, RootState> = {
   getters: {
     getMenus(state) {
       return state.menus;
+    },
+    getDynamicRoutes(state) {
+      return state.dynamicRoutes;
     }
   },
   mutations: {
@@ -46,7 +49,6 @@ const routerModule: Module<RouterModuleState, RootState> = {
         // todo 发送请求获取菜单列表，并且和固定的routes合并
         dynamicRoutes = [];
 
-        dynamicRoutes = dynamicRoutes.concat(notFound);
         menus = filterMenus(routes.concat(dynamicRoutes));
 
         commit("setMenu", menus);

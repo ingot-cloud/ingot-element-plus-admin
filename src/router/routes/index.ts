@@ -4,26 +4,27 @@ import AuthorityRoutes from "./authority";
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "/404",
+    path: "/:pathMatch(.*)",
     name: "NotFound",
     meta: { hidden: true },
     component: () => import("@/views/404.vue")
   },
   {
     path: "/",
-    redirect: "/home",
+    name: "Root",
+    redirect: "/dashboard",
     component: AppLayout,
     meta: {
       hidden: false
     },
     children: [
       {
-        path: "/home",
+        path: "/dashboard",
         meta: {
           title: "Ingot Cloud",
           icon: "dash-board"
         },
-        component: () => import("@/views/home/index.vue")
+        component: () => import("@/views/dashboard/index.vue")
       }
     ]
   },
@@ -40,5 +41,4 @@ const routes: Array<RouteRecordRaw> = [
   ...AuthorityRoutes
 ];
 
-export const notFound: RouteRecordRaw = { path: "*", redirect: "/404" };
 export default routes;
