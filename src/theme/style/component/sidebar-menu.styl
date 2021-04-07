@@ -10,10 +10,17 @@
       margin-left 25px
     .menu-icon
       position absolute
-      width 20px
-      height 20px
+      width sidebar-menu-icon-size
+      height sidebar-menu-icon-size
       top "calc((%s - %s) / 2)" % (sidebar-menu-height @height)
       left "calc((%s - %s) / 2)" % (sidebar-collapse-width @width)
+  .el-menu--inline
+    .menu-icon
+      position absolute
+      width sidebar-menu-icon-size
+      height sidebar-menu-icon-size
+      top "calc((%s - %s) / 2)" % (sidebar-menu-height @height)
+      left "calc((%s - %s) / 2 + %s)" % (sidebar-collapse-width @width @width)
   .el-submenu .el-menu-item
     height sidebar-menu-height
     line-height @height
