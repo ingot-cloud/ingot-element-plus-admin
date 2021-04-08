@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { deptData } from "./composition/dept";
+import { deptData } from "@/views/authority/dept/composition/dept";
 import { userData } from "./composition/user";
 
 export default defineComponent({

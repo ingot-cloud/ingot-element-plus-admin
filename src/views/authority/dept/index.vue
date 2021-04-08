@@ -1,24 +1,35 @@
 <template>
   <ingot-container>
-    部门
-    <div>{{ user.username }}</div>
-    <div>{{ roles }}</div>
-    <div style="height: 2000px; background:red;"></div>
+    <el-card>
+      <template #header>
+        {{ $route.meta.title }}
+      </template>
+      <el-row>
+        <el-col :span="4">
+          <el-button-group>
+            <el-button type="primary" icon="el-icon-edit"></el-button>
+            <el-button type="primary" icon="el-icon-share"></el-button>
+            <el-button type="primary" icon="el-icon-delete"></el-button>
+          </el-button-group>
+          <el-tree
+            class="dept-tree"
+            :data="deptData.data"
+            :props="deptData.props"
+            node-key="id"
+            :default-expanded-keys="[1]"
+            :highlight-current="true"
+            :expand-on-click-node="false"
+          ></el-tree>
+        </el-col>
+        <el-col :span="20">right</el-col>
+      </el-row>
+    </el-card>
   </ingot-container>
 </template>
 
-<script lang="ts">
-import { useStore } from "@/store";
-import { user, roles } from "@/core/store/composition/auth";
-import { defineComponent } from "vue";
-export default defineComponent({
-  components: {},
-  setup() {
-    const store = useStore();
-    return {
-      user: user(store),
-      roles: roles(store)
-    };
-  }
-});
-</script>
+<script lang="ts" src="./dept.ts"></script>
+
+<style lang="stylus" scoped>
+.dept-tree
+  margin-top 10px
+</style>
