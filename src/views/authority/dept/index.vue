@@ -13,10 +13,10 @@
           </el-button-group>
           <el-tree
             class="dept-tree"
-            :data="deptData.data"
-            :props="deptData.props"
-            node-key="id"
-            :default-expanded-keys="[1]"
+            :data="deptTree.data"
+            :props="deptTree.props"
+            :node-key="deptTree.nodeKey"
+            :default-expanded-keys="deptTree.expandedKeys"
             :highlight-current="true"
             :expand-on-click-node="false"
           ></el-tree>

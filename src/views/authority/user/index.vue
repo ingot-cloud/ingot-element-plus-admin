@@ -4,10 +4,10 @@
       <el-row>
         <el-col :span="4">
           <el-tree
-            :data="deptData.data"
-            :props="deptData.props"
-            node-key="id"
-            :default-expanded-keys="[1]"
+            :data="deptTree.data"
+            :props="deptTree.props"
+            :node-key="deptTree.nodeKey"
+            :default-expanded-keys="deptTree.expandedKeys"
             :highlight-current="true"
             :expand-on-click-node="false"
           ></el-tree>
@@ -30,14 +30,14 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { deptData } from "@/views/authority/dept/composition/dept";
+import { deptTree } from "@/views/authority/dept/composition/dept";
 import { userData } from "./composition/user";
 
 export default defineComponent({
   components: {},
   setup() {
     return {
-      deptData,
+      deptTree,
       userData
     };
   }
