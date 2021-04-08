@@ -5,11 +5,17 @@
         {{ $route.meta.title }}
       </template>
       <el-row>
-        <el-col :span="4">
+        <el-col :span="8">
           <el-button-group>
-            <el-button type="primary" icon="el-icon-edit"></el-button>
-            <el-button type="primary" icon="el-icon-share"></el-button>
-            <el-button type="primary" icon="el-icon-delete"></el-button>
+            <el-button type="success" size="small" icon="el-icon-plus">
+              添加
+            </el-button>
+            <el-button type="primary" size="small" icon="el-icon-edit">
+              编辑
+            </el-button>
+            <el-button type="danger" size="small" icon="el-icon-delete">
+              删除
+            </el-button>
           </el-button-group>
           <el-tree
             class="dept-tree"
@@ -19,9 +25,10 @@
             :default-expanded-keys="deptTree.expandedKeys"
             :highlight-current="true"
             :expand-on-click-node="false"
+            @node-click="handleTreeNodeClick"
           ></el-tree>
         </el-col>
-        <el-col :span="20">right</el-col>
+        <el-col :span="16">right</el-col>
       </el-row>
     </el-card>
   </ingot-container>
