@@ -1,18 +1,28 @@
-import { useStore } from "@/store";
-import { user, roles } from "@/core/store/composition/auth";
 import {
   deptTree,
   loading,
   handleTreeNodeClick,
   fetchDeptData
 } from "./composition/dept";
+import {
+  DeptRoleScope,
+  getDeptRoleScopeDesc,
+  CommonStatus,
+  getCommonStatusDesc
+} from "@/model";
+import {
+  formModel,
+  rules,
+  saveOrUpdateButtonTitle,
+  handleCreateButtonClick,
+  handleEditButtonClick,
+  handleDeleteButtonClick
+} from "./composition/edit";
 import { defineComponent, onMounted } from "vue";
 
 export default defineComponent({
   components: {},
   setup() {
-    const store = useStore();
-
     onMounted(() => {
       fetchDeptData();
     });
@@ -20,9 +30,17 @@ export default defineComponent({
     return {
       deptTree,
       loading,
-      handleTreeNodeClick,
-      user: user(store),
-      roles: roles(store)
+      formModel,
+      rules,
+      DeptRoleScope,
+      getDeptRoleScopeDesc,
+      CommonStatus,
+      getCommonStatusDesc,
+      saveOrUpdateButtonTitle,
+      handleCreateButtonClick,
+      handleEditButtonClick,
+      handleDeleteButtonClick,
+      handleTreeNodeClick
     };
   },
   methods: {

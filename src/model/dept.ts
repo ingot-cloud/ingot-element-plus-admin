@@ -19,3 +19,15 @@ export enum DeptRoleScope {
   Current = "0",
   CurrentChild = "1"
 }
+
+/**
+ * 获取
+ */
+export function getDeptRoleScopeDesc(scope: DeptRoleScope) {
+  switch (scope) {
+    case DeptRoleScope.Current:
+      return "当前部门";
+    case DeptRoleScope.CurrentChild:
+      return "当前部门和直接子部门";
+  }
+}

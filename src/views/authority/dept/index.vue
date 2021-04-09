@@ -7,13 +7,28 @@
       <el-row>
         <el-col :span="8">
           <el-button-group>
-            <el-button type="success" size="small" icon="el-icon-plus">
+            <el-button
+              type="success"
+              size="small"
+              icon="el-icon-plus"
+              @click="handleCreateButtonClick"
+            >
               添加
             </el-button>
-            <el-button type="primary" size="small" icon="el-icon-edit">
+            <el-button
+              type="primary"
+              size="small"
+              icon="el-icon-edit"
+              @click="handleEditButtonClick"
+            >
               编辑
             </el-button>
-            <el-button type="danger" size="small" icon="el-icon-delete">
+            <el-button
+              type="danger"
+              size="small"
+              icon="el-icon-delete"
+              @click="handleDeleteButtonClick"
+            >
               删除
             </el-button>
           </el-button-group>
@@ -28,7 +43,62 @@
             @node-click="handleTreeNodeClick"
           ></el-tree>
         </el-col>
-        <el-col :span="16">right</el-col>
+        <el-col :span="16">
+          <el-form
+            ref="deptFormRef"
+            :model="formModel"
+            :rules="rules"
+            label-width="100px"
+            class="dept-form"
+            size="small"
+          >
+            <el-form-item label="上级部门">
+              <el-input v-model="formModel.pid" disabled></el-input>
+            </el-form-item>
+            <el-form-item prop="name" label="部门名称">
+              <el-input
+                v-model="formModel.name"
+                placeholder="请输入部门名称"
+                clearable
+              ></el-input>
+            </el-form-item>
+            <el-form-item prop="scope" label="角色范围">
+              <el-radio-group v-model="formModel.scope">
+                <el-radio :label="DeptRoleScope.Current">
+                  {{ getDeptRoleScopeDesc(DeptRoleScope.Current) }}
+                </el-radio>
+                <el-radio :label="DeptRoleScope.CurrentChild">
+                  {{ getDeptRoleScopeDesc(DeptRoleScope.CurrentChild) }}
+                </el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item prop="sort" label="排序">
+              <el-input
+                v-model="formModel.sort"
+                placeholder="请输入排序序号"
+                clearable
+              ></el-input>
+            </el-form-item>
+            <el-form-item prop="status" label="状态">
+              <el-radio-group v-model="formModel.status">
+                <el-radio :label="CommonStatus.Enable">
+                  {{ getCommonStatusDesc(CommonStatus.Enable) }}
+                </el-radio>
+                <el-radio :label="CommonStatus.Lock">
+                  {{ getCommonStatusDesc(CommonStatus.Lock) }}
+                </el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="success" size="small">
+                {{ saveOrUpdateButtonTitle }}
+              </el-button>
+              <el-button type="primary" size="small">
+                取消
+              </el-button>
+            </el-form-item>
+          </el-form>
+        </el-col>
       </el-row>
     </el-card>
   </ingot-container>
@@ -39,4 +109,6 @@
 <style lang="stylus" scoped>
 .dept-tree
   margin-top 10px
+.dept-form
+  width 400px
 </style>
