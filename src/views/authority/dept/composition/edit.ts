@@ -1,19 +1,10 @@
 import { reactive, ref } from "vue";
 import { CommonStatus, DeptRoleScope } from "@/model";
 
-export const saveOrUpdateButtonTitle = ref("保存");
-
-export function handleCreateButtonClick() {
-  saveOrUpdateButtonTitle.value = "添加";
-}
-
-export function handleEditButtonClick() {
-  saveOrUpdateButtonTitle.value = "更新";
-}
-
-export function handleDeleteButtonClick() {
-  //
-}
+export const deptEditStatus = reactive({
+  saveOrUpdateButtonTitle: "添加",
+  formDisabled: true
+});
 
 // 表单录入
 export const formModel = reactive({
@@ -31,3 +22,31 @@ export const rules = ref({
   sort: [{ required: true, message: "请输入排序序号", trigger: "blur" }],
   status: [{ required: true, message: "请选择状态", trigger: "blur" }]
 });
+
+export function handleCreateButtonClick() {
+  deptEditStatus.formDisabled = false;
+  deptEditStatus.saveOrUpdateButtonTitle = "添加";
+}
+
+export function handleEditButtonClick() {
+  deptEditStatus.formDisabled = false;
+  deptEditStatus.saveOrUpdateButtonTitle = "更新";
+}
+
+export function handleDeleteButtonClick() {
+  //
+}
+
+/**
+ * 处理添加或者更新部门信息
+ */
+export function handleCreateOrUpdateDept() {
+  //
+}
+
+/**
+ * 处理取消编辑
+ */
+export function handleCancelEdit() {
+  deptEditStatus.formDisabled = true;
+}

@@ -13,10 +13,12 @@ import {
 import {
   formModel,
   rules,
-  saveOrUpdateButtonTitle,
+  deptEditStatus,
   handleCreateButtonClick,
   handleEditButtonClick,
-  handleDeleteButtonClick
+  handleDeleteButtonClick,
+  handleCreateOrUpdateDept,
+  handleCancelEdit
 } from "./composition/edit";
 import { defineComponent, onMounted } from "vue";
 
@@ -32,14 +34,16 @@ export default defineComponent({
       loading,
       formModel,
       rules,
+      deptEditStatus,
       DeptRoleScope,
       getDeptRoleScopeDesc,
       CommonStatus,
       getCommonStatusDesc,
-      saveOrUpdateButtonTitle,
       handleCreateButtonClick,
       handleEditButtonClick,
       handleDeleteButtonClick,
+      handleCreateOrUpdateDept,
+      handleCancelEdit,
       handleTreeNodeClick
     };
   },

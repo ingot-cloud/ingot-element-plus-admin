@@ -51,6 +51,7 @@
             label-width="100px"
             class="dept-form"
             size="small"
+            :disabled="deptEditStatus.formDisabled"
           >
             <el-form-item label="上级部门">
               <el-input v-model="formModel.pid" disabled></el-input>
@@ -89,11 +90,15 @@
                 </el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item>
-              <el-button type="success" size="small">
-                {{ saveOrUpdateButtonTitle }}
+            <el-form-item v-if="!deptEditStatus.formDisabled">
+              <el-button
+                type="success"
+                size="small"
+                @click="handleCreateOrUpdateDept"
+              >
+                {{ deptEditStatus.saveOrUpdateButtonTitle }}
               </el-button>
-              <el-button type="primary" size="small">
+              <el-button type="info" size="small" @click="handleCancelEdit">
                 取消
               </el-button>
             </el-form-item>
