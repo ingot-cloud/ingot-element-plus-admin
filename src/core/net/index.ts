@@ -10,7 +10,7 @@ import {
   onResponseFulfilled,
   onResponseRejected
 } from "./interceptor/response";
-import { IngotResponse } from "@/core/model";
+import { IngotResponse, IngotRequest } from "@/core/model";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 NProgress.configure({
@@ -87,63 +87,74 @@ class Http {
       this.instance.request<T, AxiosResponse<IngotResponse<T>>>(config)
     );
   }
-  get<T = any>(
-    url: string,
-    config?: AxiosRequestConfig
-  ): Promise<IngotResponse<T>> {
+  get<T = any>(request: IngotRequest): Promise<IngotResponse<T>> {
+    const config = request.config || {};
+    if (request.params) {
+      config.params = Object.assign({}, config.params, request.params);
+    }
     return this.restructure<T>(
-      this.instance.get<T, AxiosResponse<IngotResponse<T>>>(url, config)
+      this.instance.get<T, AxiosResponse<IngotResponse<T>>>(
+        request.url,
+        request.config
+      )
     );
   }
-  delete<T = any>(
-    url: string,
-    config?: AxiosRequestConfig
-  ): Promise<IngotResponse<T>> {
+  delete<T = any>(request: IngotRequest): Promise<IngotResponse<T>> {
+    const config = request.config || {};
+    if (request.params) {
+      config.data = request.params;
+    }
     return this.restructure<T>(
-      this.instance.delete<T, AxiosResponse<IngotResponse<T>>>(url, config)
+      this.instance.delete<T, AxiosResponse<IngotResponse<T>>>(
+        request.url,
+        request.config
+      )
     );
   }
-  head<T = any>(
-    url: string,
-    config?: AxiosRequestConfig
-  ): Promise<IngotResponse<T>> {
+  head<T = any>(request: IngotRequest): Promise<IngotResponse<T>> {
     return this.restructure<T>(
-      this.instance.head<T, AxiosResponse<IngotResponse<T>>>(url, config)
+      this.instance.head<T, AxiosResponse<IngotResponse<T>>>(
+        request.url,
+        request.config
+      )
     );
   }
-  options<T = any>(
-    url: string,
-    config?: AxiosRequestConfig
-  ): Promise<IngotResponse<T>> {
+  options<T = any>(request: IngotRequest): Promise<IngotResponse<T>> {
     return this.restructure<T>(
-      this.instance.options<T, AxiosResponse<IngotResponse<T>>>(url, config)
+      this.instance.options<T, AxiosResponse<IngotResponse<T>>>(
+        request.url,
+        request.config
+      )
     );
   }
-  post<T = any>(
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig
-  ): Promise<IngotResponse<T>> {
+  post<T = any>(request: IngotRequest): Promise<IngotResponse<T>> {
+    const data = request.params || {};
     return this.restructure<T>(
-      this.instance.post<T, AxiosResponse<IngotResponse<T>>>(url, data, config)
+      this.instance.post<T, AxiosResponse<IngotResponse<T>>>(
+        request.url,
+        data,
+        request.config
+      )
     );
   }
-  put<T = any>(
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig
-  ): Promise<IngotResponse<T>> {
+  put<T = any>(request: IngotRequest): Promise<IngotResponse<T>> {
+    const data = request.params || {};
     return this.restructure<T>(
-      this.instance.put<T, AxiosResponse<IngotResponse<T>>>(url, data, config)
+      this.instance.put<T, AxiosResponse<IngotResponse<T>>>(
+        request.url,
+        data,
+        request.config
+      )
     );
   }
-  patch<T = any>(
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig
-  ): Promise<IngotResponse<T>> {
+  patch<T = any>(request: IngotRequest): Promise<IngotResponse<T>> {
+    const data = request.params || {};
     return this.restructure<T>(
-      this.instance.patch<T, AxiosResponse<IngotResponse<T>>>(url, data, config)
+      this.instance.patch<T, AxiosResponse<IngotResponse<T>>>(
+        request.url,
+        data,
+        request.config
+      )
     );
   }
 }

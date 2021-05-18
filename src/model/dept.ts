@@ -14,6 +14,17 @@ export interface DeptTreeNode {
   children?: Array<DeptTreeNode>;
 }
 
+/**
+ * 部门模型
+ */
+export interface SysDept {
+  id?: string;
+  pid?: string;
+  scope?: DeptRoleScope;
+  sort?: number;
+  status?: CommonStatus;
+}
+
 // 部门角色范围, 0:当前部门，1:当前部门和直接子部门
 export enum DeptRoleScope {
   Current = "0",

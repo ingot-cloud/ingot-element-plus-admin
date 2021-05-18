@@ -16,12 +16,16 @@ export function refreshToken(refreshToken: string) {
     grant_type: "refresh_token",
     scope: "web"
   });
-  return request.post<UserToken>("/api/acs/oauth/token", data, {
-    headers: {
-      Tenant: "1",
-      Authorization: BasicToken
-    },
-    notTriggerBizFailureHandler: true
+  return request.post<UserToken>({
+    url: "/api/acs/oauth/token",
+    params: data,
+    config: {
+      headers: {
+        Tenant: "1",
+        Authorization: BasicToken
+      },
+      notTriggerBizFailureHandler: true
+    }
   });
 }
 
@@ -43,10 +47,14 @@ export function login({
     grant_type: "password",
     scope: "web"
   });
-  return request.post<UserToken>("/api/acs/oauth/token", data, {
-    headers: {
-      Tenant: "1",
-      Authorization: BasicToken
+  return request.post<UserToken>({
+    url: "/api/acs/oauth/token",
+    params: data,
+    config: {
+      headers: {
+        Tenant: "1",
+        Authorization: BasicToken
+      }
     }
   });
 }
