@@ -1,9 +1,6 @@
 <template>
   <ingot-container>
-    <el-card>
-      <template #header>
-        {{ $route.meta.title }}
-      </template>
+    <ingot-page-card :hideBack="true">
       <el-row>
         <el-col :span="8">
           <el-button-group>
@@ -105,7 +102,7 @@
           </el-form>
         </el-col>
       </el-row>
-    </el-card>
+    </ingot-page-card>
   </ingot-container>
 </template>
 
