@@ -19,22 +19,10 @@ const rawDeptTree: DeptTree = {
   data: []
 };
 
-const node: DeptTreeNode = {};
-
-// 选定的节点
-export const selectedDeptNode = ref(node);
 // 部门数据
 export const deptTree = reactive(rawDeptTree);
 // 是否加载数据
 export const loading = ref(false);
-
-/**
- * 处理节点点击事件
- * @param node 部门树节点
- */
-export function handleTreeNodeClick(node: DeptTreeNode) {
-  selectedDeptNode.value = node;
-}
 
 /**
  * 获取部门数据，树结构

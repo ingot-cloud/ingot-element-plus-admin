@@ -91,7 +91,7 @@
               <el-button
                 type="success"
                 size="small"
-                @click="handleCreateOrUpdateDept"
+                @click="handleCreateOrUpdateDept(deptFormRef)"
               >
                 {{ deptEditStatus.saveOrUpdateButtonTitle }}
               </el-button>

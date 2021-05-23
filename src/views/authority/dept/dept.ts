@@ -1,9 +1,4 @@
-import {
-  deptTree,
-  loading,
-  handleTreeNodeClick,
-  fetchDeptData
-} from "./composition/dept";
+import { deptTree, loading, fetchDeptData } from "./composition/dept";
 import {
   DeptRoleScope,
   getDeptRoleScopeDesc,
@@ -14,13 +9,14 @@ import {
   formModel,
   rules,
   deptEditStatus,
+  handleTreeNodeClick,
   handleCreateButtonClick,
   handleEditButtonClick,
   handleDeleteButtonClick,
   handleCreateOrUpdateDept,
   handleCancelEdit
 } from "./composition/edit";
-import { defineComponent, onMounted } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
   components: {},
@@ -29,7 +25,10 @@ export default defineComponent({
       fetchDeptData();
     });
 
+    const deptFormRef = ref();
+
     return {
+      deptFormRef,
       deptTree,
       loading,
       formModel,
