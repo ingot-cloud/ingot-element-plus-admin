@@ -120,7 +120,10 @@ export function handleCancelEdit() {
   resetFormModel();
 }
 
-export function handleDeleteButtonClick() {
+/**
+ * 处理删除部门
+ */
+export function handleDeleteButtonClick(callback?: Function) {
   if (!checkSelected()) {
     return;
   }
@@ -137,6 +140,9 @@ export function handleDeleteButtonClick() {
         type: "success"
       });
       handleCancelEdit();
+      if (callback) {
+        callback();
+      }
     });
   });
 }
@@ -144,7 +150,7 @@ export function handleDeleteButtonClick() {
 /**
  * 处理添加或者更新部门信息
  */
-export function handleCreateOrUpdateDept(formRef: Ref) {
+export function handleCreateOrUpdateDept(formRef: Ref, callback?: Function) {
   const form = unref(formRef);
   form.validate((valid: boolean) => {
     if (!valid) {
@@ -177,6 +183,9 @@ export function handleCreateOrUpdateDept(formRef: Ref) {
         type: "success"
       });
       handleCancelEdit();
+      if (callback) {
+        callback();
+      }
     });
   });
 }

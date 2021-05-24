@@ -16,7 +16,7 @@ import {
   handleCreateOrUpdateDept,
   handleCancelEdit
 } from "./composition/edit";
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted, ref, Ref } from "vue";
 
 export default defineComponent({
   components: {},
@@ -40,8 +40,12 @@ export default defineComponent({
       getCommonStatusDesc,
       handleCreateButtonClick,
       handleEditButtonClick,
-      handleDeleteButtonClick,
-      handleCreateOrUpdateDept,
+      handleDeleteButtonClick: () => {
+        handleDeleteButtonClick(fetchDeptData);
+      },
+      handleCreateOrUpdateDept: (formRef: Ref) => {
+        handleCreateOrUpdateDept(formRef, fetchDeptData);
+      },
       handleCancelEdit,
       handleTreeNodeClick
     };
