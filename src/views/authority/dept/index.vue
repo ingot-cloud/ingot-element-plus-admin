@@ -51,7 +51,7 @@
             :disabled="deptEditStatus.formDisabled"
           >
             <el-form-item label="上级部门">
-              <el-input v-model="formModel.pid" disabled></el-input>
+              <el-input v-model="formModel.pName" disabled></el-input>
             </el-form-item>
             <el-form-item prop="name" label="部门名称">
               <el-input

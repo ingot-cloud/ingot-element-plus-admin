@@ -20,6 +20,7 @@ export interface DeptTreeNode {
 export interface SysDept {
   id?: string;
   pid?: string;
+  name?: string;
   scope?: DeptRoleScope;
   sort?: number;
   status?: CommonStatus;
