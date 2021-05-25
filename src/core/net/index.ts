@@ -93,10 +93,7 @@ class Http {
       config.params = Object.assign({}, config.params, request.params);
     }
     return this.restructure<T>(
-      this.instance.get<T, AxiosResponse<IngotResponse<T>>>(
-        request.url,
-        request.config
-      )
+      this.instance.get<T, AxiosResponse<IngotResponse<T>>>(request.url, config)
     );
   }
   delete<T = any>(request: IngotRequest): Promise<IngotResponse<T>> {
@@ -107,7 +104,7 @@ class Http {
     return this.restructure<T>(
       this.instance.delete<T, AxiosResponse<IngotResponse<T>>>(
         request.url,
-        request.config
+        config
       )
     );
   }
