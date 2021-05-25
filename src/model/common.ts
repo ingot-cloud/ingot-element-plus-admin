@@ -16,3 +16,13 @@ export function getCommonStatusDesc(status: CommonStatus) {
       return "锁定";
   }
 }
+
+/**
+ * 分页模型
+ */
+export interface Page<T extends object = object> {
+  current?: number;
+  size?: number;
+  total?: number;
+  records?: Array<T>;
+}

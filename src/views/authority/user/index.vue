@@ -1,6 +1,6 @@
 <template>
   <ingot-container>
-    <el-card shadow="nerver">
+    <ingot-page-card :hideBack="true">
       <el-row>
         <el-col :span="4">
           <el-tree
@@ -13,29 +13,39 @@
           ></el-tree>
         </el-col>
         <el-col :span="20">
-          <el-card>
-            <el-table :data="userData.records">
-              <el-table-column prop="date" label="日期" width="180">
-              </el-table-column>
-              <el-table-column prop="name" label="姓名" width="180">
-              </el-table-column>
-              <el-table-column prop="address" label="地址"> </el-table-column>
-            </el-table>
-          </el-card>
+          <el-table
+            size="small"
+            :loading="true"
+            border
+            :data="userData.records"
+          >
+            <el-table-column prop="date" label="日期" width="180">
+            </el-table-column>
+            <el-table-column prop="name" label="姓名" width="180">
+            </el-table-column>
+            <el-table-column prop="address" label="地址"> </el-table-column>
+          </el-table>
         </el-col>
       </el-row>
-    </el-card>
+    </ingot-page-card>
   </ingot-container>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { deptTree } from "@/views/authority/dept/composition/dept";
+import { defineComponent, onMounted } from "vue";
+import {
+  deptTree,
+  fetchDeptData
+} from "@/views/authority/dept/composition/dept";
 import { userData } from "./composition/user";
 
 export default defineComponent({
   components: {},
   setup() {
+    onMounted(() => {
+      fetchDeptData();
+    });
+
     return {
       deptTree,
       userData
