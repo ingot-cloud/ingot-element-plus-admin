@@ -28,20 +28,24 @@ export const loading = ref(false);
  * 获取部门数据，树结构
  */
 export function fetchDeptData() {
-  loading.value = true;
-  getDeptTree()
-    .then(response => {
-      loading.value = false;
-      deptTree.data = response.data;
+  return new Promise<Array<DeptTreeNode>>((resolve, reject) => {
+    loading.value = true;
+    getDeptTree()
+      .then(response => {
+        loading.value = false;
+        deptTree.data = response.data;
 
-      deptTree.expandedKeys = [];
-      response.data.forEach(root => {
-        if (root.id) {
-          deptTree.expandedKeys.push(root.id);
-        }
+        deptTree.expandedKeys = [];
+        response.data.forEach(root => {
+          if (root.id) {
+            deptTree.expandedKeys.push(root.id);
+          }
+        });
+        resolve(response.data);
+      })
+      .catch(() => {
+        loading.value = false;
+        reject();
       });
-    })
-    .catch(() => {
-      loading.value = false;
-    });
+  });
 }

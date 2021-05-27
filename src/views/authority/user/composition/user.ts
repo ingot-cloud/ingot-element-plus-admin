@@ -1,10 +1,24 @@
-import { reactive } from "vue";
-// import { page } from "@/api/authority/user";
+import { reactive, toRaw } from "vue";
+import { DeptTreeNode, Page, UserPageItemVo } from "@/model";
+import { userPage } from "@/api/authority/user";
 
-export const userData = reactive({
+const pageInfoRaw: Page<UserPageItemVo> = {
+  current: 1,
+  size: 20,
   records: []
-});
+};
+export const pageInfo = reactive(pageInfoRaw);
 
-export function fetchUserData() {
-  // todo
+function fetchUserData(node: DeptTreeNode) {
+  userPage(toRaw(pageInfo), { deptId: node.id }).then(response => {
+    pageInfo.records = response.data.records;
+  });
+}
+
+/**
+ * 处理节点点击事件
+ * @param node 部门树节点
+ */
+export function handleTreeNodeClick(node: DeptTreeNode) {
+  fetchUserData(node);
 }

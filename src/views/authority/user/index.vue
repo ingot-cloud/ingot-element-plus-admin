@@ -10,6 +10,7 @@
             :default-expanded-keys="deptTree.expandedKeys"
             :highlight-current="true"
             :expand-on-click-node="false"
+            @node-click="handleTreeNodeClick"
           ></el-tree>
         </el-col>
         <el-col :span="20">
@@ -17,7 +18,7 @@
             size="small"
             :loading="true"
             border
-            :data="userData.records"
+            :data="pageInfo.records"
           >
             <el-table-column prop="date" label="日期" width="180">
             </el-table-column>
@@ -37,18 +38,21 @@ import {
   deptTree,
   fetchDeptData
 } from "@/views/authority/dept/composition/dept";
-import { userData } from "./composition/user";
+import { pageInfo, handleTreeNodeClick } from "./composition/user";
 
 export default defineComponent({
   components: {},
   setup() {
     onMounted(() => {
-      fetchDeptData();
+      fetchDeptData().then(deptData => {
+        handleTreeNodeClick(deptData[0]);
+      });
     });
 
     return {
       deptTree,
-      userData
+      pageInfo,
+      handleTreeNodeClick
     };
   }
 });

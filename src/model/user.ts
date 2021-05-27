@@ -27,7 +27,7 @@ export interface SysUser {
 }
 
 export interface UserDto extends SysUser {
-  roleIds: Array<string>;
-  clientIds: Array<string>;
+  roleIds?: Array<string>;
+  clientIds?: Array<string>;
   newPassword?: string;
 }
