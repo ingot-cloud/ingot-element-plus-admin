@@ -17,7 +17,7 @@
 import { defineComponent, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "@/store";
-import { getSidebarStatus, toggleMenu } from "@/core/store/composition/app";
+import { getSidebarStatus } from "@/core/store/composition/app";
 import { getMenus } from "@/core/store/composition/router";
 import { SidebarStyle } from "@/theme";
 import SidebarItem from "./SidebarItem.vue";
@@ -46,7 +46,9 @@ export default defineComponent({
       sidebarActiveTextColor,
       activePath: computed(() => router.currentRoute.value.path),
       menus: getMenus(store),
-      onNavMenuSelect: () => toggleMenu()
+      onNavMenuSelect: () => {
+        // todo toggleMenu()
+      }
     };
   }
 });
