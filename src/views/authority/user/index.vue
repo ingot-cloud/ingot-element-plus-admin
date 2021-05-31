@@ -14,18 +14,15 @@
           ></el-tree>
         </el-col>
         <el-col :span="20">
-          <el-table
-            size="small"
-            :loading="true"
-            border
+          <ingot-table
             :data="pageInfo.records"
+            :headers="listHeaders"
+            :page="pageInfo"
           >
-            <el-table-column prop="date" label="日期" width="180">
-            </el-table-column>
-            <el-table-column prop="name" label="姓名" width="180">
-            </el-table-column>
-            <el-table-column prop="address" label="地址"> </el-table-column>
-          </el-table>
+            <template #username="{ item }">
+              {{ item.username }}
+            </template>
+          </ingot-table>
         </el-col>
       </el-row>
     </ingot-page-card>
