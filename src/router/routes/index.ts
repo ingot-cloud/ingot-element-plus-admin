@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
-import AppLayout from "@/core/component/layout/IngotAppLayout.vue";
+import AppLayout from "@/core/components/layout/IngotAppLayout.vue";
 import AuthorityRoutes from "./authority";
 
 const routes: Array<RouteRecordRaw> = [

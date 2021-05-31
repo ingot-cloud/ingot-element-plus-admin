@@ -1,5 +1,5 @@
 import { App } from "vue";
-import { registerCoreComponent } from "@/core/component";
+import { registerCoreComponent } from "@/core/components";
 
 /**
  * 注册组件
