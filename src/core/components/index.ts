@@ -1,9 +1,9 @@
 import { App } from "vue";
 import IngotAppBar from "./layout/IngotAppBar.vue";
 import IngotSidebarMenu from "./layout/sidebar/IngotSidebarMenu.vue";
-import IngotIcon from "./IngotIcon.vue";
-import IngotContainer from "./IngotContainer.vue";
-import IngotPageCard from "./IngotPageCard.vue";
+import IngotIcon from "./Icon/index.vue";
+import IngotContainer from "./Container/index.vue";
+import IngotPageCard from "./PageCard/index.vue";
 
 /**
  * 注册组件
