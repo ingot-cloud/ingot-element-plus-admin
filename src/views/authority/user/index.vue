@@ -14,13 +14,51 @@
           ></el-tree>
         </el-col>
         <el-col :span="20">
+          <ingot-filter-container>
+            <el-input
+              v-model="condition.username"
+              class="item"
+              size="small"
+              clearable
+              style="width:200px;"
+              placeholder="用户名"
+            ></el-input>
+            <el-button
+              class="item"
+              size="small"
+              type="primary"
+              @click="fetchUserData"
+            >
+              搜索
+            </el-button>
+          </ingot-filter-container>
           <ingot-table
             :data="pageInfo.records"
             :headers="listHeaders"
             :page="pageInfo"
           >
-            <template #username="{ item }">
-              {{ item.username }}
+            <template #actions="{ item }">
+              <el-button
+                size="mini"
+                type="primary"
+                @click="handleEditUser(item)"
+              >
+                编辑
+              </el-button>
+              <el-button
+                size="mini"
+                type="primary"
+                @click="handleDisableUser(item)"
+              >
+                禁用
+              </el-button>
+              <el-button
+                size="mini"
+                type="danger"
+                @click="handleDeleteUser(item)"
+              >
+                删除
+              </el-button>
             </template>
           </ingot-table>
         </el-col>

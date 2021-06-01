@@ -3,7 +3,15 @@ import {
   deptTree,
   fetchDeptData
 } from "@/views/authority/dept/composition/dept";
-import { pageInfo, handleTreeNodeClick } from "./composition/user";
+import {
+  condition,
+  pageInfo,
+  fetchUserData,
+  handleTreeNodeClick,
+  handleEditUser,
+  handleDeleteUser,
+  handleDisableUser
+} from "./composition/user";
 
 export default defineComponent({
   components: {},
@@ -18,6 +26,10 @@ export default defineComponent({
         {
           label: "用户名",
           prop: "username"
+        },
+        {
+          label: "操作",
+          prop: "actions"
         }
       ]
     };
@@ -31,8 +43,13 @@ export default defineComponent({
 
     return {
       deptTree,
+      condition,
       pageInfo,
-      handleTreeNodeClick
+      fetchUserData,
+      handleTreeNodeClick,
+      handleEditUser,
+      handleDeleteUser,
+      handleDisableUser
     };
   }
 });
