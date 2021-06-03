@@ -1,1 +1,5 @@
-export default {};
+import dept from "./dept";
+
+export default {
+  dept
+};
