@@ -14,7 +14,7 @@
         {{ route.meta.title }}
       </span>
     </template>
-    <SidebarItem
+    <ingot-sidebar-item
       v-for="child in route.children"
       :key="child.path"
       :route="child"
