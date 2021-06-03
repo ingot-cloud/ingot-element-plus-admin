@@ -15,6 +15,7 @@
         </el-col>
         <el-col :span="20">
           <ingot-filter-container>
+            <template #title> 部门：{{ currentDeptNode.name }} </template>
             <el-input
               v-model="condition.username"
               class="item"
@@ -37,6 +38,11 @@
             :headers="listHeaders"
             :page="pageInfo"
           >
+            <template #status="{item}">
+              <el-tag :type="getCommonStatusTag(item.status)">
+                {{ getCommonStatusDesc(item.status) }}
+              </el-tag>
+            </template>
             <template #actions="{ item }">
               <el-button
                 size="mini"
@@ -47,10 +53,10 @@
               </el-button>
               <el-button
                 size="mini"
-                type="primary"
+                :type="disableButtonParams(item.status).type"
                 @click="handleDisableUser(item)"
               >
-                禁用
+                {{ disableButtonParams(item.status).title }}
               </el-button>
               <el-button
                 size="mini"

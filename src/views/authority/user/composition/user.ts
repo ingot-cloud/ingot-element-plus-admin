@@ -1,4 +1,4 @@
-import { reactive, toRaw } from "vue";
+import { reactive, toRaw, ref } from "vue";
 import { DeptTreeNode, Page, UserPageItemVo } from "@/model";
 import { userPage } from "@/api/authority/user";
 
@@ -9,6 +9,7 @@ interface Condition {
 
 // 条件
 export const condition = reactive({} as Condition);
+export const currentDeptNode = ref({} as DeptTreeNode);
 
 const pageInfoRaw: Page<UserPageItemVo> = {
   current: 1,
@@ -37,6 +38,7 @@ export function fetchUserData() {
  * @param node 部门树节点
  */
 export function handleTreeNodeClick(node: DeptTreeNode) {
+  currentDeptNode.value = node;
   condition.deptId = node.id;
   fetchUserData();
 }

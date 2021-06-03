@@ -17,6 +17,15 @@ export function getCommonStatusDesc(status: CommonStatus) {
   }
 }
 
+export function getCommonStatusTag(status: CommonStatus) {
+  switch (status) {
+    case CommonStatus.Enable:
+      return "success";
+    case CommonStatus.Lock:
+      return "danger";
+  }
+}
+
 /**
  * 分页模型
  */

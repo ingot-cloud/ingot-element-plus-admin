@@ -1,5 +1,8 @@
 <template>
   <div class="filter-container">
+    <div class="filter-title">
+      <slot name="title"> </slot>
+    </div>
     <slot />
   </div>
 </template>
@@ -15,6 +18,8 @@ export default defineComponent({});
   display flex
   flex-direction row
   align-items center
+  .filter-title
+    flex 1
   .item
     margin-left 10px
   .item:first-child
