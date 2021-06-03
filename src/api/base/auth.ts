@@ -1,6 +1,6 @@
-import request from "@/core/net";
+import request from "@/net";
 import Qs from "qs";
-import { UserToken } from "@/core/model";
+import { UserToken } from "@/model";
 
 const BasicToken = "Basic d2ViLWNsb3VkOndlYi1jbG91ZA==";
 

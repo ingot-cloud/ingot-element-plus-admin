@@ -7,7 +7,7 @@ const resolve = dir => {
 
 const vueConfig = {
   publicPath: "/",
-  outputDir: resolve("./prod"),
+  outputDir: resolve("./dist"),
   lintOnSave: true,
   productionSourceMap: false,
   transpileDependencies: ["vuetify"],

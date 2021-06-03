@@ -1,4 +1,4 @@
-import request from "@/core/net";
+import request from "@/net";
 import { UserPageItemVo, Page, UserDto } from "@/model";
 
 /**

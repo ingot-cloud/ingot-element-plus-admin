@@ -1,5 +1,5 @@
 import { computed } from "vue";
-import { IngotStore } from "@/core/model";
+import { IngotStore } from "@/model";
 
 /**
  * 用户信息

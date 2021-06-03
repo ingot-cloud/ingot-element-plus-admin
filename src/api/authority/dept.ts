@@ -1,4 +1,4 @@
-import request from "@/core/net";
+import request from "@/net";
 import { DeptTreeNode, SysDept } from "@/model";
 
 /**

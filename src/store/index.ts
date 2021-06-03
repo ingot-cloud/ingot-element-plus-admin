@@ -1,8 +1,8 @@
 import { InjectionKey } from "vue";
 import { createStore, useStore as baseUseStore, Store } from "vuex";
-import coreModules from "@/core/store/module";
+import coreModules from "@/store/module";
 import modules from "./module";
-import { AllState, RootState } from "@/core/model";
+import { AllState, RootState } from "@/model";
 
 export const store = createStore<RootState>({
   state: {

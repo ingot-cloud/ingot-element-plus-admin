@@ -1,6 +1,6 @@
 import { computed } from "vue";
 import { store } from "@/store";
-import { IngotStore, RouterModuleState } from "@/core/model";
+import { IngotStore, RouterModuleState } from "@/model";
 
 /**
  * 动态路由

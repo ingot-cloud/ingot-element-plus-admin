@@ -1,5 +1,5 @@
 import { NavigationGuardWithThis } from "vue-router";
-import { BaseNavigationGuard } from "@/core/router/types";
+import { BaseNavigationGuard } from "@/router/types";
 import { store } from "@/store";
 
 export class AuthGuard extends BaseNavigationGuard {

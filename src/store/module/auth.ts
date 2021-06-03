@@ -5,10 +5,10 @@ import {
   StoreType,
   UserInfo,
   UserToken
-} from "@/core/model";
-import { StoreManager } from "@/core/storage/store";
-import { getUserInfo } from "@/core/api/user";
-import { refreshToken } from "@/core/api/auth";
+} from "@/model";
+import { StoreManager } from "@/utils/store";
+import { getUserInfo } from "@/api/base/user";
+import { refreshToken } from "@/api/base/auth";
 
 enum Key {
   Token = "token",

@@ -1,5 +1,5 @@
-import request from "@/core/net";
-import { UserInfo } from "../model";
+import request from "@/net";
+import { UserInfo } from "@/model";
 
 /**
  * 获取用户信息

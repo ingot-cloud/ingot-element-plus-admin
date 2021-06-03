@@ -42,8 +42,8 @@
 <script lang="ts">
 import { computed, defineComponent } from "vue";
 import { AppBarStyle } from "@/theme";
-import { getSidebarStatus, toggleMenu } from "@/core/store/composition/app";
-import { handlLogout } from "@/core/security/auth";
+import { getSidebarStatus, toggleMenu } from "@/store/composition/app";
+import { handlLogout } from "@/utils/auth";
 // import MenuIcon from "./MenuIcon.vue";
 import { useStore } from "@/store";
 

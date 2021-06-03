@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { CookieConfig } from "@/config";
-import { CookieParams } from "@/core/model";
+import { CookieParams } from "@/model";
 
 class IngotCookie {
   public set(cookie: CookieParams) {

@@ -9,7 +9,11 @@
     router
     @select="onNavMenuSelect"
   >
-    <SidebarItem v-for="route in menus" :key="route.path" :route="route" />
+    <ingot-sidebar-item
+      v-for="route in menus"
+      :key="route.path"
+      :route="route"
+    />
   </el-menu>
 </template>
 
@@ -17,15 +21,11 @@
 import { defineComponent, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "@/store";
-import { getSidebarStatus } from "@/core/store/composition/app";
-import { getMenus } from "@/core/store/composition/router";
+import { getSidebarStatus } from "@/store/composition/app";
+import { getMenus } from "@/store/composition/router";
 import { SidebarStyle } from "@/theme";
-import SidebarItem from "./SidebarItem.vue";
 
 export default defineComponent({
-  components: {
-    SidebarItem
-  },
   props: {},
   setup() {
     const router = useRouter();

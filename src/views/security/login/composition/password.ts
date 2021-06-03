@@ -1,5 +1,5 @@
 import { reactive, ref, Ref, unref } from "vue";
-import { login } from "@/core/api/auth";
+import { login } from "@/api/base/auth";
 import { store } from "@/store";
 import { Router } from "vue-router";
 

@@ -10,7 +10,7 @@ import {
   onResponseFulfilled,
   onResponseRejected
 } from "./interceptor/response";
-import { IngotResponse, IngotRequest } from "@/core/model";
+import { IngotResponse, IngotRequest } from "@/model";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 NProgress.configure({

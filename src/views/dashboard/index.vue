@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { useStore } from "@/store";
-import { user, roles } from "@/core/store/composition/auth";
+import { user, roles } from "@/store/composition/auth";
 import { defineComponent } from "vue";
 export default defineComponent({
   components: {},

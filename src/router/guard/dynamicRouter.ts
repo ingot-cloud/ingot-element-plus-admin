@@ -1,6 +1,6 @@
 import { NavigationGuardWithThis, Router } from "vue-router";
-import { BaseNavigationGuard } from "@/core/router/types";
-import { fetchRouters } from "@/core/store/composition/router";
+import { BaseNavigationGuard } from "@/router/types";
+import { fetchRouters } from "@/store/composition/router";
 
 export class DynamicRouterGuard extends BaseNavigationGuard {
   public static get() {

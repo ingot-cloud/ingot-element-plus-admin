@@ -1,10 +1,10 @@
 import { AxiosResponse, AxiosError, AxiosRequestConfig } from "axios";
 import { ElMessage, ElMessageBox } from "element-plus";
-import { IngotResponse } from "@/core/model";
-import StatusCode from "@/core/net/statusCode";
-import { handlLogout } from "@/core/security/auth";
+import { IngotResponse } from "@/model";
+import StatusCode from "@/net/statusCode";
+import { handlLogout } from "@/utils/auth";
 import { store } from "@/store";
-import request from "@/core/net";
+import request from "@/net";
 
 /**
  * 未知响应实体
