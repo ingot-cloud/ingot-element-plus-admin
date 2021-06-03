@@ -43,14 +43,30 @@ export function handleTreeNodeClick(node: DeptTreeNode) {
   fetchUserData();
 }
 
+/**
+ * 创建用户
+ */
+export function handleCreateUser() {
+  //
+}
+
+/**
+ * 编辑用户
+ */
 export function handleEditUser() {
   //
 }
 
+/**
+ * 删除用户
+ */
 export function handleDeleteUser() {
   //
 }
 
+/**
+ * 禁用、启用
+ */
 export function handleDisableUser() {
   //
 }

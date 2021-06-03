@@ -8,6 +8,7 @@ import {
   pageInfo,
   fetchUserData,
   handleTreeNodeClick,
+  handleCreateUser,
   handleEditUser,
   handleDeleteUser,
   handleDisableUser,
@@ -87,6 +88,7 @@ export default defineComponent({
       },
       fetchUserData,
       handleTreeNodeClick,
+      handleCreateUser,
       handleEditUser,
       handleDeleteUser,
       handleDisableUser

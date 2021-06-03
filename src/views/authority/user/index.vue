@@ -32,6 +32,14 @@
             >
               搜索
             </el-button>
+            <el-button
+              class="item"
+              size="small"
+              type="success"
+              @click="handleCreateUser"
+            >
+              添加
+            </el-button>
           </ingot-filter-container>
           <ingot-table
             :data="pageInfo.records"
