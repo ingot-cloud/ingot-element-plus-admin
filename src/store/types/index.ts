@@ -1,6 +1,6 @@
 import { Store } from "vuex";
 import { RouteRecordRaw } from "vue-router";
-import { UserToken, User } from "./security";
+import { UserToken, User } from "@/model";
 
 /* Ingot Store */
 export type IngotStore = Store<AllState>;

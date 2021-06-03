@@ -1,5 +1,5 @@
 import { Module } from "vuex";
-import { RootState } from "@/model";
+import { RootState } from "@/store/types";
 import { DeptTreeNode } from "@/model";
 import {
   getDeptTree

@@ -1,5 +1,5 @@
 import { Module } from "vuex";
-import { RootState, AppModuleState } from "@/model";
+import { RootState, AppModuleState } from "@/store/types";
 
 const appModule: Module<AppModuleState, RootState> = {
   state: {

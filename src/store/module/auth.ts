@@ -1,11 +1,6 @@
 import { Module } from "vuex";
-import {
-  AuthModuleState,
-  RootState,
-  StoreType,
-  UserInfo,
-  UserToken
-} from "@/model";
+import { StoreType, UserInfo, UserToken } from "@/model";
+import { AuthModuleState, RootState } from "@/store/types";
 import { StoreManager } from "@/utils/store";
 import { getUserInfo } from "@/api/base/user";
 import { refreshToken } from "@/api/base/auth";
