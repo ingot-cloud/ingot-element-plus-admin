@@ -87,7 +87,7 @@ export function useCommit(
         payload = typeOrPayload;
         break;
       default:
-        console.debug(`useDispatch 参数异常, 参数数量非法=${arguments.length}`);
+        console.debug(`useCommit 参数异常, 参数数量非法=${arguments.length}`);
         return;
     }
   }
