@@ -1,15 +1,15 @@
 import { Module } from "vuex";
 import { RootState, DeptModuleState, DeptTree } from "@/store/types";
 import {
-  getDeptTree
-  //   createDept,
-  //   removeDept,
-  //   updateDept
+  getDeptTree,
+  createDept,
+  removeDept,
+  updateDept
 } from "@/api/authority/dept";
+import { SysDept } from "@/model";
+import { Mutations, Actions, Getters } from "@/store/constants/dept";
 
-export const moduleName = "dept";
-
-export const module: Module<DeptModuleState, RootState> = {
+const module: Module<DeptModuleState, RootState> = {
   namespaced: true,
   state: {
     props: {
@@ -22,17 +22,17 @@ export const module: Module<DeptModuleState, RootState> = {
     update: true
   },
   mutations: {
-    setDeptTree(state, { data, expandedKeys }) {
+    [`${Mutations.setDeptTree}`](state, { data, expandedKeys }) {
       state.update = false;
       state.data = data;
       state.expandedKeys = expandedKeys;
     },
-    openUpdateFlag(state) {
+    [`${Mutations.openUpdateFlag}`](state) {
       state.update = true;
     }
   },
   getters: {
-    deptData: (state): DeptTree => {
+    [`${Getters.deptData}`]: (state): DeptTree => {
       return {
         props: state.props,
         nodeKey: state.nodeKey,
@@ -42,7 +42,7 @@ export const module: Module<DeptModuleState, RootState> = {
     }
   },
   actions: {
-    fetchTree({ state, commit, getters }) {
+    [`${Actions.fetchTree}`]({ state, commit, getters }) {
       return new Promise<DeptTree>((resolve, reject) => {
         if (!state.update && state.data.length !== 0) {
           resolve(getters.deptData);
@@ -58,8 +58,44 @@ export const module: Module<DeptModuleState, RootState> = {
               }
             });
 
-            commit("setDeptTree", { data, expandedKeys });
+            commit(Mutations.setDeptTree, { data, expandedKeys });
             resolve(getters.deptData);
+          })
+          .catch(() => {
+            reject();
+          });
+      });
+    },
+    [`${Actions.createDept}`]({ commit }, params: SysDept) {
+      return new Promise<void>((resolve, reject) => {
+        createDept(params)
+          .then(() => {
+            commit(Mutations.openUpdateFlag);
+            resolve();
+          })
+          .catch(() => {
+            reject();
+          });
+      });
+    },
+    [`${Actions.removeDept}`]({ commit }, id: string) {
+      return new Promise<void>((resolve, reject) => {
+        removeDept(id)
+          .then(() => {
+            commit(Mutations.openUpdateFlag);
+            resolve();
+          })
+          .catch(() => {
+            reject();
+          });
+      });
+    },
+    [`${Actions.updateDept}`]({ commit }, params: SysDept) {
+      return new Promise<void>((resolve, reject) => {
+        updateDept(params)
+          .then(() => {
+            commit(Mutations.openUpdateFlag);
+            resolve();
           })
           .catch(() => {
             reject();
@@ -68,3 +104,5 @@ export const module: Module<DeptModuleState, RootState> = {
     }
   }
 };
+
+export default module;

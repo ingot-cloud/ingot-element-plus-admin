@@ -1,29 +1,66 @@
-import { useStore } from "@/store";
+import { useCommit, useDispatch, computedGetter, IngotStore } from "@/store";
 import { DeptTree } from "@/store/types";
-import { computed } from "vue";
+import { SysDept } from "@/model";
+import {
+  moduleName,
+  Mutations,
+  Actions,
+  Getters
+} from "@/store/constants/dept";
+import { ComputedRef } from "@vue/reactivity";
 
 /**
  * 打开更新部门tree标志
  */
 export function openUpdateDeptTreeFlag() {
-  const store = useStore();
-  store.commit("dept/openUpdateDeptTreeFlag");
+  useCommit(moduleName, Mutations.openUpdateFlag);
 }
 
 /**
  * 获取deptData
  * @returns 计算属性
  */
-export function getDeptData() {
-  const store = useStore();
-  return computed(() => store.getters["dept/deptData"]);
+export function computedDeptData(): ComputedRef<DeptTree> {
+  return computedGetter<DeptTree>(moduleName, Getters.deptData);
 }
 
 /**
  * 获取部门信息
- * @returns Primise
+ * @returns Promise
  */
-export function fetchDeptTree(): Promise<DeptTree> {
-  const store = useStore();
-  return store.dispatch("dept/fetchTree");
+export function fetchDeptTree(store: IngotStore) {
+  return useDispatch(store, moduleName, Actions.fetchTree) as Promise<DeptTree>;
+}
+
+/**
+ * 创建部门信息
+ * @param params 参数
+ * @returns Promise
+ */
+export function createDept(store: IngotStore, params: SysDept) {
+  return useDispatch(store, moduleName, Actions.createDept, params) as Promise<
+    void
+  >;
+}
+
+/**
+ * 删除部门
+ * @param id ID
+ * @returns Promise
+ */
+export function removeDept(store: IngotStore, id: string) {
+  return useDispatch(store, moduleName, Actions.removeDept, id) as Promise<
+    void
+  >;
+}
+
+/**
+ * 更新部门
+ * @param params 参数
+ * @returns Promise
+ */
+export function updateDept(store: IngotStore, params: SysDept) {
+  return useDispatch(store, moduleName, Actions.updateDept, params) as Promise<
+    void
+  >;
 }

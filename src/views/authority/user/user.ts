@@ -1,5 +1,5 @@
 import { defineComponent, onMounted } from "vue";
-import { fetchDeptTree, getDeptData } from "@/store/composition/dept";
+import { fetchDeptTree, computedDeptData } from "@/store/composition/dept";
 import {
   condition,
   pageInfo,
@@ -16,6 +16,7 @@ import {
   getCommonStatusTag,
   CommonStatus
 } from "@/model/common";
+import { useStore } from "@/store";
 
 export default defineComponent({
   components: {},
@@ -56,10 +57,11 @@ export default defineComponent({
     };
   },
   setup() {
-    const deptTree = getDeptData();
+    const deptTree = computedDeptData();
+    const store = useStore();
 
     onMounted(() => {
-      fetchDeptTree().then(deptData => {
+      fetchDeptTree(store).then(deptData => {
         handleTreeNodeClick(deptData.data[0]);
       });
     });

@@ -1,8 +1,9 @@
 import { reactive, ref, unref, Ref } from "vue";
 import { CommonStatus, DeptRoleScope, DeptTreeNode, SysDept } from "@/model";
 import { ElMessage, ElMessageBox } from "element-plus";
-import { createDept, removeDept, updateDept } from "@/api/authority/dept";
+import { createDept, removeDept, updateDept } from "@/store/composition/dept";
 import { getChangedFieldObj } from "@/utils/object";
+import { IngotStore } from "@/store/types";
 
 type EditStatus = "create" | "edit";
 let currentStatus: EditStatus = "create";
@@ -123,7 +124,10 @@ export function handleCancelEdit() {
 /**
  * 处理删除部门
  */
-export function handleDeleteButtonClick(callback?: Function) {
+export function handleDeleteButtonClick(
+  store: IngotStore,
+  callback?: Function
+) {
   if (!checkSelected()) {
     return;
   }
@@ -133,7 +137,7 @@ export function handleDeleteButtonClick(callback?: Function) {
     type: "warning"
   }).then(() => {
     const id = selectedDeptNode.value.id as string;
-    removeDept(id).then(() => {
+    removeDept(store, id).then(() => {
       ElMessage({
         showClose: true,
         message: "操作成功",
@@ -150,7 +154,11 @@ export function handleDeleteButtonClick(callback?: Function) {
 /**
  * 处理添加或者更新部门信息
  */
-export function handleCreateOrUpdateDept(formRef: Ref, callback?: Function) {
+export function handleCreateOrUpdateDept(
+  store: IngotStore,
+  formRef: Ref,
+  callback?: Function
+) {
   const form = unref(formRef);
   form.validate((valid: boolean) => {
     if (!valid) {
@@ -158,7 +166,7 @@ export function handleCreateOrUpdateDept(formRef: Ref, callback?: Function) {
     }
     let request;
     if (currentStatus === "create") {
-      request = createDept(formModelToSysDept());
+      request = createDept(store, formModelToSysDept());
     } else {
       const params = getChangedFieldObj<SysDept>(
         selectedDeptNodeToSysDept(),
@@ -173,7 +181,7 @@ export function handleCreateOrUpdateDept(formRef: Ref, callback?: Function) {
         return;
       }
       params.id = selectedDeptNode.value.id;
-      request = updateDept(params);
+      request = updateDept(store, params);
     }
 
     request.then(() => {

@@ -15,18 +15,24 @@ import {
   handleCreateOrUpdateDept,
   handleCancelEdit
 } from "./composition/edit";
-import { getDeptData, fetchDeptTree } from "@/store/composition/dept";
+import { computedDeptData, fetchDeptTree } from "@/store/composition/dept";
 import { defineComponent, onMounted, ref, Ref } from "vue";
+import { useStore } from "@/store";
 
 export default defineComponent({
   components: {},
   setup() {
-    onMounted(() => {
-      fetchDeptTree();
-    });
-
     const deptFormRef = ref();
-    const deptData = getDeptData();
+    const deptData = computedDeptData();
+    const store = useStore();
+
+    const innerFetchDeptTree = () => {
+      fetchDeptTree(store);
+    };
+
+    onMounted(() => {
+      innerFetchDeptTree();
+    });
     return {
       deptData,
       deptFormRef,
@@ -40,10 +46,10 @@ export default defineComponent({
       handleCreateButtonClick,
       handleEditButtonClick,
       handleDeleteButtonClick: () => {
-        handleDeleteButtonClick(fetchDeptTree);
+        handleDeleteButtonClick(store, innerFetchDeptTree);
       },
       handleCreateOrUpdateDept: (formRef: Ref) => {
-        handleCreateOrUpdateDept(formRef, fetchDeptTree);
+        handleCreateOrUpdateDept(store, formRef, innerFetchDeptTree);
       },
       handleCancelEdit,
       handleTreeNodeClick
