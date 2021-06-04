@@ -1,5 +1,5 @@
 import { defineComponent, onMounted, ref } from "vue";
-import { fetchDeptTree } from "@/store/composition/dept";
+import { fetchDeptTree, getDeptData } from "@/store/composition/dept";
 import {
   condition,
   pageInfo,
@@ -56,11 +56,10 @@ export default defineComponent({
     };
   },
   setup() {
-    const deptTree = ref({});
+    const deptTree = getDeptData();
 
     onMounted(() => {
       fetchDeptTree().then(deptData => {
-        deptTree.value = deptData;
         handleTreeNodeClick(deptData.data[0]);
       });
     });

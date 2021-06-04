@@ -1,11 +1,11 @@
 import app from "./app";
 import router from "./router";
 import auth from "./auth";
-import dept from "./dept";
+import * as dept from "./dept";
 
 export default {
   app,
   router,
   auth,
-  dept
+  [`${dept.moduleName}`]: dept.module
 };

@@ -7,7 +7,10 @@ import {
   //   updateDept
 } from "@/api/authority/dept";
 
-const deptModule: Module<DeptModuleState, RootState> = {
+export const moduleName = "dept";
+
+export const module: Module<DeptModuleState, RootState> = {
+  namespaced: true,
   state: {
     props: {
       children: "children",
@@ -24,7 +27,7 @@ const deptModule: Module<DeptModuleState, RootState> = {
       state.data = data;
       state.expandedKeys = expandedKeys;
     },
-    openUpdateDeptTreeFlag(state) {
+    openUpdateFlag(state) {
       state.update = true;
     }
   },
@@ -39,10 +42,10 @@ const deptModule: Module<DeptModuleState, RootState> = {
     }
   },
   actions: {
-    fetchDeptTree({ state, commit, getters }) {
+    fetchTree({ state, commit, getters }) {
       return new Promise<DeptTree>((resolve, reject) => {
         if (!state.update && state.data.length !== 0) {
-          resolve(getters.getDeptData());
+          resolve(getters.deptData);
           return;
         }
         getDeptTree()
@@ -56,7 +59,7 @@ const deptModule: Module<DeptModuleState, RootState> = {
             });
 
             commit("setDeptTree", { data, expandedKeys });
-            resolve(getters.getDeptData);
+            resolve(getters.deptData);
           })
           .catch(() => {
             reject();
@@ -65,5 +68,3 @@ const deptModule: Module<DeptModuleState, RootState> = {
     }
   }
 };
-
-export default deptModule;

@@ -1,4 +1,3 @@
-import { loading, fetchDeptData } from "./composition/dept";
 import {
   DeptRoleScope,
   getDeptRoleScopeDesc,
@@ -16,24 +15,21 @@ import {
   handleCreateOrUpdateDept,
   handleCancelEdit
 } from "./composition/edit";
-import { useStore } from "@/store";
-import { defineComponent, onMounted, ref, Ref, computed } from "vue";
+import { getDeptData, fetchDeptTree } from "@/store/composition/dept";
+import { defineComponent, onMounted, ref, Ref } from "vue";
 
 export default defineComponent({
   components: {},
   setup() {
     onMounted(() => {
-      fetchDeptData();
+      fetchDeptTree();
     });
 
     const deptFormRef = ref();
-    const store = useStore();
+    const deptData = getDeptData();
     return {
-      detpData: computed(() => {
-        return store.getters.deptData;
-      }),
+      deptData,
       deptFormRef,
-      loading,
       formModel,
       rules,
       deptEditStatus,
@@ -44,10 +40,10 @@ export default defineComponent({
       handleCreateButtonClick,
       handleEditButtonClick,
       handleDeleteButtonClick: () => {
-        handleDeleteButtonClick(fetchDeptData);
+        handleDeleteButtonClick(fetchDeptTree);
       },
       handleCreateOrUpdateDept: (formRef: Ref) => {
-        handleCreateOrUpdateDept(formRef, fetchDeptData);
+        handleCreateOrUpdateDept(formRef, fetchDeptTree);
       },
       handleCancelEdit,
       handleTreeNodeClick
