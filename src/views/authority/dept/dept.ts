@@ -1,4 +1,4 @@
-import { deptTree, loading, fetchDeptData } from "./composition/dept";
+import { loading, fetchDeptData } from "./composition/dept";
 import {
   DeptRoleScope,
   getDeptRoleScopeDesc,
@@ -16,7 +16,8 @@ import {
   handleCreateOrUpdateDept,
   handleCancelEdit
 } from "./composition/edit";
-import { defineComponent, onMounted, ref, Ref } from "vue";
+import { useStore } from "@/store";
+import { defineComponent, onMounted, ref, Ref, computed } from "vue";
 
 export default defineComponent({
   components: {},
@@ -26,10 +27,12 @@ export default defineComponent({
     });
 
     const deptFormRef = ref();
-
+    const store = useStore();
     return {
+      detpData: computed(() => {
+        return store.getters.deptData;
+      }),
       deptFormRef,
-      deptTree,
       loading,
       formModel,
       rules,

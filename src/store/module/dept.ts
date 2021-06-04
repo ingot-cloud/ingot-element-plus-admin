@@ -1,27 +1,11 @@
 import { Module } from "vuex";
-import { RootState } from "@/store/types";
-import { DeptTreeNode } from "@/model";
+import { RootState, DeptModuleState, DeptTree } from "@/store/types";
 import {
   getDeptTree
   //   createDept,
   //   removeDept,
   //   updateDept
 } from "@/api/authority/dept";
-
-interface DeptTree {
-  props: object;
-  nodeKey: string;
-  expandedKeys: Array<string>;
-  data: Array<DeptTreeNode>;
-}
-
-export interface DeptModuleState {
-  props: object;
-  nodeKey: string;
-  expandedKeys: Array<string>;
-  data: Array<DeptTreeNode>;
-  update: boolean;
-}
 
 const deptModule: Module<DeptModuleState, RootState> = {
   state: {
@@ -45,7 +29,7 @@ const deptModule: Module<DeptModuleState, RootState> = {
     }
   },
   getters: {
-    getDeptData: state => {
+    deptData: (state): DeptTree => {
       return {
         props: state.props,
         nodeKey: state.nodeKey,
@@ -61,7 +45,6 @@ const deptModule: Module<DeptModuleState, RootState> = {
           resolve(getters.getDeptData());
           return;
         }
-
         getDeptTree()
           .then(response => {
             const data = response.data;
@@ -73,7 +56,7 @@ const deptModule: Module<DeptModuleState, RootState> = {
             });
 
             commit("setDeptTree", { data, expandedKeys });
-            resolve(getters.getDeptData());
+            resolve(getters.getDeptData);
           })
           .catch(() => {
             reject();

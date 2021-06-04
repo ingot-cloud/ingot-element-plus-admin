@@ -31,10 +31,10 @@
           </el-button-group>
           <el-tree
             class="dept-tree"
-            :data="deptTree.data"
-            :props="deptTree.props"
-            :node-key="deptTree.nodeKey"
-            :default-expanded-keys="deptTree.expandedKeys"
+            :data="detpData.data"
+            :props="detpData.props"
+            :node-key="detpData.nodeKey"
+            :default-expanded-keys="detpData.expandedKeys"
             :highlight-current="true"
             :expand-on-click-node="false"
             @node-click="handleTreeNodeClick"

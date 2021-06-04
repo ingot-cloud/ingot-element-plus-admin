@@ -1,8 +1,6 @@
 import { ref } from "vue";
 import { fetchDeptTree } from "@/store/composition/dept";
 
-// 部门数据
-export const deptTree = ref({});
 // 是否加载数据
 export const loading = ref(false);
 
@@ -12,9 +10,7 @@ export const loading = ref(false);
 export function fetchDeptData() {
   loading.value = true;
   fetchDeptTree()
-    .then(data => {
-      deptTree.value = data;
-      console.log(data);
+    .then(() => {
       loading.value = false;
     })
     .catch(() => {
