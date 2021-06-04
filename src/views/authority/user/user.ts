@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted } from "vue";
 import { fetchDeptTree, getDeptData } from "@/store/composition/dept";
 import {
   condition,
