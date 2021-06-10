@@ -11,6 +11,7 @@ import {
   handleDisableUser,
   currentDeptNode
 } from "./biz/user";
+import { Headers as listHeaders } from "./biz/table";
 import {
   getCommonStatusDesc,
   getCommonStatusTag,
@@ -20,42 +21,6 @@ import { useStore } from "@/store";
 
 export default defineComponent({
   components: {},
-  data() {
-    return {
-      listHeaders: [
-        {
-          label: "序号",
-          prop: "id",
-          type: "index"
-        },
-        {
-          label: "用户名",
-          prop: "username"
-        },
-        {
-          label: "手机号",
-          prop: "phone"
-        },
-        {
-          label: "email",
-          prop: "email"
-        },
-        {
-          label: "状态",
-          prop: "status"
-        },
-        {
-          label: "注册时间",
-          prop: "createdAt"
-        },
-        {
-          label: "操作",
-          width: "210",
-          prop: "actions"
-        }
-      ]
-    };
-  },
   setup() {
     const deptTree = computedDeptData();
     const store = useStore();
@@ -67,6 +32,7 @@ export default defineComponent({
     });
 
     return {
+      listHeaders,
       deptTree,
       condition,
       pageInfo,

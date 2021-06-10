@@ -30,6 +30,15 @@ const managementRoutes: Array<RouteRecordRaw> = [
         },
         path: "/authority/dept",
         component: () => import("@/views/authority/dept/index.vue")
+      },
+      {
+        name: "SysAuthorityRoleManager",
+        meta: {
+          title: "角色管理",
+          icon: "role"
+        },
+        path: "/authority/role",
+        component: () => import("@/views/authority/role/index.vue")
       }
     ]
   }
