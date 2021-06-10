@@ -33,7 +33,7 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
-import password from "./composition/password";
+import password from "./biz/password";
 export default defineComponent({
   setup() {
     const { formModel, rules, loading, handleLogin } = password;

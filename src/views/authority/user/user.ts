@@ -10,7 +10,7 @@ import {
   handleDeleteUser,
   handleDisableUser,
   currentDeptNode
-} from "./composition/user";
+} from "./biz/user";
 import {
   getCommonStatusDesc,
   getCommonStatusTag,

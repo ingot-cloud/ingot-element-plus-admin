@@ -14,7 +14,7 @@ import {
   handleDeleteButtonClick,
   handleCreateOrUpdateDept,
   handleCancelEdit
-} from "./composition/edit";
+} from "./biz/edit";
 import { computedDeptData, fetchDeptTree } from "@/store/composition/dept";
 import { defineComponent, onMounted, ref, Ref } from "vue";
 import { useStore } from "@/store";
