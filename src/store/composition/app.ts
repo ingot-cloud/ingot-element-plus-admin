@@ -15,7 +15,7 @@ export function toggleMenu() {
  */
 export function getSidebarStatus(store: IngotStore) {
   return {
-    opened: computed(() => store.state.app.sidebar.opened)
+    opened: computed(() => store.getters.sidebarOpened)
   };
 }
 
