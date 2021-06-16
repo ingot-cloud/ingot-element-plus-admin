@@ -9,6 +9,8 @@ import {
 import { SysDept } from "@/model";
 import { Mutations, Actions, Getters } from "@/store/constants/dept";
 
+export { moduleName } from "@/store/constants/dept";
+
 const module: Module<DeptModuleState, RootState> = {
   namespaced: true,
   state: {
