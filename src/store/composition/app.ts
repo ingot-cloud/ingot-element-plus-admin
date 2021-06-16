@@ -1,12 +1,13 @@
 import { computed } from "vue";
 import { IngotStore } from "@/store/types";
-import { store } from "@/store";
+import { store, useDispatch, computedGetter } from "@/store";
+import { moduleName, Actions, Getters } from "@/store/constants/app";
 
 /**
  * 导航条 menu 开关
  */
 export function toggleMenu() {
-  store.dispatch("toggleSidebar");
+  useDispatch(store, moduleName, Actions.toggleSidebar);
 }
 
 /**
@@ -15,7 +16,7 @@ export function toggleMenu() {
  */
 export function getSidebarStatus(store: IngotStore) {
   return {
-    opened: computed(() => store.getters.sidebarOpened)
+    opened: computedGetter(store, moduleName, Getters.sidebarOpened)
   };
 }
 

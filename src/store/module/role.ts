@@ -4,6 +4,8 @@ import { rolePage, create, update, remove } from "@/api/authority/role";
 import { Page, RolePageItemVo, SysRole } from "@/model";
 import { Mutations, Actions, Getters } from "@/store/constants/role";
 
+export { moduleName } from "@/store/constants/role";
+
 const module: Module<RoleModuleState, RootState> = {
   namespaced: true,
   state: {

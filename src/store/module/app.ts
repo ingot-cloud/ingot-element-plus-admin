@@ -2,10 +2,14 @@ import { Module } from "vuex";
 import { RootState, AppModuleState } from "@/store/types";
 import { StoreType } from "@/model";
 import { StoreManager } from "@/utils/store";
+import { Mutations, Getters, Actions } from "@/store/constants/app";
+
+export { moduleName } from "@/store/constants/app";
 
 const SidebarOpenKey = "sidebarOpenStatus";
 
 const appModule: Module<AppModuleState, RootState> = {
+  namespaced: true,
   state: {
     sidebar: {
       // 默认关闭
@@ -13,7 +17,7 @@ const appModule: Module<AppModuleState, RootState> = {
     }
   },
   getters: {
-    sidebarOpened: state => {
+    [`${Getters.sidebarOpened}`]: state => {
       const value = StoreManager.get(SidebarOpenKey, StoreType.Session);
       if (value) {
         state.sidebar.opened = value === "1";
@@ -22,7 +26,7 @@ const appModule: Module<AppModuleState, RootState> = {
     }
   },
   mutations: {
-    toggleSidebar(state) {
+    [`${Mutations.toggleSidebar}`](state) {
       state.sidebar.opened = !state.sidebar.opened;
       StoreManager.set({
         key: SidebarOpenKey,
@@ -32,7 +36,7 @@ const appModule: Module<AppModuleState, RootState> = {
     }
   },
   actions: {
-    toggleSidebar({ commit }) {
+    [`${Actions.toggleSidebar}`]({ commit }) {
       commit("toggleSidebar");
     }
   }
