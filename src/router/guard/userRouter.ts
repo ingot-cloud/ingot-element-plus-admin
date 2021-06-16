@@ -1,6 +1,6 @@
 import { NavigationGuardWithThis } from "vue-router";
 import { BaseNavigationGuard } from "@/router/types";
-import { store } from "@/store";
+import { fetchUserInfo, existUserInfo } from "@/store/composition/auth";
 
 export class UserInfoGuard extends BaseNavigationGuard {
   public static get() {
@@ -11,11 +11,10 @@ export class UserInfoGuard extends BaseNavigationGuard {
     return async to => {
       // 1. 判断用户信息是否存在，若存在则直接进入页面
       // 2. 若不存在则获取用户信息，并且刷新路由信息
-      const existUserInfo = store.getters.existUserInfo;
-      if (!existUserInfo) {
+      const exist = existUserInfo();
+      if (!exist) {
         return await new Promise<boolean>(resolve => {
-          store
-            .dispatch("fetchUserInfo")
+          fetchUserInfo()
             .then(() => {
               resolve(true);
             })

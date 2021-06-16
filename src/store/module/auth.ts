@@ -4,6 +4,9 @@ import { AuthModuleState, RootState } from "@/store/types";
 import { StoreManager } from "@/utils/store";
 import { getUserInfo } from "@/api/base/user";
 import { refreshToken } from "@/api/base/auth";
+import { Mutations, Getters, Actions } from "@/store/constants/auth";
+
+export { moduleName } from "@/store/constants/auth";
 
 enum Key {
   Token = "token",
@@ -22,13 +25,14 @@ const defaultUser = {
 };
 
 const authModule: Module<AuthModuleState, RootState> = {
+  namespaced: true,
   state: {
     token: defaultToken,
     user: defaultUser,
     roles: []
   },
   getters: {
-    accessToken(state) {
+    [`${Getters.accessToken}`](state) {
       if (!state.token.accessToken || state.token.accessToken.length === 0) {
         const value = StoreManager.get(Key.Token, StoreType.Session);
         if (value) {
@@ -37,7 +41,7 @@ const authModule: Module<AuthModuleState, RootState> = {
       }
       return state.token.accessToken;
     },
-    refreshToken(state) {
+    [`${Getters.refreshToken}`](state) {
       if (!state.token.refreshToken || state.token.refreshToken.length === 0) {
         const value = StoreManager.get(Key.RefreshToken, StoreType.Session);
         if (value) {
@@ -46,12 +50,12 @@ const authModule: Module<AuthModuleState, RootState> = {
       }
       return state.token.refreshToken;
     },
-    existUserInfo(state) {
+    [`${Getters.existUserInfo}`](state) {
       return state.roles.length !== 0;
     }
   },
   mutations: {
-    setToken(state, token: UserToken) {
+    [`${Mutations.setToken}`](state, token: UserToken) {
       state.token = token;
       // 保存 token
       const accessToken = Object.assign({}, token);
@@ -68,25 +72,25 @@ const authModule: Module<AuthModuleState, RootState> = {
         type: StoreType.Session
       });
     },
-    setUserInfo(state, info: UserInfo) {
+    [`${Mutations.setUserInfo}`](state, info: UserInfo) {
       state.user = info.user;
       state.roles = info.roles;
     },
-    removeToken(state) {
+    [`${Mutations.removeToken}`](state) {
       state.token = defaultToken;
       StoreManager.remove(Key.Token, StoreType.Session);
       StoreManager.remove(Key.RefreshToken, StoreType.Session);
     },
-    removeUserInfo(state) {
+    [`${Mutations.removeUserInfo}`](state) {
       state.user = defaultUser;
       state.roles = [];
     }
   },
   actions: {
-    updateToken({ commit }, token: UserToken) {
+    [`${Actions.updateToken}`]({ commit }, token: UserToken) {
       commit("setToken", token);
     },
-    refreshToken({ getters, commit }) {
+    [`${Actions.refreshToken}`]({ getters, commit }) {
       return new Promise((resolve, reject) => {
         const refreshTokenValue = getters.refreshToken;
         if (!refreshTokenValue) {
@@ -103,7 +107,7 @@ const authModule: Module<AuthModuleState, RootState> = {
           });
       });
     },
-    fetchUserInfo({ commit }) {
+    [`${Actions.fetchUserInfo}`]({ commit }) {
       return new Promise<UserInfo>((resolve, reject) => {
         getUserInfo()
           .then(response => {
@@ -116,7 +120,7 @@ const authModule: Module<AuthModuleState, RootState> = {
           });
       });
     },
-    clear({ commit }) {
+    [`${Actions.clear}`]({ commit }) {
       return new Promise<void>(resolve => {
         commit("removeToken");
         commit("removeUserInfo");

@@ -2,8 +2,8 @@ import { AxiosResponse, AxiosError, AxiosRequestConfig } from "axios";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { IngotResponse } from "@/model";
 import StatusCode from "@/net/statusCode";
-import { handlLogout } from "@/utils/auth";
-import { store } from "@/store";
+import { handlLogout } from "@/store/composition/auth";
+import { refreshToken } from "@/store/composition/auth";
 import request from "@/net";
 
 /**
@@ -49,8 +49,7 @@ const bizResponseFailureHandler = (
         return Promise.reject(response);
       }
       return new Promise((resolve, reject) => {
-        store
-          .dispatch("refreshToken")
+        refreshToken()
           .then(userToken => {
             // 刷新成功重试刚才的请求，替换token重新请求
             // 避免再次请求失败，刷新token后的重试不走失效逻辑

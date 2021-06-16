@@ -1,9 +1,9 @@
 import { AxiosRequestConfig } from "axios";
-import { store } from "@/store";
+import { getAccessToken } from "@/store/composition/auth";
 
 export const onRequestFulfilled = (config: AxiosRequestConfig) => {
   if (!config.headers["Authorization"]) {
-    const accessToken = store.getters.accessToken;
+    const accessToken = getAccessToken();
     if (accessToken) {
       config.headers["Authorization"] = `Bearer ${accessToken}`;
     }

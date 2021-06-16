@@ -1,6 +1,6 @@
 import { NavigationGuardWithThis } from "vue-router";
 import { BaseNavigationGuard } from "@/router/types";
-import { store } from "@/store";
+import { getAccessToken } from "@/store/composition/auth";
 
 export class AuthGuard extends BaseNavigationGuard {
   public static get() {
@@ -13,7 +13,7 @@ export class AuthGuard extends BaseNavigationGuard {
       // 2. 若需要鉴权，判断 token 是否存在，如果不存在那么重定向到登录页面
       // 3. 若token存在，则走用户信息拦截器
       if (!to.meta.permitAuth) {
-        const token = store.getters.accessToken;
+        const token = getAccessToken();
         if (!token || token.length === "") {
           // 终止导航重定向到 login
           return { path: "/login", query: { redirect: to.fullPath } };

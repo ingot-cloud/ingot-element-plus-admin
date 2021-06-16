@@ -1,7 +1,7 @@
 import { reactive, ref, Ref, unref } from "vue";
 import { login } from "@/api/base/auth";
-import { store } from "@/store";
 import { Router } from "vue-router";
+import { updateToken } from "@/store/composition/auth";
 
 const formModel = reactive({
   username: "",
@@ -26,7 +26,7 @@ const handleLogin = (formRef: Ref, router: Router) => {
       loading.value = true;
       login({ ...formModel })
         .then(response => {
-          store.dispatch("updateToken", response.data);
+          updateToken(response.data);
           const params = router.currentRoute.value.query;
           router.replace({
             path: params.redirect ? String(params.redirect) : "/"

@@ -95,14 +95,14 @@ export function useCommit(
 }
 
 // getter
-export function computedGetter<T = any>(
+export function getter<T = any>(
   storeOrNamespace: Store<RootState> | string,
   namespaceOrGet: string,
   get?: string
-): ComputedRef<T> {
+): T {
   let store: Store<RootState>;
   let namespace: string;
-  if (arguments.length === 2) {
+  if (!get) {
     store = useStore();
     namespace = storeOrNamespace as string;
     get = namespaceOrGet;
@@ -110,5 +110,14 @@ export function computedGetter<T = any>(
     store = storeOrNamespace as Store<RootState>;
     namespace = namespaceOrGet;
   }
-  return computed<T>(() => store.getters[`${namespace}/${get}`]);
+  return store.getters[`${namespace}/${get}`];
+}
+
+// computer getter
+export function computedGetter<T = any>(
+  storeOrNamespace: Store<RootState> | string,
+  namespaceOrGet: string,
+  get?: string
+): ComputedRef<T> {
+  return computed<T>(() => getter<T>(storeOrNamespace, namespaceOrGet, get));
 }
