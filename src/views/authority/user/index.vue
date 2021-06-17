@@ -1,7 +1,7 @@
 <template>
   <ingot-container>
     <ingot-page-card :hideBack="true">
-      <el-row>
+      <el-row :gutter="20">
         <el-col :span="4">
           <el-tree
             :data="deptTree.data"
