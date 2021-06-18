@@ -1,4 +1,4 @@
-import { reactive, toRaw, ref } from "vue";
+import { reactive, toRaw, ref, Ref, unref } from "vue";
 import { DeptTreeNode, Page, UserPageItemVo } from "@/model";
 import { userPage } from "@/api/authority/user";
 
@@ -46,8 +46,9 @@ export function handleTreeNodeClick(node: DeptTreeNode) {
 /**
  * 创建用户
  */
-export function handleCreateUser() {
-  //
+export function handleCreateUser(dialogRef: Ref) {
+  const dialog = unref(dialogRef);
+  dialog.show();
 }
 
 /**

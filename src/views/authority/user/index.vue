@@ -36,7 +36,7 @@
               class="item"
               size="small"
               type="success"
-              @click="handleCreateUser"
+              @click="handleCreateUser(createDialog)"
             >
               添加
             </el-button>
@@ -79,6 +79,8 @@
       </el-row>
     </ingot-page-card>
   </ingot-container>
+
+  <CreateDialog ref="createDialog" />
 </template>
 
 <script lang="ts" src="./user.ts"></script>

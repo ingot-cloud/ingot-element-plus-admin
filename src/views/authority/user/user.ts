@@ -1,4 +1,4 @@
-import { defineComponent, onMounted } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import { fetchDeptTree, computedDeptData } from "@/store/composition/dept";
 import {
   condition,
@@ -18,10 +18,14 @@ import {
   CommonStatus
 } from "@/model/common";
 import { useStore } from "@/store";
+import CreateDialog from "./component/CreateDialog.vue";
 
 export default defineComponent({
-  components: {},
+  components: {
+    CreateDialog
+  },
   setup() {
+    const createDialog = ref();
     const deptTree = computedDeptData();
     const store = useStore();
 
@@ -32,6 +36,7 @@ export default defineComponent({
     });
 
     return {
+      createDialog,
       listHeaders,
       deptTree,
       condition,
