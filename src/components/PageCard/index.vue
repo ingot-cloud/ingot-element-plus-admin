@@ -35,17 +35,17 @@ export default defineComponent({
   props: {
     hideBack: {
       type: Boolean,
-      default: false
+      default: false,
     },
     title: {
       type: String,
-      default: "返回"
+      default: "返回",
     },
     content: {
       type: String,
-      default: null
-    }
-  }
+      default: null,
+    },
+  },
 });
 </script>
 

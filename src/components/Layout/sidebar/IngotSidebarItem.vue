@@ -29,8 +29,8 @@ export default defineComponent({
   props: {
     route: {
       type: Object,
-      default: null
-    }
+      default: null,
+    },
   },
   setup(props) {
     return {
@@ -45,9 +45,9 @@ export default defineComponent({
         }
 
         return props.route.children[0];
-      })
+      }),
     };
-  }
+  },
 });
 </script>
 

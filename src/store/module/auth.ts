@@ -10,7 +10,7 @@ export { moduleName } from "@/store/constants/auth";
 
 enum Key {
   Token = "token",
-  RefreshToken = "refreshToken"
+  RefreshToken = "refreshToken",
 }
 
 const defaultToken = {
@@ -18,10 +18,10 @@ const defaultToken = {
   tokenType: "",
   refreshToken: "",
   expiresIn: 0,
-  scope: ""
+  scope: "",
 };
 const defaultUser = {
-  username: ""
+  username: "",
 };
 
 const authModule: Module<AuthModuleState, RootState> = {
@@ -29,7 +29,7 @@ const authModule: Module<AuthModuleState, RootState> = {
   state: {
     token: defaultToken,
     user: defaultUser,
-    roles: []
+    roles: [],
   },
   getters: {
     [`${Getters.accessToken}`](state) {
@@ -52,7 +52,7 @@ const authModule: Module<AuthModuleState, RootState> = {
     },
     [`${Getters.existUserInfo}`](state) {
       return state.roles.length !== 0;
-    }
+    },
   },
   mutations: {
     [`${Mutations.setToken}`](state, token: UserToken) {
@@ -63,13 +63,13 @@ const authModule: Module<AuthModuleState, RootState> = {
       StoreManager.set({
         key: Key.Token,
         value: accessToken,
-        type: StoreType.Session
+        type: StoreType.Session,
       });
       // 保存 refreshToken
       StoreManager.set({
         key: Key.RefreshToken,
         value: token.refreshToken,
-        type: StoreType.Session
+        type: StoreType.Session,
       });
     },
     [`${Mutations.setUserInfo}`](state, info: UserInfo) {
@@ -84,7 +84,7 @@ const authModule: Module<AuthModuleState, RootState> = {
     [`${Mutations.removeUserInfo}`](state) {
       state.user = defaultUser;
       state.roles = [];
-    }
+    },
   },
   actions: {
     [`${Actions.updateToken}`]({ commit }, token: UserToken) {
@@ -98,7 +98,7 @@ const authModule: Module<AuthModuleState, RootState> = {
           return;
         }
         refreshToken(refreshTokenValue)
-          .then(response => {
+          .then((response) => {
             commit("setToken", response.data);
             resolve(response.data);
           })
@@ -110,24 +110,24 @@ const authModule: Module<AuthModuleState, RootState> = {
     [`${Actions.fetchUserInfo}`]({ commit }) {
       return new Promise<UserInfo>((resolve, reject) => {
         getUserInfo()
-          .then(response => {
+          .then((response) => {
             const userInfo = response.data;
             commit("setUserInfo", userInfo);
             resolve(userInfo);
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e);
           });
       });
     },
     [`${Actions.clear}`]({ commit }) {
-      return new Promise<void>(resolve => {
+      return new Promise<void>((resolve) => {
         commit("removeToken");
         commit("removeUserInfo");
         resolve();
       });
-    }
-  }
+    },
+  },
 };
 
 export default authModule;

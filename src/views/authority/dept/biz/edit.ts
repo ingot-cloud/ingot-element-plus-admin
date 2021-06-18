@@ -14,7 +14,7 @@ export const selectedDeptNode = ref(node);
 
 export const deptEditStatus = reactive({
   saveOrUpdateButtonTitle: "添加",
-  formDisabled: true
+  formDisabled: true,
 });
 
 // 表单录入
@@ -25,7 +25,7 @@ export const formModel = reactive({
   name: "",
   scope: DeptRoleScope.CurrentChild,
   sort: 0,
-  status: CommonStatus.Enable
+  status: CommonStatus.Enable,
 });
 
 // 重置 form model
@@ -71,19 +71,19 @@ export const rules = ref({
   name: [{ required: true, message: "请输入部门名称", trigger: "blur" }],
   scope: [{ required: true, message: "请选择角色范围", trigger: "blur" }],
   sort: [{ required: true, message: "请输入排序序号", trigger: "blur" }],
-  status: [{ required: true, message: "请选择状态", trigger: "blur" }]
+  status: [{ required: true, message: "请选择状态", trigger: "blur" }],
 });
 
 /**
  * 处理节点点击事件
  * @param node 部门树节点
  */
-export function handleTreeNodeClick(node: DeptTreeNode) {
+export function handleTreeNodeClick(node: DeptTreeNode): void {
   selectedDeptNode.value = node;
   resetFormModel(node);
 }
 
-export function handleCreateButtonClick() {
+export function handleCreateButtonClick(): void {
   deptEditStatus.formDisabled = false;
   deptEditStatus.saveOrUpdateButtonTitle = "添加";
   currentStatus = "create";
@@ -96,14 +96,14 @@ function checkSelected() {
     ElMessage({
       showClose: true,
       message: "请先选择部门",
-      type: "warning"
+      type: "warning",
     });
     return false;
   }
   return true;
 }
 
-export function handleEditButtonClick() {
+export function handleEditButtonClick(): void {
   if (!checkSelected()) {
     return;
   }
@@ -115,7 +115,7 @@ export function handleEditButtonClick() {
 /**
  * 处理取消编辑
  */
-export function handleCancelEdit() {
+export function handleCancelEdit(): void {
   deptEditStatus.formDisabled = true;
   selectedDeptNode.value = {};
   resetFormModel();
@@ -126,22 +126,23 @@ export function handleCancelEdit() {
  */
 export function handleDeleteButtonClick(
   store: IngotStore,
+  // eslint-disable-next-line @typescript-eslint/ban-types
   callback?: Function
-) {
+): void {
   if (!checkSelected()) {
     return;
   }
   ElMessageBox.confirm(`是否删除部门${selectedDeptNode.value.name}`, "提示", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
-    type: "warning"
+    type: "warning",
   }).then(() => {
     const id = selectedDeptNode.value.id as string;
     removeDept(store, id).then(() => {
       ElMessage({
         showClose: true,
         message: "操作成功",
-        type: "success"
+        type: "success",
       });
       handleCancelEdit();
       if (callback) {
@@ -157,8 +158,9 @@ export function handleDeleteButtonClick(
 export function handleCreateOrUpdateDept(
   store: IngotStore,
   formRef: Ref,
+  // eslint-disable-next-line @typescript-eslint/ban-types
   callback?: Function
-) {
+): void {
   const form = unref(formRef);
   form.validate((valid: boolean) => {
     if (!valid) {
@@ -176,7 +178,7 @@ export function handleCreateOrUpdateDept(
         ElMessage({
           showClose: true,
           message: "未改变数据",
-          type: "warning"
+          type: "warning",
         });
         return;
       }
@@ -188,7 +190,7 @@ export function handleCreateOrUpdateDept(
       ElMessage({
         showClose: true,
         message: "操作成功",
-        type: "success"
+        type: "success",
       });
       handleCancelEdit();
       if (callback) {

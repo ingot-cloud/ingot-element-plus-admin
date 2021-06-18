@@ -26,9 +26,9 @@ export default defineComponent({
     const { scrollbarStyle } = SidebarStyle();
     return {
       appLayoutClass,
-      scrollbarStyle
+      scrollbarStyle,
     };
-  }
+  },
 });
 </script>
 <style lang="stylus">

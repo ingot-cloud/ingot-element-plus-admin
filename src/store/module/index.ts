@@ -3,7 +3,7 @@
 const files = require.context(".", true, /\.ts$/);
 const modules: any = {};
 
-files.keys().forEach(key => {
+files.keys().forEach((key) => {
   if (key === "./index.ts") return;
   const path = key.replace(/(\.\/|\.ts)/g, "");
   const [moduleName, isDir] = path.split("/");

@@ -7,18 +7,14 @@
           class="item"
           size="small"
           clearable
-          style="width:200px;"
+          style="width: 200px"
           placeholder="角色名"
         ></el-input>
-        <el-button class="item" size="small" type="primary">
-          搜索
-        </el-button>
-        <el-button class="item" size="small" type="success">
-          添加
-        </el-button>
+        <el-button class="item" size="small" type="primary"> 搜索 </el-button>
+        <el-button class="item" size="small" type="success"> 添加 </el-button>
       </ingot-filter-container>
       <ingot-table :data="roleData" :headers="listHeaders">
-        <template #status="{item}">
+        <template #status="{ item }">
           <el-tag :type="getCommonStatusTag(item.status)">
             {{ getCommonStatusDesc(item.status) }}
           </el-tag>

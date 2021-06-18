@@ -10,38 +10,38 @@ const managementRoutes: Array<RouteRecordRaw> = [
     redirect: "/authority/user",
     meta: {
       title: "权限管理",
-      icon: "authority"
+      icon: "authority",
     },
     children: [
       {
         name: "SysAuthorityUserManager",
         meta: {
           title: "用户管理",
-          icon: "user"
+          icon: "user",
         },
         path: "/authority/user",
-        component: () => import("@/views/authority/user/index.vue")
+        component: () => import("@/views/authority/user/index.vue"),
       },
       {
         name: "SysAuthorityDeptManager",
         meta: {
           title: "部门管理",
-          icon: "dept"
+          icon: "dept",
         },
         path: "/authority/dept",
-        component: () => import("@/views/authority/dept/index.vue")
+        component: () => import("@/views/authority/dept/index.vue"),
       },
       {
         name: "SysAuthorityRoleManager",
         meta: {
           title: "角色管理",
-          icon: "role"
+          icon: "role",
         },
         path: "/authority/role",
-        component: () => import("@/views/authority/role/index.vue")
-      }
-    ]
-  }
+        component: () => import("@/views/authority/role/index.vue"),
+      },
+    ],
+  },
 ];
 
 export default managementRoutes;

@@ -5,10 +5,10 @@ export enum CommonStatus {
   // 可用
   Enable = "0",
   // 锁定
-  Lock = "9"
+  Lock = "9",
 }
 
-export function getCommonStatusDesc(status: CommonStatus) {
+export function getCommonStatusDesc(status: CommonStatus): string {
   switch (status) {
     case CommonStatus.Enable:
       return "正常";
@@ -17,7 +17,7 @@ export function getCommonStatusDesc(status: CommonStatus) {
   }
 }
 
-export function getCommonStatusTag(status: CommonStatus) {
+export function getCommonStatusTag(status: CommonStatus): string {
   switch (status) {
     case CommonStatus.Enable:
       return "success";
@@ -29,7 +29,7 @@ export function getCommonStatusTag(status: CommonStatus) {
 /**
  * 分页模型
  */
-export interface Page<T extends object = object> {
+export interface Page<T extends any = any> {
   current?: number;
   size?: number;
   total?: number;

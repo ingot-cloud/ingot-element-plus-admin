@@ -1,13 +1,13 @@
 export const moduleName = "app";
 
 export enum Mutations {
-  toggleSidebar = "toggleSidebar"
+  toggleSidebar = "toggleSidebar",
 }
 
 export enum Getters {
-  sidebarOpened = "sidebarOpened"
+  sidebarOpened = "sidebarOpened",
 }
 
 export enum Actions {
-  toggleSidebar = "toggleSidebar"
+  toggleSidebar = "toggleSidebar",
 }

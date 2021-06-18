@@ -6,7 +6,7 @@ import { DynamicRouterGuard } from "./dynamicRouter";
 const guardList: Array<BaseNavigationGuard> = [
   AuthGuard.get(),
   UserInfoGuard.get(),
-  DynamicRouterGuard.get()
+  DynamicRouterGuard.get(),
 ];
 
 export default guardList;

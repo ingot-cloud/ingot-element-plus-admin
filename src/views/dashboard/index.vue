@@ -16,8 +16,8 @@ export default defineComponent({
     const store = useStore();
     return {
       user: user(store),
-      roles: roles(store)
+      roles: roles(store),
     };
-  }
+  },
 });
 </script>

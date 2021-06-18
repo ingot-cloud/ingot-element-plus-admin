@@ -4,6 +4,7 @@
  * @param edit 编辑后的对象
  * @returns T
  */
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function getChangedFieldObj<T extends object>(raw: T, edit: T): T {
   const result = {};
 

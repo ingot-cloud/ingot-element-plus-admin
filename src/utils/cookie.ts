@@ -13,7 +13,7 @@ class IngotCookie {
     Cookies.set(finalKey, value, {
       expires: finalExpires,
       path: path || "/",
-      domain: CookieConfig.Domain
+      domain: CookieConfig.Domain,
     });
   }
 
@@ -25,7 +25,7 @@ class IngotCookie {
     const finalKey = this.keyWrapper(key);
     Cookies.remove(finalKey, {
       path,
-      domain: CookieConfig.Domain
+      domain: CookieConfig.Domain,
     });
   }
 

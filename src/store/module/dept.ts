@@ -4,7 +4,7 @@ import {
   getDeptTree,
   createDept,
   removeDept,
-  updateDept
+  updateDept,
 } from "@/api/authority/dept";
 import { SysDept } from "@/model";
 import { Mutations, Actions, Getters } from "@/store/constants/dept";
@@ -16,12 +16,12 @@ const module: Module<DeptModuleState, RootState> = {
   state: {
     props: {
       children: "children",
-      label: "name"
+      label: "name",
     },
     nodeKey: "id",
     expandedKeys: [],
     data: [],
-    update: true
+    update: true,
   },
   mutations: {
     [`${Mutations.setDeptTree}`](state, { data, expandedKeys }) {
@@ -31,7 +31,7 @@ const module: Module<DeptModuleState, RootState> = {
     },
     [`${Mutations.openUpdateFlag}`](state) {
       state.update = true;
-    }
+    },
   },
   getters: {
     [`${Getters.deptData}`]: (state): DeptTree => {
@@ -39,9 +39,9 @@ const module: Module<DeptModuleState, RootState> = {
         props: state.props,
         nodeKey: state.nodeKey,
         expandedKeys: state.expandedKeys,
-        data: state.data
+        data: state.data,
       };
-    }
+    },
   },
   actions: {
     [`${Actions.fetchTree}`]({ state, commit, getters }) {
@@ -51,10 +51,10 @@ const module: Module<DeptModuleState, RootState> = {
           return;
         }
         getDeptTree()
-          .then(response => {
+          .then((response) => {
             const data = response.data;
             const expandedKeys: Array<string> = [];
-            data.forEach(root => {
+            data.forEach((root) => {
               if (root.id) {
                 expandedKeys.push(root.id);
               }
@@ -103,8 +103,8 @@ const module: Module<DeptModuleState, RootState> = {
             reject();
           });
       });
-    }
-  }
+    },
+  },
 };
 
 export default module;

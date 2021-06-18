@@ -5,14 +5,14 @@ import {
   moduleName,
   Mutations,
   Actions,
-  Getters
+  Getters,
 } from "@/store/constants/dept";
 import { ComputedRef } from "@vue/reactivity";
 
 /**
  * 打开更新部门tree标志
  */
-export function openUpdateDeptTreeFlag() {
+export function openUpdateDeptTreeFlag(): void {
   useCommit(moduleName, Mutations.openUpdateFlag);
 }
 
@@ -28,7 +28,7 @@ export function computedDeptData(): ComputedRef<DeptTree> {
  * 获取部门信息
  * @returns Promise
  */
-export function fetchDeptTree(store: IngotStore) {
+export function fetchDeptTree(store: IngotStore): Promise<DeptTree> {
   return useDispatch(store, moduleName, Actions.fetchTree) as Promise<DeptTree>;
 }
 
@@ -37,10 +37,13 @@ export function fetchDeptTree(store: IngotStore) {
  * @param params 参数
  * @returns Promise
  */
-export function createDept(store: IngotStore, params: SysDept) {
-  return useDispatch(store, moduleName, Actions.createDept, params) as Promise<
-    void
-  >;
+export function createDept(store: IngotStore, params: SysDept): Promise<void> {
+  return useDispatch(
+    store,
+    moduleName,
+    Actions.createDept,
+    params
+  ) as Promise<void>;
 }
 
 /**
@@ -48,10 +51,13 @@ export function createDept(store: IngotStore, params: SysDept) {
  * @param id ID
  * @returns Promise
  */
-export function removeDept(store: IngotStore, id: string) {
-  return useDispatch(store, moduleName, Actions.removeDept, id) as Promise<
-    void
-  >;
+export function removeDept(store: IngotStore, id: string): Promise<void> {
+  return useDispatch(
+    store,
+    moduleName,
+    Actions.removeDept,
+    id
+  ) as Promise<void>;
 }
 
 /**
@@ -59,8 +65,11 @@ export function removeDept(store: IngotStore, id: string) {
  * @param params 参数
  * @returns Promise
  */
-export function updateDept(store: IngotStore, params: SysDept) {
-  return useDispatch(store, moduleName, Actions.updateDept, params) as Promise<
-    void
-  >;
+export function updateDept(store: IngotStore, params: SysDept): Promise<void> {
+  return useDispatch(
+    store,
+    moduleName,
+    Actions.updateDept,
+    params
+  ) as Promise<void>;
 }

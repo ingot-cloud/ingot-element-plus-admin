@@ -2,7 +2,7 @@ import {
   DeptRoleScope,
   getDeptRoleScopeDesc,
   CommonStatus,
-  getCommonStatusDesc
+  getCommonStatusDesc,
 } from "@/model";
 import {
   formModel,
@@ -13,7 +13,7 @@ import {
   handleEditButtonClick,
   handleDeleteButtonClick,
   handleCreateOrUpdateDept,
-  handleCancelEdit
+  handleCancelEdit,
 } from "./biz/edit";
 import { computedDeptData, fetchDeptTree } from "@/store/composition/dept";
 import { defineComponent, onMounted, ref, Ref } from "vue";
@@ -52,12 +52,12 @@ export default defineComponent({
         handleCreateOrUpdateDept(store, formRef, innerFetchDeptTree);
       },
       handleCancelEdit,
-      handleTreeNodeClick
+      handleTreeNodeClick,
     };
   },
   methods: {
     testClick(data: any) {
       console.log(data);
-    }
-  }
+    },
+  },
 });

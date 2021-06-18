@@ -12,7 +12,7 @@ class IngotStore {
       dataType: typeof value,
       value,
       type,
-      datetime: new Date().getTime()
+      datetime: new Date().getTime(),
     };
     const finalType = type || StoreType.Local;
     switch (finalType) {
@@ -78,7 +78,7 @@ class IngotStore {
           if (key) {
             list.push({
               key,
-              value: this.get(key, type)
+              value: this.get(key, type),
             });
           }
         }
@@ -89,7 +89,7 @@ class IngotStore {
           if (key) {
             list.push({
               key,
-              value: this.get(key, type)
+              value: this.get(key, type),
             });
           }
         }

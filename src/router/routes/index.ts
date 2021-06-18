@@ -7,7 +7,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/:pathMatch(.*)",
     name: "NotFound",
     meta: { hidden: true },
-    component: () => import("@/views/404.vue")
+    component: () => import("@/views/404.vue"),
   },
   {
     path: "/",
@@ -15,30 +15,30 @@ const routes: Array<RouteRecordRaw> = [
     redirect: "/dashboard",
     component: AppLayout,
     meta: {
-      hidden: false
+      hidden: false,
     },
     children: [
       {
         path: "/dashboard",
         meta: {
           title: "Ingot Cloud",
-          icon: "dash-board"
+          icon: "dash-board",
         },
-        component: () => import("@/views/dashboard/index.vue")
-      }
-    ]
+        component: () => import("@/views/dashboard/index.vue"),
+      },
+    ],
   },
   {
     path: "/login",
     name: "Login",
     meta: {
       permitAuth: true,
-      hidden: true
+      hidden: true,
     },
-    component: () => import("@/views/security/login/index.vue")
+    component: () => import("@/views/security/login/index.vue"),
   },
   // 权限管理路由
-  ...AuthorityRoutes
+  ...AuthorityRoutes,
 ];
 
 export default routes;

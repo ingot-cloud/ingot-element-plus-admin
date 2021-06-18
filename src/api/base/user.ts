@@ -1,11 +1,11 @@
 import request from "@/net";
-import { UserInfo } from "@/model";
+import { UserInfo, IngotResponse } from "@/model";
 
 /**
  * 获取用户信息
  */
-export function getUserInfo() {
+export function getUserInfo(): Promise<IngotResponse<UserInfo>> {
   return request.get<UserInfo>({
-    url: "/api/pms/v1/user"
+    url: "/api/pms/v1/user",
   });
 }

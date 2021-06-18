@@ -14,12 +14,12 @@ const UnknownResponse: AxiosResponse<IngotResponse> = {
     code: StatusCode.Unknown,
     message: "网络异常，请稍后重试",
     data: {},
-    headers: {}
+    headers: {},
   },
   status: Number(StatusCode.Unknown),
   statusText: "网络异常，请稍后重试",
   headers: {},
-  config: {}
+  config: {},
 };
 
 /**
@@ -50,7 +50,7 @@ const bizResponseFailureHandler = (
       }
       return new Promise((resolve, reject) => {
         refreshToken()
-          .then(userToken => {
+          .then((userToken) => {
             // 刷新成功重试刚才的请求，替换token重新请求
             // 避免再次请求失败，刷新token后的重试不走失效逻辑
             const newConfig = Object.assign({}, config);
@@ -61,7 +61,7 @@ const bizResponseFailureHandler = (
 
             return request.rawRequest(newConfig);
           })
-          .then(temp => {
+          .then((temp) => {
             resolve(temp);
           })
           .catch(() => {
@@ -70,7 +70,7 @@ const bizResponseFailureHandler = (
             ElMessage({
               showClose: true,
               message: data.message,
-              type: "warning"
+              type: "warning",
             });
             reject(response);
           });
@@ -82,7 +82,7 @@ const bizResponseFailureHandler = (
         {
           confirmButtonText: "重新登录",
           cancelButtonText: "取消",
-          type: "warning"
+          type: "warning",
         }
       ).then(() => {
         handlLogout();
@@ -92,7 +92,7 @@ const bizResponseFailureHandler = (
       ElMessage({
         showClose: true,
         message: data.message,
-        type: "warning"
+        type: "warning",
       });
       break;
   }
@@ -104,10 +104,12 @@ const bizResponseFailureHandler = (
  * 响应完成拦截器
  * @param response
  */
-export const onResponseFulfilled = (response: AxiosResponse<IngotResponse>) => {
+export const onResponseFulfilled = (
+  response: AxiosResponse<IngotResponse>
+): Promise<AxiosResponse<IngotResponse>> => {
   const data = response.data;
   if (data.code === StatusCode.OK) {
-    return response;
+    return Promise.resolve(response);
   }
   return bizResponseFailureHandler(response.config, response);
 };
@@ -116,6 +118,8 @@ export const onResponseFulfilled = (response: AxiosResponse<IngotResponse>) => {
  * 响应拒绝拦截器
  * @param error
  */
-export const onResponseRejected = (error: AxiosError<IngotResponse>) => {
+export const onResponseRejected = (
+  error: AxiosError<IngotResponse>
+): Promise<AxiosResponse<IngotResponse>> => {
   return bizResponseFailureHandler(error.config, error.response);
 };

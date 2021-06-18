@@ -13,17 +13,17 @@ const appModule: Module<AppModuleState, RootState> = {
   state: {
     sidebar: {
       // 默认关闭
-      opened: false
-    }
+      opened: false,
+    },
   },
   getters: {
-    [`${Getters.sidebarOpened}`]: state => {
+    [`${Getters.sidebarOpened}`]: (state) => {
       const value = StoreManager.get(SidebarOpenKey, StoreType.Session);
       if (value) {
         state.sidebar.opened = value === "1";
       }
       return state.sidebar.opened;
-    }
+    },
   },
   mutations: {
     [`${Mutations.toggleSidebar}`](state) {
@@ -31,15 +31,15 @@ const appModule: Module<AppModuleState, RootState> = {
       StoreManager.set({
         key: SidebarOpenKey,
         value: state.sidebar.opened ? "1" : "0",
-        type: StoreType.Session
+        type: StoreType.Session,
       });
-    }
+    },
   },
   actions: {
     [`${Actions.toggleSidebar}`]({ commit }) {
       commit("toggleSidebar");
-    }
-  }
+    },
+  },
 };
 
 export default appModule;

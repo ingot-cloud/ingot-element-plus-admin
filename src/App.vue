@@ -13,9 +13,9 @@ export default defineComponent({
     const cacheViews: string[] = [];
 
     return {
-      cacheViews
+      cacheViews,
     };
-  }
+  },
 });
 </script>
 <style lang="stylus"></style>

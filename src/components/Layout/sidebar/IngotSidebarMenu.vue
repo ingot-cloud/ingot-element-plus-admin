@@ -35,7 +35,7 @@ export default defineComponent({
       scrollbarStyle,
       sidebarBackgroundColor,
       sidebarTextColor,
-      sidebarActiveTextColor
+      sidebarActiveTextColor,
     } = SidebarStyle();
 
     return {
@@ -48,9 +48,9 @@ export default defineComponent({
       menus: getMenus(store),
       onNavMenuSelect: () => {
         // todo toggleMenu()
-      }
+      },
     };
-  }
+  },
 });
 </script>
 

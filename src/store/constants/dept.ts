@@ -2,16 +2,16 @@ export const moduleName = "dept";
 
 export enum Mutations {
   setDeptTree = "setDeptTree",
-  openUpdateFlag = "openUpdateFlag"
+  openUpdateFlag = "openUpdateFlag",
 }
 
 export enum Getters {
-  deptData = "deptData"
+  deptData = "deptData",
 }
 
 export enum Actions {
   fetchTree = "fetchTree",
   createDept = "createDept",
   removeDept = "removeDept",
-  updateDept = "updateDept"
+  updateDept = "updateDept",
 }

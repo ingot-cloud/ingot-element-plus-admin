@@ -1,3 +1,1 @@
-<template>
-  ScanCode
-</template>
+<template>ScanCode</template>

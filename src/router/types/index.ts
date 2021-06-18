@@ -5,7 +5,7 @@ export interface NavigationGuard {
 }
 
 export class BaseNavigationGuard implements NavigationGuard {
-  public proxy(router: Router) {
+  public proxy(router: Router): NavigationGuardWithThis<undefined> {
     return new Proxy(this.exec(router), {
       apply(target, thisArg, argArray) {
         const to = argArray[0];
@@ -14,7 +14,7 @@ export class BaseNavigationGuard implements NavigationGuard {
           return true;
         }
         return Reflect.apply(target, thisArg, argArray);
-      }
+      },
     });
   }
 

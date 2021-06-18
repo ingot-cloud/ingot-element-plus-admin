@@ -3,7 +3,7 @@ enum StatusCode {
   OK = "0200",
 
   TokenInvalid = "S0001",
-  TokenSignBack = "S0003"
+  TokenSignBack = "S0003",
 }
 
 export default StatusCode;

@@ -1,17 +1,17 @@
 export enum StoreType {
   Local = "local",
-  Session = "session"
+  Session = "session",
 }
 
 export interface StoreParams {
   key: string;
-  value: string | object;
+  value: string | any;
   type?: StoreType;
 }
 
 export interface CookieParams {
   key: string;
-  value: string | object;
+  value: string | any;
   expires?: number; // 单位秒
   path?: string;
 }

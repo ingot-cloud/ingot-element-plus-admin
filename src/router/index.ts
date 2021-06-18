@@ -4,11 +4,11 @@ import guardList from "@/router/guard";
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
 });
 
 // 注册 guard
-guardList.forEach(async guard => {
+guardList.forEach(async (guard) => {
   router.beforeEach(guard.proxy(router));
 });
 

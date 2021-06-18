@@ -11,12 +11,12 @@ export default defineComponent({
   props: {
     icon: {
       type: String,
-      required: true
+      required: true,
     },
     className: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   computed: {
     iconName(): string {
@@ -28,8 +28,8 @@ export default defineComponent({
       } else {
         return "svg-icon";
       }
-    }
-  }
+    },
+  },
 });
 </script>
 

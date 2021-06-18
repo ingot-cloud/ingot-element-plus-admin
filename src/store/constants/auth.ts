@@ -4,18 +4,18 @@ export enum Mutations {
   setToken = "setToken",
   setUserInfo = "setUserInfo",
   removeToken = "removeToken",
-  removeUserInfo = "removeUserInfo"
+  removeUserInfo = "removeUserInfo",
 }
 
 export enum Getters {
   accessToken = "accessToken",
   refreshToken = "refreshToken",
-  existUserInfo = "existUserInfo"
+  existUserInfo = "existUserInfo",
 }
 
 export enum Actions {
   updateToken = "updateToken",
   refreshToken = "refreshToken",
   fetchUserInfo = "fetchUserInfo",
-  clear = "clear"
+  clear = "clear",
 }

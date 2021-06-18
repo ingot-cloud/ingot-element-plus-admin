@@ -29,13 +29,13 @@ export interface SysDept {
 // 部门角色范围, 0:当前部门，1:当前部门和直接子部门
 export enum DeptRoleScope {
   Current = "0",
-  CurrentChild = "1"
+  CurrentChild = "1",
 }
 
 /**
  * 获取
  */
-export function getDeptRoleScopeDesc(scope: DeptRoleScope) {
+export function getDeptRoleScopeDesc(scope: DeptRoleScope): string {
   switch (scope) {
     case DeptRoleScope.Current:
       return "当前部门";

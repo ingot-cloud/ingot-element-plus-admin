@@ -1,14 +1,14 @@
 import { DeptTreeNode } from "@/model";
 
 export interface DeptTree {
-  props: object;
+  props: any;
   nodeKey: string;
   expandedKeys: Array<string>;
   data: Array<DeptTreeNode>;
 }
 
 export interface DeptModuleState {
-  props: object;
+  props: any;
   nodeKey: string;
   expandedKeys: Array<string>;
   data: Array<DeptTreeNode>;

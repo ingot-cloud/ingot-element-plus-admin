@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require("path");
 
-const resolve = dir => {
+const resolve = (dir) => {
   return path.join(__dirname, dir);
 };
 
@@ -20,14 +20,14 @@ const vueConfig = {
         target: "http://localhost:8200",
         changeOrigin: true,
         pathRewrite: {
-          "^/api": "/"
-        }
-      }
-    }
+          "^/api": "/",
+        },
+      },
+    },
   },
   // webpack configuration
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     const svgRule = config.module.rule("svg");
 
     // 清除 svg 默认的所有 loader
@@ -43,18 +43,15 @@ const vueConfig = {
       .use("svg-sprite-loader")
       .loader("svg-sprite-loader")
       .options({
-        symbolId: "icon-[name]"
+        symbolId: "icon-[name]",
       });
 
     // eslint import only src
-    config.module
-      .rule("eslint")
-      .include.add(resolve("src"))
-      .end();
+    config.module.rule("eslint").include.add(resolve("src")).end();
   },
   configureWebpack: () => {
     // configure webpack
-  }
+  },
 };
 
 module.exports = vueConfig;

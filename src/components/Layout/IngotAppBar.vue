@@ -8,7 +8,7 @@
       <img class="logo-image" src="@/assets/logo.png" />
       <span class="logo-text">{{ title }}</span>
     </div>
-    <div style="flex:1;"></div>
+    <div style="flex: 1"></div>
 
     <div class="menu">
       <div class="avatar-menu">
@@ -22,12 +22,10 @@
           <template #dropdown>
             <el-dropdown-menu class="user-dropdown">
               <router-link class="inlineBlock" to="/">
-                <el-dropdown-item>
-                  修改密码
-                </el-dropdown-item>
+                <el-dropdown-item> 修改密码 </el-dropdown-item>
               </router-link>
               <el-dropdown-item divided>
-                <span style="display:block;" @click="handleLogoutClick">
+                <span style="display: block" @click="handleLogoutClick">
                   退出登录
                 </span>
               </el-dropdown-item>
@@ -64,9 +62,9 @@ export default defineComponent({
       title: computed(() => store.state.title),
       handleLogoutClick: () => {
         handlLogout();
-      }
+      },
     };
-  }
+  },
 });
 </script>
 

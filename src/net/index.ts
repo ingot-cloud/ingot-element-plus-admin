@@ -2,19 +2,19 @@ import axios, {
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
-  AxiosError
+  AxiosError,
 } from "axios";
 import { NetConfig } from "@/config";
 import { onRequestFulfilled, onRequestRejected } from "./interceptor/request";
 import {
   onResponseFulfilled,
-  onResponseRejected
+  onResponseRejected,
 } from "./interceptor/response";
 import { IngotResponse, IngotRequest } from "@/model";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 NProgress.configure({
-  showSpinner: false
+  showSpinner: false,
 });
 
 // 拦截器
@@ -38,7 +38,7 @@ class Http {
   private instance: AxiosInstance;
   public constructor() {
     this.instance = axios.create({
-      timeout: NetConfig.RequestTimeout
+      timeout: NetConfig.RequestTimeout,
     });
 
     // default interceptors
@@ -61,12 +61,12 @@ class Http {
   ): Promise<IngotResponse<T>> {
     return new Promise((resolve, reject) => {
       origin
-        .then(response => {
+        .then((response) => {
           const result = response.data;
           result.headers = response.headers;
           resolve(result);
         })
-        .catch(err => {
+        .catch((err) => {
           const result = err.data;
           result.headers = err.headers;
           reject(result);

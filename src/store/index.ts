@@ -6,13 +6,13 @@ import { AllState, RootState } from "@/store/types";
 export const store = createStore<RootState>({
   state: {
     title: "Ingot Cloud",
-    theme: "Default"
+    theme: "Default",
   },
   mutations: {},
   actions: {},
   modules: {
-    ...modules
-  }
+    ...modules,
+  },
 });
 
 export type IngotStore = Store<RootState>;
@@ -20,7 +20,7 @@ export type IngotStore = Store<RootState>;
 export const key: InjectionKey<Store<RootState>> = Symbol("storeKey");
 
 // define own `useStore` composition function
-export function useStore() {
+export function useStore(): Store<AllState> {
   return baseUseStore<AllState>(key);
 }
 
@@ -29,8 +29,8 @@ export function useDispatch(
   storeOrNamespace: Store<RootState> | string,
   namespaceOrAction: string,
   actionOrPayload?: string | any,
-  payload?: any
-) {
+  payload?: any | undefined
+): Promise<any> {
   let store: Store<RootState>;
   let namespace: string;
   let action: string;
@@ -53,7 +53,7 @@ export function useDispatch(
         break;
       default:
         console.debug(`useDispatch 参数异常, 参数数量非法=${arguments.length}`);
-        return;
+        return Promise.resolve();
     }
   }
   return store.dispatch(`${namespace}/${action}`, payload);
@@ -64,8 +64,8 @@ export function useCommit(
   storeOrNamespace: Store<RootState> | string,
   namespaceOrType: string,
   typeOrPayload?: string | any,
-  payload?: any
-) {
+  payload?: any | undefined
+): void {
   let store: Store<RootState>;
   let namespace: string;
   let type: string;

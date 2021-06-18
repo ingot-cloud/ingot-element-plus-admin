@@ -13,8 +13,4 @@ const application = createApp(App);
 // 注册组件
 registerComponent(application);
 
-application
-  .use(store, key)
-  .use(router)
-  .use(theme, { locale })
-  .mount("#app");
+application.use(store, key).use(router).use(theme, { locale }).mount("#app");

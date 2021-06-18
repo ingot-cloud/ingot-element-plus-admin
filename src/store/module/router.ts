@@ -9,13 +9,13 @@ import { default as routes } from "@/router/routes";
  */
 const filterMenus = (menu: Array<RouteRecordRaw>): Array<RouteRecordRaw> => {
   return menu
-    .map(item => {
+    .map((item) => {
       if (item.children) {
         item.children = filterMenus(item.children);
       }
       return item;
     })
-    .filter(item => {
+    .filter((item) => {
       return item.meta && !item.meta.hidden;
     });
 };
@@ -23,7 +23,7 @@ const filterMenus = (menu: Array<RouteRecordRaw>): Array<RouteRecordRaw> => {
 const routerModule: Module<RouterModuleState, RootState> = {
   state: {
     menus: [],
-    dynamicRoutes: []
+    dynamicRoutes: [],
   },
   getters: {
     getMenus(state) {
@@ -31,7 +31,7 @@ const routerModule: Module<RouterModuleState, RootState> = {
     },
     getDynamicRoutes(state) {
       return state.dynamicRoutes;
-    }
+    },
   },
   mutations: {
     setMenu(state, menus: Array<RouteRecordRaw>) {
@@ -39,7 +39,7 @@ const routerModule: Module<RouterModuleState, RootState> = {
     },
     setDynamicRouter(state, routes: Array<RouteRecordRaw>) {
       state.dynamicRoutes = routes;
-    }
+    },
   },
   actions: {
     fetchRouters({ state, commit }, forceRefresh) {
@@ -57,10 +57,10 @@ const routerModule: Module<RouterModuleState, RootState> = {
 
       return {
         menus,
-        dynamicRoutes
+        dynamicRoutes,
       };
-    }
-  }
+    },
+  },
 };
 
 export default routerModule;

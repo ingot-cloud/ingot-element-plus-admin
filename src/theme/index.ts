@@ -8,7 +8,7 @@ export const ThemeColor = {
   danger: "#F56C6C",
   info: "#909399",
   white: "#FFFFFF",
-  background: "#F1F1F2"
+  background: "#F1F1F2",
 };
 
 /**
@@ -18,7 +18,7 @@ export const FontColor = {
   white: "#fff",
   default: "#303133",
   loginTitle: "#181818",
-  gray: "#999"
+  gray: "#999",
 };
 
 /**
@@ -26,18 +26,18 @@ export const FontColor = {
  */
 export function AppBarStyle() {
   const appBarStyle = {
-    background: "#fff"
+    background: "#fff",
   };
   const menuIconStyle = {
-    background: ThemeColor.primary
+    background: ThemeColor.primary,
   };
   const logoStyle = {
-    color: ThemeColor.primary
+    color: ThemeColor.primary,
   };
   return {
     appBarStyle,
     menuIconStyle,
-    logoStyle
+    logoStyle,
   };
 }
 
@@ -46,7 +46,7 @@ export function AppBarStyle() {
  */
 export function SidebarStyle() {
   const scrollbarStyle = {
-    background: ThemeColor.white
+    background: ThemeColor.white,
   };
   const sidebarBackgroundColor = ThemeColor.white;
   const sidebarTextColor = FontColor.default;
@@ -55,7 +55,7 @@ export function SidebarStyle() {
     scrollbarStyle,
     sidebarBackgroundColor,
     sidebarTextColor,
-    sidebarActiveTextColor
+    sidebarActiveTextColor,
   };
 }
 
@@ -65,16 +65,16 @@ export function SidebarStyle() {
 export function LoginColorStyle() {
   return {
     topbarTitleLeft: {
-      color: ThemeColor.primary
+      color: ThemeColor.primary,
     },
     topbarTitleRight: {
-      color: FontColor.loginTitle
+      color: FontColor.loginTitle,
     },
     content: {
-      backgroundColor: ThemeColor.white
+      backgroundColor: ThemeColor.white,
     },
     otherLogin: {
-      color: FontColor.gray
-    }
+      color: FontColor.gray,
+    },
   };
 }

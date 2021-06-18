@@ -2,31 +2,31 @@ export const Headers = [
   {
     label: "序号",
     prop: "id",
-    type: "index"
+    type: "index",
   },
   {
     label: "用户名",
-    prop: "username"
+    prop: "username",
   },
   {
     label: "手机号",
-    prop: "phone"
+    prop: "phone",
   },
   {
     label: "email",
-    prop: "email"
+    prop: "email",
   },
   {
     label: "状态",
-    prop: "status"
+    prop: "status",
   },
   {
     label: "注册时间",
-    prop: "createdAt"
+    prop: "createdAt",
   },
   {
     label: "操作",
     width: "210",
-    prop: "actions"
-  }
+    prop: "actions",
+  },
 ];

@@ -29,7 +29,7 @@ import { LoginColorStyle } from "@/theme";
 
 enum LoginType {
   Password = "password",
-  ScanCode = "scanCode"
+  ScanCode = "scanCode",
 }
 
 export default defineComponent({
@@ -40,31 +40,27 @@ export default defineComponent({
       tabs: [
         {
           title: "账户密码登录",
-          name: LoginType.Password
+          name: LoginType.Password,
         },
         {
           title: "扫码登录",
-          name: LoginType.ScanCode
-        }
-      ]
+          name: LoginType.ScanCode,
+        },
+      ],
     };
   },
   setup() {
-    const {
-      topbarTitleLeft,
-      topbarTitleRight,
-      content,
-      otherLogin
-    } = LoginColorStyle();
+    const { topbarTitleLeft, topbarTitleRight, content, otherLogin } =
+      LoginColorStyle();
 
     return {
       topbarTitleLeft,
       topbarTitleRight,
       content,
       otherLogin,
-      LoginType
+      LoginType,
     };
-  }
+  },
 });
 </script>
 

@@ -1,6 +1,6 @@
 import request from "@/net";
 import Qs from "qs";
-import { UserToken } from "@/model";
+import { UserToken, IngotResponse } from "@/model";
 
 const BasicToken = "Basic d2ViLWNsb3VkOndlYi1jbG91ZA==";
 
@@ -8,13 +8,13 @@ const BasicToken = "Basic d2ViLWNsb3VkOndlYi1jbG91ZA==";
  * 刷新Token
  * @param refreshToken
  */
-export function refreshToken(refreshToken: string) {
+export function refreshToken(
+  refreshToken: string
+): Promise<IngotResponse<UserToken>> {
   const data = Qs.stringify({
-    // eslint-disable-next-line @typescript-eslint/camelcase
     refresh_token: refreshToken,
-    // eslint-disable-next-line @typescript-eslint/camelcase
     grant_type: "refresh_token",
-    scope: "web"
+    scope: "web",
   });
   return request.post<UserToken>({
     url: "/api/acs/oauth/token",
@@ -22,10 +22,10 @@ export function refreshToken(refreshToken: string) {
     config: {
       headers: {
         Tenant: "1",
-        Authorization: BasicToken
+        Authorization: BasicToken,
       },
-      notTriggerBizFailureHandler: true
-    }
+      notTriggerBizFailureHandler: true,
+    },
   });
 }
 
@@ -35,17 +35,16 @@ export function refreshToken(refreshToken: string) {
  */
 export function login({
   username,
-  password
+  password,
 }: {
   username: string;
   password: string;
-}) {
+}): Promise<IngotResponse<UserToken>> {
   const data = Qs.stringify({
     username,
     password,
-    // eslint-disable-next-line @typescript-eslint/camelcase
     grant_type: "password",
-    scope: "web"
+    scope: "web",
   });
   return request.post<UserToken>({
     url: "/api/acs/oauth/token",
@@ -53,8 +52,8 @@ export function login({
     config: {
       headers: {
         Tenant: "1",
-        Authorization: BasicToken
-      }
-    }
+        Authorization: BasicToken,
+      },
+    },
   });
 }
