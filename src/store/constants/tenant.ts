@@ -1,4 +1,4 @@
-export const moduleName = "role";
+export const moduleName = "tenant";
 
 export enum Mutations {
   setRecords = "setRecords",

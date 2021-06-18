@@ -7,13 +7,13 @@ import {
   getCommonStatusTag,
   CommonStatus,
 } from "@/model/common";
-import { fetchData, computedRoleData } from "@/store/composition/role";
+import { fetchData, computedRecords } from "@/store/composition/role";
 
 export default defineComponent({
   setup() {
     const condition = reactive({} as SysRole);
     const store = useStore();
-    const roleData = computedRoleData();
+    const roleData = computedRecords();
 
     onMounted(() => {
       fetchData(store);

@@ -16,11 +16,11 @@ export function openUpdateRoleRecordsFlag(): void {
 }
 
 /**
- * 获取roleData
+ * 获取角色记录
  * @returns 计算属性
  */
-export function computedRoleData(): ComputedRef<Page<RolePageItemVo>> {
-  return computedGetter<Page<RolePageItemVo>>(moduleName, Getters.roleData);
+export function computedRecords(): ComputedRef<Page<RolePageItemVo>> {
+  return computedGetter<Page<RolePageItemVo>>(moduleName, Getters.records);
 }
 
 /**

@@ -24,7 +24,7 @@ export const FontColor = {
 /**
  * AppBar样式
  */
-export function AppBarStyle() {
+export function AppBarStyle(): any {
   const appBarStyle = {
     background: "#fff",
   };
@@ -44,7 +44,7 @@ export function AppBarStyle() {
 /**
  * 边栏样式
  */
-export function SidebarStyle() {
+export function SidebarStyle(): any {
   const scrollbarStyle = {
     background: ThemeColor.white,
   };
@@ -62,7 +62,7 @@ export function SidebarStyle() {
 /**
  * 登录颜色样式
  */
-export function LoginColorStyle() {
+export function LoginColorStyle(): any {
   return {
     topbarTitleLeft: {
       color: ThemeColor.primary,

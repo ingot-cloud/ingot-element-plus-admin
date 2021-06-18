@@ -1,17 +1,17 @@
 import { Module } from "vuex";
-import { RootState, RoleModuleState } from "@/store/types";
-import { rolePage, create, update, remove } from "@/api/authority/role";
-import { Page, RolePageItemVo, SysRole } from "@/model";
-import { Mutations, Actions, Getters } from "@/store/constants/role";
+import { RootState, TenantModuleState } from "@/store/types";
+import { tenantPage, create, update, remove } from "@/api/authority/tenant";
+import { Page, RolePageItemVo, SysTenant } from "@/model";
+import { Mutations, Actions, Getters } from "@/store/constants/tenant";
 
-export { moduleName } from "@/store/constants/role";
+export { moduleName } from "@/store/constants/tenant";
 
-const module: Module<RoleModuleState, RootState> = {
+const module: Module<TenantModuleState, RootState> = {
   namespaced: true,
   state: {
     records: [],
     current: 1,
-    size: 1000, // 角色没必要分页，默认获取1000条
+    size: 1000, // 租户不进行分页，默认获取1000条
     update: true,
   },
   mutations: {
@@ -27,13 +27,13 @@ const module: Module<RoleModuleState, RootState> = {
     [`${Getters.records}`]: (state) => state.records,
   },
   actions: {
-    [`${Actions.fetchData}`]({ state, commit, getters }, condition: SysRole) {
+    [`${Actions.fetchData}`]({ state, commit, getters }, condition: SysTenant) {
       return new Promise<Page<RolePageItemVo>>((resolve, reject) => {
         if (!state.update && state.records.length !== 0) {
           resolve(getters[Getters.records]);
           return;
         }
-        rolePage({ current: state.current, size: state.size }, condition)
+        tenantPage({ current: state.current, size: state.size }, condition)
           .then((response) => {
             const data = response.data;
             const records = data.records;
@@ -45,7 +45,7 @@ const module: Module<RoleModuleState, RootState> = {
           });
       });
     },
-    [`${Actions.create}`]({ commit }, params: SysRole) {
+    [`${Actions.create}`]({ commit }, params: SysTenant) {
       return new Promise<void>((resolve, reject) => {
         create(params)
           .then(() => {
@@ -69,7 +69,7 @@ const module: Module<RoleModuleState, RootState> = {
           });
       });
     },
-    [`${Actions.update}`]({ commit }, params: SysRole) {
+    [`${Actions.update}`]({ commit }, params: SysTenant) {
       return new Promise<void>((resolve, reject) => {
         update(params)
           .then(() => {
