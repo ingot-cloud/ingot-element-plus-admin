@@ -5,16 +5,16 @@ export default defineComponent({
   props: {
     data: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     headers: {
       type: Object as PropType<Array<HeaderItem>>,
-      default: () => null
+      default: () => null,
     },
     page: {
       type: Object as PropType<Page>,
-      default: null
-    }
+      default: null,
+    },
   },
   methods: {
     handleSizeChange(val: number) {
@@ -22,6 +22,6 @@ export default defineComponent({
     },
     handleCurrentChange(val: number) {
       this.$emit("handleCurrentChange", val);
-    }
-  }
+    },
+  },
 });

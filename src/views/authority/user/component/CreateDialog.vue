@@ -14,7 +14,7 @@
           v-model="editForm.tenantId"
           :options="tenantList"
           placeholder="请选择"
-          style="width: 200px;"
+          style="width: 200px"
         />
       </el-form-item>
       <el-form-item label="用户名" prop="username">
@@ -45,21 +45,21 @@
   </el-dialog>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 export default defineComponent({
   props: {
     deptName: {
       type: String,
-      default: '',
+      default: "",
     },
     deptId: {
       type: String,
-      default: '',
+      default: "",
     },
     tenantList: {
       type: Array,
       default() {
-        return []
+        return [];
       },
     },
     roleList: {
@@ -72,20 +72,20 @@ export default defineComponent({
       visible: false,
       loading: false,
       editForm: {
-        username: '',
-        password: '',
+        username: "",
+        password: "",
         roleIds: null,
         tenantId: null,
-        phone: '',
-        realName: '',
-        email: '',
+        phone: "",
+        realName: "",
+        email: "",
       },
-    }
+    };
   },
   methods: {
     show() {
-      this.visible = true
+      this.visible = true;
     },
   },
-})
+});
 </script>
