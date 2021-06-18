@@ -5,7 +5,7 @@ import { SysRole } from "@/model";
 import {
   getCommonStatusDesc,
   getCommonStatusTag,
-  CommonStatus
+  CommonStatus,
 } from "@/model/common";
 import { fetchData, computedRoleData } from "@/store/composition/role";
 
@@ -30,15 +30,15 @@ export default defineComponent({
           case CommonStatus.Enable:
             return {
               title: "锁定",
-              type: "danger"
+              type: "danger",
             };
           case CommonStatus.Lock:
             return {
               title: "解锁",
-              type: "success"
+              type: "success",
             };
         }
-      }
+      },
     };
-  }
+  },
 });

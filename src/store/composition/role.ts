@@ -4,14 +4,14 @@ import {
   moduleName,
   Mutations,
   Actions,
-  Getters
+  Getters,
 } from "@/store/constants/role";
 import { ComputedRef } from "@vue/reactivity";
 
 /**
  * 打开更新标志
  */
-export function openUpdateRoleRecordsFlag() {
+export function openUpdateRoleRecordsFlag(): void {
   useCommit(moduleName, Mutations.openUpdateFlag);
 }
 
@@ -27,7 +27,10 @@ export function computedRoleData(): ComputedRef<Page<RolePageItemVo>> {
  * 获取数据
  * @returns Promise
  */
-export function fetchData(store: IngotStore, condition?: SysRole) {
+export function fetchData(
+  store: IngotStore,
+  condition?: SysRole
+): Promise<Page<RolePageItemVo>> {
   return useDispatch(
     store,
     moduleName,
@@ -41,10 +44,13 @@ export function fetchData(store: IngotStore, condition?: SysRole) {
  * @param params 参数
  * @returns Promise
  */
-export function createDept(store: IngotStore, params: SysRole) {
-  return useDispatch(store, moduleName, Actions.create, params) as Promise<
-    void
-  >;
+export function createDept(store: IngotStore, params: SysRole): Promise<void> {
+  return useDispatch(
+    store,
+    moduleName,
+    Actions.create,
+    params
+  ) as Promise<void>;
 }
 
 /**
@@ -52,7 +58,7 @@ export function createDept(store: IngotStore, params: SysRole) {
  * @param id ID
  * @returns Promise
  */
-export function removeDept(store: IngotStore, id: string) {
+export function removeDept(store: IngotStore, id: string): Promise<void> {
   return useDispatch(store, moduleName, Actions.remove, id) as Promise<void>;
 }
 
@@ -61,8 +67,11 @@ export function removeDept(store: IngotStore, id: string) {
  * @param params 参数
  * @returns Promise
  */
-export function updateDept(store: IngotStore, params: SysRole) {
-  return useDispatch(store, moduleName, Actions.update, params) as Promise<
-    void
-  >;
+export function updateDept(store: IngotStore, params: SysRole): Promise<void> {
+  return useDispatch(
+    store,
+    moduleName,
+    Actions.update,
+    params
+  ) as Promise<void>;
 }

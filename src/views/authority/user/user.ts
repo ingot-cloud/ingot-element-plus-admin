@@ -9,20 +9,20 @@ import {
   handleEditUser,
   handleDeleteUser,
   handleDisableUser,
-  currentDeptNode
+  currentDeptNode,
 } from "./biz/user";
 import { Headers as listHeaders } from "./biz/table";
 import {
   getCommonStatusDesc,
   getCommonStatusTag,
-  CommonStatus
+  CommonStatus,
 } from "@/model/common";
 import { useStore } from "@/store";
 import CreateDialog from "./component/CreateDialog.vue";
 
 export default defineComponent({
   components: {
-    CreateDialog
+    CreateDialog,
   },
   setup() {
     const createDialog = ref();
@@ -30,7 +30,7 @@ export default defineComponent({
     const store = useStore();
 
     onMounted(() => {
-      fetchDeptTree(store).then(deptData => {
+      fetchDeptTree(store).then((deptData) => {
         handleTreeNodeClick(deptData.data[0]);
       });
     });
@@ -49,12 +49,12 @@ export default defineComponent({
           case CommonStatus.Enable:
             return {
               title: "锁定",
-              type: "danger"
+              type: "danger",
             };
           case CommonStatus.Lock:
             return {
               title: "解锁",
-              type: "success"
+              type: "success",
             };
         }
       },
@@ -63,7 +63,7 @@ export default defineComponent({
       handleCreateUser,
       handleEditUser,
       handleDeleteUser,
-      handleDisableUser
+      handleDisableUser,
     };
-  }
+  },
 });

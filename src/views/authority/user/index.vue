@@ -21,7 +21,7 @@
               class="item"
               size="small"
               clearable
-              style="width:200px;"
+              style="width: 200px"
               placeholder="用户名"
             ></el-input>
             <el-button
@@ -46,7 +46,7 @@
             :headers="listHeaders"
             :page="pageInfo"
           >
-            <template #status="{item}">
+            <template #status="{ item }">
               <el-tag :type="getCommonStatusTag(item.status)">
                 {{ getCommonStatusDesc(item.status) }}
               </el-tag>

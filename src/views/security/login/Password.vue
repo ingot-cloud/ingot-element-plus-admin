@@ -48,9 +48,9 @@ export default defineComponent({
       loading,
       handleLogin: () => {
         handleLogin(formRef, router);
-      }
+      },
     };
-  }
+  },
 });
 </script>
 <style lang="stylus" scoped>

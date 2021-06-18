@@ -15,7 +15,7 @@ const pageInfoRaw: Page<UserPageItemVo> = {
   current: 1,
   size: 20,
   total: 0,
-  records: []
+  records: [],
 };
 // 页面信息
 export const pageInfo = reactive(pageInfoRaw);
@@ -23,11 +23,11 @@ export const pageInfo = reactive(pageInfoRaw);
 /**
  * 获取用户数据
  */
-export function fetchUserData() {
+export function fetchUserData(): void {
   const page = toRaw(pageInfo);
   page.total = undefined;
   page.records = undefined;
-  userPage(page, condition).then(response => {
+  userPage(page, condition).then((response) => {
     pageInfo.records = response.data.records;
     pageInfo.total = Number(response.data.total);
   });
@@ -37,7 +37,7 @@ export function fetchUserData() {
  * 处理节点点击事件
  * @param node 部门树节点
  */
-export function handleTreeNodeClick(node: DeptTreeNode) {
+export function handleTreeNodeClick(node: DeptTreeNode): void {
   currentDeptNode.value = node;
   condition.deptId = node.id;
   fetchUserData();
@@ -46,7 +46,7 @@ export function handleTreeNodeClick(node: DeptTreeNode) {
 /**
  * 创建用户
  */
-export function handleCreateUser(dialogRef: Ref) {
+export function handleCreateUser(dialogRef: Ref): void {
   const dialog = unref(dialogRef);
   dialog.show();
 }
@@ -54,20 +54,20 @@ export function handleCreateUser(dialogRef: Ref) {
 /**
  * 编辑用户
  */
-export function handleEditUser() {
+export function handleEditUser(): void {
   //
 }
 
 /**
  * 删除用户
  */
-export function handleDeleteUser() {
+export function handleDeleteUser(): void {
   //
 }
 
 /**
  * 禁用、启用
  */
-export function handleDisableUser() {
+export function handleDisableUser(): void {
   //
 }

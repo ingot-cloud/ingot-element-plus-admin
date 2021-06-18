@@ -12,7 +12,7 @@ const module: Module<RoleModuleState, RootState> = {
     records: [],
     current: 1,
     size: 1000, // 角色没必要分页，默认获取1000条
-    update: true
+    update: true,
   },
   mutations: {
     [`${Mutations.setRecords}`](state, records) {
@@ -21,10 +21,10 @@ const module: Module<RoleModuleState, RootState> = {
     },
     [`${Mutations.openUpdateFlag}`](state) {
       state.update = true;
-    }
+    },
   },
   getters: {
-    [`${Getters.roleData}`]: state => state.records
+    [`${Getters.roleData}`]: (state) => state.records,
   },
   actions: {
     [`${Actions.fetchData}`]({ state, commit, getters }, condition: SysRole) {
@@ -34,7 +34,7 @@ const module: Module<RoleModuleState, RootState> = {
           return;
         }
         rolePage({ current: state.current, size: state.size }, condition)
-          .then(response => {
+          .then((response) => {
             const data = response.data;
             const records = data.records;
             commit(Mutations.setRecords, records);
@@ -80,8 +80,8 @@ const module: Module<RoleModuleState, RootState> = {
             reject();
           });
       });
-    }
-  }
+    },
+  },
 };
 
 export default module;
