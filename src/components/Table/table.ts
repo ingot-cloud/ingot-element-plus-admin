@@ -9,7 +9,7 @@ export default defineComponent({
     },
     headers: {
       type: Object as PropType<Array<HeaderItem>>,
-      default: () => []
+      default: () => null
     },
     page: {
       type: Object as PropType<Page>,
