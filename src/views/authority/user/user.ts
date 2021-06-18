@@ -11,7 +11,7 @@ import {
   handleDisableUser,
   currentDeptNode,
 } from "./biz/user";
-import { Headers as listHeaders } from "./biz/table";
+import { tableHeaders } from "./biz/table";
 import {
   getCommonStatusDesc,
   getCommonStatusTag,
@@ -37,7 +37,7 @@ export default defineComponent({
 
     return {
       createDialog,
-      listHeaders,
+      tableHeaders,
       deptTree,
       condition,
       pageInfo,

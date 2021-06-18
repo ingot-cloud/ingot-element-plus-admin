@@ -43,7 +43,7 @@
           </ingot-filter-container>
           <ingot-table
             :data="pageInfo.records"
-            :headers="listHeaders"
+            :headers="tableHeaders"
             :page="pageInfo"
           >
             <template #status="{ item }">

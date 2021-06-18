@@ -5,24 +5,24 @@ export const tableHeaders = [
     type: "index",
   },
   {
-    label: "角色名",
+    label: "租户名称",
     prop: "name",
   },
   {
-    label: "角色编码",
+    label: "租户编码",
     prop: "code",
-  },
-  {
-    label: "角色类型",
-    prop: "type",
   },
   {
     label: "状态",
     prop: "status",
   },
   {
-    label: "备注",
-    prop: "remark",
+    label: "开始时间",
+    prop: "startAt",
+  },
+  {
+    label: "结束时间",
+    prop: "endAt",
   },
   {
     label: "创建时间",

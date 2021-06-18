@@ -1,4 +1,4 @@
-export const Headers = [
+export const tableHeaders = [
   {
     label: "序号",
     prop: "id",

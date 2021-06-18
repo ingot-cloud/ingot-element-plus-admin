@@ -8,12 +8,12 @@
           size="small"
           clearable
           style="width: 200px"
-          placeholder="角色名"
+          placeholder="租户名称"
         ></el-input>
         <el-button class="item" size="small" type="primary"> 搜索 </el-button>
         <el-button class="item" size="small" type="success"> 添加 </el-button>
       </ingot-filter-container>
-      <ingot-table :data="roleData" :headers="tableHeaders">
+      <ingot-table :data="records" :headers="tableHeaders">
         <template #status="{ item }">
           <el-tag :type="getCommonStatusTag(item.status)">
             {{ getCommonStatusDesc(item.status) }}
@@ -38,4 +38,4 @@
     </ingot-page-card>
   </ingot-container>
 </template>
-<script lang="ts" src="./role.ts"></script>
+<script lang="ts" src="./tenant.ts"></script>

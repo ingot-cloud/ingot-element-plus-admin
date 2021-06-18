@@ -40,6 +40,15 @@ const managementRoutes: Array<RouteRecordRaw> = [
         path: "/authority/role",
         component: () => import("@/views/authority/role/index.vue"),
       },
+      {
+        name: "SysAuthorityTenantManager",
+        meta: {
+          title: "租户管理",
+          icon: "tenant",
+        },
+        path: "/authority/tenant",
+        component: () => import("@/views/authority/tenant/index.vue"),
+      },
     ],
   },
 ];
