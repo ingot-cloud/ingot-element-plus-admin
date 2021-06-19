@@ -16,3 +16,14 @@ export function userPage(
     },
   });
 }
+
+/**
+ * 创建用户
+ * @param params 参数
+ */
+export function create(params: UserDto): Promise<IngotResponse<void>> {
+  return request.post<void>({
+    url: "/api/pms/v1/user",
+    params,
+  });
+}

@@ -2,6 +2,7 @@
   <el-dialog title="创建用户" v-model="visible" fullscreen center>
     <div class="dialog-content">
       <el-form
+        ref="createForm"
         class="form"
         label-width="100px"
         label-position="left"
@@ -12,7 +13,7 @@
         <el-form-item label="部门名称">
           {{ deptName }}
         </el-form-item>
-        <el-form-item label="租户" prop="tenant">
+        <el-form-item label="租户" prop="tenantId">
           <el-select
             v-model="editForm.tenantId"
             placeholder="请选择租户"
@@ -54,7 +55,7 @@
             type="password"
           ></el-input>
         </el-form-item>
-        <el-form-item label="角色" prop="role">
+        <el-form-item label="角色" prop="roleIds">
           <el-select
             v-model="editForm.roleIds"
             placeholder="请选择角色"
@@ -98,13 +99,21 @@
       </el-form>
     </div>
     <template #footer>
-      <el-button :loading="loading" size="small" type="primary">确定</el-button>
+      <el-button
+        :loading="loading"
+        size="small"
+        type="primary"
+        @click="handleConfirmClick"
+        >确定</el-button
+      >
     </template>
   </el-dialog>
 </template>
 <script lang="ts">
 import { SysTenant, RolePageItemVo } from "@/model";
 import { defineComponent, computed } from "vue";
+import { ElMessage } from "element-plus";
+// import { create } from "@/api/authority/user";
 
 interface Props {
   deptName: string;
@@ -159,6 +168,7 @@ export default defineComponent({
       editForm: {
         username: "",
         password: "",
+        confirmPassword: "",
         roleIds: [],
         tenantId: null,
         phone: "",
@@ -166,7 +176,7 @@ export default defineComponent({
         email: "",
       },
       rules: {
-        tenant: [{ required: true, message: "请选择租户", trigger: "blur" }],
+        tenantId: [{ required: true, message: "请选择租户", trigger: "blur" }],
         username: [
           { required: true, message: "请输入用户名", trigger: "blur" },
         ],
@@ -176,13 +186,31 @@ export default defineComponent({
         confirmPassword: [
           { required: true, message: "请再次输入登录密码", trigger: "blur" },
         ],
-        role: [{ required: true, message: "请选择角色", trigger: "blur" }],
+        roleIds: [{ required: true, message: "请选择角色", trigger: "blur" }],
       },
     };
   },
   methods: {
     show() {
       this.visible = true;
+    },
+    handleConfirmClick() {
+      (this.$refs.createForm as any).validate((valid: boolean) => {
+        if (valid) {
+          if (this.editForm.password !== this.editForm.confirmPassword) {
+            ElMessage({
+              message: "两次密码不一致",
+              type: "warning",
+            });
+            return;
+          }
+
+          this.loading = true;
+          const params = { deptId: this.deptId };
+          Object.assign(params, this.editForm);
+          console.log(params);
+        }
+      });
     },
   },
 });
