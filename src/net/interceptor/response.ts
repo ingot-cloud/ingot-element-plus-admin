@@ -1,5 +1,6 @@
 import { AxiosResponse, AxiosError, AxiosRequestConfig } from "axios";
-import { ElMessage, ElMessageBox } from "element-plus";
+import { ElMessageBox } from "element-plus";
+import Message from "@/utils/message";
 import { IngotResponse } from "@/model";
 import StatusCode from "@/net/statusCode";
 import { handlLogout } from "@/store/composition/auth";
@@ -67,11 +68,7 @@ const bizResponseFailureHandler = (
           .catch(() => {
             // 刷新失败退出登录
             handlLogout();
-            ElMessage({
-              showClose: true,
-              message: data.message,
-              type: "warning",
-            });
+            Message.warning(data.message, { showClose: true });
             reject(response);
           });
       });
@@ -89,11 +86,7 @@ const bizResponseFailureHandler = (
       });
       break;
     default:
-      ElMessage({
-        showClose: true,
-        message: data.message,
-        type: "warning",
-      });
+      Message.warning(data.message, { showClose: true });
       break;
   }
 

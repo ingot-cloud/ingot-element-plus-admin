@@ -1,6 +1,7 @@
 import { reactive, ref, unref, Ref } from "vue";
 import { CommonStatus, DeptRoleScope, DeptTreeNode, SysDept } from "@/model";
-import { ElMessage, ElMessageBox } from "element-plus";
+import { ElMessageBox } from "element-plus";
+import Message from "@/utils/message";
 import { createDept, removeDept, updateDept } from "@/store/composition/dept";
 import { getChangedFieldObj } from "@/utils/object";
 import { IngotStore } from "@/store/types";
@@ -93,11 +94,7 @@ export function handleCreateButtonClick(): void {
 function checkSelected() {
   const keys = Object.keys(selectedDeptNode.value);
   if (keys.length === 0) {
-    ElMessage({
-      showClose: true,
-      message: "请先选择部门",
-      type: "warning",
-    });
+    Message.warning("请先选择部门");
     return false;
   }
   return true;
@@ -139,11 +136,7 @@ export function handleDeleteButtonClick(
   }).then(() => {
     const id = selectedDeptNode.value.id as string;
     removeDept(store, id).then(() => {
-      ElMessage({
-        showClose: true,
-        message: "操作成功",
-        type: "success",
-      });
+      Message.success("操作成功");
       handleCancelEdit();
       if (callback) {
         callback();
@@ -175,11 +168,7 @@ export function handleCreateOrUpdateDept(
         formModelToSysDept()
       );
       if (Object.keys(params).length === 0) {
-        ElMessage({
-          showClose: true,
-          message: "未改变数据",
-          type: "warning",
-        });
+        Message.warning("未改变数据");
         return;
       }
       params.id = selectedDeptNode.value.id;
@@ -187,11 +176,7 @@ export function handleCreateOrUpdateDept(
     }
 
     request.then(() => {
-      ElMessage({
-        showClose: true,
-        message: "操作成功",
-        type: "success",
-      });
+      Message.success("操作成功");
       handleCancelEdit();
       if (callback) {
         callback();

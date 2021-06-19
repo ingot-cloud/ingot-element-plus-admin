@@ -112,7 +112,7 @@
 <script lang="ts">
 import { SysTenant, RolePageItemVo } from "@/model";
 import { defineComponent, computed } from "vue";
-import { ElMessage } from "element-plus";
+import Message from "@/utils/message";
 // import { create } from "@/api/authority/user";
 
 interface Props {
@@ -198,10 +198,7 @@ export default defineComponent({
       (this.$refs.createForm as any).validate((valid: boolean) => {
         if (valid) {
           if (this.editForm.password !== this.editForm.confirmPassword) {
-            ElMessage({
-              message: "两次密码不一致",
-              type: "warning",
-            });
+            Message.warning("两次密码不一致");
             return;
           }
 
