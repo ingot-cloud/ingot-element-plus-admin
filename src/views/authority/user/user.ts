@@ -1,6 +1,14 @@
 import { defineComponent, onMounted, ref } from "vue";
 import { fetchDeptTree, computedDeptData } from "@/store/composition/dept";
 import {
+  fetchData as fetchRoleData,
+  computedRecords as computedRoleRecords,
+} from "@/store/composition/role";
+import {
+  fetchData as fetchTenantData,
+  computedRecords as computedTenantRecords,
+} from "@/store/composition/tenant";
+import {
   condition,
   pageInfo,
   fetchUserData,
@@ -12,11 +20,7 @@ import {
   currentDeptNode,
 } from "./biz/user";
 import { tableHeaders } from "./biz/table";
-import {
-  getCommonStatusDesc,
-  getCommonStatusTag,
-  CommonStatus,
-} from "@/model/common";
+import { getCommonStatusDesc, getCommonStatusTag, CommonStatus } from "@/model";
 import { useStore } from "@/store";
 import CreateDialog from "./component/CreateDialog.vue";
 
@@ -27,18 +31,24 @@ export default defineComponent({
   setup() {
     const createDialog = ref();
     const deptTree = computedDeptData();
+    const roleRecords = computedRoleRecords();
+    const tenantRecords = computedTenantRecords();
     const store = useStore();
 
     onMounted(() => {
       fetchDeptTree(store).then((deptData) => {
         handleTreeNodeClick(deptData.data[0]);
       });
+      fetchRoleData(store);
+      fetchTenantData(store);
     });
 
     return {
       createDialog,
       tableHeaders,
       deptTree,
+      roleRecords,
+      tenantRecords,
       condition,
       pageInfo,
       currentDeptNode,

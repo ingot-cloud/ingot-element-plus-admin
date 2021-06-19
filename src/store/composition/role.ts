@@ -1,5 +1,11 @@
-import { useCommit, useDispatch, computedGetter, IngotStore } from "@/store";
-import { Page, RolePageItemVo, SysRole } from "@/model";
+import {
+  useCommit,
+  useDispatch,
+  computedGetter,
+  IngotStore,
+  getter,
+} from "@/store";
+import { RolePageItemVo, SysRole } from "@/model";
 import {
   moduleName,
   Mutations,
@@ -16,11 +22,19 @@ export function openUpdateRoleRecordsFlag(): void {
 }
 
 /**
- * 获取角色记录
+ * 获取记录
+ * @returns Array
+ */
+export function records(): Array<RolePageItemVo> {
+  return getter<Array<RolePageItemVo>>(moduleName, Getters.records);
+}
+
+/**
+ * 获取computed记录
  * @returns 计算属性
  */
-export function computedRecords(): ComputedRef<Page<RolePageItemVo>> {
-  return computedGetter<Page<RolePageItemVo>>(moduleName, Getters.records);
+export function computedRecords(): ComputedRef<Array<RolePageItemVo>> {
+  return computedGetter<Array<RolePageItemVo>>(moduleName, Getters.records);
 }
 
 /**
@@ -30,13 +44,13 @@ export function computedRecords(): ComputedRef<Page<RolePageItemVo>> {
 export function fetchData(
   store: IngotStore,
   condition?: SysRole
-): Promise<Page<RolePageItemVo>> {
+): Promise<Array<RolePageItemVo>> {
   return useDispatch(
     store,
     moduleName,
     Actions.fetchData,
     condition
-  ) as Promise<Page<RolePageItemVo>>;
+  ) as Promise<Array<RolePageItemVo>>;
 }
 
 /**

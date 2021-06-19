@@ -36,7 +36,9 @@
               class="item"
               size="small"
               type="success"
-              @click="handleCreateUser(createDialog)"
+              @click="
+                handleCreateUser(createDialog, roleRecords, tenantRecords)
+              "
             >
               添加
             </el-button>
@@ -80,7 +82,13 @@
     </ingot-page-card>
   </ingot-container>
 
-  <CreateDialog ref="createDialog" />
+  <CreateDialog
+    ref="createDialog"
+    :deptName="currentDeptNode.name"
+    :deptId="currentDeptNode.id"
+    :tenantList="tenantRecords"
+    :roleList="roleRecords"
+  />
 </template>
 
 <script lang="ts" src="./user.ts"></script>

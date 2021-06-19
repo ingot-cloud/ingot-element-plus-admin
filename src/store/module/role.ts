@@ -1,7 +1,7 @@
 import { Module } from "vuex";
 import { RootState, RoleModuleState } from "@/store/types";
 import { rolePage, create, update, remove } from "@/api/authority/role";
-import { Page, RolePageItemVo, SysRole } from "@/model";
+import { RolePageItemVo, SysRole } from "@/model";
 import { Mutations, Actions, Getters } from "@/store/constants/role";
 
 export { moduleName } from "@/store/constants/role";
@@ -28,7 +28,7 @@ const module: Module<RoleModuleState, RootState> = {
   },
   actions: {
     [`${Actions.fetchData}`]({ state, commit, getters }, condition: SysRole) {
-      return new Promise<Page<RolePageItemVo>>((resolve, reject) => {
+      return new Promise<Array<RolePageItemVo>>((resolve, reject) => {
         if (!state.update && state.records.length !== 0) {
           resolve(getters[Getters.records]);
           return;

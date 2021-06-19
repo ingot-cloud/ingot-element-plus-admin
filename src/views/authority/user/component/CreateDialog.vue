@@ -13,14 +13,20 @@
           {{ deptName }}
         </el-form-item>
         <el-form-item label="租户" prop="tenant">
-          <el-select-v2
+          <el-select
             v-model="editForm.tenantId"
-            :options="tenantList"
             placeholder="请选择租户"
             size="small"
             clearable
             class="form-item"
-          />
+          >
+            <el-option
+              v-for="item in tenantRecords"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
         </el-form-item>
         <el-form-item label="用户名" prop="username">
           <el-input
@@ -49,15 +55,21 @@
           ></el-input>
         </el-form-item>
         <el-form-item label="角色" prop="role">
-          <el-select-v2
+          <el-select
             v-model="editForm.roleIds"
-            :options="roleList"
             placeholder="请选择角色"
             multiple
             size="small"
             clearable
             class="form-item"
-          />
+          >
+            <el-option
+              v-for="item in roleRecords"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
         </el-form-item>
         <el-form-item label="姓名" prop="realName">
           <el-input
@@ -86,12 +98,36 @@
       </el-form>
     </div>
     <template #footer>
-      <el-button :loading="loading" size="small">确定</el-button>
+      <el-button :loading="loading" size="small" type="primary">确定</el-button>
     </template>
   </el-dialog>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { SysTenant, RolePageItemVo } from "@/model";
+import { defineComponent, computed } from "vue";
+
+interface Props {
+  deptName: string;
+  deptId: string;
+  tenantList: Array<SysTenant>;
+  roleList: Array<RolePageItemVo>;
+}
+
+function setup(props: Props): any {
+  return {
+    roleRecords: computed(() =>
+      props.roleList.map((item) => {
+        return { label: item.name, value: item.id };
+      })
+    ),
+    tenantRecords: computed(() =>
+      props.tenantList.map((item) => {
+        return { label: item.name, value: item.id };
+      })
+    ),
+  };
+}
+
 export default defineComponent({
   props: {
     deptName: {
@@ -112,6 +148,9 @@ export default defineComponent({
       type: Array,
       default: () => [],
     },
+  },
+  setup(props) {
+    return setup(props as any as Props);
   },
   data() {
     return {
