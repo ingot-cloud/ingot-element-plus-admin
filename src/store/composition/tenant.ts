@@ -58,10 +58,7 @@ export function fetchData(
  * @param params 参数
  * @returns Promise
  */
-export function createDept(
-  store: IngotStore,
-  params: SysTenant
-): Promise<void> {
+export function create(store: IngotStore, params: SysTenant): Promise<void> {
   return useDispatch(
     store,
     moduleName,
@@ -75,7 +72,7 @@ export function createDept(
  * @param id ID
  * @returns Promise
  */
-export function removeDept(store: IngotStore, id: string): Promise<void> {
+export function remove(store: IngotStore, id: string): Promise<void> {
   return useDispatch(store, moduleName, Actions.remove, id) as Promise<void>;
 }
 
@@ -84,10 +81,7 @@ export function removeDept(store: IngotStore, id: string): Promise<void> {
  * @param params 参数
  * @returns Promise
  */
-export function updateDept(
-  store: IngotStore,
-  params: SysTenant
-): Promise<void> {
+export function update(store: IngotStore, params: SysTenant): Promise<void> {
   return useDispatch(
     store,
     moduleName,

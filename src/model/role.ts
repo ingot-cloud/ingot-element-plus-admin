@@ -6,7 +6,9 @@ export interface RolePageItemVo {
   code: string;
   type: string;
   status: CommonStatus;
+  remark: string;
   createdAt: string;
+  canAction: boolean;
 }
 
 export interface SysRole {

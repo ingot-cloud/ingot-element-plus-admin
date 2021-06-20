@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, reactive } from "vue";
+import { defineComponent, onMounted, reactive, ref } from "vue";
 import { tableHeaders } from "./biz/table";
 import { useStore } from "@/store";
 import { SysRole } from "@/model";
@@ -8,18 +8,30 @@ import {
   CommonStatus,
 } from "@/model/common";
 import { fetchData, computedRecords } from "@/store/composition/role";
+import {
+  handleCreate,
+  handleDelete,
+  handleEdit,
+  handleDisable,
+} from "./biz/role";
+import EditDialog from "./component/EditDialog.vue";
 
 export default defineComponent({
+  components: {
+    EditDialog,
+  },
   setup() {
     const condition = reactive({} as SysRole);
     const store = useStore();
     const roleData = computedRecords();
+    const editDialog = ref();
 
     onMounted(() => {
       fetchData(store);
     });
 
     return {
+      editDialog,
       condition,
       tableHeaders,
       roleData,
@@ -39,6 +51,10 @@ export default defineComponent({
             };
         }
       },
+      handleCreate,
+      handleEdit,
+      handleDelete,
+      handleDisable,
     };
   },
 });
