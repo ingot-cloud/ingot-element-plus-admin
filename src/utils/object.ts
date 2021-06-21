@@ -18,3 +18,17 @@ export function getChangedFieldObj<T extends object>(raw: T, edit: T): T {
 
   return result as T;
 }
+
+/**
+ * 过滤参数, 空参数统一设置为null
+ * @param params T
+ */
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function filterParams<T extends object>(params: T): void {
+  const keys = Object.keys(params);
+  keys.forEach((key) => {
+    if (!Reflect.get(params, key)) {
+      Reflect.set(params, key, null);
+    }
+  });
+}

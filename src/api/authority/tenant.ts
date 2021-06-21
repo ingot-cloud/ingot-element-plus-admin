@@ -1,5 +1,6 @@
 import request from "@/net";
 import { SysTenant, Page, IngotResponse } from "@/model";
+import { filterParams } from "@/utils/object";
 
 /**
  * 租户分页信息
@@ -18,6 +19,7 @@ export function tenantPage(
 }
 
 export function create(params: SysTenant): Promise<IngotResponse<void>> {
+  filterParams(params);
   return request.post<void>({
     url: "/api/pms/v1/tenant",
     params,
@@ -25,6 +27,7 @@ export function create(params: SysTenant): Promise<IngotResponse<void>> {
 }
 
 export function update(params: SysTenant): Promise<IngotResponse<void>> {
+  filterParams(params);
   return request.put<void>({
     url: "/api/pms/v1/tenant",
     params,

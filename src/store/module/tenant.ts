@@ -27,9 +27,14 @@ const module: Module<TenantModuleState, RootState> = {
     [`${Getters.records}`]: (state) => state.records,
   },
   actions: {
-    [`${Actions.fetchData}`]({ state, commit, getters }, condition: SysTenant) {
+    [`${Actions.fetchData}`](
+      { state, commit, getters },
+      condition?: SysTenant
+    ) {
       return new Promise<Page<RolePageItemVo>>((resolve, reject) => {
-        if (!state.update && state.records.length !== 0) {
+        const hasCondition =
+          condition && Object.values(condition as any).length !== 0;
+        if (!hasCondition && !state.update && state.records.length !== 0) {
           resolve(getters[Getters.records]);
           return;
         }
