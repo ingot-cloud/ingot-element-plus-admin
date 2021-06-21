@@ -5,7 +5,7 @@ import {
   IngotStore,
   getter,
 } from "@/store";
-import { SysTenant } from "@/model";
+import { SimpleTenantVo, SysTenant } from "@/model";
 import {
   moduleName,
   Mutations,
@@ -22,6 +22,16 @@ export function openUpdateRoleRecordsFlag(): void {
 }
 
 /**
+ * 获取computed simpleRecords
+ */
+export function computedSimpleRecords(): ComputedRef<Array<SimpleTenantVo>> {
+  return computedGetter<Array<SimpleTenantVo>>(
+    moduleName,
+    Getters.simpleRecords
+  );
+}
+
+/**
  * 获取记录
  * @returns Array
  */
@@ -35,6 +45,18 @@ export function records(): Array<SysTenant> {
  */
 export function computedRecords(): ComputedRef<Array<SysTenant>> {
   return computedGetter<Array<SysTenant>>(moduleName, Getters.records);
+}
+
+/**
+ * 获取简单租户数据列表
+ * @returns
+ */
+export function fetchSimpleList(
+  store: IngotStore
+): Promise<Array<SimpleTenantVo>> {
+  return useDispatch(store, moduleName, Actions.fetchSimpleList) as Promise<
+    Array<SimpleTenantVo>
+  >;
 }
 
 /**

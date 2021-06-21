@@ -1,6 +1,21 @@
 <template>
   <div class="title-container">密码登录</div>
   <el-form ref="formRef" :model="formModel" :rules="rules" label-width="0px">
+    <el-form-item class="form-item" prop="tenant">
+      <el-select
+        v-model="formModel.tenant"
+        @change="onTenantChanged"
+        class="select"
+      >
+        <el-option
+          v-for="item in simpleRecords"
+          :key="item.id"
+          :label="item.name"
+          :value="item.id"
+        >
+        </el-option>
+      </el-select>
+    </el-form-item>
     <el-form-item class="form-item" prop="username">
       <el-input
         v-model="formModel.username"
@@ -31,21 +46,39 @@
   </el-form>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import password from "./biz/password";
+import {
+  fetchSimpleList,
+  computedSimpleRecords,
+} from "@/store/composition/tenant";
+import { useStore } from "@/store";
+
 export default defineComponent({
   setup() {
     const { formModel, rules, loading, handleLogin } = password;
     const formRef = ref();
-
     const router = useRouter();
+
+    const store = useStore();
+    const simpleRecords = computedSimpleRecords();
+
+    onMounted(() => {
+      fetchSimpleList(store).then((data) => {
+        formModel.tenant = data[0].id;
+      });
+    });
 
     return {
       formRef,
       formModel,
       rules,
       loading,
+      simpleRecords,
+      onTenantChanged: (value: string) => {
+        formModel.tenant = value;
+      },
       handleLogin: () => {
         handleLogin(formRef, router);
       },
@@ -62,6 +95,8 @@ export default defineComponent({
   color #373d41
 .form-item
   width 330px
+  .select
+    width 100%
   .login-btn
     width 100%
 </style>

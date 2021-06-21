@@ -4,7 +4,7 @@ import { getAccessToken } from "@/store/composition/auth";
 export const onRequestFulfilled = (
   config: AxiosRequestConfig
 ): AxiosRequestConfig => {
-  if (!config.headers["Authorization"]) {
+  if (!config.permit && !config.headers["Authorization"]) {
     const accessToken = getAccessToken();
     if (accessToken) {
       config.headers["Authorization"] = `Bearer ${accessToken}`;

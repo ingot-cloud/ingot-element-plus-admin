@@ -1,6 +1,12 @@
 import { Module } from "vuex";
 import { RootState, TenantModuleState } from "@/store/types";
-import { tenantPage, create, update, remove } from "@/api/authority/tenant";
+import {
+  tenantPage,
+  create,
+  update,
+  remove,
+  list,
+} from "@/api/authority/tenant";
 import { Page, RolePageItemVo, SysTenant } from "@/model";
 import { Mutations, Actions, Getters } from "@/store/constants/tenant";
 
@@ -9,12 +15,16 @@ export { moduleName } from "@/store/constants/tenant";
 const module: Module<TenantModuleState, RootState> = {
   namespaced: true,
   state: {
+    simpleRecords: [],
     records: [],
     current: 1,
     size: 1000, // 租户不进行分页，默认获取1000条
     update: true,
   },
   mutations: {
+    [`${Mutations.setSimpleRecords}`](state, records) {
+      state.simpleRecords = records;
+    },
     [`${Mutations.setRecords}`](state, records) {
       state.update = false;
       state.records = records;
@@ -24,9 +34,22 @@ const module: Module<TenantModuleState, RootState> = {
     },
   },
   getters: {
+    [`${Getters.simpleRecords}`]: (state) => state.simpleRecords,
     [`${Getters.records}`]: (state) => state.records,
   },
   actions: {
+    [`${Actions.fetchSimpleList}`]({ commit }) {
+      return new Promise((resolve, reject) => {
+        list()
+          .then((response) => {
+            commit(Mutations.setSimpleRecords, response.data);
+            resolve(response.data);
+          })
+          .catch(() => {
+            reject();
+          });
+      });
+    },
     [`${Actions.fetchData}`](
       { state, commit, getters },
       condition?: SysTenant

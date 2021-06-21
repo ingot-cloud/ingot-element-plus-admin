@@ -36,9 +36,11 @@ export function refreshToken(
 export function login({
   username,
   password,
+  tenant,
 }: {
   username: string;
   password: string;
+  tenant: string;
 }): Promise<IngotResponse<UserToken>> {
   const data = Qs.stringify({
     username,
@@ -51,7 +53,7 @@ export function login({
     params: data,
     config: {
       headers: {
-        Tenant: "1",
+        Tenant: tenant,
         Authorization: BasicToken,
       },
     },

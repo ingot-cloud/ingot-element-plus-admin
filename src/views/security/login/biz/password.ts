@@ -6,6 +6,7 @@ import { updateToken } from "@/store/composition/auth";
 const formModel = reactive({
   username: "",
   password: "",
+  tenant: "",
 });
 
 const rules = ref({

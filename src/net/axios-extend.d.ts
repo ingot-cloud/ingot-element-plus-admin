@@ -13,5 +13,10 @@ declare module "axios" {
      * 是否为刷新token后的请求重试
      */
     refreshTokenAndRetry?: boolean;
+
+    /**
+     * 公共请求，不携带token
+     */
+    permit?: boolean;
   }
 }

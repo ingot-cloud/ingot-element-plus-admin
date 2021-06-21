@@ -1,6 +1,18 @@
 import request from "@/net";
-import { SysTenant, Page, IngotResponse } from "@/model";
+import { SysTenant, SimpleTenantVo, Page, IngotResponse } from "@/model";
 import { filterParams } from "@/utils/object";
+
+/**
+ * 列表
+ */
+export function list(): Promise<IngotResponse<Array<SimpleTenantVo>>> {
+  return request.get<Array<SimpleTenantVo>>({
+    url: "/api/pms/v1/tenant/list",
+    config: {
+      permit: true,
+    },
+  });
+}
 
 /**
  * 租户分页信息
