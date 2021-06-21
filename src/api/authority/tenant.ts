@@ -9,6 +9,9 @@ export function tenantPage(
   page: Page,
   condition?: SysTenant
 ): Promise<IngotResponse<Page<SysTenant>>> {
+  if (condition) {
+    filterParams(condition);
+  }
   return request.get<Page<SysTenant>>({
     url: "/api/pms/v1/tenant/page",
     params: {

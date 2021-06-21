@@ -44,11 +44,15 @@
           <el-button
             size="mini"
             :type="disableButtonParams(item.status).type"
-            @click="handleDisable(item)"
+            @click="handleDisable(item, refreshData)"
           >
             {{ disableButtonParams(item.status).title }}
           </el-button>
-          <el-button size="mini" type="danger" @click="handleDelete(item)">
+          <el-button
+            size="mini"
+            type="danger"
+            @click="handleDelete(item, refreshData)"
+          >
             删除
           </el-button>
         </template>

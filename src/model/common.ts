@@ -17,6 +17,15 @@ export function getCommonStatusDesc(status: CommonStatus): string {
   }
 }
 
+export function getCommonStatusActionDesc(status: CommonStatus): string {
+  switch (status) {
+    case CommonStatus.Enable:
+      return "启用";
+    case CommonStatus.Lock:
+      return "锁定";
+  }
+}
+
 export function getCommonStatusTag(status: CommonStatus): string {
   switch (status) {
     case CommonStatus.Enable:
