@@ -59,7 +59,7 @@
 <script lang="ts">
 import { RolePageItemVo, SysRole } from "@/model";
 import { defineComponent } from "vue";
-import Message from "@/utils/message";
+import { Message } from "@/utils/message";
 
 export default defineComponent({
   props: {

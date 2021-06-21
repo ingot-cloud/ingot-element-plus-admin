@@ -112,7 +112,7 @@
 <script lang="ts">
 import { SysTenant, RolePageItemVo } from "@/model";
 import { defineComponent, computed } from "vue";
-import Message from "@/utils/message";
+import { Message } from "@/utils/message";
 // import { create } from "@/api/authority/user";
 
 interface Props {

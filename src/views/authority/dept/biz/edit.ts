@@ -1,7 +1,6 @@
 import { reactive, ref, unref, Ref } from "vue";
 import { CommonStatus, DeptRoleScope, DeptTreeNode, SysDept } from "@/model";
-import { ElMessageBox } from "element-plus";
-import Message from "@/utils/message";
+import { Message, Confirm } from "@/utils/message";
 import { createDept, removeDept, updateDept } from "@/store/composition/dept";
 import { getChangedFieldObj } from "@/utils/object";
 import { IngotStore } from "@/store/types";
@@ -129,11 +128,7 @@ export function handleDeleteButtonClick(
   if (!checkSelected()) {
     return;
   }
-  ElMessageBox.confirm(`是否删除部门${selectedDeptNode.value.name}`, "提示", {
-    confirmButtonText: "确定",
-    cancelButtonText: "取消",
-    type: "warning",
-  }).then(() => {
+  Confirm.warning(`是否删除部门${selectedDeptNode.value.name}`).then(() => {
     const id = selectedDeptNode.value.id as string;
     removeDept(store, id).then(() => {
       Message.success("操作成功");

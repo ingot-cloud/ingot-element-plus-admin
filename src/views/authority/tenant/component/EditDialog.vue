@@ -57,7 +57,7 @@ import { SysTenant } from "@/model";
 import { defineComponent } from "vue";
 import { create, update } from "@/store/composition/tenant";
 import { store } from "@/store";
-import Message from "@/utils/message";
+import { Message } from "@/utils/message";
 
 export default defineComponent({
   data() {

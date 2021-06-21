@@ -1,6 +1,5 @@
 import { AxiosResponse, AxiosError, AxiosRequestConfig } from "axios";
-import { ElMessageBox } from "element-plus";
-import Message from "@/utils/message";
+import { Message, Confirm } from "@/utils/message";
 import { IngotResponse } from "@/model";
 import StatusCode from "@/net/statusCode";
 import { handlLogout } from "@/store/composition/auth";
@@ -73,15 +72,10 @@ const bizResponseFailureHandler = (
           });
       });
     case StatusCode.TokenSignBack:
-      ElMessageBox.confirm(
-        "您已被签退，可以取消继续留在该页面，或者重新登录",
-        "提示",
-        {
-          confirmButtonText: "重新登录",
-          cancelButtonText: "取消",
-          type: "warning",
-        }
-      ).then(() => {
+      Confirm.warning("您已被签退，可以取消继续留在该页面，或者重新登录", {
+        confirmButtonText: "重新登录",
+        cancelButtonText: "取消",
+      }).then(() => {
         handlLogout();
       });
       break;
