@@ -34,11 +34,10 @@
   </el-form>
 </template>
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
 import password from "./biz/password";
 import TenantOptions from "@/components/TenantOptions/index.vue";
-import { useStore } from "@/store";
 
 export default defineComponent({
   components: {
@@ -49,23 +48,11 @@ export default defineComponent({
     const formRef = ref();
     const router = useRouter();
 
-    const store = useStore();
-    // const simpleRecords = computedSimpleRecords();
-
-    // onMounted(() => {
-    //   fetchSimpleList(store).then((data) => {
-    //     formModel.tenant = data[0].id;
-    //   });
-    // });
-
     return {
       formRef,
       formModel,
       rules,
       loading,
-      onTenantChanged: (value: string) => {
-        formModel.tenant = value;
-      },
       handleLogin: () => {
         handleLogin(formRef, router);
       },

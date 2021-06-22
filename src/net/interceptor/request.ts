@@ -1,5 +1,6 @@
 import { AxiosRequestConfig } from "axios";
 import { getAccessToken } from "@/store/composition/auth";
+import { globalTenant } from "@/store/composition/tenant";
 
 export const onRequestFulfilled = (
   config: AxiosRequestConfig
@@ -9,6 +10,10 @@ export const onRequestFulfilled = (
     if (accessToken) {
       config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
+  }
+  const tenant = globalTenant();
+  if (tenant) {
+    config.headers["Tenant"] = tenant;
   }
   return config;
 };
