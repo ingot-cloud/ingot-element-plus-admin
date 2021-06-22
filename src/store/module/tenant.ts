@@ -62,8 +62,13 @@ const module: Module<TenantModuleState, RootState> = {
     [`${Actions.clearGlobalTenant}`]({ commit }) {
       commit(Mutations.setGlobalTenant, "");
     },
-    [`${Actions.fetchSimpleList}`]({ commit }) {
+    [`${Actions.fetchSimpleList}`]({ commit, state }) {
       return new Promise((resolve, reject) => {
+        if (!state.update && state.simpleRecords.length !== 0) {
+          resolve(state.simpleRecords);
+          return;
+        }
+
         list()
           .then((response) => {
             commit(Mutations.setSimpleRecords, response.data);
