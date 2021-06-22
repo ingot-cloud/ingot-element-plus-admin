@@ -7,6 +7,7 @@ import IngotContainer from "./Container/index.vue";
 import IngotPageCard from "./PageCard/index.vue";
 import IngotTable from "./Table/index.vue";
 import IngotFilterContainer from "./FilterContainer/index.vue";
+import TenantOptions from "./TenantOptions/index.vue";
 
 /**
  * 注册组件
@@ -21,4 +22,5 @@ export function registerComponent(app: App): void {
   app.component("ingot-page-card", IngotPageCard);
   app.component("ingot-table", IngotTable);
   app.component("ingot-filter-container", IngotFilterContainer);
+  app.component("ingot-tenant-options", TenantOptions);
 }

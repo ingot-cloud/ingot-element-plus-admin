@@ -2,7 +2,7 @@
   <div class="title-container">密码登录</div>
   <el-form ref="formRef" :model="formModel" :rules="rules" label-width="0px">
     <el-form-item class="form-item" prop="tenant">
-      <TenantOptions class="select" />
+      <ingot-tenant-options class="select" />
     </el-form-item>
     <el-form-item class="form-item" prop="username">
       <el-input
@@ -37,12 +37,8 @@
 import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
 import password from "./biz/password";
-import TenantOptions from "@/components/TenantOptions/index.vue";
 
 export default defineComponent({
-  components: {
-    TenantOptions,
-  },
   setup() {
     const { formModel, rules, loading, handleLogin } = password;
     const formRef = ref();
