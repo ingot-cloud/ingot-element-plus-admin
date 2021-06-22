@@ -4,6 +4,7 @@ import {
   computedGetter,
   IngotStore,
   getter,
+  store,
 } from "@/store";
 import { SimpleTenantVo, SysTenant } from "@/model";
 import {
@@ -19,6 +20,32 @@ import { ComputedRef } from "@vue/reactivity";
  */
 export function openUpdateRoleRecordsFlag(): void {
   useCommit(moduleName, Mutations.openUpdateFlag);
+}
+
+/**
+ * global 租户
+ */
+export function globalTenant(): string {
+  return getter<string>(store, moduleName, Getters.globalTenant);
+}
+
+/**
+ * global 租户
+ */
+export function computedGlobalTenant(): ComputedRef<string> {
+  return computedGetter<string>(moduleName, Getters.globalTenant);
+}
+
+/**
+ * 修改全局租户
+ * @param tenant
+ */
+export function changeGlobalTenant(tenant: string): void {
+  useCommit(store, moduleName, Mutations.setGlobalTenant, tenant);
+}
+
+export function clearGlobalTenant(): void {
+  useDispatch(store, moduleName, Actions.clearGlobalTenant);
 }
 
 /**

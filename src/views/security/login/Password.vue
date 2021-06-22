@@ -2,19 +2,7 @@
   <div class="title-container">密码登录</div>
   <el-form ref="formRef" :model="formModel" :rules="rules" label-width="0px">
     <el-form-item class="form-item" prop="tenant">
-      <el-select
-        v-model="formModel.tenant"
-        @change="onTenantChanged"
-        class="select"
-      >
-        <el-option
-          v-for="item in simpleRecords"
-          :key="item.id"
-          :label="item.name"
-          :value="item.id"
-        >
-        </el-option>
-      </el-select>
+      <TenantOptions class="select" />
     </el-form-item>
     <el-form-item class="form-item" prop="username">
       <el-input
@@ -49,33 +37,32 @@
 import { defineComponent, ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import password from "./biz/password";
-import {
-  fetchSimpleList,
-  computedSimpleRecords,
-} from "@/store/composition/tenant";
+import TenantOptions from "@/components/TenantOptions/index.vue";
 import { useStore } from "@/store";
 
 export default defineComponent({
+  components: {
+    TenantOptions,
+  },
   setup() {
     const { formModel, rules, loading, handleLogin } = password;
     const formRef = ref();
     const router = useRouter();
 
     const store = useStore();
-    const simpleRecords = computedSimpleRecords();
+    // const simpleRecords = computedSimpleRecords();
 
-    onMounted(() => {
-      fetchSimpleList(store).then((data) => {
-        formModel.tenant = data[0].id;
-      });
-    });
+    // onMounted(() => {
+    //   fetchSimpleList(store).then((data) => {
+    //     formModel.tenant = data[0].id;
+    //   });
+    // });
 
     return {
       formRef,
       formModel,
       rules,
       loading,
-      simpleRecords,
       onTenantChanged: (value: string) => {
         formModel.tenant = value;
       },

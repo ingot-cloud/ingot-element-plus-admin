@@ -7,14 +7,18 @@ import {
   remove,
   list,
 } from "@/api/authority/tenant";
-import { Page, RolePageItemVo, SysTenant } from "@/model";
+import { Page, RolePageItemVo, SysTenant, StoreType } from "@/model";
+import { StoreManager } from "@/utils/store";
 import { Mutations, Actions, Getters } from "@/store/constants/tenant";
 
 export { moduleName } from "@/store/constants/tenant";
 
+const GlobalTenantKey = "tenant";
+
 const module: Module<TenantModuleState, RootState> = {
   namespaced: true,
   state: {
+    globalTenant: "",
     simpleRecords: [],
     records: [],
     current: 1,
@@ -22,6 +26,14 @@ const module: Module<TenantModuleState, RootState> = {
     update: true,
   },
   mutations: {
+    [`${Mutations.setGlobalTenant}`](state, tenant) {
+      state.globalTenant = tenant;
+      StoreManager.set({
+        key: GlobalTenantKey,
+        value: tenant,
+        type: StoreType.Session,
+      });
+    },
     [`${Mutations.setSimpleRecords}`](state, records) {
       state.simpleRecords = records;
     },
@@ -34,10 +46,22 @@ const module: Module<TenantModuleState, RootState> = {
     },
   },
   getters: {
+    [`${Getters.globalTenant}`]: (state) => {
+      if (!state.globalTenant || state.globalTenant.length === 0) {
+        const value = StoreManager.get(GlobalTenantKey, StoreType.Session);
+        if (value) {
+          state.globalTenant = value;
+        }
+      }
+      return state.globalTenant;
+    },
     [`${Getters.simpleRecords}`]: (state) => state.simpleRecords,
     [`${Getters.records}`]: (state) => state.records,
   },
   actions: {
+    [`${Actions.clearGlobalTenant}`]({ commit }) {
+      commit(Mutations.setGlobalTenant, "");
+    },
     [`${Actions.fetchSimpleList}`]({ commit }) {
       return new Promise((resolve, reject) => {
         list()
