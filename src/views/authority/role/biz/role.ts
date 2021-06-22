@@ -8,7 +8,7 @@ export function handleCreate(editDialog: Ref): void {
 
 export function handleEdit(editDialog: Ref, params: RolePageItemVo): void {
   const dialog = unref(editDialog);
-  dialog.show();
+  dialog.show(params);
 }
 
 export function handleDelete(params: RolePageItemVo): void {

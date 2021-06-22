@@ -2,7 +2,7 @@
   <el-dialog :title="title" v-model="visible" center>
     <div class="dialog-content">
       <el-form
-        ref="editForm"
+        ref="editFormRef"
         class="form"
         label-width="100px"
         label-position="left"
@@ -34,7 +34,6 @@
             start-placeholder="开始日期"
             end-placeholder="结束日期"
             value-format="YYYY-MM-DD"
-            @change="onDaterangeChanged"
           >
           </el-date-picker>
         </el-form-item>
@@ -54,85 +53,100 @@
 </template>
 <script lang="ts">
 import { SysTenant } from "@/model";
-import { defineComponent } from "vue";
+import { defineComponent, reactive, ref, nextTick, unref, toRaw } from "vue";
 import { create, update } from "@/store/composition/tenant";
 import { store } from "@/store";
 import { Message } from "@/utils/message";
+import { copyParams } from "@/utils/object";
+
+const rules = {
+  name: [{ required: true, message: "请输入租户名称", trigger: "blur" }],
+  code: [{ required: true, message: "请输入租户编码", trigger: "blur" }],
+  daterange: [{ required: false }],
+};
+
+const defaultEditForm = {
+  id: null,
+  name: null,
+  code: null,
+  startAt: null,
+  endAt: null,
+  daterange: ["", ""],
+};
 
 export default defineComponent({
-  data() {
+  emits: ["success"],
+  setup(_, { emit }) {
+    const editFormRef = ref();
+    const editForm = reactive(Object.assign({}, defaultEditForm));
+    const loading = ref(false);
+    const title = ref("");
+    const edit = ref(false);
+    const visible = ref(false);
+
     return {
-      title: "",
-      edit: false,
-      visible: false,
-      loading: false,
-      editForm: {
-        id: null,
-        name: null,
-        code: null,
-        startAt: null,
-        endAt: null,
-        daterange: ["", ""],
+      editFormRef,
+      title,
+      edit,
+      visible,
+      loading,
+      editForm,
+      rules,
+      show: (data?: SysTenant) => {
+        visible.value = true;
+
+        // 重置数据
+        copyParams(defaultEditForm, editForm);
+
+        if (data) {
+          title.value = "编辑租户";
+          edit.value = true;
+          Object.assign(editForm, data);
+          if (data.startAt && data.endAt) {
+            editForm.daterange = [data.startAt, data.endAt];
+          }
+        } else {
+          title.value = "创建租户";
+          edit.value = false;
+          nextTick(() => {
+            const form = unref(editFormRef);
+            form.resetFields();
+          });
+        }
       },
-      rules: {
-        name: [{ required: true, message: "请输入租户名称", trigger: "blur" }],
-        code: [{ required: true, message: "请输入租户编码", trigger: "blur" }],
-        daterange: [{ required: false }],
+      handleConfirmClick() {
+        const form = unref(editFormRef);
+        form.validate((valid: boolean) => {
+          if (valid) {
+            loading.value = true;
+            const params: SysTenant = {};
+            Object.assign(params, toRaw(editForm));
+            if (editForm.daterange && editForm.daterange.length > 1) {
+              params.startAt = editForm.daterange[0];
+              params.endAt = editForm.daterange[1];
+            } else {
+              params.startAt = undefined;
+              params.endAt = undefined;
+            }
+
+            const request = edit.value
+              ? update(store, params)
+              : create(store, params);
+
+            request
+              .then(() => {
+                loading.value = false;
+                Message.success("操作成功");
+                visible.value = false;
+                emit("success");
+              })
+              .catch(() => {
+                loading.value = false;
+              });
+          }
+        });
       },
     };
-  },
-  methods: {
-    show(data?: SysTenant) {
-      this.visible = true;
-
-      if (data) {
-        this.title = "编辑租户";
-        this.edit = true;
-        Object.assign(this.editForm, data);
-        if (data.startAt && data.endAt) {
-          this.editForm.daterange = [data.startAt, data.endAt];
-        }
-      } else {
-        this.title = "创建租户";
-        this.$nextTick(() => {
-          (this.$refs.editForm as any).resetFields();
-        });
-      }
-    },
-    handleConfirmClick() {
-      (this.$refs.editForm as any).validate((valid: boolean) => {
-        if (valid) {
-          this.loading = true;
-          const params: SysTenant = {};
-          Object.assign(params, this.editForm);
-          if (this.editForm.daterange && this.editForm.daterange.length > 1) {
-            params.startAt = this.editForm.daterange[0];
-            params.endAt = this.editForm.daterange[1];
-          } else {
-            params.startAt = undefined;
-            params.endAt = undefined;
-          }
-
-          const request = this.edit
-            ? update(store, params)
-            : create(store, params);
-
-          request
-            .then(() => {
-              this.loading = false;
-              Message.success("操作成功");
-              this.visible = false;
-              this.$emit("success");
-            })
-            .catch(() => {
-              this.loading = false;
-            });
-        }
-      });
-    },
-    onDaterangeChanged(value: any) {
-      console.log(value);
-    },
   },
 });
 </script>
