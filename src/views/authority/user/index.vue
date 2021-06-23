@@ -89,7 +89,6 @@
     ref="createDialog"
     :deptName="currentDeptNode.name"
     :deptId="currentDeptNode.id"
-    :tenantList="tenantRecords"
     :roleList="roleRecords"
   />
 </template>

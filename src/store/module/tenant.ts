@@ -10,7 +10,6 @@ import {
 import { Page, RolePageItemVo, SysTenant, StoreType } from "@/model";
 import { StoreManager } from "@/utils/store";
 import { Mutations, Actions, Getters } from "@/store/constants/tenant";
-import { hasConditionParams } from "@/utils/object";
 
 export { moduleName } from "@/store/constants/tenant";
 
@@ -85,11 +84,6 @@ const module: Module<TenantModuleState, RootState> = {
       condition?: SysTenant
     ) {
       return new Promise<Page<RolePageItemVo>>((resolve, reject) => {
-        const hasCondition = hasConditionParams(condition);
-        if (!hasCondition && !state.update && state.records.length !== 0) {
-          resolve(getters[Getters.records]);
-          return;
-        }
         tenantPage({ current: state.current, size: state.size }, condition)
           .then((response) => {
             const data = response.data;

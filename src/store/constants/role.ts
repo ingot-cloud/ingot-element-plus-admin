@@ -10,6 +10,7 @@ export enum Getters {
 }
 
 export enum Actions {
+  fetchCacheData = "fetchCacheData",
   fetchData = "fetchData",
   create = "create",
   remove = "remove",

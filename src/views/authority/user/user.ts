@@ -1,13 +1,9 @@
 import { defineComponent, onMounted, ref } from "vue";
 import { fetchDeptTree, computedDeptData } from "@/store/composition/dept";
 import {
-  fetchData as fetchRoleData,
+  fetchCacheData as fetchRoleData,
   computedRecords as computedRoleRecords,
 } from "@/store/composition/role";
-import {
-  fetchData as fetchTenantData,
-  computedRecords as computedTenantRecords,
-} from "@/store/composition/tenant";
 import {
   condition,
   pageInfo,
@@ -32,7 +28,6 @@ export default defineComponent({
     const createDialog = ref();
     const deptTree = computedDeptData();
     const roleRecords = computedRoleRecords();
-    const tenantRecords = computedTenantRecords();
     const store = useStore();
 
     onMounted(() => {
@@ -40,7 +35,6 @@ export default defineComponent({
         handleTreeNodeClick(deptData.data[0]);
       });
       fetchRoleData(store);
-      fetchTenantData(store);
     });
 
     return {
@@ -48,7 +42,6 @@ export default defineComponent({
       tableHeaders,
       deptTree,
       roleRecords,
-      tenantRecords,
       condition,
       pageInfo,
       currentDeptNode,

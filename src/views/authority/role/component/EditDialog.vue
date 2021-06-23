@@ -62,7 +62,7 @@ import { defineComponent, reactive, ref, nextTick, unref, toRaw } from "vue";
 import { Message } from "@/utils/message";
 import { create, update } from "@/store/composition/role";
 import { store } from "@/store";
-import { copyParams } from "@/utils/object";
+import { copyParams, copyParamsWithKeys } from "@/utils/object";
 
 const rules = {
   name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
@@ -79,8 +79,11 @@ const defaultEditForm = {
   remark: null,
 };
 
+const keys = ["id", "name", "code", "type", "remark"];
+
 export default defineComponent({
-  setup() {
+  emits: ["success"],
+  setup(_, { emit }) {
     const title = ref("");
     const edit = ref(false);
     const visible = ref(false);
@@ -118,14 +121,23 @@ export default defineComponent({
         const form = unref(roleEditFormRef);
         form.validate((valid: boolean) => {
           if (valid) {
-            // loading.value = true;
-            const params = {};
-            Object.assign(params, toRaw(editForm));
+            loading.value = true;
+            const params: SysRole = {};
+            copyParamsWithKeys(toRaw(editForm), params, keys);
 
-            console.log(params);
-            // const request = edit.value
-            //   ? update(store, params)
-            //   : create(store, params);
+            const request = edit.value
+              ? update(store, params)
+              : create(store, params);
+            request
+              .then(() => {
+                loading.value = false;
+                Message.success("操作成功");
+                visible.value = false;
+                emit("success");
+              })
+              .catch(() => {
+                loading.value = false;
+              });
           }
         });
       },

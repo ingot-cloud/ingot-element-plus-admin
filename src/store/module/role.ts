@@ -3,6 +3,7 @@ import { RootState, RoleModuleState } from "@/store/types";
 import { rolePage, create, update, remove } from "@/api/authority/role";
 import { RolePageItemVo, SysRole } from "@/model";
 import { Mutations, Actions, Getters } from "@/store/constants/role";
+import { hasConditionParams } from "@/utils/object";
 
 export { moduleName } from "@/store/constants/role";
 
@@ -27,9 +28,20 @@ const module: Module<RoleModuleState, RootState> = {
     [`${Getters.records}`]: (state) => state.records,
   },
   actions: {
+    [`${Actions.fetchCacheData}`]({ dispatch, state, getters }) {
+      return new Promise((resolve) => {
+        if (!state.update && state.records.length !== 0) {
+          resolve(getters[Getters.records]);
+          return;
+        }
+
+        return dispatch(Actions.fetchData);
+      });
+    },
     [`${Actions.fetchData}`]({ state, commit, getters }, condition: SysRole) {
       return new Promise<Array<RolePageItemVo>>((resolve, reject) => {
-        if (!state.update && state.records.length !== 0) {
+        const hasCondition = hasConditionParams(condition);
+        if (!hasCondition && !state.update && state.records.length !== 0) {
           resolve(getters[Getters.records]);
           return;
         }

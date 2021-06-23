@@ -13,7 +13,14 @@
           style="width: 200px"
           placeholder="角色名"
         ></el-input>
-        <el-button class="item" size="small" type="primary"> 搜索 </el-button>
+        <el-button
+          class="item"
+          size="small"
+          type="primary"
+          @click="refreshData"
+        >
+          搜索
+        </el-button>
         <el-button
           class="item"
           size="small"
@@ -57,7 +64,7 @@
       </ingot-table>
     </ingot-page-card>
 
-    <EditDialog ref="editDialog" />
+    <EditDialog ref="editDialog" @success="refreshData" />
   </ingot-container>
 </template>
 <script lang="ts" src="./role.ts"></script>

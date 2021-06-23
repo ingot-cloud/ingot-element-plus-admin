@@ -13,22 +13,6 @@
         <el-form-item label="部门名称">
           {{ deptName }}
         </el-form-item>
-        <el-form-item label="租户" prop="tenantId">
-          <el-select
-            v-model="editForm.tenantId"
-            placeholder="请选择租户"
-            size="small"
-            clearable
-            class="form-item"
-          >
-            <el-option
-              v-for="item in tenantRecords"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
-        </el-form-item>
         <el-form-item label="用户名" prop="username">
           <el-input
             v-model="editForm.username"
@@ -110,7 +94,7 @@
   </el-dialog>
 </template>
 <script lang="ts">
-import { SysTenant, RolePageItemVo } from "@/model";
+import { RolePageItemVo } from "@/model";
 import { defineComponent, computed } from "vue";
 import { Message } from "@/utils/message";
 // import { create } from "@/api/authority/user";
@@ -118,7 +102,6 @@ import { Message } from "@/utils/message";
 interface Props {
   deptName: string;
   deptId: string;
-  tenantList: Array<SysTenant>;
   roleList: Array<RolePageItemVo>;
 }
 
@@ -126,11 +109,6 @@ function setup(props: Props): any {
   return {
     roleRecords: computed(() =>
       props.roleList.map((item) => {
-        return { label: item.name, value: item.id };
-      })
-    ),
-    tenantRecords: computed(() =>
-      props.tenantList.map((item) => {
         return { label: item.name, value: item.id };
       })
     ),

@@ -30,8 +30,12 @@ export default defineComponent({
     const roleData = computedRecords();
     const editDialog = ref();
 
-    onMounted(() => {
+    const refreshData = () => {
       fetchData(store, condition);
+    };
+
+    onMounted(() => {
+      refreshData();
     });
 
     return {
@@ -55,6 +59,7 @@ export default defineComponent({
             };
         }
       },
+      refreshData,
       handleCreate,
       handleEdit,
       handleDelete,

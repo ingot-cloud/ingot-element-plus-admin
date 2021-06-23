@@ -38,6 +38,17 @@ export function computedRecords(): ComputedRef<Array<RolePageItemVo>> {
 }
 
 /**
+ * 获取缓存数据
+ */
+export function fetchCacheData(
+  store: IngotStore
+): Promise<Array<RolePageItemVo>> {
+  return useDispatch(store, moduleName, Actions.fetchCacheData) as Promise<
+    Array<RolePageItemVo>
+  >;
+}
+
+/**
  * 获取数据
  * @returns Promise
  */

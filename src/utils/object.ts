@@ -57,12 +57,24 @@ export function hasConditionParams(condition?: object): boolean {
 /**
  * 拷贝参数
  */
-export function copyParams<T extends object>(
-  from: T,
-  to: T,
+export function copyParams(
+  from: object,
+  to: object,
   filterNull?: boolean
 ): void {
   const keys = Object.keys(from);
+  copyParamsWithKeys(from, to, keys, filterNull);
+}
+
+/**
+ * 拷贝参数
+ */
+export function copyParamsWithKeys(
+  from: object,
+  to: object,
+  keys: Array<string>,
+  filterNull?: boolean
+): void {
   let tmpValue;
   keys.forEach((key) => {
     tmpValue = Reflect.get(from, key);
