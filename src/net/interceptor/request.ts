@@ -11,10 +11,14 @@ export const onRequestFulfilled = (
       config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
   }
-  const tenant = globalTenant();
-  if (tenant) {
-    config.headers["Tenant"] = tenant;
+
+  if (!config.ignoreTenant) {
+    const tenant = globalTenant();
+    if (!config.headers["Tenant"] && tenant) {
+      config.headers["Tenant"] = tenant;
+    }
   }
+
   return config;
 };
 

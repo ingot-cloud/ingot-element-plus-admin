@@ -48,14 +48,14 @@
             size="mini"
             :type="disableButtonParams(item.status).type"
             :disabled="!item.canAction"
-            @click="handleDisable(item)"
+            @click="handleDisable(item, refreshData)"
           >
             {{ disableButtonParams(item.status).title }}
           </el-button>
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(item)"
+            @click="handleDelete(item, refreshData)"
             :disabled="!item.canAction"
           >
             删除

@@ -9,10 +9,6 @@ import {
 } from "@/model/common";
 import { fetchData, computedRecords } from "@/store/composition/role";
 import {
-  fetchData as fetchTenantData,
-  computedRecords as computedTenantRecords,
-} from "@/store/composition/tenant";
-import {
   handleCreate,
   handleDelete,
   handleEdit,

@@ -11,6 +11,7 @@ export interface RouterModuleState {
   dynamicRoutes: Array<RouteRecordRaw>;
 }
 export interface AuthModuleState {
+  loginTenant: string;
   token: UserToken;
   user: User;
   roles: Array<string>;

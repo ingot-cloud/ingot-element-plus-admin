@@ -3,7 +3,6 @@ import { RootState, RoleModuleState } from "@/store/types";
 import { rolePage, create, update, remove } from "@/api/authority/role";
 import { RolePageItemVo, SysRole } from "@/model";
 import { Mutations, Actions, Getters } from "@/store/constants/role";
-import { hasConditionParams } from "@/utils/object";
 
 export { moduleName } from "@/store/constants/role";
 
@@ -40,11 +39,6 @@ const module: Module<RoleModuleState, RootState> = {
     },
     [`${Actions.fetchData}`]({ state, commit, getters }, condition: SysRole) {
       return new Promise<Array<RolePageItemVo>>((resolve, reject) => {
-        const hasCondition = hasConditionParams(condition);
-        if (!hasCondition && !state.update && state.records.length !== 0) {
-          resolve(getters[Getters.records]);
-          return;
-        }
         rolePage({ current: state.current, size: state.size }, condition)
           .then((response) => {
             const data = response.data;

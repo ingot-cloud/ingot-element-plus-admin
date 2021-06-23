@@ -11,6 +11,7 @@ export { moduleName } from "@/store/constants/auth";
 enum Key {
   Token = "token",
   RefreshToken = "refreshToken",
+  LoginTenant = "loginTenant",
 }
 
 const defaultToken = {
@@ -27,11 +28,21 @@ const defaultUser = {
 const authModule: Module<AuthModuleState, RootState> = {
   namespaced: true,
   state: {
+    loginTenant: "",
     token: defaultToken,
     user: defaultUser,
     roles: [],
   },
   getters: {
+    [`${Getters.loginTenant}`](state) {
+      if (!state.loginTenant || state.loginTenant.length === 0) {
+        const value = StoreManager.get(Key.LoginTenant, StoreType.Session);
+        if (value) {
+          state.loginTenant = value;
+        }
+      }
+      return state.loginTenant;
+    },
     [`${Getters.accessToken}`](state) {
       if (!state.token.accessToken || state.token.accessToken.length === 0) {
         const value = StoreManager.get(Key.Token, StoreType.Session);
@@ -55,6 +66,14 @@ const authModule: Module<AuthModuleState, RootState> = {
     },
   },
   mutations: {
+    [`${Mutations.setLoginTenant}`](state, tenantId: string) {
+      state.loginTenant = tenantId;
+      StoreManager.set({
+        key: Key.LoginTenant,
+        value: tenantId,
+        type: StoreType.Session,
+      });
+    },
     [`${Mutations.setToken}`](state, token: UserToken) {
       state.token = token;
       // 保存 token
@@ -80,6 +99,7 @@ const authModule: Module<AuthModuleState, RootState> = {
       state.token = defaultToken;
       StoreManager.remove(Key.Token, StoreType.Session);
       StoreManager.remove(Key.RefreshToken, StoreType.Session);
+      StoreManager.remove(Key.LoginTenant, StoreType.Session);
     },
     [`${Mutations.removeUserInfo}`](state) {
       state.user = defaultUser;
@@ -88,7 +108,7 @@ const authModule: Module<AuthModuleState, RootState> = {
   },
   actions: {
     [`${Actions.updateToken}`]({ commit }, token: UserToken) {
-      commit("setToken", token);
+      commit(Mutations.setToken, token);
     },
     [`${Actions.refreshToken}`]({ getters, commit }) {
       return new Promise((resolve, reject) => {
@@ -99,7 +119,7 @@ const authModule: Module<AuthModuleState, RootState> = {
         }
         refreshToken(refreshTokenValue)
           .then((response) => {
-            commit("setToken", response.data);
+            commit(Mutations.setToken, response.data);
             resolve(response.data);
           })
           .catch(() => {
@@ -112,7 +132,7 @@ const authModule: Module<AuthModuleState, RootState> = {
         getUserInfo()
           .then((response) => {
             const userInfo = response.data;
-            commit("setUserInfo", userInfo);
+            commit(Mutations.setUserInfo, userInfo);
             resolve(userInfo);
           })
           .catch((e) => {
@@ -122,8 +142,8 @@ const authModule: Module<AuthModuleState, RootState> = {
     },
     [`${Actions.clear}`]({ commit }) {
       return new Promise<void>((resolve) => {
-        commit("removeToken");
-        commit("removeUserInfo");
+        commit(Mutations.removeToken);
+        commit(Mutations.removeUserInfo);
         resolve();
       });
     },

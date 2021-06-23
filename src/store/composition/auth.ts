@@ -1,8 +1,14 @@
 import { computed, ComputedRef } from "vue";
 import { UserToken, UserInfo } from "@/model";
 import { IngotStore } from "@/store/types";
-import { store, useDispatch, getter } from "@/store";
-import { moduleName, Actions, Getters } from "@/store/constants/auth";
+import { store, useDispatch, getter, useCommit } from "@/store";
+import {
+  moduleName,
+  Actions,
+  Getters,
+  Mutations,
+} from "@/store/constants/auth";
+import { globalTenant } from "@/store/composition/tenant";
 
 /**
  * 用户信息
@@ -25,6 +31,20 @@ export function roles(store: IngotStore): ComputedRef {
  */
 export function existUserInfo(): any {
   return getter(store, moduleName, Getters.existUserInfo);
+}
+
+/**
+ * 获取登录租户
+ */
+export function getLoginTenant(): string {
+  return getter(store, moduleName, Getters.loginTenant);
+}
+
+/**
+ * 设置当前登录使用的租户ID
+ */
+export function setLoginTenant(tenantId: string): void {
+  useCommit(store, moduleName, Mutations.setLoginTenant, tenantId);
 }
 
 /**
@@ -71,4 +91,12 @@ export function handlLogout(): void {
   useDispatch(store, moduleName, Actions.clear)?.then(() => {
     location.reload();
   });
+}
+
+/**
+ * 登录成功后操作
+ */
+export function afterLoginSuccess(token: UserToken): void {
+  updateToken(token);
+  setLoginTenant(globalTenant());
 }

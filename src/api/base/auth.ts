@@ -1,6 +1,7 @@
 import request from "@/net";
 import Qs from "qs";
 import { UserToken, IngotResponse } from "@/model";
+import { getLoginTenant } from "@/store/composition/auth";
 
 const BasicToken = "Basic d2ViLWNsb3VkOndlYi1jbG91ZA==";
 
@@ -21,7 +22,7 @@ export function refreshToken(
     params: data,
     config: {
       headers: {
-        Tenant: "1",
+        Tenant: getLoginTenant(),
         Authorization: BasicToken,
       },
       notTriggerBizFailureHandler: true,

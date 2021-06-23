@@ -18,5 +18,10 @@ declare module "axios" {
      * 公共请求，不携带token
      */
     permit?: boolean;
+
+    /**
+     * 请求头忽略传递 tenant
+     */
+    ignoreTenant?: boolean;
   }
 }
