@@ -20,6 +20,7 @@
         </el-form-item>
         <el-form-item label="租户编码" prop="code">
           <el-input
+            :disabled="edit"
             v-model="editForm.code"
             clearable
             placeholder="请输入租户编码"
