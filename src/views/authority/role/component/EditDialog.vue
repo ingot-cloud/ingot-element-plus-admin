@@ -2,7 +2,7 @@
   <el-dialog :title="title" v-model="visible" center>
     <div class="dialog-content">
       <el-form
-        ref="editForm"
+        ref="roleEditFormRef"
         class="form"
         label-width="100px"
         label-position="left"
@@ -58,62 +58,78 @@
 </template>
 <script lang="ts">
 import { RolePageItemVo, SysRole } from "@/model";
-import { defineComponent } from "vue";
+import { defineComponent, reactive, ref, nextTick, unref, toRaw } from "vue";
 import { Message } from "@/utils/message";
+import { create, update } from "@/store/composition/role";
+import { store } from "@/store";
+import { copyParams } from "@/utils/object";
+
+const rules = {
+  name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
+  code: [{ required: true, message: "请输入角色编码", trigger: "blur" }],
+  type: [{ required: false }],
+  remark: [{ required: false }],
+};
+
+const defaultEditForm = {
+  id: null,
+  name: null,
+  code: null,
+  type: null,
+  remark: null,
+};
 
 export default defineComponent({
-  props: {
-    tenantId: {
-      type: String,
-      default: "",
-    },
-  },
-  data() {
+  setup() {
+    const title = ref("");
+    const edit = ref(false);
+    const visible = ref(false);
+    const loading = ref(false);
+    const roleEditFormRef = ref();
+    const editForm = reactive(Object.assign({}, defaultEditForm));
     return {
-      title: "",
-      edit: false,
-      visible: false,
-      loading: false,
-      editForm: {
-        id: null,
-        name: null,
-        code: null,
-        type: null,
-        remark: null,
+      title,
+      edit,
+      visible,
+      loading,
+      editForm,
+      roleEditFormRef,
+      rules,
+      show(data?: RolePageItemVo) {
+        visible.value = true;
+
+        // 重置数据
+        copyParams(defaultEditForm, editForm);
+        nextTick(() => {
+          const form = unref(roleEditFormRef);
+          form.clearValidate();
+        });
+
+        if (data) {
+          title.value = "编辑角色";
+          edit.value = true;
+          Object.assign(editForm, data);
+        } else {
+          title.value = "创建角色";
+          edit.value = false;
+        }
       },
-      rules: {
-        name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
-        code: [{ required: true, message: "请输入角色编码", trigger: "blur" }],
-        type: [{ required: false }],
-        remark: [{ required: false }],
+      handleConfirmClick() {
+        const form = unref(roleEditFormRef);
+        form.validate((valid: boolean) => {
+          if (valid) {
+            // loading.value = true;
+            const params = {};
+            Object.assign(params, toRaw(editForm));
+
+            console.log(params);
+            // const request = edit.value
+            //   ? update(store, params)
+            //   : create(store, params);
+          }
+        });
       },
     };
-  },
-  methods: {
-    show(data?: RolePageItemVo) {
-      this.visible = true;
-
-      if (data) {
-        this.title = "编辑角色";
-        this.edit = true;
-        Object.assign(this.editForm, data);
-      } else {
-        this.title = "创建角色";
-        this.$nextTick(() => {
-          (this.$refs.editForm as any).resetFields();
-        });
-      }
-    },
-    handleConfirmClick() {
-      (this.$refs.createForm as any).validate((valid: boolean) => {
-        if (valid) {
-          this.loading = true;
-          const params = {};
-          Object.assign(params, this.editForm);
-          console.log(params);
-        }
-      });
-    },
   },
 });
 </script>

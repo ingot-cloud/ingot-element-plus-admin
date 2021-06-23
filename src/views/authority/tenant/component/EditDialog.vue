@@ -97,6 +97,10 @@ export default defineComponent({
 
         // 重置数据
         copyParams(defaultEditForm, editForm);
+        nextTick(() => {
+          const form = unref(editFormRef);
+          form.clearValidate();
+        });
 
         if (data) {
           title.value = "编辑租户";
@@ -108,10 +112,6 @@ export default defineComponent({
         } else {
           title.value = "创建租户";
           edit.value = false;
-          nextTick(() => {
-            const form = unref(editFormRef);
-            form.resetFields();
-          });
         }
       },
       handleConfirmClick() {
