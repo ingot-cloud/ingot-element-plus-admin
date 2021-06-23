@@ -90,6 +90,7 @@
     :deptName="currentDeptNode.name"
     :deptId="currentDeptNode.id"
     :roleList="roleRecords"
+    @success="fetchUserData"
   />
 </template>
 

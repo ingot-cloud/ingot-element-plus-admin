@@ -95,9 +95,10 @@
 </template>
 <script lang="ts">
 import { RolePageItemVo } from "@/model";
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, ref, reactive, unref } from "vue";
 import { Message } from "@/utils/message";
-// import { create } from "@/api/authority/user";
+import { copyParamsWithKeys } from "@/utils/object";
+import { create } from "@/api/authority/user";
 
 interface Props {
   deptName: string;
@@ -105,17 +106,20 @@ interface Props {
   roleList: Array<RolePageItemVo>;
 }
 
-function setup(props: Props): any {
-  return {
-    roleRecords: computed(() =>
-      props.roleList.map((item) => {
-        return { label: item.name, value: item.id };
-      })
-    ),
-  };
-}
+const keys = ["username", "roleIds", "phone", "realName", "email"];
+
+const defaultEditForm = {
+  username: "",
+  password: "",
+  confirmPassword: "",
+  roleIds: [],
+  phone: "",
+  realName: "",
+  email: "",
+};
 
 export default defineComponent({
+  emits: ["success"],
   props: {
     deptName: {
       type: String,
@@ -136,25 +140,54 @@ export default defineComponent({
       default: () => [],
     },
   },
-  setup(props) {
-    return setup(props as any as Props);
-  },
-  data() {
+  setup(props, { emit }) {
+    const visible = ref(false);
+    const loading = ref(false);
+    const editForm = reactive(defaultEditForm);
+    const createForm = ref();
+
     return {
-      visible: false,
-      loading: false,
-      editForm: {
-        username: "",
-        password: "",
-        confirmPassword: "",
-        roleIds: [],
-        tenantId: null,
-        phone: "",
-        realName: "",
-        email: "",
+      createForm,
+      visible,
+      loading,
+      editForm,
+      roleRecords: computed(() =>
+        (props as any as Props).roleList.map((item) => {
+          return { label: item.name, value: item.id };
+        })
+      ),
+      show() {
+        visible.value = true;
+      },
+      handleConfirmClick() {
+        const form = unref(createForm);
+        form.validate((valid: boolean) => {
+          if (valid) {
+            if (editForm.password !== editForm.confirmPassword) {
+              Message.warning("两次密码不一致");
+              return;
+            }
+            console.log();
+            loading.value = true;
+            const params = {
+              deptId: (props as any).deptId,
+              newPassword: editForm.password,
+            };
+            copyParamsWithKeys(editForm, params, keys);
+            create(params)
+              .then(() => {
+                loading.value = false;
+                visible.value = false;
+                Message.success("操作成功");
+                emit("success");
+              })
+              .catch(() => {
+                loading.value = false;
+              });
+          }
+        });
       },
       rules: {
-        tenantId: [{ required: true, message: "请选择租户", trigger: "blur" }],
         username: [
           { required: true, message: "请输入用户名", trigger: "blur" },
         ],
@@ -167,26 +200,6 @@ export default defineComponent({
         roleIds: [{ required: true, message: "请选择角色", trigger: "blur" }],
       },
     };
-  },
-  methods: {
-    show() {
-      this.visible = true;
-    },
-    handleConfirmClick() {
-      (this.$refs.createForm as any).validate((valid: boolean) => {
-        if (valid) {
-          if (this.editForm.password !== this.editForm.confirmPassword) {
-            Message.warning("两次密码不一致");
-            return;
-          }
-
-          this.loading = true;
-          const params = { deptId: this.deptId };
-          Object.assign(params, this.editForm);
-          console.log(params);
-        }
-      });
-    },
   },
 });
 </script>
