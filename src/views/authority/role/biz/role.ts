@@ -2,7 +2,6 @@ import { Ref, unref, ref } from "vue";
 import {
   RolePageItemVo,
   CommonStatus,
-  SysRole,
   getCommonStatusActionDesc,
 } from "@/model";
 import { store } from "@/store";
