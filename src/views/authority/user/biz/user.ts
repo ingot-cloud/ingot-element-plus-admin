@@ -1,11 +1,20 @@
 import { reactive, toRaw, ref, Ref, unref } from "vue";
-import { DeptTreeNode, Page, UserPageItemVo } from "@/model";
-import { userPage } from "@/api/authority/user";
+import {
+  DeptTreeNode,
+  Page,
+  UserPageItemVo,
+  CommonStatus,
+  getCommonStatusActionDesc,
+} from "@/model";
+import { userPage, update, remove } from "@/api/authority/user";
+import { Confirm, Message } from "@/utils/message";
 
 interface Condition {
   deptId?: string;
   username?: string;
 }
+
+export const loading = ref(false);
 
 // 条件
 export const condition = reactive({} as Condition);
@@ -61,13 +70,42 @@ export function handleEditUser(): void {
 /**
  * 删除用户
  */
-export function handleDeleteUser(): void {
-  //
+export function handleDeleteUser(params: UserPageItemVo): void {
+  Confirm.warning(`是否删除用户(${params.username})`).then(() => {
+    loading.value = true;
+    remove(params.userId)
+      .then(() => {
+        loading.value = false;
+        Message.success("操作成功");
+        fetchUserData();
+      })
+      .catch(() => {
+        loading.value = false;
+      });
+  });
 }
 
 /**
  * 禁用、启用
  */
-export function handleDisableUser(): void {
-  //
+export function handleDisableUser(params: UserPageItemVo): void {
+  const status =
+    params.status === CommonStatus.Enable
+      ? CommonStatus.Lock
+      : CommonStatus.Enable;
+  const message = `是否${getCommonStatusActionDesc(status)}用户(${
+    params.username
+  })`;
+  Confirm.warning(message).then(() => {
+    loading.value = true;
+    update({ id: params.userId, status })
+      .then(() => {
+        loading.value = false;
+        Message.success("操作成功");
+        fetchUserData();
+      })
+      .catch(() => {
+        loading.value = false;
+      });
+  });
 }
