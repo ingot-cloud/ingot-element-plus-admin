@@ -18,7 +18,7 @@
   </el-table>
   <div v-if="page" class="pagination-container">
     <el-pagination
-      v-model:current-page="page.current"
+      :current-page="page.current"
       :page-size="page.size"
       :total="page.total"
       :page-sizes="[20, 30, 40, 50]"

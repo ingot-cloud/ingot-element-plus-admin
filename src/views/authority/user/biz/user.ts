@@ -16,6 +16,7 @@ interface Condition {
 }
 
 export const loading = ref(false);
+export const showDept = ref(true);
 
 // 条件
 export const condition = reactive({} as Condition);
@@ -37,7 +38,11 @@ export function fetchUserData(): void {
   const page = toRaw(pageInfo);
   page.total = undefined;
   page.records = undefined;
-  userPage(page, condition).then((response) => {
+  const conditionParams = Object.assign({}, condition);
+  if (!showDept.value) {
+    conditionParams.deptId = undefined;
+  }
+  userPage(page, conditionParams).then((response) => {
     pageInfo.records = response.data.records;
     pageInfo.total = Number(response.data.total);
   });

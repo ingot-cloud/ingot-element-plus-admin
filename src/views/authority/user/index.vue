@@ -6,7 +6,13 @@
       </template>
       <el-row :gutter="20">
         <el-col :span="4">
+          <el-switch
+            v-model="showDept"
+            active-text="部门过滤"
+            @change="fetchUserData"
+          ></el-switch>
           <el-tree
+            v-if="showDept"
             :data="deptTree.data"
             :props="deptTree.props"
             :node-key="deptTree.nodeKey"
@@ -18,7 +24,9 @@
         </el-col>
         <el-col :span="20">
           <ingot-filter-container>
-            <template #title> 部门：{{ currentDeptNode.name }} </template>
+            <template #title v-if="showDept">
+              部门：{{ currentDeptNode.name }}
+            </template>
             <el-input
               v-model="condition.username"
               class="item"

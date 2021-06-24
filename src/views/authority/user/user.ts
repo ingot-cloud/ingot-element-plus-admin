@@ -5,6 +5,7 @@ import {
   computedRecords as computedRoleRecords,
 } from "@/store/composition/role";
 import {
+  showDept,
   condition,
   pageInfo,
   fetchUserData,
@@ -38,6 +39,7 @@ export default defineComponent({
     });
 
     return {
+      showDept,
       createDialog,
       tableHeaders,
       deptTree,
