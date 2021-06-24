@@ -8,6 +8,7 @@ import {
 } from "@/model";
 import { userPage, update, remove } from "@/api/authority/user";
 import { Confirm, Message } from "@/utils/message";
+import router from "@/router";
 
 interface Condition {
   deptId?: string;
@@ -63,8 +64,10 @@ export function handleCreateUser(dialogRef: Ref): void {
 /**
  * 编辑用户
  */
-export function handleEditUser(): void {
-  //
+export function handleDetailUser(params: UserPageItemVo): void {
+  router.push({
+    path: `/authority/user/detail/${params.userId}`,
+  });
 }
 
 /**

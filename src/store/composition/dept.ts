@@ -25,6 +25,14 @@ export function computedDeptData(): ComputedRef<DeptTree> {
 }
 
 /**
+ * 获取部门树展开列表
+ * @returns 计算属性
+ */
+export function computedList(): ComputedRef<Array<SysDept>> {
+  return computedGetter<Array<SysDept>>(moduleName, Getters.deptList);
+}
+
+/**
  * 获取部门信息
  * @returns Promise
  */

@@ -10,7 +10,7 @@ import {
   fetchUserData,
   handleTreeNodeClick,
   handleCreateUser,
-  handleEditUser,
+  handleDetailUser,
   handleDeleteUser,
   handleDisableUser,
   currentDeptNode,
@@ -64,7 +64,7 @@ export default defineComponent({
       fetchUserData,
       handleTreeNodeClick,
       handleCreateUser,
-      handleEditUser,
+      handleDetailUser,
       handleDeleteUser,
       handleDisableUser,
     };

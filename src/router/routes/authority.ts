@@ -23,6 +23,16 @@ const managementRoutes: Array<RouteRecordRaw> = [
         component: () => import("@/views/authority/user/index.vue"),
       },
       {
+        name: "SysAuthorityUserManagerDetail",
+        meta: {
+          title: "用户详情",
+          hidden: true,
+        },
+        path: "/authority/user/detail/:id",
+        component: () => import("@/views/authority/user/detail/index.vue"),
+        props: true,
+      },
+      {
         name: "SysAuthorityDeptManager",
         meta: {
           title: "部门管理",

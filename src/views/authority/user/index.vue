@@ -60,9 +60,9 @@
               <el-button
                 size="mini"
                 type="primary"
-                @click="handleEditUser(item)"
+                @click="handleDetailUser(item)"
               >
-                编辑
+                详情
               </el-button>
               <el-button
                 size="mini"

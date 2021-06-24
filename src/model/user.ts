@@ -31,3 +31,14 @@ export interface UserDto extends SysUser {
   clientIds?: Array<string>;
   newPassword?: string;
 }
+
+export interface UserProfileVo {
+  deptId: string;
+  roleIds?: Array<string>;
+  username: string;
+  realName?: string;
+  phone?: string;
+  email?: string;
+  status?: CommonStatus;
+  createdAt: string;
+}

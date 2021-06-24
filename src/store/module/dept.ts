@@ -6,10 +6,19 @@ import {
   removeDept,
   updateDept,
 } from "@/api/authority/dept";
-import { SysDept } from "@/model";
+import { DeptTreeNode, SysDept } from "@/model";
 import { Mutations, Actions, Getters } from "@/store/constants/dept";
 
 export { moduleName } from "@/store/constants/dept";
+
+const stretchTree = (treeNode: DeptTreeNode, arr: Array<SysDept>): void => {
+  arr.push({ id: treeNode.id, name: treeNode.name });
+  if (treeNode.children && treeNode.children.length > 0) {
+    treeNode.children.forEach((child) => {
+      stretchTree(child, arr);
+    });
+  }
+};
 
 const module: Module<DeptModuleState, RootState> = {
   namespaced: true,
@@ -41,6 +50,15 @@ const module: Module<DeptModuleState, RootState> = {
         expandedKeys: state.expandedKeys,
         data: state.data,
       };
+    },
+    [`${Getters.deptList}`]: (state) => {
+      const ret: Array<SysDept> = [];
+
+      state.data.forEach((item) => {
+        stretchTree(item, ret);
+      });
+
+      return ret;
     },
   },
   actions: {

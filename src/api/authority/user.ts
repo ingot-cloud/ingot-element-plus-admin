@@ -1,5 +1,11 @@
 import request from "@/net";
-import { UserPageItemVo, Page, UserDto, IngotResponse } from "@/model";
+import {
+  UserPageItemVo,
+  Page,
+  UserDto,
+  UserProfileVo,
+  IngotResponse,
+} from "@/model";
 import { filterParams } from "@/utils/object";
 
 /**
@@ -18,6 +24,16 @@ export function userPage(
       ...page,
       ...condition,
     },
+  });
+}
+
+/**
+ * 用户简介信息
+ * @param id 用户ID
+ */
+export function userProfile(id: string): Promise<IngotResponse<UserProfileVo>> {
+  return request.get<UserProfileVo>({
+    url: `/api/pms/v1/user/profile/${id}`,
   });
 }
 

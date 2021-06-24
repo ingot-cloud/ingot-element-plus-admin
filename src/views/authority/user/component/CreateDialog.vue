@@ -167,7 +167,6 @@ export default defineComponent({
               Message.warning("两次密码不一致");
               return;
             }
-            console.log();
             loading.value = true;
             const params = {
               deptId: (props as any).deptId,
