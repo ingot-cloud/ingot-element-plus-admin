@@ -30,7 +30,7 @@ export const tableHeaders = [
   },
   {
     label: "操作",
-    width: "210",
+    width: "320",
     prop: "actions",
   },
 ];

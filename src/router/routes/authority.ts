@@ -48,7 +48,30 @@ const managementRoutes: Array<RouteRecordRaw> = [
           icon: "role",
         },
         path: "/authority/role",
+        redirect: "/authority/role/list",
         component: () => import("@/views/authority/role/index.vue"),
+        children: [
+          {
+            name: "SysAuthorityRoleManagerList",
+            meta: {
+              title: "角色管理",
+              icon: "role",
+            },
+            path: "/authority/role/list",
+            component: () => import("@/views/authority/role/list/index.vue"),
+          },
+          {
+            name: "SysAuthorityRoleManagerBindUser",
+            meta: {
+              title: "绑定用户",
+              hidden: true,
+            },
+            path: "/authority/role/binduser/:id",
+            component: () =>
+              import("@/views/authority/role/binduser/index.vue"),
+            props: true,
+          },
+        ],
       },
       {
         name: "SysAuthorityTenantManager",

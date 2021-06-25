@@ -7,6 +7,7 @@ import {
 import { store } from "@/store";
 import { Confirm, Message } from "@/utils/message";
 import { update, remove } from "@/store/composition/role";
+import router from "@/router";
 
 export const loading = ref(false);
 
@@ -65,4 +66,21 @@ export function handleDisable(
         loading.value = false;
       });
   });
+}
+
+export function handleBindCommand(params: {
+  type: string;
+  data: RolePageItemVo;
+}): void {
+  const type = params.type;
+  const data = params.data;
+  const roleId = data.id;
+
+  switch (type) {
+    case "user":
+      router.push({
+        path: `/authority/role/binduser/${roleId}`,
+      });
+      break;
+  }
 }

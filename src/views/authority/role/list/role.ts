@@ -13,6 +13,7 @@ import {
   handleDelete,
   handleEdit,
   handleDisable,
+  handleBindCommand,
 } from "./biz/role";
 import EditDialog from "./component/EditDialog.vue";
 
@@ -55,6 +56,7 @@ export default defineComponent({
             };
         }
       },
+      handleBindCommand,
       refreshData,
       handleCreate,
       handleEdit,
