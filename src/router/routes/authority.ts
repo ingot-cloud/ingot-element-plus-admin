@@ -82,6 +82,33 @@ const managementRoutes: Array<RouteRecordRaw> = [
         path: "/authority/tenant",
         component: () => import("@/views/authority/tenant/index.vue"),
       },
+      {
+        name: "SysAuthorityMenuManager",
+        meta: {
+          title: "菜单管理",
+          icon: "menu",
+        },
+        path: "/authority/menu",
+        component: () => import("@/views/authority/menu/index.vue"),
+      },
+      {
+        name: "SysAuthorityAuthorityManager",
+        meta: {
+          title: "权限管理",
+          icon: "authority",
+        },
+        path: "/authority/authority",
+        component: () => import("@/views/authority/authority/index.vue"),
+      },
+      {
+        name: "SysAuthorityClientManager",
+        meta: {
+          title: "客户端管理",
+          icon: "client",
+        },
+        path: "/authority/client",
+        component: () => import("@/views/authority/client/index.vue"),
+      },
     ],
   },
 ];
