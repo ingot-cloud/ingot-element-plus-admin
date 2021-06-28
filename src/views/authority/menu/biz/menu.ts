@@ -1,26 +1,27 @@
 import { ref, reactive, unref } from "vue";
-import { MenuTreeNode, CommonStatus } from "@/model";
-import { copyParamsWithKeys } from "@/utils/object";
+import { MenuTreeNode, CommonStatus, SysMenu } from "@/model";
+import { copyParamsWithKeys, getChangedFieldObj } from "@/utils/object";
 import { Message, Confirm } from "@/utils/message";
-import { getMenuTree } from "@/api/authority/menu";
+import { getMenuTree, create, update, remove } from "@/api/authority/menu";
 
 const rawEditForm = {
-  id: null,
-  pid: null,
-  pName: null,
-  name: null,
-  path: null,
-  viewPath: null,
-  icon: null,
-  sort: null,
-  cache: false,
+  id: undefined,
+  pid: undefined,
+  pName: undefined,
+  name: undefined,
+  path: undefined,
+  viewPath: undefined,
+  icon: undefined,
+  sort: undefined,
+  isCache: false,
   hidden: false,
-  params: null,
+  params: undefined,
   status: CommonStatus.Enable,
-  remark: null,
+  remark: undefined,
 };
 
 const keys = Object.keys(rawEditForm);
+const sysMenuKeys = keys.filter((f) => f !== "pName");
 
 export const menuFormRef = ref();
 
@@ -42,10 +43,20 @@ export const menuData = reactive({
   data: [] as Array<MenuTreeNode>,
 });
 export const editForm = reactive(Object.assign({}, rawEditForm));
+const selectEditForm = reactive(Object.assign({}, rawEditForm));
 export const editStatus = reactive({
+  isEdit: false,
   saveOrUpdateButtonTitle: "添加",
   formDisabled: true,
 });
+
+function checkSelected() {
+  if (!editForm.id) {
+    Message.warning("请先选择菜单");
+    return false;
+  }
+  return true;
+}
 
 export function fetchData(): void {
   loading.value = true;
@@ -68,28 +79,87 @@ export function fetchData(): void {
 }
 
 export function handleCreateRadioClick(): void {
+  copyParamsWithKeys(rawEditForm, editForm, keys);
   editStatus.formDisabled = false;
+  editStatus.isEdit = false;
+  editStatus.saveOrUpdateButtonTitle = "添加";
+  editForm.pid = selectEditForm.id;
+  editForm.pName = selectEditForm.name;
 }
 
 export function handleEditRadioClick(): void {
-  // todo
+  if (!checkSelected()) {
+    return;
+  }
+  editStatus.formDisabled = false;
+  editStatus.isEdit = true;
+  editStatus.saveOrUpdateButtonTitle = "编辑";
 }
 
-export function handleCancelRadioClick(): void {
-  editStatus.formDisabled = true;
+export function handleDeleteRadioClick(callback?: FunctionConstructor): void {
+  if (!checkSelected()) {
+    return;
+  }
+  Confirm.warning(`是否删除菜单${selectEditForm.name}`).then(() => {
+    const id = selectEditForm.id || "";
+    remove(id).then(() => {
+      Message.success("操作成功");
+      handleFormCancel();
+      if (callback) {
+        callback();
+      }
+    });
+  });
+}
+
+export function handleCancelSelectRadioClick(): void {
+  copyParamsWithKeys(rawEditForm, selectEditForm, keys);
 }
 
 export function handleTreeNodeClick(params: MenuTreeNode): void {
   copyParamsWithKeys(params, editForm, keys);
+  copyParamsWithKeys(params, selectEditForm, keys);
 }
 
-export function handleFormCreateOrUpdate(): void {
+export function handleFormCreateOrUpdate(callback?: FunctionConstructor): void {
   const form = unref(menuFormRef);
   form.validate((valid: boolean) => {
-    console.log(valid);
+    if (valid) {
+      const params: SysMenu = {};
+
+      let request;
+      if (editStatus.isEdit) {
+        const params = getChangedFieldObj(selectEditForm, editForm);
+        if (Object.keys(params).length === 0) {
+          Message.warning("未改变数据");
+          return;
+        }
+        params.id = selectEditForm.id;
+        request = update(params);
+      } else {
+        copyParamsWithKeys(editForm, params, sysMenuKeys);
+        request = create(params);
+      }
+
+      loading.value = true;
+      request
+        .then(() => {
+          loading.value = false;
+          Message.success("操作成功");
+          handleFormCancel();
+          if (callback) {
+            callback();
+          }
+        })
+        .catch(() => {
+          loading.value = false;
+        });
+    }
   });
 }
 
 export function handleFormCancel(): void {
   editStatus.formDisabled = true;
+  copyParamsWithKeys(rawEditForm, editForm, keys);
+  copyParamsWithKeys(rawEditForm, selectEditForm, keys);
 }

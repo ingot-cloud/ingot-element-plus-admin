@@ -28,9 +28,16 @@
               type="danger"
               size="small"
               icon="el-icon-delete"
-              @click="handleCancelRadioClick"
+              @click="handleDeleteRadioClick(fetchData)"
             >
               删除
+            </el-button>
+            <el-button
+              type="warning"
+              size="small"
+              @click="handleCancelSelectRadioClick"
+            >
+              取消选择
             </el-button>
           </el-button-group>
           <el-tree
@@ -95,13 +102,13 @@
             </el-form-item>
             <el-form-item prop="params" label="参数">
               <el-input
-                v-model="editForm.sort"
+                v-model="editForm.params"
                 placeholder="请输入菜单参数"
                 clearable
               ></el-input>
             </el-form-item>
             <el-form-item prop="cache" label="是否缓存">
-              <el-radio-group v-model="editForm.cache">
+              <el-radio-group v-model="editForm.isCache">
                 <el-radio :label="true"> 是 </el-radio>
                 <el-radio :label="false"> 否 </el-radio>
               </el-radio-group>
@@ -133,11 +140,11 @@
               <el-button
                 type="success"
                 size="small"
-                @click="handleFormCreateOrUpdate"
+                @click="handleFormCreateOrUpdate(fetchData)"
               >
                 {{ editStatus.saveOrUpdateButtonTitle }}
               </el-button>
-              <el-button type="info" size="small" @click="handleFormCancel">
+              <el-button type="danger" size="small" @click="handleFormCancel">
                 取消
               </el-button>
             </el-form-item>
