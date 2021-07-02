@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, reactive, ref } from "vue";
+import { defineComponent, onMounted } from "vue";
 import { tableHeaders } from "./biz/table";
 import {
   getCommonStatusDesc,
@@ -17,6 +17,10 @@ import {
 
 export default defineComponent({
   setup() {
+    onMounted(() => {
+      fetchData();
+    });
+
     return {
       tableHeaders,
       pageInfo,

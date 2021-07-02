@@ -35,6 +35,27 @@ export function getCommonStatusTag(status: CommonStatus): string {
   }
 }
 
+export interface ButtonStatusParams {
+  title: string;
+  type: string;
+}
+
+export function getDisableButtonParams(): ButtonStatusParams {
+  switch (status) {
+    case CommonStatus.Enable:
+      return {
+        title: "锁定",
+        type: "danger",
+      };
+    case CommonStatus.Lock:
+      return {
+        title: "解锁",
+        type: "success",
+      };
+  }
+  return {} as ButtonStatusParams;
+}
+
 /**
  * 分页模型
  */
