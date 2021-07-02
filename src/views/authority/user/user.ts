@@ -8,6 +8,7 @@ import {
   showDept,
   condition,
   pageInfo,
+  handlePageChange,
   fetchUserData,
   handleTreeNodeClick,
   handleCreateUser,
@@ -63,6 +64,7 @@ export default defineComponent({
             };
         }
       },
+      handlePageChange,
       fetchUserData,
       handleTreeNodeClick,
       handleCreateUser,

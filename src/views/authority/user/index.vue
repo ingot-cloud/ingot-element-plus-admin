@@ -58,6 +58,8 @@
             :data="pageInfo.records"
             :headers="tableHeaders"
             :page="pageInfo"
+            @handleSizeChange="handlePageChange"
+            @handleCurrentChange="handlePageChange"
           >
             <template #status="{ item }">
               <el-tag :type="getCommonStatusTag(item.status)">

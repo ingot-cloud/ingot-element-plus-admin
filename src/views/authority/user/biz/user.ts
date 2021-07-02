@@ -43,9 +43,18 @@ export function fetchUserData(): void {
     conditionParams.deptId = undefined;
   }
   userPage(page, conditionParams).then((response) => {
+    console.log("fetchUser");
     pageInfo.records = response.data.records;
     pageInfo.total = Number(response.data.total);
   });
+}
+
+export function handlePageChange(params: {
+  value: number;
+  type: "current" | "size";
+}): void {
+  pageInfo[params.type] = params.value;
+  fetchUserData();
 }
 
 /**
