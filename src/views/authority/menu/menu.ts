@@ -2,6 +2,7 @@ import { defineComponent, onMounted } from "vue";
 import {
   menuData,
   menuFormRef,
+  menuTreeRef,
   editForm,
   editStatus,
   rules,
@@ -22,6 +23,7 @@ export default defineComponent({
       fetchData();
     });
     return {
+      menuTreeRef,
       menuFormRef,
       menuData,
       editForm,

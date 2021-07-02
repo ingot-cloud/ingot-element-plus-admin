@@ -35,6 +35,7 @@
             <el-button
               type="warning"
               size="small"
+              icon="el-icon-refresh-left"
               @click="handleCancelSelectRadioClick"
             >
               取消选择
@@ -42,6 +43,7 @@
           </el-button-group>
           <el-tree
             class="tree"
+            ref="menuTreeRef"
             :data="menuData.data"
             :props="menuData.props"
             :node-key="menuData.nodeKey"

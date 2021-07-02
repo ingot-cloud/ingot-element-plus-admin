@@ -24,6 +24,7 @@ const keys = Object.keys(rawEditForm);
 const sysMenuKeys = keys.filter((f) => f !== "pName");
 
 export const menuFormRef = ref();
+export const menuTreeRef = ref();
 
 export const rules = {
   name: [{ required: true, message: "请输入菜单名称", trigger: "blur" }],
@@ -93,7 +94,7 @@ export function handleEditRadioClick(): void {
   }
   editStatus.formDisabled = false;
   editStatus.isEdit = true;
-  editStatus.saveOrUpdateButtonTitle = "编辑";
+  editStatus.saveOrUpdateButtonTitle = "更新";
 }
 
 export function handleDeleteRadioClick(callback?: FunctionConstructor): void {
@@ -113,7 +114,10 @@ export function handleDeleteRadioClick(callback?: FunctionConstructor): void {
 }
 
 export function handleCancelSelectRadioClick(): void {
+  const tree = unref(menuTreeRef);
+  tree.setCurrentKey(null);
   copyParamsWithKeys(rawEditForm, selectEditForm, keys);
+  copyParamsWithKeys(rawEditForm, editForm, keys);
 }
 
 export function handleTreeNodeClick(params: MenuTreeNode): void {
@@ -160,6 +164,5 @@ export function handleFormCreateOrUpdate(callback?: FunctionConstructor): void {
 
 export function handleFormCancel(): void {
   editStatus.formDisabled = true;
-  copyParamsWithKeys(rawEditForm, editForm, keys);
-  copyParamsWithKeys(rawEditForm, selectEditForm, keys);
+  handleCancelSelectRadioClick();
 }
