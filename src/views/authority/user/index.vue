@@ -76,10 +76,10 @@
               </el-button>
               <el-button
                 size="mini"
-                :type="disableButtonParams(item.status).type"
+                :type="getDisableButtonParams(item.status).type"
                 @click="handleDisableUser(item)"
               >
-                {{ disableButtonParams(item.status).title }}
+                {{ getDisableButtonParams(item.status).title }}
               </el-button>
               <el-button
                 size="mini"

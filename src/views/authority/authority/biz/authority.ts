@@ -13,6 +13,13 @@ export function fetchData(): void {
   //
 }
 
+export function handlePageChange(params: {
+  type: string;
+  value: number;
+}): void {
+  //
+}
+
 export function handleCreate(): void {
   //
 }

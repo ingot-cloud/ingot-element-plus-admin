@@ -5,7 +5,7 @@ import { SysRole } from "@/model";
 import {
   getCommonStatusDesc,
   getCommonStatusTag,
-  CommonStatus,
+  getDisableButtonParams,
 } from "@/model/common";
 import {
   handleCreate,
@@ -41,20 +41,7 @@ export default defineComponent({
       records,
       getCommonStatusTag,
       getCommonStatusDesc,
-      disableButtonParams: (status: CommonStatus) => {
-        switch (status) {
-          case CommonStatus.Enable:
-            return {
-              title: "锁定",
-              type: "danger",
-            };
-          case CommonStatus.Lock:
-            return {
-              title: "解锁",
-              type: "success",
-            };
-        }
-      },
+      getDisableButtonParams,
       refreshData,
       handleCreate,
       handleEdit,

@@ -18,7 +18,11 @@ import {
   currentDeptNode,
 } from "./biz/user";
 import { tableHeaders } from "./biz/table";
-import { getCommonStatusDesc, getCommonStatusTag, CommonStatus } from "@/model";
+import {
+  getCommonStatusDesc,
+  getCommonStatusTag,
+  getDisableButtonParams,
+} from "@/model";
 import { useStore } from "@/store";
 import CreateDialog from "./component/CreateDialog.vue";
 
@@ -50,20 +54,7 @@ export default defineComponent({
       currentDeptNode,
       getCommonStatusTag,
       getCommonStatusDesc,
-      disableButtonParams: (status: CommonStatus) => {
-        switch (status) {
-          case CommonStatus.Enable:
-            return {
-              title: "锁定",
-              type: "danger",
-            };
-          case CommonStatus.Lock:
-            return {
-              title: "解锁",
-              type: "success",
-            };
-        }
-      },
+      getDisableButtonParams,
       handlePageChange,
       fetchUserData,
       handleTreeNodeClick,

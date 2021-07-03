@@ -40,7 +40,9 @@ export interface ButtonStatusParams {
   type: string;
 }
 
-export function getDisableButtonParams(): ButtonStatusParams {
+export function getDisableButtonParams(
+  status: CommonStatus
+): ButtonStatusParams {
   switch (status) {
     case CommonStatus.Enable:
       return {

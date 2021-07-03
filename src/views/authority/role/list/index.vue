@@ -78,11 +78,11 @@
           <el-button
             class="action-item"
             size="mini"
-            :type="disableButtonParams(item.status).type"
+            :type="getDisableButtonParams(item.status).type"
             :disabled="!item.canAction"
             @click="handleDisable(item, refreshData)"
           >
-            {{ disableButtonParams(item.status).title }}
+            {{ getDisableButtonParams(item.status).title }}
           </el-button>
           <el-button
             class="action-item"

@@ -30,6 +30,8 @@
         :data="pageInfo.records"
         :headers="tableHeaders"
         :page="pageInfo"
+        @handleSizeChange="handlePageChange"
+        @handleCurrentChange="handlePageChange"
       >
         <template #status="{ item }">
           <el-tag :type="getCommonStatusTag(item.status)">
@@ -46,10 +48,10 @@
           </el-button>
           <el-button
             size="mini"
-            :type="disableButtonParams(item.status).type"
+            :type="getDisableButtonParams(item.status).type"
             @click="handleDisable(item)"
           >
-            {{ disableButtonParams(item.status).title }}
+            {{ getDisableButtonParams(item.status).title }}
           </el-button>
           <el-button size="mini" type="danger" @click="handleDelete(item)">
             删除
