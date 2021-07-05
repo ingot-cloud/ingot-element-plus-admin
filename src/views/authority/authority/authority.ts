@@ -7,7 +7,6 @@ import {
 } from "@/model/common";
 import {
   fetchData,
-  handlePageChange,
   handleCreate,
   handleDelete,
   handleEdit,
@@ -30,7 +29,6 @@ export default defineComponent({
       getCommonStatusDesc,
       getDisableButtonParams,
       fetchData,
-      handlePageChange,
       handleCreate,
       handleEdit,
       handleDisable,

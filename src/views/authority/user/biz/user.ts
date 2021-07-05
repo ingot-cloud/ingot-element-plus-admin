@@ -2,6 +2,7 @@ import { reactive, toRaw, ref, Ref, unref } from "vue";
 import {
   DeptTreeNode,
   Page,
+  PageChangeParams,
   UserPageItemVo,
   CommonStatus,
   getCommonStatusActionDesc,
@@ -34,7 +35,10 @@ export const pageInfo = reactive(pageInfoRaw);
 /**
  * 获取用户数据
  */
-export function fetchUserData(): void {
+export function fetchUserData(params?: PageChangeParams): void {
+  if (params) {
+    pageInfo[params.type] = params.value;
+  }
   const page = toRaw(pageInfo);
   page.total = undefined;
   page.records = undefined;
@@ -43,18 +47,9 @@ export function fetchUserData(): void {
     conditionParams.deptId = undefined;
   }
   userPage(page, conditionParams).then((response) => {
-    console.log("fetchUser");
     pageInfo.records = response.data.records;
     pageInfo.total = Number(response.data.total);
   });
-}
-
-export function handlePageChange(params: {
-  value: number;
-  type: "current" | "size";
-}): void {
-  pageInfo[params.type] = params.value;
-  fetchUserData();
 }
 
 /**

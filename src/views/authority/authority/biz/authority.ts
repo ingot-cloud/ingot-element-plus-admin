@@ -1,5 +1,6 @@
-import { SysAuthority, Page } from "@/model";
-import { reactive } from "vue";
+import { SysAuthority, Page, PageChangeParams } from "@/model";
+import { reactive, toRaw } from "vue";
+import { page } from "@/api/authority/authority";
 
 export const condition = reactive({} as SysAuthority);
 export const pageInfo = reactive({
@@ -9,15 +10,17 @@ export const pageInfo = reactive({
   records: [],
 } as Page<SysAuthority>);
 
-export function fetchData(): void {
-  //
-}
-
-export function handlePageChange(params: {
-  type: string;
-  value: number;
-}): void {
-  //
+export function fetchData(params?: PageChangeParams): void {
+  if (params) {
+    pageInfo[params.type] = params.value;
+  }
+  const pageParams = toRaw(pageInfo);
+  pageParams.total = undefined;
+  pageParams.records = undefined;
+  page(pageParams, condition).then((response) => {
+    pageInfo.records = response.data.records;
+    pageInfo.total = Number(response.data.total);
+  });
 }
 
 export function handleCreate(): void {

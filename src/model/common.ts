@@ -67,3 +67,8 @@ export interface Page<T extends any = any> {
   total?: number;
   records?: Array<T>;
 }
+
+export interface PageChangeParams {
+  type: "current" | "size";
+  value: number;
+}
