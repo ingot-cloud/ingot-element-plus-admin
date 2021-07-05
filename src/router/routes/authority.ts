@@ -20,7 +20,7 @@ const managementRoutes: Array<RouteRecordRaw> = [
           icon: "user",
         },
         path: "/authority/user",
-        component: () => import("@/views/authority/user/index.vue"),
+        component: () => import("@/views/authority/user/home/index.vue"),
       },
       {
         name: "SysAuthorityUserManagerDetail",
@@ -98,7 +98,7 @@ const managementRoutes: Array<RouteRecordRaw> = [
           icon: "authority",
         },
         path: "/authority/authority",
-        component: () => import("@/views/authority/authority/index.vue"),
+        component: () => import("@/views/authority/authority/home/index.vue"),
       },
       {
         name: "SysAuthorityClientManager",
@@ -107,7 +107,7 @@ const managementRoutes: Array<RouteRecordRaw> = [
           icon: "client",
         },
         path: "/authority/client",
-        component: () => import("@/views/authority/client/index.vue"),
+        component: () => import("@/views/authority/client/home/index.vue"),
       },
     ],
   },
