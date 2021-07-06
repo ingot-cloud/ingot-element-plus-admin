@@ -17,6 +17,10 @@ export const tableHeaders = [
     prop: "path",
   },
   {
+    label: "方法",
+    prop: "method",
+  },
+  {
     label: "备注",
     prop: "remark",
   },

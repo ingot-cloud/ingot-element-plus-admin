@@ -81,7 +81,11 @@ import { SysAuthority } from "@/model";
 import { defineComponent, reactive, ref, nextTick, unref, toRaw } from "vue";
 import { create, update } from "@/api/authority/authority";
 import { Message } from "@/utils/message";
-import { copyParams, copyParamsWithKeys } from "@/utils/object";
+import {
+  copyParams,
+  copyParamsWithKeys,
+  getDiffWithIgnore,
+} from "@/utils/object";
 
 const rules = {
   name: [{ required: true, message: "请输入权限名称", trigger: "blur" }],
@@ -105,6 +109,7 @@ export default defineComponent({
   setup(_, { emit }) {
     const editFormRef = ref();
     const editForm = reactive(Object.assign({}, defaultEditForm));
+    const rawEditForm = reactive(Object.assign({}, defaultEditForm));
     const pName = ref("");
     const loading = ref(false);
     const title = ref("");
@@ -126,6 +131,7 @@ export default defineComponent({
 
         // 重置数据
         copyParams(editForm, defaultEditForm);
+        copyParams(rawEditForm, defaultEditForm);
         nextTick(() => {
           const form = unref(editFormRef);
           form.clearValidate();
@@ -135,6 +141,7 @@ export default defineComponent({
           title.value = "编辑";
           edit.value = true;
           copyParams(editForm, data);
+          copyParams(rawEditForm, data);
         } else {
           title.value = "创建";
           edit.value = false;
@@ -152,10 +159,15 @@ export default defineComponent({
         form.validate((valid: boolean) => {
           if (valid) {
             loading.value = true;
-            const params: SysAuthority = {};
-            copyParamsWithKeys(params, toRaw(editForm), keys);
-
-            const request = edit.value ? update(params) : create(params);
+            let params: SysAuthority = {};
+            let request;
+            if (edit.value) {
+              params = getDiffWithIgnore(rawEditForm, editForm, ["id"]);
+              request = update(params);
+            } else {
+              copyParamsWithKeys(params, toRaw(editForm), keys);
+              request = create(params);
+            }
 
             request
               .then(() => {

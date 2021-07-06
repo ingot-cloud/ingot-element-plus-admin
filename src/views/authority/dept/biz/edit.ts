@@ -2,7 +2,7 @@ import { reactive, ref, unref, Ref } from "vue";
 import { CommonStatus, DeptRoleScope, DeptTreeNode, SysDept } from "@/model";
 import { Message, Confirm } from "@/utils/message";
 import { createDept, removeDept, updateDept } from "@/store/composition/dept";
-import { getChangedFieldObj } from "@/utils/object";
+import { getDiff } from "@/utils/object";
 import { IngotStore } from "@/store/types";
 
 type EditStatus = "create" | "edit";
@@ -158,7 +158,7 @@ export function handleCreateOrUpdateDept(
     if (currentStatus === "create") {
       request = createDept(store, formModelToSysDept());
     } else {
-      const params = getChangedFieldObj<SysDept>(
+      const params = getDiff<SysDept>(
         selectedDeptNodeToSysDept(),
         formModelToSysDept()
       );

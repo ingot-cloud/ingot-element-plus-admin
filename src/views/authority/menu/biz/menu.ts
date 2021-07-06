@@ -1,6 +1,6 @@
 import { ref, reactive, unref } from "vue";
 import { MenuTreeNode, CommonStatus, SysMenu } from "@/model";
-import { copyParamsWithKeys, getChangedFieldObj } from "@/utils/object";
+import { copyParamsWithKeys, getDiff } from "@/utils/object";
 import { Message, Confirm } from "@/utils/message";
 import { getMenuTree, create, update, remove } from "@/api/authority/menu";
 
@@ -133,7 +133,7 @@ export function handleFormCreateOrUpdate(callback?: FunctionConstructor): void {
 
       let request;
       if (editStatus.isEdit) {
-        const params = getChangedFieldObj(selectEditForm, editForm);
+        const params = getDiff(selectEditForm, editForm);
         if (Object.keys(params).length === 0) {
           Message.warning("未改变数据");
           return;
