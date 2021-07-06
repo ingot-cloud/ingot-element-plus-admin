@@ -6,8 +6,7 @@ import {
   getCommonStatusActionDesc,
 } from "@/model";
 import { reactive, toRaw, ref, unref } from "vue";
-import { page } from "@/api/authority/authority";
-import { update, remove } from "@/api/authority/authority";
+import { page, update, remove } from "@/api/authority/authority";
 import { Confirm, Message } from "@/utils/message";
 import router from "@/router";
 

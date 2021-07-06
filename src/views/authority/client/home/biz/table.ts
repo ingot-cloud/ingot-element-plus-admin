@@ -5,24 +5,28 @@ export const tableHeaders = [
     type: "index",
   },
   {
-    label: "权限名称",
-    prop: "name",
+    label: "客户端ID",
+    prop: "clientId",
   },
   {
-    label: "权限编码",
-    prop: "code",
+    label: "资源ID",
+    prop: "resourceId",
   },
   {
-    label: "路径",
-    prop: "path",
+    label: "允许的授权类型",
+    prop: "authorizedGrantTypes",
   },
   {
-    label: "备注",
-    prop: "remark",
+    label: "Token授权类型",
+    prop: "authType",
   },
   {
     label: "状态",
     prop: "status",
+  },
+  {
+    label: "备注",
+    prop: "remark",
   },
   {
     label: "创建时间",
