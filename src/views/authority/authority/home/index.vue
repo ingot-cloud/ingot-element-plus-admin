@@ -21,7 +21,7 @@
           class="item"
           size="small"
           type="success"
-          @click="handleCreate(editDialog)"
+          @click="handleCreate"
         >
           添加
         </el-button>
@@ -39,11 +39,7 @@
           </el-tag>
         </template>
         <template #actions="{ item }">
-          <el-button
-            size="mini"
-            type="primary"
-            @click="handleEdit(editDialog, item)"
-          >
+          <el-button size="mini" type="primary" @click="handleEdit(item)">
             编辑
           </el-button>
           <el-button
@@ -60,5 +56,6 @@
       </ingot-table>
     </ingot-page-card>
   </ingot-container>
+  <EditDialog ref="editDialogRef" @success="fetchData" />
 </template>
 <script lang="ts" src="./authority.ts"></script>

@@ -2,7 +2,7 @@
   <el-dialog :title="title" v-model="visible" center>
     <div class="dialog-content">
       <el-form
-        ref="roleEditFormRef"
+        ref="editFormRef"
         class="form"
         label-width="100px"
         label-position="left"
@@ -10,36 +10,55 @@
         :rules="rules"
         size="small"
       >
-        <el-form-item label="角色名称" prop="name">
+        <el-form-item label="权限组" v-if="pName">
+          {{ pName }}
+        </el-form-item>
+        <el-form-item label="权限名称" prop="name">
           <el-input
             v-model="editForm.name"
             clearable
-            placeholder="请输入角色名称"
+            placeholder="请输入权限名称"
             class="form-item"
           ></el-input>
         </el-form-item>
-        <el-form-item label="角色编码" prop="code">
+        <el-form-item label="权限编码" prop="code">
           <el-input
             :disabled="edit"
             v-model="editForm.code"
             clearable
-            placeholder="请输入角色编码"
+            placeholder="请输入权限编码"
             class="form-item"
           ></el-input>
         </el-form-item>
-        <el-form-item label="角色类型" prop="type">
+        <el-form-item label="路径">
           <el-input
-            v-model="editForm.type"
+            v-model="editForm.path"
             clearable
-            placeholder="请输入角色类型"
+            placeholder="请输入路径"
             class="form-item"
           ></el-input>
         </el-form-item>
-        <el-form-item label="备注" prop="remark">
+        <el-form-item label="方法">
+          <el-select
+            v-model="editForm.method"
+            placeholder="请选择方法"
+            size="small"
+            clearable
+            class="form-item"
+          >
+            <el-option
+              v-for="item in methodArray"
+              :key="item"
+              :label="item"
+              :value="item"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="备注">
           <el-input
             v-model="editForm.remark"
             clearable
-            placeholder="请输入备注"
+            placeholder="请输入备注信息"
             class="form-item"
           ></el-input>
         </el-form-item>
@@ -58,77 +77,86 @@
   </el-dialog>
 </template>
 <script lang="ts">
-import { RolePageItemVo, SysRole } from "@/model";
+import { SysAuthority } from "@/model";
 import { defineComponent, reactive, ref, nextTick, unref, toRaw } from "vue";
+import { create, update } from "@/api/authority/authority";
 import { Message } from "@/utils/message";
-import { create, update } from "@/store/composition/role";
-import { store } from "@/store";
 import { copyParams, copyParamsWithKeys } from "@/utils/object";
 
 const rules = {
-  name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
-  code: [{ required: true, message: "请输入角色编码", trigger: "blur" }],
-  type: [{ required: false }],
-  remark: [{ required: false }],
+  name: [{ required: true, message: "请输入权限名称", trigger: "blur" }],
+  code: [{ required: true, message: "请输入权限编码", trigger: "blur" }],
 };
 
-const defaultEditForm = {
-  id: null,
-  name: null,
-  code: null,
-  type: null,
-  remark: null,
+const defaultEditForm: SysAuthority = {
+  id: undefined,
+  pid: undefined,
+  name: undefined,
+  code: undefined,
+  path: undefined,
+  method: undefined,
+  remark: undefined,
 };
 
-const keys = ["id", "name", "code", "type", "remark"];
+const keys = Object.keys(defaultEditForm);
 
 export default defineComponent({
   emits: ["success"],
   setup(_, { emit }) {
+    const editFormRef = ref();
+    const editForm = reactive(Object.assign({}, defaultEditForm));
+    const pName = ref("");
+    const loading = ref(false);
     const title = ref("");
     const edit = ref(false);
     const visible = ref(false);
-    const loading = ref(false);
-    const roleEditFormRef = ref();
-    const editForm = reactive(Object.assign({}, defaultEditForm));
+
     return {
+      methodArray: ["*", "GET", "POST", "DELETE", "PUT"],
+      editFormRef,
       title,
       edit,
       visible,
       loading,
       editForm,
-      roleEditFormRef,
+      pName,
       rules,
-      show(data?: RolePageItemVo) {
+      show: (data?: SysAuthority, parent?: SysAuthority) => {
         visible.value = true;
 
         // 重置数据
         copyParams(defaultEditForm, editForm);
         nextTick(() => {
-          const form = unref(roleEditFormRef);
+          const form = unref(editFormRef);
           form.clearValidate();
         });
 
         if (data) {
-          title.value = "编辑角色";
+          title.value = "编辑";
           edit.value = true;
           copyParams(data, editForm);
         } else {
-          title.value = "创建角色";
+          title.value = "创建";
           edit.value = false;
+        }
+        if (parent) {
+          editForm.pid = parent.id;
+          pName.value = parent.name as string;
+        } else {
+          editForm.pid = undefined;
+          pName.value = "";
         }
       },
       handleConfirmClick() {
-        const form = unref(roleEditFormRef);
+        const form = unref(editFormRef);
         form.validate((valid: boolean) => {
           if (valid) {
             loading.value = true;
-            const params: SysRole = {};
+            const params: SysAuthority = {};
             copyParamsWithKeys(toRaw(editForm), params, keys);
 
-            const request = edit.value
-              ? update(store, params)
-              : create(store, params);
+            const request = edit.value ? update(params) : create(params);
+
             request
               .then(() => {
                 loading.value = false;

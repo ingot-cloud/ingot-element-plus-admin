@@ -1,5 +1,5 @@
 import { SysAuthority, Page, PageChangeParams } from "@/model";
-import { reactive, toRaw } from "vue";
+import { reactive, toRaw, ref, unref } from "vue";
 import { page } from "@/api/authority/authority";
 
 export const condition = reactive({} as SysAuthority);
@@ -9,6 +9,8 @@ export const pageInfo = reactive({
   total: 0,
   records: [],
 } as Page<SysAuthority>);
+
+export const editDialogRef = ref();
 
 export function fetchData(params?: PageChangeParams): void {
   if (params) {
@@ -24,11 +26,13 @@ export function fetchData(params?: PageChangeParams): void {
 }
 
 export function handleCreate(): void {
-  //
+  const dialog = unref(editDialogRef);
+  dialog.show();
 }
 
-export function handleEdit(): void {
-  //
+export function handleEdit(params: SysAuthority): void {
+  const dialog = unref(editDialogRef);
+  dialog.show(params);
 }
 
 export function handleDelete(): void {
