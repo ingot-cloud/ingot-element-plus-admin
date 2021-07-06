@@ -1,9 +1,6 @@
 <template>
   <ingot-container>
     <ingot-page-card :hideBack="true">
-      <template #action>
-        <ingot-tenant-options size="small" />
-      </template>
       <ingot-filter-container>
         <el-input
           v-model="condition.name"

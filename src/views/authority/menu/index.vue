@@ -1,10 +1,6 @@
 <template>
   <ingot-container>
     <ingot-page-card :hideBack="true">
-      <template #action>
-        <ingot-tenant-options size="small" />
-      </template>
-
       <el-row>
         <el-col :span="8">
           <el-button-group>

@@ -1,10 +1,6 @@
 <template>
   <ingot-container>
     <ingot-page-card :content="parent.name" @back="$router.back()">
-      <template #action>
-        <ingot-tenant-options size="small" />
-      </template>
-
       <ingot-filter-container>
         <el-input
           v-model="condition.name"

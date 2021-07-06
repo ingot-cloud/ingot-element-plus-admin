@@ -12,7 +12,7 @@
 
     <div class="menu">
       <div class="avatar-menu">
-        <el-dropdown trigger="hover">
+        <el-dropdown trigger="hover" @command="handleMenuCommand">
           <div class="avatar-wrapper">
             <img
               src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"
@@ -21,13 +21,13 @@
           </div>
           <template #dropdown>
             <el-dropdown-menu class="user-dropdown">
-              <router-link class="inlineBlock" to="/">
-                <el-dropdown-item> 修改密码 </el-dropdown-item>
-              </router-link>
-              <el-dropdown-item divided>
-                <span style="display: block" @click="handleLogoutClick">
-                  退出登录
-                </span>
+              <el-dropdown-item
+                v-for="item in menuList"
+                :key="item.title"
+                :command="item.command"
+                :divided="item.divided"
+              >
+                {{ item.title }}
               </el-dropdown-item>
             </el-dropdown-menu>
           </template>
@@ -35,19 +35,21 @@
       </div>
     </div>
   </div>
+  <TenantDialog ref="tenantDialogRef" />
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
 import { AppBarStyle } from "@/theme";
 import { getSidebarStatus, toggleMenu } from "@/store/composition/app";
-import { handlLogout } from "@/store/composition/auth";
 // import MenuIcon from "./MenuIcon.vue";
 import { useStore } from "@/store";
+import { menuList, handleMenuCommand, tenantDialogRef } from "./appBar";
+import TenantDialog from "./TenantDialog.vue";
 
 export default defineComponent({
   components: {
-    // MenuIcon
+    TenantDialog,
   },
   setup() {
     const store = useStore();
@@ -58,11 +60,11 @@ export default defineComponent({
       menuIconStyle,
       logoStyle,
       opened,
+      menuList,
+      handleMenuCommand,
       toggleMenu,
+      tenantDialogRef,
       title: computed(() => store.state.title),
-      handleLogoutClick: () => {
-        handlLogout();
-      },
     };
   },
 });
