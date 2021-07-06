@@ -34,7 +34,7 @@ export const tableHeaders = [
   },
   {
     label: "操作",
-    width: "290",
+    width: "210",
     prop: "actions",
   },
 ];

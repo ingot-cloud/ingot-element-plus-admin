@@ -9,7 +9,6 @@ import { reactive, toRaw, ref, unref } from "vue";
 import { page } from "@/api/authority/authority";
 import { update, remove } from "@/api/authority/authority";
 import { Confirm, Message } from "@/utils/message";
-import router from "@/router";
 
 export const condition = reactive({} as SysAuthority);
 export const pageInfo = reactive({
@@ -21,6 +20,8 @@ export const pageInfo = reactive({
 
 export const editDialogRef = ref();
 
+export const parent = reactive({} as SysAuthority);
+
 export function fetchData(params?: PageChangeParams): void {
   if (params) {
     pageInfo[params.type] = params.value;
@@ -28,6 +29,7 @@ export function fetchData(params?: PageChangeParams): void {
   const pageParams = toRaw(pageInfo);
   pageParams.total = undefined;
   pageParams.records = undefined;
+  condition.pid = parent.id;
   page(pageParams, condition).then((response) => {
     pageInfo.records = response.data.records;
     pageInfo.total = Number(response.data.total);
@@ -36,12 +38,12 @@ export function fetchData(params?: PageChangeParams): void {
 
 export function handleCreate(): void {
   const dialog = unref(editDialogRef);
-  dialog.show();
+  dialog.show({ parent });
 }
 
 export function handleEdit(params: SysAuthority): void {
   const dialog = unref(editDialogRef);
-  dialog.show(params);
+  dialog.show({ data: params, parent });
 }
 
 export function handleDelete(
@@ -76,15 +78,5 @@ export function handleDisable(
         callback();
       }
     });
-  });
-}
-
-export function handleChild(params: SysAuthority): void {
-  router.push({
-    path: "/authority/authority/chilid",
-    query: {
-      id: params.id,
-      name: params.name,
-    },
   });
 }

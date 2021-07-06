@@ -11,23 +11,29 @@ import {
   handleDelete,
   handleEdit,
   handleDisable,
-  handleChild,
   condition,
   pageInfo,
   editDialogRef,
+  parent,
 } from "./biz/authority";
 import EditDialog from "./component/EditDialog.vue";
+import { useRoute } from "vue-router";
+import { copyParams } from "@/utils/object";
 
 export default defineComponent({
   components: {
     EditDialog,
   },
   setup() {
+    const route = useRoute();
+
     onMounted(() => {
+      copyParams(parent, route.query);
       fetchData();
     });
 
     return {
+      parent,
       editDialogRef,
       tableHeaders,
       pageInfo,
@@ -36,7 +42,6 @@ export default defineComponent({
       getCommonStatusDesc,
       getDisableButtonParams,
       fetchData,
-      handleChild,
       handleCreate,
       handleEdit,
       handleDisable,

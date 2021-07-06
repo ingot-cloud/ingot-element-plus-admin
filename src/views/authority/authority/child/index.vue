@@ -1,6 +1,6 @@
 <template>
   <ingot-container>
-    <ingot-page-card :hideBack="true">
+    <ingot-page-card :content="parent.name" @back="$router.back()">
       <template #action>
         <ingot-tenant-options size="small" />
       </template>
@@ -41,9 +41,6 @@
         <template #actions="{ item }">
           <el-button size="mini" type="primary" @click="handleEdit(item)">
             编辑
-          </el-button>
-          <el-button size="mini" type="warning" @click="handleChild(item)">
-            子权限
           </el-button>
           <el-button
             size="mini"

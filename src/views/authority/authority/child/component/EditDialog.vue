@@ -10,6 +10,9 @@
         :rules="rules"
         size="small"
       >
+        <el-form-item label="权限组" v-if="pName">
+          {{ pName }}
+        </el-form-item>
         <el-form-item label="权限名称" prop="name">
           <el-input
             v-model="editForm.name"
@@ -108,6 +111,7 @@ export default defineComponent({
     const editFormRef = ref();
     const editForm = reactive(Object.assign({}, defaultEditForm));
     const rawEditForm = reactive(Object.assign({}, defaultEditForm));
+    const pName = ref("");
     const loading = ref(false);
     const title = ref("");
     const edit = ref(false);
@@ -121,8 +125,9 @@ export default defineComponent({
       visible,
       loading,
       editForm,
+      pName,
       rules,
-      show: (data?: SysAuthority) => {
+      show: (params?: { data?: SysAuthority; parent?: SysAuthority }) => {
         visible.value = true;
 
         // 重置数据
@@ -133,14 +138,23 @@ export default defineComponent({
           form.clearValidate();
         });
 
-        if (data) {
-          title.value = "编辑";
-          edit.value = true;
-          copyParams(editForm, data);
-          copyParams(rawEditForm, data);
-        } else {
-          title.value = "创建";
-          edit.value = false;
+        if (params) {
+          if (params.data) {
+            title.value = "编辑";
+            edit.value = true;
+            copyParams(editForm, params.data);
+            copyParams(rawEditForm, params.data);
+          } else {
+            title.value = "创建";
+            edit.value = false;
+          }
+          if (params.parent) {
+            editForm.pid = params.parent.id;
+            pName.value = params.parent.name as string;
+          } else {
+            editForm.pid = undefined;
+            pName.value = "";
+          }
         }
       },
       handleConfirmClick() {
