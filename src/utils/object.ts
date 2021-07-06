@@ -58,20 +58,20 @@ export function hasConditionParams(condition?: object): boolean {
  * 拷贝参数
  */
 export function copyParams(
-  from: object,
   to: object,
+  from: object,
   filterNull?: boolean
 ): void {
   const keys = Object.keys(from);
-  copyParamsWithKeys(from, to, keys, filterNull);
+  copyParamsWithKeys(to, from, keys, filterNull);
 }
 
 /**
  * 拷贝参数
  */
 export function copyParamsWithKeys(
-  from: object,
   to: object,
+  from: object,
   keys: Array<string>,
   filterNull?: boolean
 ): void {

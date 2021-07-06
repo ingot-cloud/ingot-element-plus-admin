@@ -47,7 +47,7 @@ export default defineComponent({
 
     const refreshProfile = () => {
       userProfile(props.id).then((response) => {
-        copyParamsWithKeys(response.data, editForm, keys);
+        copyParamsWithKeys(editForm, response.data, keys);
       });
     };
 
@@ -81,7 +81,7 @@ export default defineComponent({
             loading.value = true;
 
             const params = { id: props.id };
-            copyParamsWithKeys(editForm, params, keys);
+            copyParamsWithKeys(params, editForm, keys);
 
             update(params)
               .then(() => {

@@ -172,7 +172,7 @@ export default defineComponent({
               deptId: (props as any).deptId,
               newPassword: editForm.password,
             };
-            copyParamsWithKeys(editForm, params, keys);
+            copyParamsWithKeys(params, editForm, keys);
             create(params)
               .then(() => {
                 loading.value = false;

@@ -97,7 +97,7 @@ export default defineComponent({
         visible.value = true;
 
         // 重置数据
-        copyParams(defaultEditForm, editForm);
+        copyParams(editForm, defaultEditForm);
         nextTick(() => {
           const form = unref(editFormRef);
           form.clearValidate();
@@ -106,7 +106,7 @@ export default defineComponent({
         if (data) {
           title.value = "编辑租户";
           edit.value = true;
-          Object.assign(editForm, data);
+          copyParams(editForm, data);
           if (data.startAt && data.endAt) {
             editForm.daterange = [data.startAt, data.endAt];
           }

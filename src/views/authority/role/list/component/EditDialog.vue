@@ -103,7 +103,7 @@ export default defineComponent({
         visible.value = true;
 
         // 重置数据
-        copyParams(defaultEditForm, editForm);
+        copyParams(editForm, defaultEditForm);
         nextTick(() => {
           const form = unref(roleEditFormRef);
           form.clearValidate();
@@ -112,7 +112,7 @@ export default defineComponent({
         if (data) {
           title.value = "编辑角色";
           edit.value = true;
-          copyParams(data, editForm);
+          copyParams(editForm, data);
         } else {
           title.value = "创建角色";
           edit.value = false;
@@ -124,7 +124,7 @@ export default defineComponent({
           if (valid) {
             loading.value = true;
             const params: SysRole = {};
-            copyParamsWithKeys(toRaw(editForm), params, keys);
+            copyParamsWithKeys(params, toRaw(editForm), keys);
 
             const request = edit.value
               ? update(store, params)

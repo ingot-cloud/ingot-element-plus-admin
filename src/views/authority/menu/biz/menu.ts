@@ -80,7 +80,7 @@ export function fetchData(): void {
 }
 
 export function handleCreateRadioClick(): void {
-  copyParamsWithKeys(rawEditForm, editForm, keys);
+  copyParamsWithKeys(editForm, rawEditForm, keys);
   editStatus.formDisabled = false;
   editStatus.isEdit = false;
   editStatus.saveOrUpdateButtonTitle = "添加";
@@ -116,13 +116,13 @@ export function handleDeleteRadioClick(callback?: FunctionConstructor): void {
 export function handleCancelSelectRadioClick(): void {
   const tree = unref(menuTreeRef);
   tree.setCurrentKey(null);
-  copyParamsWithKeys(rawEditForm, selectEditForm, keys);
-  copyParamsWithKeys(rawEditForm, editForm, keys);
+  copyParamsWithKeys(selectEditForm, rawEditForm, keys);
+  copyParamsWithKeys(editForm, rawEditForm, keys);
 }
 
 export function handleTreeNodeClick(params: MenuTreeNode): void {
-  copyParamsWithKeys(params, editForm, keys);
-  copyParamsWithKeys(params, selectEditForm, keys);
+  copyParamsWithKeys(editForm, params, keys);
+  copyParamsWithKeys(selectEditForm, params, keys);
 }
 
 export function handleFormCreateOrUpdate(callback?: FunctionConstructor): void {
@@ -141,7 +141,7 @@ export function handleFormCreateOrUpdate(callback?: FunctionConstructor): void {
         params.id = selectEditForm.id;
         request = update(params);
       } else {
-        copyParamsWithKeys(editForm, params, sysMenuKeys);
+        copyParamsWithKeys(params, editForm, sysMenuKeys);
         request = create(params);
       }
 
