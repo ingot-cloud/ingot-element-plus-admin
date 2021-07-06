@@ -1,8 +1,21 @@
-import { CommonStatus } from "./common";
+import { CommonStatus, SelectItemParams } from "./common";
 
 export enum AuthType {
   Unique = "unique",
   Standard = "standard",
+}
+
+export function getAuthTypeSelectList(): Array<SelectItemParams> {
+  return [
+    {
+      label: "标准",
+      value: AuthType.Standard,
+    },
+    {
+      label: "唯一",
+      value: AuthType.Unique,
+    },
+  ];
 }
 
 export enum AuthorizedGrantType {
@@ -10,6 +23,15 @@ export enum AuthorizedGrantType {
   RefreshToken = "refresh_token",
   Client = "client_credentials",
   Code = "authorization_code",
+}
+
+export function grantTypeList(): Array<AuthorizedGrantType> {
+  return [
+    AuthorizedGrantType.Code,
+    AuthorizedGrantType.Password,
+    AuthorizedGrantType.Client,
+    AuthorizedGrantType.RefreshToken,
+  ];
 }
 
 export interface SysOauthClientDetails {

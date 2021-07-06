@@ -38,7 +38,7 @@ export function handleCreate(): void {
   dialog.show();
 }
 
-export function handleManager(): void {
+export function handleManager(params: SysOauthClientDetails): void {
   //
 }
 

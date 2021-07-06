@@ -35,6 +35,11 @@ export function getCommonStatusTag(status: CommonStatus): string {
   }
 }
 
+export interface SelectItemParams {
+  label: string;
+  value: string;
+}
+
 export interface ButtonStatusParams {
   title: string;
   type: string;
@@ -55,7 +60,6 @@ export function getDisableButtonParams(
         type: "success",
       };
   }
-  return {} as ButtonStatusParams;
 }
 
 /**

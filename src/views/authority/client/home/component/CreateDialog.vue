@@ -1,65 +1,139 @@
 <template>
-  <el-dialog :title="title" v-model="visible" center>
-    <div class="dialog-content">
-      <el-form
-        ref="editFormRef"
-        class="form"
-        label-width="100px"
-        label-position="left"
-        :model="editForm"
-        :rules="rules"
-        size="small"
-      >
-        <el-form-item label="权限名称" prop="name">
-          <el-input
-            v-model="editForm.name"
-            clearable
-            placeholder="请输入权限名称"
-            class="form-item"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="权限编码" prop="code">
-          <el-input
-            :disabled="edit"
-            v-model="editForm.code"
-            clearable
-            placeholder="请输入权限编码"
-            class="form-item"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="路径" prop="path">
-          <el-input
-            v-model="editForm.path"
-            clearable
-            placeholder="请输入路径"
-            class="form-item"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="方法" prop="method">
-          <el-select
-            v-model="editForm.method"
-            placeholder="请选择方法"
-            size="small"
-            class="form-item"
-          >
-            <el-option
-              v-for="item in methodArray"
-              :key="item"
-              :label="item"
-              :value="item"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="备注">
-          <el-input
-            v-model="editForm.remark"
-            clearable
-            placeholder="请输入备注信息"
-            class="form-item"
-          ></el-input>
-        </el-form-item>
-      </el-form>
-    </div>
+  <el-dialog :title="title" v-model="visible" center width="70%">
+    <el-form
+      ref="editFormRef"
+      class="form"
+      label-width="150px"
+      label-position="right"
+      :model="editForm"
+      :rules="rules"
+      size="small"
+    >
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item label="客户端ID" prop="clientId">
+            <el-input
+              v-model="editForm.clientId"
+              clearable
+              placeholder="请输入客户端ID"
+              class="form-item"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="秘钥" prop="clientSecret">
+            <el-input
+              v-model="editForm.clientSecret"
+              clearable
+              placeholder="请输入客户端秘钥"
+              class="form-item"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item label="资源ID" prop="resourceId">
+            <el-input
+              v-model="editForm.resourceId"
+              clearable
+              placeholder="请输入客户端资源ID"
+              class="form-item"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="访问范围">
+            <el-input
+              v-model="editForm.scope"
+              clearable
+              placeholder="请输入客户端scope"
+              class="form-item"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-form-item label="允许授权类型">
+        <el-select
+          v-model="editForm.authorizedGrantTypes"
+          placeholder="请选择允许授权类型"
+          size="small"
+          multiple
+          class="form-item"
+        >
+          <el-option
+            v-for="item in grantTypeList()"
+            :key="item"
+            :label="item"
+            :value="item"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="重定向URL">
+        <el-input
+          v-model="editForm.webServerRedirectUri"
+          clearable
+          placeholder="请输入重定向URL"
+          class="form-item"
+        ></el-input>
+      </el-form-item>
+
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item label="访问Token失效时间">
+            <el-input
+              v-model="editForm.accessTokenValidity"
+              clearable
+              type="number"
+              placeholder="请输入访问Token失效时间"
+              class="form-item"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="刷新Token失效时间">
+            <el-input
+              v-model="editForm.refreshTokenValidity"
+              clearable
+              type="number"
+              placeholder="请输入刷新Token失效时间"
+              class="form-item"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item label="授权类型">
+            <el-select
+              v-model="editForm.authType"
+              size="small"
+              class="form-item"
+            >
+              <el-option
+                v-for="item in getAuthTypeSelectList()"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="备注">
+            <el-input
+              v-model="editForm.remark"
+              clearable
+              placeholder="请输入备注信息"
+              class="form-item"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+    </el-form>
     <template #footer>
       <el-button
         :loading="loading"
@@ -73,30 +147,41 @@
   </el-dialog>
 </template>
 <script lang="ts">
-import { SysAuthority } from "@/model";
-import { defineComponent, reactive, ref, nextTick, unref, toRaw } from "vue";
-import { create, update } from "@/api/authority/authority";
-import { Message } from "@/utils/message";
 import {
-  copyParams,
-  copyParamsWithKeys,
-  getDiffWithIgnore,
-} from "@/utils/object";
+  SysOauthClientDetails,
+  AuthType,
+  getAuthTypeSelectList,
+  grantTypeList,
+} from "@/model";
+import { defineComponent, reactive, ref, unref, toRaw } from "vue";
+import { create } from "@/api/authority/client";
+import { Message } from "@/utils/message";
+import { copyParamsWithKeys } from "@/utils/object";
 
 const rules = {
-  name: [{ required: true, message: "请输入权限名称", trigger: "blur" }],
-  code: [{ required: true, message: "请输入权限编码", trigger: "blur" }],
-  path: [{ required: true, message: "请输入权限路径", trigger: "blur" }],
-  method: [{ required: true, message: "请输入路径方法", trigger: "blur" }],
+  clientId: [{ required: true, message: "请输入客户端ID", trigger: "blur" }],
+  clientSecret: [
+    { required: true, message: "请输入客户端秘钥", trigger: "blur" },
+  ],
+  resourceId: [{ required: true, message: "请输入资源ID", trigger: "blur" }],
 };
 
-const defaultEditForm: SysAuthority = {
+const defaultEditForm: SysOauthClientDetails = {
   id: undefined,
-  pid: undefined,
-  name: undefined,
-  code: undefined,
-  path: undefined,
-  method: "*",
+  clientId: undefined,
+  clientSecret: undefined,
+  resourceId: undefined,
+  resourceIds: undefined,
+  scope: undefined,
+  authorizedGrantTypes: undefined,
+  webServerRedirectUri: undefined,
+  authorities: undefined,
+  accessTokenValidity: 7200,
+  refreshTokenValidity: 7200,
+  additionalInformation: undefined,
+  autoapprove: undefined,
+  authType: AuthType.Standard,
+  type: undefined,
   remark: undefined,
 };
 
@@ -107,58 +192,31 @@ export default defineComponent({
   setup(_, { emit }) {
     const editFormRef = ref();
     const editForm = reactive(Object.assign({}, defaultEditForm));
-    const rawEditForm = reactive(Object.assign({}, defaultEditForm));
     const loading = ref(false);
-    const title = ref("");
-    const edit = ref(false);
+    const title = ref("创建客户端");
     const visible = ref(false);
 
     return {
-      methodArray: ["*", "GET", "POST", "DELETE", "PUT"],
+      grantTypeList,
+      getAuthTypeSelectList,
       editFormRef,
       title,
-      edit,
       visible,
       loading,
       editForm,
       rules,
-      show: (data?: SysAuthority) => {
+      show: () => {
         visible.value = true;
-
-        // 重置数据
-        copyParams(editForm, defaultEditForm);
-        copyParams(rawEditForm, defaultEditForm);
-        nextTick(() => {
-          const form = unref(editFormRef);
-          form.clearValidate();
-        });
-
-        if (data) {
-          title.value = "编辑";
-          edit.value = true;
-          copyParams(editForm, data);
-          copyParams(rawEditForm, data);
-        } else {
-          title.value = "创建";
-          edit.value = false;
-        }
       },
       handleConfirmClick() {
         const form = unref(editFormRef);
         form.validate((valid: boolean) => {
           if (valid) {
             loading.value = true;
-            let params: SysAuthority = {};
-            let request;
-            if (edit.value) {
-              params = getDiffWithIgnore(rawEditForm, editForm, ["id"]);
-              request = update(params);
-            } else {
-              copyParamsWithKeys(params, toRaw(editForm), keys);
-              request = create(params);
-            }
+            let params: SysOauthClientDetails = {};
+            copyParamsWithKeys(params, toRaw(editForm), keys);
 
-            request
+            create(params)
               .then(() => {
                 loading.value = false;
                 Message.success("操作成功");
@@ -176,8 +234,6 @@ export default defineComponent({
 });
 </script>
 <style lang="stylus" scoped>
-.dialog-content
-  display flex
-  flex-direction column
-  align-items center
+.form-item
+  width 100%
 </style>
