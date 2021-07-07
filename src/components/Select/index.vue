@@ -49,7 +49,29 @@ export default defineComponent({
         ? ref(obj.modelValue.split(split))
         : ref(obj.modelValue);
 
+    let selectChange = false;
+    let customChange = false;
+
+    // 监控 modelValue，如果外层主动改变数值，需要手动改变内部selectModel值
+    watch(
+      () => obj.modelValue,
+      (nValue) => {
+        if (selectChange) {
+          selectChange = false;
+          return;
+        }
+        customChange = true;
+        selectModel.value = split && nValue ? nValue.split(split) : nValue;
+      }
+    );
+
+    // 监控 selectModel，如果内部选择发生改变，则改变modelValue值
     watch(selectModel, (nValue) => {
+      if (customChange) {
+        customChange = false;
+        return;
+      }
+      selectChange = true;
       emit("update:modelValue", split ? nValue.join(split) : nValue);
     });
 
