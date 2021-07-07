@@ -4,6 +4,7 @@
     :placeholder="placeholder"
     :size="size"
     :multiple="multiple"
+    :clearable="clearable"
   >
     <el-option
       v-for="item in options"
@@ -28,6 +29,7 @@ export default defineComponent({
     },
     size: String,
     placeholder: String,
+    clearable: Boolean,
     multiple: {
       type: Boolean,
       default: false,
