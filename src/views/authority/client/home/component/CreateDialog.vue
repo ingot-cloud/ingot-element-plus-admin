@@ -56,20 +56,15 @@
       </el-row>
 
       <el-form-item label="允许授权类型">
-        <el-select
+        <ingot-select
           v-model="editForm.authorizedGrantTypes"
+          :options="grantTypeList()"
           placeholder="请选择允许授权类型"
+          split=","
           size="small"
           multiple
           class="form-item"
-        >
-          <el-option
-            v-for="item in grantTypeList()"
-            :key="item"
-            :label="item"
-            :value="item"
-          />
-        </el-select>
+        />
       </el-form-item>
       <el-form-item label="重定向URL">
         <el-input
@@ -108,18 +103,12 @@
       <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="授权类型">
-            <el-select
+            <ingot-select
               v-model="editForm.authType"
+              :options="getAuthTypeSelectList()"
               size="small"
               class="form-item"
-            >
-              <el-option
-                v-for="item in getAuthTypeSelectList()"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
+            />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -156,7 +145,7 @@ import {
 import { defineComponent, reactive, ref, unref, toRaw } from "vue";
 import { create } from "@/api/authority/client";
 import { Message } from "@/utils/message";
-import { copyParamsWithKeys } from "@/utils/object";
+import { copyParams } from "@/utils/object";
 
 const rules = {
   clientId: [{ required: true, message: "请输入客户端ID", trigger: "blur" }],
@@ -185,8 +174,6 @@ const defaultEditForm: SysOauthClientDetails = {
   remark: undefined,
 };
 
-const keys = Object.keys(defaultEditForm);
-
 export default defineComponent({
   emits: ["success"],
   setup(_, { emit }) {
@@ -207,14 +194,14 @@ export default defineComponent({
       rules,
       show: () => {
         visible.value = true;
+        copyParams(editForm, defaultEditForm);
       },
       handleConfirmClick() {
         const form = unref(editFormRef);
         form.validate((valid: boolean) => {
           if (valid) {
             loading.value = true;
-            let params: SysOauthClientDetails = {};
-            copyParamsWithKeys(params, toRaw(editForm), keys);
+            const params: SysOauthClientDetails = toRaw(editForm);
 
             create(params)
               .then(() => {

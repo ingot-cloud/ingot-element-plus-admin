@@ -39,7 +39,7 @@ export function handleCreate(): void {
 }
 
 export function handleManager(params: SysOauthClientDetails): void {
-  //
+  console.log(params);
 }
 
 export function handleDelete(

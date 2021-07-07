@@ -25,12 +25,24 @@ export enum AuthorizedGrantType {
   Code = "authorization_code",
 }
 
-export function grantTypeList(): Array<AuthorizedGrantType> {
+export function grantTypeList(): Array<SelectItemParams> {
   return [
-    AuthorizedGrantType.Code,
-    AuthorizedGrantType.Password,
-    AuthorizedGrantType.Client,
-    AuthorizedGrantType.RefreshToken,
+    {
+      label: "授权码模式",
+      value: AuthorizedGrantType.Code,
+    },
+    {
+      label: "密码模式",
+      value: AuthorizedGrantType.Password,
+    },
+    {
+      label: "客户端模式",
+      value: AuthorizedGrantType.Client,
+    },
+    {
+      label: "允许刷新Token",
+      value: AuthorizedGrantType.RefreshToken,
+    },
   ];
 }
 
