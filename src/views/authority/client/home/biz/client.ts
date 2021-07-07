@@ -39,7 +39,9 @@ export function handleCreate(): void {
 }
 
 export function handleManager(params: SysOauthClientDetails): void {
-  console.log(params);
+  router.push({
+    path: `/authority/client/${params.id}`,
+  });
 }
 
 export function handleDelete(

@@ -23,6 +23,19 @@ export function page(
 }
 
 /**
+ * 获取客户端信息
+ * @param id ID
+ * @returns
+ */
+export function getOne(
+  id: string
+): Promise<IngotResponse<SysOauthClientDetails>> {
+  return request.get<SysOauthClientDetails>({
+    url: `/api/pms/v1/client/${id}`,
+  });
+}
+
+/**
  * 创建客户端
  * @param params 参数
  * @returns

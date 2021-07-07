@@ -98,6 +98,7 @@ const managementRoutes: Array<RouteRecordRaw> = [
           icon: "authority",
         },
         path: "/authority/authority",
+        redirect: "/authority/authority/list",
         component: () => import("@/views/authority/authority/index.vue"),
         children: [
           {
@@ -129,7 +130,30 @@ const managementRoutes: Array<RouteRecordRaw> = [
           icon: "client",
         },
         path: "/authority/client",
-        component: () => import("@/views/authority/client/home/index.vue"),
+        redirect: "/authority/client/list",
+        component: () => import("@/views/authority/client/index.vue"),
+        children: [
+          {
+            name: "SysAuthorityClientManagerList",
+            meta: {
+              title: "客户端管理",
+              icon: "client",
+            },
+            path: "/authority/client/list",
+            component: () => import("@/views/authority/client/home/index.vue"),
+          },
+          {
+            name: "SysAuthorityClientManagerDetail",
+            meta: {
+              title: "客户端管理",
+              hidden: true,
+            },
+            path: "/authority/client/:id",
+            component: () =>
+              import("@/views/authority/client/manager/index.vue"),
+            props: true,
+          },
+        ],
       },
     ],
   },
