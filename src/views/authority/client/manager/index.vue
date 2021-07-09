@@ -2,7 +2,12 @@
   <ingot-container>
     <ingot-page-card @back="$router.back()">
       <template #action>
-        <el-button size="small" type="primary" @click="edit = true">
+        <el-button
+          size="small"
+          type="primary"
+          :disabled="edit"
+          @click="edit = true"
+        >
           编辑
         </el-button>
       </template>

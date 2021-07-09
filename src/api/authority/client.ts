@@ -67,11 +67,11 @@ export function update(
 
 /**
  * 删除客户端
- * @param id id
+ * @param clientId clientId
  * @returns
  */
-export function remove(id: string): Promise<IngotResponse<void>> {
+export function remove(clientId: string): Promise<IngotResponse<void>> {
   return request.delete<void>({
-    url: `/api/pms/v1/client/${id}`,
+    url: `/api/pms/v1/client/${clientId}`,
   });
 }

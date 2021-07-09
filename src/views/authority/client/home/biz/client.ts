@@ -49,7 +49,7 @@ export function handleDelete(
   callback?: FunctionConstructor
 ): void {
   Confirm.warning(`是否删除客户端(${params.clientId})`).then(() => {
-    remove(params.id as string).then(() => {
+    remove(params.clientId as string).then(() => {
       Message.success("操作成功");
       if (callback) {
         callback();
@@ -70,7 +70,7 @@ export function handleDisable(
     params.clientId
   })`;
   Confirm.warning(message).then(() => {
-    update({ id: params.id, status }).then(() => {
+    update({ clientId: params.clientId, status }).then(() => {
       Message.success("操作成功");
       if (callback) {
         callback();

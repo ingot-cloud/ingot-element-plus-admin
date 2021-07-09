@@ -4,8 +4,9 @@ import {
   getAuthTypeSelectList,
   grantTypeList,
 } from "@/model";
-import { getOne } from "@/api/authority/client";
-import { copyParams } from "@/utils/object";
+import { getOne, update } from "@/api/authority/client";
+import { copyParams, getDiffWithIgnore } from "@/utils/object";
+import { Message } from "@/utils/message";
 
 export default defineComponent({
   props: ["id"],
@@ -17,7 +18,10 @@ export default defineComponent({
     const edit = ref(false);
 
     const handleSaveEdit = () => {
-      //
+      const params = getDiffWithIgnore(rawForm, editForm, ["clientId"]);
+      update(params).then(() => {
+        Message.success("操作成功");
+      });
     };
 
     const handleCancelEdit = () => {
