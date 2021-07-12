@@ -28,5 +28,7 @@ export const tableHeaders = [
     label: "操作",
     width: "210",
     prop: "actions",
+    fixed: "right",
+    align: "center",
   },
 ];
