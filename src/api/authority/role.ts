@@ -1,5 +1,11 @@
 import request from "@/net";
-import { RolePageItemVo, SysRole, Page, IngotResponse } from "@/model";
+import {
+  RolePageItemVo,
+  SysRole,
+  Page,
+  IngotResponse,
+  RoleBindParams,
+} from "@/model";
 import { filterParams } from "@/utils/object";
 
 export function rolePage(
@@ -37,5 +43,14 @@ export function update(params: SysRole): Promise<IngotResponse<void>> {
 export function remove(id: string): Promise<IngotResponse<void>> {
   return request.delete<void>({
     url: `/api/pms/v1/role/${id}`,
+  });
+}
+
+export function bindAuthority(
+  params: RoleBindParams
+): Promise<IngotResponse<void>> {
+  return request.put<void>({
+    url: "/api/pms/v1/role/bindAuthority",
+    params,
   });
 }

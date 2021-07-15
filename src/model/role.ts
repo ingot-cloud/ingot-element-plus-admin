@@ -19,3 +19,9 @@ export interface SysRole {
   status?: CommonStatus;
   remark?: string;
 }
+
+export interface RoleBindParams {
+  id?: string;
+  removeIds?: Array<string>;
+  bindIds?: Array<string>;
+}
