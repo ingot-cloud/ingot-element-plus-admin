@@ -21,10 +21,10 @@
       :current-page="current"
       :page-size="size"
       :total="total"
-      :page-sizes="[20, 30, 40, 50]"
+      :page-sizes="pageSize"
       background
       size="small"
-      layout="total, sizes, prev, pager, next, jumper"
+      :layout="pageLayout"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
     />

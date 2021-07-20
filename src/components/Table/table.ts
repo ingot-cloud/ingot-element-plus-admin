@@ -22,6 +22,18 @@ export default defineComponent({
         };
       },
     },
+    pageSize: {
+      type: Array,
+      default() {
+        return [20, 30, 40, 50];
+      },
+    },
+    pageLayout: {
+      type: String,
+      default() {
+        return "total, sizes, prev, pager, next, jumper";
+      },
+    },
   },
   setup(props, { emit }) {
     const properties = props as any;
