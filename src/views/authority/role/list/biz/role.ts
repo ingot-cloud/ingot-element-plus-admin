@@ -80,6 +80,9 @@ export function handleBindCommand(params: {
     case "user":
       router.push({
         path: `/authority/role/binduser/${roleId}`,
+        query: {
+          name: data.name,
+        },
       });
       break;
   }
