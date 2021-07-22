@@ -1,5 +1,6 @@
 <template>
   <el-table size="small" border :data="data">
+    <el-table-column v-if="selection" width="55" type="selection" />
     <el-table-column
       v-for="item in headers"
       :key="item.prop"

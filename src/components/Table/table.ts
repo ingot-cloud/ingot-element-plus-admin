@@ -34,6 +34,10 @@ export default defineComponent({
         return "total, sizes, prev, pager, next, jumper";
       },
     },
+    selection: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, { emit }) {
     const properties = props as any;
