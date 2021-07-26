@@ -149,6 +149,63 @@
           </el-form>
         </el-col>
       </el-row>
+
+      <ingot-filter-container>
+        <el-input
+          v-model="condition.name"
+          class="item"
+          size="small"
+          clearable
+          style="width: 200px"
+          placeholder="菜单名称"
+        ></el-input>
+        <el-button
+          class="item"
+          size="small"
+          type="primary"
+          @click="refreshData"
+        >
+          搜索
+        </el-button>
+        <el-button
+          class="item"
+          size="small"
+          type="success"
+          @click="handleCreate(editDialog)"
+        >
+          添加
+        </el-button>
+      </ingot-filter-container>
+      <ingot-table :data="menuData.data" :headers="tableHeaders">
+        <template #status="{ item }">
+          <el-tag :type="getCommonStatusTag(item.status)">
+            {{ getCommonStatusDesc(item.status) }}
+          </el-tag>
+        </template>
+        <template #actions="{ item }">
+          <el-button
+            size="mini"
+            type="primary"
+            @click="handleEdit(editDialog, item)"
+          >
+            编辑
+          </el-button>
+          <el-button
+            size="mini"
+            :type="getDisableButtonParams(item.status).type"
+            @click="handleDisable(item, refreshData)"
+          >
+            {{ getDisableButtonParams(item.status).title }}
+          </el-button>
+          <el-button
+            size="mini"
+            type="danger"
+            @click="handleDelete(item, refreshData)"
+          >
+            删除
+          </el-button>
+        </template>
+      </ingot-table>
     </ingot-page-card>
   </ingot-container>
 </template>
