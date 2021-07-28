@@ -149,7 +149,8 @@
           </el-form>
         </el-col>
       </el-row>
-
+      <!-- 
+        // todo 暂时不修改为table
       <ingot-filter-container>
         <el-input
           v-model="condition.name"
@@ -205,7 +206,7 @@
             删除
           </el-button>
         </template>
-      </ingot-table>
+      </ingot-table> -->
     </ingot-page-card>
   </ingot-container>
 </template>

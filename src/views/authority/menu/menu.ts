@@ -15,7 +15,13 @@ import {
   handleFormCreateOrUpdate,
   handleFormCancel,
 } from "./biz/menu";
-import { CommonStatus, getCommonStatusDesc } from "@/model";
+import { tableHeaders } from "./biz/table";
+import {
+  CommonStatus,
+  getCommonStatusDesc,
+  getCommonStatusTag,
+  getDisableButtonParams,
+} from "@/model/common";
 
 export default defineComponent({
   setup() {
@@ -23,6 +29,8 @@ export default defineComponent({
       fetchData();
     });
     return {
+      condition: {},
+      tableHeaders,
       menuTreeRef,
       menuFormRef,
       menuData,
@@ -32,6 +40,8 @@ export default defineComponent({
       CommonStatus,
       fetchData,
       getCommonStatusDesc,
+      getCommonStatusTag,
+      getDisableButtonParams,
       handleCreateRadioClick,
       handleEditRadioClick,
       handleDeleteRadioClick,
