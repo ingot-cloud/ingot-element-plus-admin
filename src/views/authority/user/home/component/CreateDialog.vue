@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="创建用户" v-model="visible" fullscreen center>
+  <el-dialog title="创建用户" v-model="visible" center>
     <div class="dialog-content">
       <el-form
         ref="createForm"
@@ -94,10 +94,10 @@
   </el-dialog>
 </template>
 <script lang="ts">
-import { RolePageItemVo } from "@/model";
-import { defineComponent, computed, ref, reactive, unref } from "vue";
+import { RolePageItemVo, SysUser } from "@/model";
+import { defineComponent, computed, ref, reactive, unref, nextTick } from "vue";
 import { Message } from "@/utils/message";
-import { copyParamsWithKeys } from "@/utils/object";
+import { copyParamsWithKeys, copyParams } from "@/utils/object";
 import { create } from "@/api/authority/user";
 
 interface Props {
@@ -108,14 +108,24 @@ interface Props {
 
 const keys = ["username", "roleIds", "phone", "realName", "email"];
 
-const defaultEditForm = {
-  username: "",
-  password: "",
-  confirmPassword: "",
+interface CreateUser {
+  username?: string;
+  password?: string;
+  confirmPassword?: string;
+  roleIds?: Array<string>;
+  phone?: string;
+  realName?: string;
+  email?: string;
+}
+
+const defaultEditForm: CreateUser = {
+  username: undefined,
+  password: undefined,
+  confirmPassword: undefined,
   roleIds: [],
-  phone: "",
-  realName: "",
-  email: "",
+  phone: undefined,
+  realName: undefined,
+  email: undefined,
 };
 
 export default defineComponent({
@@ -143,7 +153,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const visible = ref(false);
     const loading = ref(false);
-    const editForm = reactive(defaultEditForm);
+    const editForm = reactive(Object.assign({}, defaultEditForm));
     const createForm = ref();
 
     return {
@@ -158,6 +168,11 @@ export default defineComponent({
       ),
       show() {
         visible.value = true;
+        copyParams(editForm, defaultEditForm);
+        nextTick(() => {
+          const form = unref(createForm);
+          form.clearValidate();
+        });
       },
       handleConfirmClick() {
         const form = unref(createForm);
@@ -208,7 +223,7 @@ export default defineComponent({
   flex-direction column
   align-items center
   .form
-    width 50vw
+    width 100%
     .form-item
       width 100%
 </style>
