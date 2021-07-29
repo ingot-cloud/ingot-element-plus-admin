@@ -1,4 +1,7 @@
 <template>
+  <ingot-filter-container>
+    <slot name="filter"> </slot>
+  </ingot-filter-container>
   <el-table size="small" border :data="data">
     <el-table-column v-if="selection" width="55" type="selection" />
     <el-table-column
