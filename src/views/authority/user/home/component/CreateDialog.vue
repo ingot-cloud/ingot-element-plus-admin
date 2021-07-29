@@ -94,7 +94,7 @@
   </el-dialog>
 </template>
 <script lang="ts">
-import { RolePageItemVo, SysUser } from "@/model";
+import { RolePageItemVo } from "@/model";
 import { defineComponent, computed, ref, reactive, unref, nextTick } from "vue";
 import { Message } from "@/utils/message";
 import { copyParamsWithKeys, copyParams } from "@/utils/object";
