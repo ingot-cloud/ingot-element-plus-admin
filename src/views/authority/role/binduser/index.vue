@@ -18,6 +18,9 @@
             搜索
           </el-button>
         </template>
+        <template #status="{ item }">
+          <ingot-common-status-tag :status="item.status" />
+        </template>
         <template #actions="{ item }">
           <el-button size="mini" type="danger" @click="handleUnbind(item)">
             解绑
