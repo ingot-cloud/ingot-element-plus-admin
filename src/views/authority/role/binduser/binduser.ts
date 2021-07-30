@@ -1,4 +1,4 @@
-import { defineComponent, reactive, toRaw, onMounted } from "vue";
+import { defineComponent, reactive, toRaw, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { getBindUsers, bindUser } from "@/api/authority/role";
 import { tableHeaders } from "./header";
@@ -9,6 +9,7 @@ export default defineComponent({
   props: ["id"],
   setup(props) {
     const route = useRoute();
+    const headers = ref(Object.assign([], tableHeaders));
 
     const bindPageInfo = reactive({
       current: 1,
@@ -53,7 +54,7 @@ export default defineComponent({
 
     return {
       title: `角色：${route.query.name}`,
-      tableHeaders,
+      headers,
       bindPageInfo,
       bindParams,
       fetchData,

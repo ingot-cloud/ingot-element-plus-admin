@@ -2,7 +2,7 @@
   <ingot-container>
     <ingot-page-card @back="$router.back()" :content="title">
       <ingot-table
-        :headers="tableHeaders"
+        :headers="headers"
         :data="bindPageInfo.records"
         :page="bindPageInfo"
         @handleSizeChange="fetchData"
