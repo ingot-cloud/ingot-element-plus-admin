@@ -5,6 +5,7 @@
         :headers="headers"
         :data="bindPageInfo.records"
         :page="bindPageInfo"
+        selection
         @handleSizeChange="fetchData"
         @handleCurrentChange="fetchData"
       >
