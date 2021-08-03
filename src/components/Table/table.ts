@@ -2,7 +2,13 @@ import { defineComponent, PropType, ref, watch } from "vue";
 import { HeaderItem, Page } from "./data";
 
 export default defineComponent({
-  emits: ["handleSizeChange", "handleCurrentChange"],
+  emits: [
+    "handleSizeChange",
+    "handleCurrentChange",
+    "select",
+    "selectAll",
+    "selectionChange",
+  ],
   props: {
     data: {
       type: Array,
@@ -69,6 +75,15 @@ export default defineComponent({
       },
       handleCurrentChange(val: number) {
         emit("handleCurrentChange", { value: val, type: "current" });
+      },
+      onTableSelect(selection: any) {
+        emit("select", selection);
+      },
+      onTableSelectAll(selection: any, row: any) {
+        emit("selectAll", selection, row);
+      },
+      onTableSelectionChange(selection: any) {
+        emit("selectionChange", selection);
       },
     };
   },

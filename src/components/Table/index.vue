@@ -2,7 +2,14 @@
   <ingot-filter-container>
     <slot name="filter"> </slot>
   </ingot-filter-container>
-  <el-table size="small" border :data="data">
+  <el-table
+    size="small"
+    border
+    :data="data"
+    @select-all="onTableSelectAll"
+    @select="onTableSelect"
+    @selection-change="onTableSelectionChange"
+  >
     <el-table-column v-if="selection" width="55" type="selection" />
     <el-table-column
       v-for="item in headers"
