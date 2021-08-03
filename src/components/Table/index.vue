@@ -5,10 +5,11 @@
   <el-table
     size="small"
     border
+    ref="ingotTable"
     :data="data"
-    @select-all="onTableSelectAll"
-    @select="onTableSelect"
-    @selection-change="onTableSelectionChange"
+    @select-all="privateOnTableSelectAll"
+    @select="privateOnTableSelect"
+    @selection-change="privateOnTableSelectionChange"
   >
     <el-table-column v-if="selection" width="55" type="selection" />
     <el-table-column
@@ -36,8 +37,8 @@
       background
       size="small"
       :layout="pageLayout"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
+      @size-change="privateHandleSizeChange"
+      @current-change="privateHandleCurrentChange"
     />
   </div>
 </template>

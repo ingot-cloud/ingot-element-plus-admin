@@ -1,4 +1,4 @@
-import { defineComponent, PropType, ref, watch } from "vue";
+import { defineComponent, PropType, ref, watch, unref } from "vue";
 import { HeaderItem, Page } from "./data";
 
 export default defineComponent({
@@ -66,24 +66,34 @@ export default defineComponent({
     const size = ref(page.size);
     const total = ref(page.total);
 
+    const ingotTable = ref();
+
     return {
+      ingotTable,
       current,
       size,
       total,
-      handleSizeChange(val: number) {
+      privateHandleSizeChange(val: number) {
         emit("handleSizeChange", { value: val, type: "size" });
       },
-      handleCurrentChange(val: number) {
+      privateHandleCurrentChange(val: number) {
         emit("handleCurrentChange", { value: val, type: "current" });
       },
-      onTableSelect(selection: any) {
+      privateOnTableSelect(selection: any) {
         emit("select", selection);
       },
-      onTableSelectAll(selection: any, row: any) {
+      privateOnTableSelectAll(selection: any, row: any) {
         emit("selectAll", selection, row);
       },
-      onTableSelectionChange(selection: any) {
+      privateOnTableSelectionChange(selection: any) {
         emit("selectionChange", selection);
+      },
+      /**
+       * 用于多选表格，清空用户的选择
+       */
+      clearSelection() {
+        const table = unref(ingotTable);
+        table.clearSelection();
       },
     };
   },
