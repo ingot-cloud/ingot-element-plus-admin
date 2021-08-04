@@ -1,4 +1,4 @@
-import { defineComponent, reactive, toRaw, onMounted, ref } from "vue";
+import { defineComponent, reactive, toRaw, onMounted, ref, unref } from "vue";
 import { useRoute } from "vue-router";
 import { getBindUsers, bindUser } from "@/api/authority/role";
 import { tableHeaders } from "./header";
@@ -10,7 +10,9 @@ export default defineComponent({
   setup(props) {
     const route = useRoute();
     const headers = ref(Object.assign([], tableHeaders));
-
+    const edit = ref(false);
+    const bindTable = ref();
+    const selectData = ref([] as Array<SysUser>);
     const bindPageInfo = reactive({
       current: 1,
       size: 20,
@@ -48,17 +50,39 @@ export default defineComponent({
       });
     };
 
+    const handleBatchUnbind = () => {
+      Confirm.warning("是否解绑所选用户?").then(() => {
+        const removeIds = selectData.value.map((item) => item.id as string);
+        bindUser({ id: props.id, removeIds }).then(() => {
+          Message.success("操作成功");
+          fetchData();
+        });
+      });
+    };
+
     onMounted(() => {
       fetchData(true);
     });
 
     return {
       title: `角色：${route.query.name}`,
+      bindTable,
+      edit,
       headers,
       bindPageInfo,
       bindParams,
+      selectData,
       fetchData,
       handleUnbind,
+      handleBatchUnbind,
+      cancelEdit() {
+        edit.value = false;
+        const table = unref(bindTable);
+        table.clearSelection();
+      },
+      onSelectChanged(selection: Array<SysUser>) {
+        selectData.value = selection;
+      },
     };
   },
 });

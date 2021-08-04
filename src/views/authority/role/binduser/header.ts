@@ -1,10 +1,5 @@
 export const tableHeaders = [
   {
-    label: "序号",
-    prop: "id",
-    type: "index",
-  },
-  {
     label: "用户名",
     prop: "username",
   },

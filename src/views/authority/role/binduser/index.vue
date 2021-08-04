@@ -5,19 +5,35 @@
         :headers="headers"
         :data="bindPageInfo.records"
         :page="bindPageInfo"
-        selection
+        :selection="edit"
+        :index="!edit"
+        ref="bindTable"
         @handleSizeChange="fetchData"
         @handleCurrentChange="fetchData"
+        @selectionChange="onSelectChanged"
       >
         <template #filter>
-          <el-button
-            class="item"
-            size="small"
-            type="primary"
-            @click="fetchData"
-          >
-            搜索
-          </el-button>
+          <div v-if="!edit">
+            <el-button size="small" type="primary" @click="fetchData">
+              搜索
+            </el-button>
+            <el-button size="small" type="success" @click="edit = true">
+              编辑
+            </el-button>
+          </div>
+          <div v-else>
+            <el-button
+              size="small"
+              type="danger"
+              :disabled="selectData.length === 0"
+              @click="handleBatchUnbind"
+            >
+              解绑
+            </el-button>
+            <el-button size="small" type="warning" @click="cancelEdit">
+              取消
+            </el-button>
+          </div>
         </template>
         <template #status="{ item }">
           <ingot-common-status-tag :status="item.status" />
