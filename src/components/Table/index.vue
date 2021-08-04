@@ -11,7 +11,20 @@
     @select="privateOnTableSelect"
     @selection-change="privateOnTableSelectionChange"
   >
-    <el-table-column v-if="selection" width="55" type="selection" />
+    <el-table-column
+      v-if="selection"
+      width="50"
+      align="center"
+      type="selection"
+    />
+    <el-table-column
+      v-if="index"
+      width="50"
+      align="center"
+      :label="indexLabel"
+      type="index"
+    />
+
     <el-table-column
       v-for="item in headers"
       :key="item.prop"

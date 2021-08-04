@@ -44,6 +44,14 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    index: {
+      type: Boolean,
+      default: false,
+    },
+    indexLabel: {
+      type: String,
+      default: "序号",
+    },
   },
   setup(props, { emit }) {
     const properties = props as any;
