@@ -57,6 +57,18 @@ export default defineComponent({
     const properties = props as any;
     const page = properties.page;
 
+    const headerDrawer = ref(false);
+    const headersEnable = ref(
+      properties.headers.filter(
+        (item: HeaderItem) => !item.hide
+      ) as Array<HeaderItem>
+    );
+    const headersEnableValue = ref(
+      headersEnable.value.map((item) => item.prop)
+    );
+    const headerTransferProps = { label: "label", key: "prop" };
+    const headerTransferTitles = ["可选项", "显示项"];
+
     watch(
       () => properties.page.size,
       (value) => {
@@ -81,6 +93,11 @@ export default defineComponent({
       current,
       size,
       total,
+      headerDrawer,
+      headersEnable,
+      headersEnableValue,
+      headerTransferProps,
+      headerTransferTitles,
       privateHandleSizeChange(val: number) {
         emit("handleSizeChange", { value: val, type: "size" });
       },
@@ -96,12 +113,20 @@ export default defineComponent({
       privateOnTableSelectionChange(selection: any) {
         emit("selectionChange", selection);
       },
+      privateOnHeaderChanged(value: any) {
+        headersEnable.value = properties.headers.filter((item: HeaderItem) =>
+          value.includes(item.prop)
+        );
+      },
       /**
        * 用于多选表格，清空用户的选择
        */
       clearSelection() {
         const table = unref(ingotTable);
         table.clearSelection();
+      },
+      editHeader() {
+        headerDrawer.value = true;
       },
     };
   },

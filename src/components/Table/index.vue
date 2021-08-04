@@ -26,7 +26,7 @@
     />
 
     <el-table-column
-      v-for="item in headers"
+      v-for="item in headersEnable"
       :key="item.prop"
       :label="item.label"
       :type="item.type || null"
@@ -54,6 +54,23 @@
       @current-change="privateHandleCurrentChange"
     />
   </div>
+  <el-drawer
+    title="编辑列"
+    v-model="headerDrawer"
+    direction="rtl"
+    :modal="false"
+    :size="600"
+  >
+    <div class="table-header-drawer">
+      <el-transfer
+        v-model="headersEnableValue"
+        :data="headers"
+        :props="headerTransferProps"
+        :titles="headerTransferTitles"
+        @change="privateOnHeaderChanged"
+      />
+    </div>
+  </el-drawer>
 </template>
 <script lang="ts" src="./table.ts"></script>
 <style lang="stylus" scoped>
@@ -63,4 +80,8 @@
   flex-direction: row;
   justify-content: flex-end;
   align-items: flex-start;
+.table-header-drawer
+  display flex
+  flex-direction column
+  align-items center
 </style>
