@@ -80,6 +80,12 @@ export default defineComponent({
         const table = unref(bindTable);
         table.clearSelection();
       },
+      editColumn() {
+        edit.value = false;
+        const table = unref(bindTable);
+        // table.clearSelection();
+        table.editHeader();
+      },
       onSelectChanged(selection: Array<SysUser>) {
         selectData.value = selection;
       },

@@ -34,6 +34,9 @@
               取消
             </el-button>
           </div>
+          <el-button size="small" @click="editColumn" style="margin-left: 10px">
+            编辑列
+          </el-button>
         </template>
         <template #status="{ item }">
           <ingot-common-status-tag :status="item.status" />

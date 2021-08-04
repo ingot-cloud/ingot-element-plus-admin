@@ -6,10 +6,12 @@ export const tableHeaders = [
   {
     label: "手机号",
     prop: "phone",
+    hide: true,
   },
   {
     label: "email",
     prop: "email",
+    hide: true,
   },
   {
     label: "状态",
