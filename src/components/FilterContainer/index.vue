@@ -14,7 +14,7 @@ export default defineComponent({});
 <style lang="stylus">
 @import "~@/theme/style/variables.styl";
 .filter-container
-  padding 10px
+  padding 10px 0
   display flex
   flex-direction row
   align-items center

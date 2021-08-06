@@ -1,5 +1,8 @@
 <template>
   <ingot-filter-container>
+    <template #title>
+      <slot name="filter-title"> </slot>
+    </template>
     <slot name="filter"> </slot>
   </ingot-filter-container>
   <el-table
