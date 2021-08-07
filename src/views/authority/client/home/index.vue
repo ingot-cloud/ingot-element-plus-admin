@@ -1,27 +1,6 @@
 <template>
   <ingot-container>
     <ingot-page-card :hideBack="true">
-      <ingot-filter-container>
-        <el-input
-          v-model="condition.clientId"
-          class="item"
-          size="small"
-          clearable
-          style="width: 200px"
-          placeholder="客户端ID"
-        ></el-input>
-        <el-button class="item" size="small" type="primary" @click="fetchData">
-          搜索
-        </el-button>
-        <el-button
-          class="item"
-          size="small"
-          type="success"
-          @click="handleCreate()"
-        >
-          添加
-        </el-button>
-      </ingot-filter-container>
       <ingot-table
         :data="pageInfo.records"
         :headers="tableHeaders"
@@ -29,6 +8,33 @@
         @handleSizeChange="fetchData"
         @handleCurrentChange="fetchData"
       >
+        <template #filter>
+          <el-input
+            v-model="condition.clientId"
+            class="item"
+            size="small"
+            clearable
+            style="width: 200px"
+            placeholder="客户端ID"
+          ></el-input>
+          <el-button
+            class="item"
+            size="small"
+            type="primary"
+            @click="fetchData"
+          >
+            搜索
+          </el-button>
+          <el-button
+            class="item"
+            size="small"
+            type="success"
+            @click="handleCreate()"
+          >
+            添加
+          </el-button>
+        </template>
+
         <template #authorizedGrantTypes="{ item }">
           <el-tag
             style="margin: 1px"

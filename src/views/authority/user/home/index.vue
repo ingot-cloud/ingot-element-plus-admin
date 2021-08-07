@@ -20,37 +20,6 @@
           ></el-tree>
         </el-col>
         <el-col :span="20">
-          <ingot-filter-container>
-            <template #title v-if="showDept">
-              部门：{{ currentDeptNode.name }}
-            </template>
-            <el-input
-              v-model="condition.username"
-              class="item"
-              size="small"
-              clearable
-              style="width: 200px"
-              placeholder="用户名"
-            ></el-input>
-            <el-button
-              class="item"
-              size="small"
-              type="primary"
-              @click="fetchUserData"
-            >
-              搜索
-            </el-button>
-            <el-button
-              class="item"
-              size="small"
-              type="success"
-              @click="
-                handleCreateUser(createDialog, roleRecords, tenantRecords)
-              "
-            >
-              添加
-            </el-button>
-          </ingot-filter-container>
           <ingot-table
             :data="pageInfo.records"
             :headers="tableHeaders"
@@ -58,6 +27,37 @@
             @handleSizeChange="fetchUserData"
             @handleCurrentChange="fetchUserData"
           >
+            <template #filter-title v-if="showDept">
+              部门：{{ currentDeptNode.name }}
+            </template>
+            <template #filter>
+              <el-input
+                v-model="condition.username"
+                class="item"
+                size="small"
+                clearable
+                style="width: 200px"
+                placeholder="用户名"
+              ></el-input>
+              <el-button
+                class="item"
+                size="small"
+                type="primary"
+                @click="fetchUserData"
+              >
+                搜索
+              </el-button>
+              <el-button
+                class="item"
+                size="small"
+                type="success"
+                @click="
+                  handleCreateUser(createDialog, roleRecords, tenantRecords)
+                "
+              >
+                添加
+              </el-button>
+            </template>
             <template #status="{ item }">
               <el-tag :type="getCommonStatusTag(item.status)">
                 {{ getCommonStatusDesc(item.status) }}

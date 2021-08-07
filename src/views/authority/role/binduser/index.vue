@@ -12,11 +12,25 @@
         @handleCurrentChange="fetchData"
         @selectionChange="onSelectChanged"
       >
+        <template #filter-title>
+          <el-input
+            class="item"
+            size="small"
+            clearable
+            style="width: 200px"
+            placeholder="用户名"
+          ></el-input>
+          <el-button
+            size="small"
+            type="primary"
+            class="item"
+            @click="fetchData"
+          >
+            搜索
+          </el-button>
+        </template>
         <template #filter>
           <div v-if="!edit">
-            <el-button size="small" type="primary" @click="fetchData">
-              搜索
-            </el-button>
             <el-button size="small" type="success" @click="edit = true">
               编辑
             </el-button>
