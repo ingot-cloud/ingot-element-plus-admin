@@ -149,13 +149,18 @@ export function bindUser(params: RoleBindParams): Promise<IngotResponse<void>> {
 export function getBindUsers(
   page: Page,
   id: string,
-  isBind: boolean
+  isBind: boolean,
+  condition?: SysUser
 ): Promise<IngotResponse<Page<SysUser>>> {
+  if (condition) {
+    filterParams(condition);
+  }
   return request.get<Page<SysUser>>({
     url: `/api/pms/v1/role/bindUser/${id}`,
     params: {
       ...page,
       isBind,
+      ...condition,
     },
   });
 }
