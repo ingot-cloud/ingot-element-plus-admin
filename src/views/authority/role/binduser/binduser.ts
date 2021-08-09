@@ -19,6 +19,7 @@ export default defineComponent({
       total: 0,
       records: [],
     } as Page<SysUser>);
+    const queryCondition = reactive({} as SysUser);
 
     const bindParams = reactive({ id: props.id } as RoleBindParams);
 
@@ -35,10 +36,12 @@ export default defineComponent({
       const pageParams = toRaw(bindPageInfo);
       pageParams.total = undefined;
       pageParams.records = undefined;
-      getBindUsers(pageParams, props.id, true).then((response) => {
-        bindPageInfo.records = response.data.records;
-        bindPageInfo.total = Number(response.data.total);
-      });
+      getBindUsers(pageParams, props.id, true, queryCondition).then(
+        (response) => {
+          bindPageInfo.records = response.data.records;
+          bindPageInfo.total = Number(response.data.total);
+        }
+      );
     };
 
     const handleUnbind = (item: SysUser) => {
@@ -72,6 +75,7 @@ export default defineComponent({
       bindPageInfo,
       bindParams,
       selectData,
+      queryCondition,
       fetchData,
       handleUnbind,
       handleBatchUnbind,

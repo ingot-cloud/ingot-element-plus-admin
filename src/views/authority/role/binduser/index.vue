@@ -18,6 +18,7 @@
             size="small"
             clearable
             style="width: 200px"
+            v-model="queryCondition.username"
             placeholder="用户名"
           ></el-input>
           <el-button
