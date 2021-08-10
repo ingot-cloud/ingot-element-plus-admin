@@ -31,15 +31,22 @@
           </el-button>
         </template>
         <template #filter>
-          <div v-if="!editBatch">
+          <el-button size="small" @click="showBindMoreView">
+            绑定更多
+          </el-button>
+          <el-button size="small" @click="editTableColumn" class="item">
+            自定义列
+          </el-button>
+          <div v-if="!editBatch" class="item">
             <el-button size="small" @click="editBatch = true">
               批量解绑
             </el-button>
           </div>
-          <div v-else>
+          <div v-else class="item">
             <el-button
               size="small"
               type="danger"
+              class="item"
               :disabled="selectData.length === 0"
               @click="handleBatchUnbind"
             >
@@ -49,9 +56,6 @@
               取消
             </el-button>
           </div>
-          <el-button size="small" @click="editColumn" style="margin-left: 10px">
-            自定义列
-          </el-button>
         </template>
         <template #status="{ item }">
           <ingot-common-status-tag :status="item.status" />
@@ -64,5 +68,6 @@
       </ingot-table>
     </ingot-page-card>
   </ingot-container>
+  <BindView ref="bindView" :id="id" @dataChanged="fetchData" />
 </template>
 <script lang="ts" src="./binduser.ts"></script>

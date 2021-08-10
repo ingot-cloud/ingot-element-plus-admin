@@ -4,14 +4,19 @@ import { getBindUsers, bindUser } from "@/api/authority/role";
 import { tableHeaders } from "./header";
 import { Page, SysUser, PageChangeParams, RoleBindParams } from "@/model";
 import { Confirm, Message } from "@/utils/message";
+import BindView from "./BindView.vue";
 
 export default defineComponent({
   props: ["id"],
+  components: {
+    BindView,
+  },
   setup(props) {
     const route = useRoute();
     const headers = ref(Object.assign([], tableHeaders));
     const editBatch = ref(false);
     const bindTable = ref();
+    const bindView = ref();
     const selectData = ref([] as Array<SysUser>);
     const bindPageInfo = reactive({
       current: 1,
@@ -49,6 +54,9 @@ export default defineComponent({
         bindUser({ id: props.id, removeIds: [item.id as string] }).then(() => {
           Message.success("操作成功");
           fetchData();
+          // 更新未绑定数据
+          const view = unref(bindView);
+          view.fetchData();
         });
       });
     };
@@ -59,6 +67,9 @@ export default defineComponent({
         bindUser({ id: props.id, removeIds }).then(() => {
           Message.success("操作成功");
           fetchData();
+          // 更新未绑定数据
+          const view = unref(bindView);
+          view.fetchData();
         });
       });
     };
@@ -70,6 +81,7 @@ export default defineComponent({
     return {
       title: `角色：${route.query.name}`,
       bindTable,
+      bindView,
       editBatch,
       headers,
       bindPageInfo,
@@ -84,13 +96,18 @@ export default defineComponent({
         const table = unref(bindTable);
         table.clearSelection();
       },
-      editColumn() {
+      editTableColumn() {
         editBatch.value = false;
         const table = unref(bindTable);
         table.editHeader();
       },
       onSelectChanged(selection: Array<SysUser>) {
         selectData.value = selection;
+      },
+      showBindMoreView() {
+        editBatch.value = false;
+        const view = unref(bindView);
+        view.show();
       },
     };
   },
