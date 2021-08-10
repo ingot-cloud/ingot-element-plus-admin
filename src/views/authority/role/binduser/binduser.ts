@@ -10,7 +10,7 @@ export default defineComponent({
   setup(props) {
     const route = useRoute();
     const headers = ref(Object.assign([], tableHeaders));
-    const edit = ref(false);
+    const editBatch = ref(false);
     const bindTable = ref();
     const selectData = ref([] as Array<SysUser>);
     const bindPageInfo = reactive({
@@ -70,7 +70,7 @@ export default defineComponent({
     return {
       title: `角色：${route.query.name}`,
       bindTable,
-      edit,
+      editBatch,
       headers,
       bindPageInfo,
       bindParams,
@@ -79,13 +79,13 @@ export default defineComponent({
       fetchData,
       handleUnbind,
       handleBatchUnbind,
-      cancelEdit() {
-        edit.value = false;
+      cancelEditBatch() {
+        editBatch.value = false;
         const table = unref(bindTable);
         table.clearSelection();
       },
       editColumn() {
-        edit.value = false;
+        editBatch.value = false;
         const table = unref(bindTable);
         table.editHeader();
       },

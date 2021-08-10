@@ -5,8 +5,8 @@
         :headers="headers"
         :data="bindPageInfo.records"
         :page="bindPageInfo"
-        :selection="edit"
-        :index="!edit"
+        :selection="editBatch"
+        :index="!editBatch"
         ref="bindTable"
         @handleSizeChange="fetchData"
         @handleCurrentChange="fetchData"
@@ -31,9 +31,9 @@
           </el-button>
         </template>
         <template #filter>
-          <div v-if="!edit">
-            <el-button size="small" type="success" @click="edit = true">
-              编辑
+          <div v-if="!editBatch">
+            <el-button size="small" @click="editBatch = true">
+              批量解绑
             </el-button>
           </div>
           <div v-else>
@@ -45,12 +45,12 @@
             >
               解绑
             </el-button>
-            <el-button size="small" type="warning" @click="cancelEdit">
+            <el-button size="small" type="warning" @click="cancelEditBatch">
               取消
             </el-button>
           </div>
           <el-button size="small" @click="editColumn" style="margin-left: 10px">
-            编辑列
+            自定义列
           </el-button>
         </template>
         <template #status="{ item }">
