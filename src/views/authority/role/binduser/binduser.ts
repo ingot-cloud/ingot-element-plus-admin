@@ -17,21 +17,21 @@ export default defineComponent({
     const editBatch = ref(false);
     const bindTable = ref();
     const bindView = ref();
-    const selectData = ref([] as Array<SysUser>);
+    const selectData = ref([] as Array<any>);
     const bindPageInfo = reactive({
       current: 1,
       size: 20,
       total: 0,
       records: [],
-    } as Page<SysUser>);
-    const queryCondition = reactive({} as SysUser);
+    } as Page<any>);
+    const queryCondition = reactive({} as any);
 
     const bindParams = reactive({ id: props.id } as RoleBindParams);
 
     const fetchData = (params?: PageChangeParams | boolean) => {
       if (params) {
         if (params instanceof Boolean) {
-          bindPageInfo.current = 0;
+          bindPageInfo.current = 1;
           bindPageInfo.size = 20;
         } else {
           params = params as PageChangeParams;
@@ -101,7 +101,7 @@ export default defineComponent({
         const table = unref(bindTable);
         table.editHeader();
       },
-      onSelectChanged(selection: Array<SysUser>) {
+      onSelectChanged(selection: Array<any>) {
         selectData.value = selection;
       },
       showBindMoreView() {
