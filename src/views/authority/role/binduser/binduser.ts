@@ -17,14 +17,14 @@ export default defineComponent({
     const editBatch = ref(false);
     const bindTable = ref();
     const bindView = ref();
-    const selectData = ref([] as Array<any>);
+    const selectData = ref([] as Array<SysUser>);
     const bindPageInfo = reactive({
       current: 1,
       size: 20,
       total: 0,
       records: [],
-    } as Page<any>);
-    const queryCondition = reactive({} as any);
+    } as Page<SysUser>);
+    const queryCondition = reactive({} as SysUser);
 
     const bindParams = reactive({ id: props.id } as RoleBindParams);
 
@@ -38,15 +38,15 @@ export default defineComponent({
           bindPageInfo[params.type] = params.value;
         }
       }
-      const pageParams = toRaw(bindPageInfo);
-      pageParams.total = undefined;
-      pageParams.records = undefined;
-      getBindUsers(pageParams, props.id, true, queryCondition).then(
-        (response) => {
-          bindPageInfo.records = response.data.records;
-          bindPageInfo.total = Number(response.data.total);
-        }
-      );
+      getBindUsers(
+        { current: bindPageInfo.current, size: bindPageInfo.size },
+        props.id,
+        true,
+        toRaw(queryCondition)
+      ).then((response) => {
+        bindPageInfo.records = response.data.records;
+        bindPageInfo.total = Number(response.data.total);
+      });
     };
 
     const handleUnbind = (item: SysUser) => {
