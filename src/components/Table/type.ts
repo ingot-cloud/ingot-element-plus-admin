@@ -1,7 +1,7 @@
 export interface HeaderItem {
   label: string;
   prop: string;
-  hide?: string;
+  hide?: boolean;
   type?: string;
   width?: string;
   fixed?: string | boolean;

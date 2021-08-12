@@ -1,5 +1,5 @@
 import { defineComponent, PropType, ref, watch, unref } from "vue";
-import { HeaderItem, Page } from "./data";
+import { HeaderItem, Page } from "./type";
 
 export default defineComponent({
   emits: [
