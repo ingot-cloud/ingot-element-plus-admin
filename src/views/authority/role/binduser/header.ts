@@ -1,4 +1,6 @@
-export const tableHeaders = [
+import { HeaderItem } from "@/components/Table/type";
+
+export const tableHeaders: Array<HeaderItem> = [
   {
     label: "用户名",
     prop: "username",
