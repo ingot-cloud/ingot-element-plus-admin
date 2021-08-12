@@ -61,7 +61,10 @@ export function bindSetup<T extends BaseRoleBindEntity>(
         toRaw(queryCondition) as T
       )
       .then((response) => {
-        Object.assign(bindPageInfo, response.data);
+        Object.assign(bindPageInfo, {
+          records: response.data.records,
+          total: Number(response.data.total),
+        });
       });
   };
 
