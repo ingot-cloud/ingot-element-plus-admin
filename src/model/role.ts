@@ -25,7 +25,3 @@ export interface RoleBindParams {
   removeIds?: Array<string>;
   bindIds?: Array<string>;
 }
-
-export interface BaseRoleBindEntity {
-  id?: string;
-}

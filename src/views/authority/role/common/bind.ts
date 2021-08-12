@@ -4,7 +4,7 @@ import { HeaderItem } from "@/components/Table/type";
 import {
   Page,
   PageChangeParams,
-  BaseRoleBindEntity,
+  OptionIDEntity,
   RoleBindParams,
   IngotResponse,
 } from "@/model";
@@ -24,7 +24,7 @@ export interface BindSetupParams<T> {
   unbind: (bindParams: RoleBindParams) => Promise<IngotResponse<void>>;
 }
 
-export function bindSetup<T extends BaseRoleBindEntity>(
+export function bindSetup<T extends OptionIDEntity>(
   params: BindSetupParams<T>
 ): any {
   const route = useRoute();

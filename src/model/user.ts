@@ -1,5 +1,4 @@
-import { CommonStatus } from "./common";
-import { BaseRoleBindEntity } from "./role";
+import { CommonStatus, OptionIDEntity } from "./common";
 
 /**
  * UserPageItemVo
@@ -17,7 +16,7 @@ export interface UserPageItemVo {
   createdAt: string;
 }
 
-export interface SysUser extends BaseRoleBindEntity {
+export interface SysUser extends OptionIDEntity {
   id?: string;
   deptId?: string;
   username?: string;

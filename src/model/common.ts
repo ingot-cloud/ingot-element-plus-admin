@@ -76,3 +76,10 @@ export interface PageChangeParams {
   type: "current" | "size";
   value: number;
 }
+
+/**
+ * 可选ID实体
+ */
+export interface OptionIDEntity {
+  id?: string;
+}
