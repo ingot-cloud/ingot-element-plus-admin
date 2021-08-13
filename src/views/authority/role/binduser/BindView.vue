@@ -1,6 +1,6 @@
 <template>
   <el-drawer
-    title="绑定更多"
+    :title="title"
     v-model="isShow"
     direction="ltr"
     :modal="false"
@@ -70,11 +70,15 @@
   </el-drawer>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, toRaw, ref, unref, onMounted } from "vue";
+import { defineComponent } from "vue";
+import { useRoute } from "vue-router";
 import { getBindUsers, bindUser } from "@/api/authority/role";
 import { tableHeaders } from "./header";
-import { Page, SysUser, PageChangeParams, RoleBindParams } from "@/model";
-import { Confirm, Message } from "@/utils/message";
+import { Page, SysUser, IngotResponse, RoleBindParams } from "@/model";
+import {
+  unbindSetup,
+  BindSetupParams,
+} from "@/views/authority/role/common/bind";
 export default defineComponent({
   props: {
     id: {
@@ -84,95 +88,29 @@ export default defineComponent({
   },
   emits: ["dataChanged"],
   setup(props, { emit }) {
-    const isShow = ref(false);
-    const headers = ref(Object.assign([], tableHeaders));
-    const editBatch = ref(false);
-    const bindTable = ref();
-    const bindView = ref();
-    const selectData = ref([] as Array<SysUser>);
-    const bindPageInfo = reactive({
-      current: 1,
-      size: 20,
-      total: 0,
-      records: [],
-    } as Page<SysUser>);
-    const queryCondition = reactive({} as SysUser);
-
-    const bindParams = reactive({ id: props.id } as RoleBindParams);
-
-    const fetchData = (params?: PageChangeParams | boolean) => {
-      if (params) {
-        if (params instanceof Boolean) {
-          bindPageInfo.current = 0;
-          bindPageInfo.size = 20;
-        } else {
-          params = params as PageChangeParams;
-          bindPageInfo[params.type] = params.value;
-        }
-      }
-      const pageParams = toRaw(bindPageInfo);
-      pageParams.total = undefined;
-      pageParams.records = undefined;
-      getBindUsers(pageParams, props.id, false, queryCondition).then(
-        (response) => {
-          bindPageInfo.records = response.data.records;
-          bindPageInfo.total = Number(response.data.total);
-        }
-      );
-    };
-
-    const handleBind = (item: SysUser) => {
-      Confirm.warning(`是否绑定用户:${item.username}`).then(() => {
-        bindUser({ id: props.id, bindIds: [item.id as string] }).then(() => {
-          Message.success("操作成功");
-          emit("dataChanged");
-          fetchData();
-        });
-      });
-    };
-
-    const handleBatchBind = () => {
-      Confirm.warning("是否绑定所选用户?").then(() => {
-        const bindIds = selectData.value.map((item) => item.id as string);
-        bindUser({ id: props.id, bindIds }).then(() => {
-          Message.success("操作成功");
-          emit("dataChanged");
-          fetchData();
-        });
-      });
-    };
-
-    onMounted(() => {
-      if (bindPageInfo.records?.length === 0) {
-        fetchData();
-      }
-    });
-
-    return {
-      isShow,
-      bindTable,
-      bindView,
-      editBatch,
-      headers,
-      bindPageInfo,
-      bindParams,
-      selectData,
-      queryCondition,
-      fetchData,
-      handleBind,
-      handleBatchBind,
-      cancelEditBatch() {
-        editBatch.value = false;
-        const table = unref(bindTable);
-        table.clearSelection();
+    const route = useRoute();
+    const params: BindSetupParams<SysUser> = {
+      title: `角色：${route.query.name} - 关联更多用户`,
+      id: props.id,
+      tableHeaders,
+      singleConfirmMessage(item: SysUser) {
+        return `是否绑定用户:${item.username}`;
       },
-      onSelectChanged(selection: Array<SysUser>) {
-        selectData.value = selection;
+      batchConfirmMessage: "是否绑定所选用户?",
+      fetchData(
+        page: Page,
+        id: string,
+        isBind: boolean,
+        condition?: SysUser
+      ): Promise<IngotResponse<Page<SysUser>>> {
+        return getBindUsers(page, id, isBind, condition);
       },
-      show() {
-        isShow.value = true;
+      bind(bindParams: RoleBindParams): Promise<IngotResponse<void>> {
+        return bindUser(bindParams);
       },
+      emit,
     };
+    return unbindSetup(params);
   },
 });
 </script>

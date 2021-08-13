@@ -1,4 +1,5 @@
 import { defineComponent } from "vue";
+import { useRoute } from "vue-router";
 import { getBindUsers, bindUser } from "@/api/authority/role";
 import { tableHeaders } from "./header";
 import { Page, SysUser, IngotResponse, RoleBindParams } from "@/model";
@@ -11,13 +12,15 @@ export default defineComponent({
     BindView,
   },
   setup(props) {
+    const route = useRoute();
     const params: BindSetupParams<SysUser> = {
+      title: `角色：${route.query.name}`,
       id: props.id,
       tableHeaders,
-      singleUnbindMessage(item: SysUser) {
+      singleConfirmMessage(item: SysUser) {
         return `是否解绑用户:${item.username}`;
       },
-      batchUnbindMessage: "是否解绑所选用户?",
+      batchConfirmMessage: "是否解绑所选用户?",
       fetchData(
         page: Page,
         id: string,
@@ -26,7 +29,7 @@ export default defineComponent({
       ): Promise<IngotResponse<Page<SysUser>>> {
         return getBindUsers(page, id, isBind, condition);
       },
-      unbind(bindParams: RoleBindParams): Promise<IngotResponse<void>> {
+      bind(bindParams: RoleBindParams): Promise<IngotResponse<void>> {
         return bindUser(bindParams);
       },
     };
