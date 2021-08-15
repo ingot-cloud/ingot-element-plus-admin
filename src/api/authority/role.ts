@@ -63,13 +63,18 @@ export function bindAuthority(
 export function getBindAuthorities(
   page: Page,
   id: string,
-  isBind: boolean
+  isBind: boolean,
+  condition?: SysAuthority
 ): Promise<IngotResponse<Page<SysAuthority>>> {
+  if (condition) {
+    filterParams(condition);
+  }
   return request.get<Page<SysAuthority>>({
     url: `/api/pms/v1/role/bindAuthority/${id}`,
     params: {
       ...page,
       isBind,
+      ...condition,
     },
   });
 }
@@ -84,13 +89,18 @@ export function bindDept(params: RoleBindParams): Promise<IngotResponse<void>> {
 export function getBindDepts(
   page: Page,
   id: string,
-  isBind: boolean
+  isBind: boolean,
+  condition?: SysDept
 ): Promise<IngotResponse<Page<SysDept>>> {
+  if (condition) {
+    filterParams(condition);
+  }
   return request.get<Page<SysDept>>({
     url: `/api/pms/v1/role/bindDept/${id}`,
     params: {
       ...page,
       isBind,
+      ...condition,
     },
   });
 }
@@ -105,13 +115,18 @@ export function bindMenu(params: RoleBindParams): Promise<IngotResponse<void>> {
 export function getBindMenus(
   page: Page,
   id: string,
-  isBind: boolean
+  isBind: boolean,
+  condition?: SysMenu
 ): Promise<IngotResponse<Page<SysMenu>>> {
+  if (condition) {
+    filterParams(condition);
+  }
   return request.get<Page<SysMenu>>({
     url: `/api/pms/v1/role/bindMenu/${id}`,
     params: {
       ...page,
       isBind,
+      ...condition,
     },
   });
 }
@@ -128,13 +143,18 @@ export function bindClient(
 export function getBindClients(
   page: Page,
   id: string,
-  isBind: boolean
+  isBind: boolean,
+  condition?: SysOauthClientDetails
 ): Promise<IngotResponse<Page<SysOauthClientDetails>>> {
+  if (condition) {
+    filterParams(condition);
+  }
   return request.get<Page<SysOauthClientDetails>>({
     url: `/api/pms/v1/role/bindClient/${id}`,
     params: {
       ...page,
       isBind,
+      ...condition,
     },
   });
 }

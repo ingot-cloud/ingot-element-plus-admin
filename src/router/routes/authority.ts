@@ -71,6 +71,50 @@ const managementRoutes: Array<RouteRecordRaw> = [
               import("@/views/authority/role/binduser/index.vue"),
             props: true,
           },
+          {
+            name: "SysAuthorityRoleManagerBindDept",
+            meta: {
+              title: "绑定部门",
+              hidden: true,
+            },
+            path: "/authority/role/binddept/:id",
+            component: () =>
+              import("@/views/authority/role/binddept/index.vue"),
+            props: true,
+          },
+          {
+            name: "SysAuthorityRoleManagerBindMenu",
+            meta: {
+              title: "绑定菜单",
+              hidden: true,
+            },
+            path: "/authority/role/bindmenu/:id",
+            component: () =>
+              import("@/views/authority/role/bindmenu/index.vue"),
+            props: true,
+          },
+          {
+            name: "SysAuthorityRoleManagerBindAuthority",
+            meta: {
+              title: "绑定权限",
+              hidden: true,
+            },
+            path: "/authority/role/bindauthority/:id",
+            component: () =>
+              import("@/views/authority/role/bindauthority/index.vue"),
+            props: true,
+          },
+          {
+            name: "SysAuthorityRoleManagerBindClient",
+            meta: {
+              title: "绑定客户端",
+              hidden: true,
+            },
+            path: "/authority/role/bindclient/:id",
+            component: () =>
+              import("@/views/authority/role/bindclient/index.vue"),
+            props: true,
+          },
         ],
       },
       {

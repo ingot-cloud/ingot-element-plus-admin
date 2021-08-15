@@ -48,24 +48,26 @@
             </el-button>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item :command="{ data: item, type: 'user' }">
+                <el-dropdown-item :command="{ data: item, type: 'binduser' }">
                   用户
                 </el-dropdown-item>
-                <el-dropdown-item :command="{ data: item, type: 'dept' }">
+                <el-dropdown-item :command="{ data: item, type: 'binddept' }">
                   部门
                 </el-dropdown-item>
                 <el-dropdown-item
                   divided
-                  :command="{ data: item, type: 'menu' }"
+                  :command="{ data: item, type: 'bindmenu' }"
                 >
                   菜单
                 </el-dropdown-item>
-                <el-dropdown-item :command="{ data: item, type: 'authority' }">
+                <el-dropdown-item
+                  :command="{ data: item, type: 'bindauthority' }"
+                >
                   权限
                 </el-dropdown-item>
                 <el-dropdown-item
                   divided
-                  :command="{ data: item, type: 'client' }"
+                  :command="{ data: item, type: 'bindclient' }"
                 >
                   客户端
                 </el-dropdown-item>

@@ -76,14 +76,10 @@ export function handleBindCommand(params: {
   const data = params.data;
   const roleId = data.id;
 
-  switch (type) {
-    case "user":
-      router.push({
-        path: `/authority/role/binduser/${roleId}`,
-        query: {
-          name: data.name,
-        },
-      });
-      break;
-  }
+  router.push({
+    path: `/authority/role/${type}/${roleId}`,
+    query: {
+      name: data.name,
+    },
+  });
 }
