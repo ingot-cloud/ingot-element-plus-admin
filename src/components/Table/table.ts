@@ -52,6 +52,22 @@ export default defineComponent({
       type: String,
       default: "序号",
     },
+    defaultExpandAll: {
+      type: Boolean,
+      default: false,
+    },
+    expandRowKeys: {
+      type: Array,
+      default() {
+        return undefined;
+      },
+    },
+    treeProps: {
+      type: Object,
+      default() {
+        return { hasChildren: "hasChildren", children: "children" };
+      },
+    },
   },
   setup(props, { emit }) {
     const properties = props as any;

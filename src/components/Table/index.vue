@@ -13,6 +13,9 @@
     @select-all="privateOnTableSelectAll"
     @select="privateOnTableSelect"
     @selection-change="privateOnTableSelectionChange"
+    :default-expand-all="defaultExpandAll"
+    :expand-row-keys="expandRowKeys"
+    :tree-props="treeProps"
   >
     <el-table-column
       v-if="selection"
