@@ -16,6 +16,7 @@
     :default-expand-all="defaultExpandAll"
     :expand-row-keys="expandRowKeys"
     :tree-props="treeProps"
+    :row-key="rowKey"
   >
     <el-table-column
       v-if="selection"
@@ -47,7 +48,7 @@
       </template>
     </el-table-column>
   </el-table>
-  <div v-if="page" class="pagination-container">
+  <div v-if="page && page.total > 0" class="pagination-container">
     <el-pagination
       :current-page="current"
       :page-size="size"

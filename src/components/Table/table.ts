@@ -52,6 +52,9 @@ export default defineComponent({
       type: String,
       default: "序号",
     },
+    rowKey: {
+      type: Object as PropType<string | ((row: any) => string)>,
+    },
     defaultExpandAll: {
       type: Boolean,
       default: false,
