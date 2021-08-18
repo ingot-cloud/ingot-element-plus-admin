@@ -76,8 +76,6 @@ export default defineComponent({
     const properties = props as any;
     const page = properties.page;
 
-    console.log(properties.treeProps, properties.rowKey, properties.data);
-
     const headerDrawer = ref(false);
     const headersEnable = ref(
       properties.headers.filter(
