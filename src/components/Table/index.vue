@@ -36,9 +36,9 @@
       v-for="item in headersEnable"
       :key="item.prop"
       :label="item.label"
-      :type="item.type || null"
-      :width="item.width || null"
-      :fixed="item.fixed || null"
+      :type="item.type || undefined"
+      :width="item.width || undefined"
+      :fixed="item.fixed || undefined"
       :align="item.align || 'left'"
     >
       <template #="scope" v-if="!item.type">

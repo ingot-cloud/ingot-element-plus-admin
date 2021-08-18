@@ -53,7 +53,7 @@ export default defineComponent({
       default: "序号",
     },
     rowKey: {
-      type: Object as PropType<string | ((row: any) => string)>,
+      type: [String, Function] as PropType<string | ((row: any) => string)>,
     },
     defaultExpandAll: {
       type: Boolean,
@@ -75,6 +75,8 @@ export default defineComponent({
   setup(props, { emit }) {
     const properties = props as any;
     const page = properties.page;
+
+    console.log(properties.treeProps, properties.rowKey, properties.data);
 
     const headerDrawer = ref(false);
     const headersEnable = ref(
