@@ -10,6 +10,7 @@ import IngotFilterContainer from "./FilterContainer/index.vue";
 import TenantOptions from "./TenantOptions/index.vue";
 import Select from "./Select/index.vue";
 import CommonStatusTag from "./biz/CommonStatusTag.vue";
+import CommonStatusButton from "./biz/CommonStatusButton.vue";
 
 /**
  * 注册组件
@@ -32,4 +33,5 @@ export function registerComponent(app: App): void {
 
 function registerBizComponent(app: App): void {
   app.component("ingot-common-status-tag", CommonStatusTag);
+  app.component("ingot-common-status-button", CommonStatusButton);
 }
