@@ -71,6 +71,15 @@ export default defineComponent({
         return { hasChildren: "hasChildren", children: "children" };
       },
     },
+    headerCellStyle: {
+      type: Object,
+      default() {
+        return {
+          background: "#fafafa",
+          color: "black",
+        };
+      },
+    },
   },
   setup(props, { emit }) {
     const properties = props as any;

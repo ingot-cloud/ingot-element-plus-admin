@@ -17,6 +17,7 @@
     :expand-row-keys="expandRowKeys"
     :tree-props="treeProps"
     :row-key="rowKey"
+    :header-cell-style="headerCellStyle"
   >
     <el-table-column
       v-if="selection"
