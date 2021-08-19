@@ -9,6 +9,7 @@ import IngotTable from "./Table/index.vue";
 import IngotFilterContainer from "./FilterContainer/index.vue";
 import TenantOptions from "./TenantOptions/index.vue";
 import Select from "./Select/index.vue";
+import IconSelect from "./IconSelect/index.vue";
 import CommonStatusTag from "./biz/CommonStatusTag.vue";
 import CommonStatusButton from "./biz/CommonStatusButton.vue";
 
@@ -22,6 +23,7 @@ export function registerComponent(app: App): void {
   app.component("ingot-sidebar-menu", IngotSidebarMenu);
   app.component("ingot-sidebar-item", IngotSidebarItem);
   app.component("ingot-icon", IngotIcon);
+  app.component("ingot-icon-select", IconSelect);
   app.component("ingot-page-card", IngotPageCard);
   app.component("ingot-table", IngotTable);
   app.component("ingot-filter-container", IngotFilterContainer);
