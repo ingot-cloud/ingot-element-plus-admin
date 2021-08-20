@@ -9,15 +9,10 @@
     @hide="onVisibleChanged('down')"
   >
     <template #reference>
-      <el-input
-        :disabled="disabled"
-        :value="label"
-        clearable
-        :placeholder="placeholder"
-      >
+      <el-input :disabled="disabled" v-model="label" :placeholder="placeholder">
         <template #suffix>
           <i
-            v-if="label"
+            v-if="!disabled && label"
             @click="onClearClick"
             class="el-input__icon el-icon-circle-close el-input__clear"
           ></i>
@@ -35,7 +30,7 @@
   </el-popover>
 </template>
 <script lang="ts">
-import { defineComponent, ref, unref } from "vue";
+import { defineComponent, ref, unref, watch, watchEffect } from "vue";
 
 export default defineComponent({
   props: {
@@ -99,9 +94,15 @@ export default defineComponent({
       return "";
     };
 
-    if (properties.modelValue && properties.data) {
-      label.value = getLabel(properties.data, properties.modelValue);
-    }
+    watch(
+      () => properties.modelValue,
+      (value) => {
+        label.value = getLabel(properties.data, value);
+      },
+      {
+        immediate: true,
+      }
+    );
 
     return {
       innerRef,
