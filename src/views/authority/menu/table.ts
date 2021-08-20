@@ -1,10 +1,5 @@
 export const tableHeaders = [
   {
-    label: "序号",
-    prop: "id",
-    type: "index",
-  },
-  {
     label: "菜单名称",
     prop: "name",
   },
@@ -30,7 +25,7 @@ export const tableHeaders = [
   },
   {
     label: "是否缓存",
-    prop: "isCache",
+    prop: "cache",
   },
   {
     label: "状态",
@@ -42,7 +37,7 @@ export const tableHeaders = [
   },
   {
     label: "操作",
-    width: "210",
+    width: "280",
     prop: "actions",
     fixed: "right",
     align: "center",
