@@ -1,33 +1,33 @@
 <template>
   <ingot-container>
     <ingot-page-card :hideBack="true">
-      <ingot-filter-container>
-        <el-input
-          v-model="condition.name"
-          class="item"
-          size="small"
-          clearable
-          style="width: 200px"
-          placeholder="角色名"
-        ></el-input>
-        <el-button
-          class="item"
-          size="small"
-          type="primary"
-          @click="refreshData"
-        >
-          搜索
-        </el-button>
-        <el-button
-          class="item"
-          size="small"
-          type="success"
-          @click="handleCreate(editDialog)"
-        >
-          添加
-        </el-button>
-      </ingot-filter-container>
       <ingot-table :data="roleData" :headers="tableHeaders">
+        <template #filter>
+          <el-input
+            v-model="condition.name"
+            class="item"
+            size="small"
+            clearable
+            style="width: 200px"
+            placeholder="角色名"
+          ></el-input>
+          <el-button
+            class="item"
+            size="small"
+            type="primary"
+            @click="refreshData"
+          >
+            搜索
+          </el-button>
+          <el-button
+            class="item"
+            size="small"
+            type="success"
+            @click="handleCreate(editDialog)"
+          >
+            添加
+          </el-button>
+        </template>
         <template #status="{ item }">
           <el-tag :type="getCommonStatusTag(item.status)">
             {{ getCommonStatusDesc(item.status) }}
