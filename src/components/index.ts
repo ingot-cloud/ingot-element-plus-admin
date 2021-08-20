@@ -10,6 +10,7 @@ import IngotFilterContainer from "./FilterContainer/index.vue";
 import TenantOptions from "./TenantOptions/index.vue";
 import Select from "./Select/index.vue";
 import IconSelect from "./IconSelect/index.vue";
+import TreeSelect from "./TreeSelect/index.vue";
 import CommonStatusTag from "./biz/CommonStatusTag.vue";
 import CommonStatusButton from "./biz/CommonStatusButton.vue";
 
@@ -29,6 +30,7 @@ export function registerComponent(app: App): void {
   app.component("ingot-filter-container", IngotFilterContainer);
   app.component("ingot-tenant-options", TenantOptions);
   app.component("ingot-select", Select);
+  app.component("ingot-tree-select", TreeSelect);
 
   registerBizComponent(app);
 }
