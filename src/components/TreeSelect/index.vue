@@ -4,11 +4,17 @@
     trigger="click"
     :placement="placement"
     :width="width"
+    :disabled="disabled"
     @show="onVisibleChanged('up')"
     @hide="onVisibleChanged('down')"
   >
     <template #reference>
-      <el-input :value="label" clearable :placeholder="placeholder">
+      <el-input
+        :disabled="disabled"
+        :value="label"
+        clearable
+        :placeholder="placeholder"
+      >
         <template #suffix>
           <i
             v-if="label"
@@ -34,6 +40,10 @@ import { defineComponent, ref, unref } from "vue";
 export default defineComponent({
   props: {
     modelValue: String,
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     data: {
       type: Array,
     },
