@@ -30,7 +30,7 @@
   </el-popover>
 </template>
 <script lang="ts">
-import { defineComponent, ref, unref, watch, watchEffect } from "vue";
+import { defineComponent, ref, unref, watch } from "vue";
 
 export default defineComponent({
   props: {
