@@ -17,10 +17,10 @@ class IngotStore {
     const finalType = type || StoreType.Local;
     switch (finalType) {
       case StoreType.Local:
-        global.localStorage.setItem(finalKey, JSON.stringify(obj));
+        globalThis.localStorage.setItem(finalKey, JSON.stringify(obj));
         break;
       case StoreType.Session:
-        global.sessionStorage.setItem(finalKey, JSON.stringify(obj));
+        globalThis.sessionStorage.setItem(finalKey, JSON.stringify(obj));
         break;
     }
   }
@@ -34,10 +34,10 @@ class IngotStore {
 
     switch (type) {
       case StoreType.Local:
-        result = global.localStorage.getItem(finalKey);
+        result = globalThis.localStorage.getItem(finalKey);
         break;
       case StoreType.Session:
-        result = global.sessionStorage.getItem(finalKey);
+        result = globalThis.sessionStorage.getItem(finalKey);
         break;
     }
     try {
@@ -57,10 +57,10 @@ class IngotStore {
     const finalKey = this.keyWrapper(key);
     switch (type) {
       case StoreType.Local:
-        global.localStorage.removeItem(finalKey);
+        globalThis.localStorage.removeItem(finalKey);
         break;
       case StoreType.Session:
-        global.sessionStorage.removeItem(finalKey);
+        globalThis.sessionStorage.removeItem(finalKey);
         break;
     }
   }
@@ -73,8 +73,8 @@ class IngotStore {
     let key;
     switch (type) {
       case StoreType.Local:
-        for (let i = 0, len = global.localStorage.length; i <= len; i++) {
-          key = global.localStorage.key(i);
+        for (let i = 0, len = globalThis.localStorage.length; i <= len; i++) {
+          key = globalThis.localStorage.key(i);
           if (key) {
             list.push({
               key,
@@ -84,8 +84,8 @@ class IngotStore {
         }
         break;
       case StoreType.Session:
-        for (let i = 0, len = global.sessionStorage.length; i <= len; i++) {
-          key = global.sessionStorage.key(i);
+        for (let i = 0, len = globalThis.sessionStorage.length; i <= len; i++) {
+          key = globalThis.sessionStorage.key(i);
           if (key) {
             list.push({
               key,
@@ -105,10 +105,10 @@ class IngotStore {
   public clear(type = StoreType.Local) {
     switch (type) {
       case StoreType.Local:
-        global.localStorage.clear();
+        globalThis.localStorage.clear();
         break;
       case StoreType.Session:
-        global.sessionStorage.clear();
+        globalThis.sessionStorage.clear();
         break;
     }
   }
