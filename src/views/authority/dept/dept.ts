@@ -1,63 +1,69 @@
-import {
-  DeptRoleScope,
-  getDeptRoleScopeDesc,
-  CommonStatus,
-  getCommonStatusDesc,
-} from "@/model";
-import {
-  formModel,
-  rules,
-  deptEditStatus,
-  handleTreeNodeClick,
-  handleCreateButtonClick,
-  handleEditButtonClick,
-  handleDeleteButtonClick,
-  handleCreateOrUpdateDept,
-  handleCancelEdit,
-} from "./biz/edit";
-import { computedDeptData, fetchDeptTree } from "@/store/composition/dept";
-import { defineComponent, onMounted, ref, Ref } from "vue";
-import { useStore } from "@/store";
+import { defineComponent, onMounted, ref, reactive, unref } from "vue";
+import { tableHeaders } from "./table";
+import { MenuTreeNode, SysMenu } from "@/model";
+import { getMenuTree, remove } from "@/api/authority/menu";
+import { Confirm, Message } from "@/utils/message";
+import EditDialog from "./EditDialog.vue";
 
 export default defineComponent({
-  components: {},
+  components: {
+    EditDialog,
+  },
   setup() {
-    const deptFormRef = ref();
-    const deptData = computedDeptData();
-    const store = useStore();
+    const editDialogRef = ref();
+    const loading = ref(false);
+    const treeData = reactive({
+      props: { children: "children", hasChildren: "hasChildren" },
+      key: "id",
+      data: [] as Array<MenuTreeNode>,
+    });
+    const selectData = ref([] as Array<MenuTreeNode>);
 
-    const innerFetchDeptTree = () => {
-      fetchDeptTree(store);
+    const fetchData = () => {
+      loading.value = true;
+      getMenuTree()
+        .then((response) => {
+          loading.value = false;
+          const data = response.data;
+          treeData.data = data;
+          selectData.value = [
+            {
+              id: undefined,
+              name: "根菜单",
+              children: data,
+            },
+          ];
+        })
+        .catch(() => {
+          loading.value = false;
+        });
     };
+
+    const showEditDialog = (params?: SysMenu | string) => {
+      const dialog = unref(editDialogRef);
+      dialog.show(params);
+    };
+
+    function handleDelete(params: SysMenu): void {
+      Confirm.warning(`是否删除菜单${params.name}`).then(() => {
+        remove(params.id as string).then(() => {
+          Message.success("操作成功");
+          fetchData();
+        });
+      });
+    }
 
     onMounted(() => {
-      innerFetchDeptTree();
+      fetchData();
     });
     return {
-      deptData,
-      deptFormRef,
-      formModel,
-      rules,
-      deptEditStatus,
-      DeptRoleScope,
-      getDeptRoleScopeDesc,
-      CommonStatus,
-      getCommonStatusDesc,
-      handleCreateButtonClick,
-      handleEditButtonClick,
-      handleDeleteButtonClick: () => {
-        handleDeleteButtonClick(store, innerFetchDeptTree);
-      },
-      handleCreateOrUpdateDept: (formRef: Ref) => {
-        handleCreateOrUpdateDept(store, formRef, innerFetchDeptTree);
-      },
-      handleCancelEdit,
-      handleTreeNodeClick,
+      editDialogRef,
+      tableHeaders,
+      treeData,
+      selectData,
+      fetchData,
+      showEditDialog,
+      handleDelete,
     };
-  },
-  methods: {
-    testClick(data: any) {
-      console.log(data);
-    },
   },
 });
