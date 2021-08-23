@@ -53,6 +53,7 @@
       </ingot-table>
     </ingot-page-card>
   </ingot-container>
+  <EditDialog ref="editDialogRef" :data="selectData" @success="fetchData" />
 </template>
 <script lang="ts" src="./dept.ts"></script>
 <style lang="stylus" scoped></style>

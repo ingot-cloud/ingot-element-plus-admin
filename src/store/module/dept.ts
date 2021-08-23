@@ -1,5 +1,10 @@
 import { Module } from "vuex";
-import { RootState, DeptModuleState, DeptTree } from "@/store/types";
+import {
+  RootState,
+  DeptModuleState,
+  DeptTree,
+  DeptTreeList,
+} from "@/store/types";
 import {
   getDeptTree,
   createDept,
@@ -23,11 +28,6 @@ const stretchTree = (treeNode: DeptTreeNode, arr: Array<SysDept>): void => {
 const module: Module<DeptModuleState, RootState> = {
   namespaced: true,
   state: {
-    props: {
-      children: "children",
-      label: "name",
-    },
-    nodeKey: "id",
     expandedKeys: [],
     data: [],
     update: true,
@@ -43,11 +43,24 @@ const module: Module<DeptModuleState, RootState> = {
     },
   },
   getters: {
-    [`${Getters.deptData}`]: (state): DeptTree => {
+    [`${Getters.deptTreeData}`]: (state): DeptTree => {
       return {
-        props: state.props,
-        nodeKey: state.nodeKey,
+        props: {
+          children: "children",
+          label: "name",
+        },
+        nodeKey: "id",
         expandedKeys: state.expandedKeys,
+        data: state.data,
+      };
+    },
+    [`${Getters.deptTreeListData}`]: (state): DeptTreeList => {
+      return {
+        props: {
+          children: "children",
+          hasChildren: "hasChildren",
+        },
+        key: "id",
         data: state.data,
       };
     },
@@ -62,10 +75,10 @@ const module: Module<DeptModuleState, RootState> = {
     },
   },
   actions: {
-    [`${Actions.fetchTree}`]({ state, commit, getters }) {
-      return new Promise<DeptTree>((resolve, reject) => {
+    [`${Actions.fetchTree}`]({ state, commit }) {
+      return new Promise<Array<DeptTreeNode>>((resolve, reject) => {
         if (!state.update && state.data.length !== 0) {
-          resolve(getters.deptData);
+          resolve(state.data);
           return;
         }
         getDeptTree()
@@ -79,7 +92,7 @@ const module: Module<DeptModuleState, RootState> = {
             });
 
             commit(Mutations.setDeptTree, { data, expandedKeys });
-            resolve(getters.deptData);
+            resolve(data);
           })
           .catch(() => {
             reject();

@@ -1,6 +1,6 @@
 import { useCommit, useDispatch, computedGetter, IngotStore } from "@/store";
-import { DeptTree } from "@/store/types";
-import { SysDept } from "@/model";
+import { DeptTree, DeptTreeList } from "@/store/types";
+import { SysDept, DeptTreeNode } from "@/model";
 import {
   moduleName,
   Mutations,
@@ -17,11 +17,19 @@ export function openUpdateDeptTreeFlag(): void {
 }
 
 /**
- * 获取deptData
+ * 获取deptTreeData
  * @returns 计算属性
  */
-export function computedDeptData(): ComputedRef<DeptTree> {
-  return computedGetter<DeptTree>(moduleName, Getters.deptData);
+export function computedDeptTreeData(): ComputedRef<DeptTree> {
+  return computedGetter<DeptTree>(moduleName, Getters.deptTreeData);
+}
+
+/**
+ * 获取deptTreeListData
+ * @returns 计算属性
+ */
+export function computedDeptTreeListData(): ComputedRef<DeptTreeList> {
+  return computedGetter<DeptTreeList>(moduleName, Getters.deptTreeListData);
 }
 
 /**
@@ -36,8 +44,10 @@ export function computedList(): ComputedRef<Array<SysDept>> {
  * 获取部门信息
  * @returns Promise
  */
-export function fetchDeptTree(store: IngotStore): Promise<DeptTree> {
-  return useDispatch(store, moduleName, Actions.fetchTree) as Promise<DeptTree>;
+export function fetchDeptTree(store: IngotStore): Promise<Array<DeptTreeNode>> {
+  return useDispatch(store, moduleName, Actions.fetchTree) as Promise<
+    Array<DeptTreeNode>
+  >;
 }
 
 /**

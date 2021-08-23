@@ -6,7 +6,8 @@ export enum Mutations {
 }
 
 export enum Getters {
-  deptData = "deptData",
+  deptTreeData = "deptTreeData",
+  deptTreeListData = "deptTreeListData",
   deptList = "deptList",
 }
 

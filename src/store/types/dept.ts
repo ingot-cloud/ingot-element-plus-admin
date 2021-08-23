@@ -7,9 +7,13 @@ export interface DeptTree {
   data: Array<DeptTreeNode>;
 }
 
-export interface DeptModuleState {
+export interface DeptTreeList {
   props: any;
-  nodeKey: string;
+  key: string;
+  data: Array<DeptTreeNode>;
+}
+
+export interface DeptModuleState {
   expandedKeys: Array<string>;
   data: Array<DeptTreeNode>;
   update: boolean;

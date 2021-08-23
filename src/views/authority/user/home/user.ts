@@ -1,5 +1,5 @@
 import { defineComponent, onMounted, ref } from "vue";
-import { fetchDeptTree, computedDeptData } from "@/store/composition/dept";
+import { fetchDeptTree, computedDeptTreeData } from "@/store/composition/dept";
 import {
   fetchCacheData as fetchRoleData,
   computedRecords as computedRoleRecords,
@@ -31,13 +31,13 @@ export default defineComponent({
   },
   setup() {
     const createDialog = ref();
-    const deptTree = computedDeptData();
+    const deptTree = computedDeptTreeData();
     const roleRecords = computedRoleRecords();
     const store = useStore();
 
     onMounted(() => {
-      fetchDeptTree(store).then((deptData) => {
-        handleTreeNodeClick(deptData.data[0]);
+      fetchDeptTree(store).then((data) => {
+        handleTreeNodeClick(data[0]);
       });
       fetchRoleData(store);
     });

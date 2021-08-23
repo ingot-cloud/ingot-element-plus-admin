@@ -16,32 +16,28 @@
           :props="treeSelectProps"
         />
       </el-form-item>
-      <el-form-item prop="name" label="菜单名称">
+      <el-form-item prop="name" label="部门名称">
         <el-input
           v-model="editForm.name"
           placeholder="请输入菜单名称"
           clearable
         ></el-input>
       </el-form-item>
-      <el-form-item prop="path" label="菜单路径">
-        <el-input
-          v-model="editForm.path"
-          placeholder="请输入菜单路径"
-          clearable
-        ></el-input>
-      </el-form-item>
-      <el-form-item prop="viewPath" label="视图路径">
-        <el-input
-          v-model="editForm.viewPath"
-          placeholder="请输入视图路径"
-          clearable
-        ></el-input>
+      <el-form-item prop="scope" label="权限范围">
+        <el-input v-model="editForm.scope" clearable></el-input>
       </el-form-item>
 
       <el-row>
         <el-col :span="12">
-          <el-form-item prop="icon" label="菜单icon" size="small">
-            <ingot-icon-select v-model="editForm.icon" />
+          <el-form-item prop="status" label="状态">
+            <el-radio-group v-model="editForm.status">
+              <el-radio-button :label="CommonStatus.Enable">
+                {{ getCommonStatusDesc(CommonStatus.Enable) }}
+              </el-radio-button>
+              <el-radio-button :label="CommonStatus.Lock">
+                {{ getCommonStatusDesc(CommonStatus.Lock) }}
+              </el-radio-button>
+            </el-radio-group>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -55,53 +51,6 @@
           </el-form-item>
         </el-col>
       </el-row>
-
-      <el-row>
-        <el-col :span="8">
-          <el-form-item prop="status" label="状态">
-            <el-radio-group v-model="editForm.status">
-              <el-radio-button :label="CommonStatus.Enable">
-                {{ getCommonStatusDesc(CommonStatus.Enable) }}
-              </el-radio-button>
-              <el-radio-button :label="CommonStatus.Lock">
-                {{ getCommonStatusDesc(CommonStatus.Lock) }}
-              </el-radio-button>
-            </el-radio-group>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item prop="cache" label="是否缓存">
-            <el-radio-group v-model="editForm.isCache">
-              <el-radio-button :label="true"> 是 </el-radio-button>
-              <el-radio-button :label="false"> 否 </el-radio-button>
-            </el-radio-group>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item prop="hidden" label="是否隐藏">
-            <el-radio-group v-model="editForm.hidden">
-              <el-radio-button :label="true"> 是 </el-radio-button>
-              <el-radio-button :label="false"> 否 </el-radio-button>
-            </el-radio-group>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-form-item prop="params" label="参数">
-        <el-input
-          v-model="editForm.params"
-          placeholder="请输入菜单参数"
-          clearable
-        ></el-input>
-      </el-form-item>
-
-      <el-form-item prop="remark" label="备注">
-        <el-input
-          v-model="editForm.remark"
-          placeholder="请输入备注信息"
-          clearable
-        ></el-input>
-      </el-form-item>
     </el-form>
     <template #footer>
       <el-button
@@ -117,30 +66,28 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive, ref, nextTick, unref, toRaw } from "vue";
-import { SysMenu, CommonStatus, getCommonStatusDesc } from "@/model";
-import { create, update } from "@/api/authority/menu";
+import {
+  SysDept,
+  DeptRoleScope,
+  CommonStatus,
+  getCommonStatusDesc,
+} from "@/model";
+import { useStore } from "@/store";
+import { createDept, updateDept } from "@/store/composition/dept";
 import { Message } from "@/utils/message";
 import { copyParams, getDiff } from "@/utils/object";
 
 const rules = {
-  name: [{ required: true, message: "请输入菜单名称", trigger: "blur" }],
-  path: [{ required: true, message: "请输入菜单url", trigger: "blur" }],
-  viewPath: [{ required: true, message: "请输入视图路径", trigger: "blur" }],
+  name: [{ required: true, message: "请输入部门名称", trigger: "blur" }],
 };
 
-const defaultEditForm: SysMenu = {
+const defaultEditForm: SysDept = {
   id: undefined,
   pid: undefined,
   name: undefined,
-  path: undefined,
-  viewPath: undefined,
-  icon: undefined,
+  scope: DeptRoleScope.Current,
   sort: 999,
-  isCache: false,
-  hidden: false,
-  params: undefined,
   status: CommonStatus.Enable,
-  remark: undefined,
 };
 
 export default defineComponent({
@@ -151,9 +98,10 @@ export default defineComponent({
     },
   },
   setup(_, { emit }) {
+    const store = useStore();
     const editFormRef = ref();
     const editForm = reactive(Object.assign({}, defaultEditForm));
-    const rawForm: SysMenu = {};
+    const rawForm: SysDept = {};
     const loading = ref(false);
     const title = ref("");
     const edit = ref(false);
@@ -163,7 +111,6 @@ export default defineComponent({
     return {
       editFormRef,
       title,
-      edit,
       canEditPid,
       visible,
       loading,
@@ -176,7 +123,7 @@ export default defineComponent({
         label: "name",
         value: "id",
       },
-      show: (data?: SysMenu | string) => {
+      show: (data?: SysDept | string) => {
         visible.value = true;
 
         // 重置数据
@@ -212,15 +159,15 @@ export default defineComponent({
           if (valid) {
             let request;
             if (edit.value) {
-              const params = getDiff<SysMenu>(rawForm, editForm);
+              const params = getDiff<SysDept>(rawForm, editForm);
               if (Object.keys(params).length === 0) {
                 Message.warning("未改变数据");
                 return;
               }
               params.id = rawForm.id;
-              request = update(params);
+              request = updateDept(store, params);
             } else {
-              request = create(Object.assign({}, toRaw(editForm)));
+              request = createDept(store, Object.assign({}, toRaw(editForm)));
             }
 
             loading.value = true;

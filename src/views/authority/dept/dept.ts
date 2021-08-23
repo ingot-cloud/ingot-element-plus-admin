@@ -1,7 +1,12 @@
-import { defineComponent, onMounted, ref, reactive, unref } from "vue";
+import { defineComponent, onMounted, ref, unref } from "vue";
 import { tableHeaders } from "./table";
-import { MenuTreeNode, SysMenu } from "@/model";
-import { getMenuTree, remove } from "@/api/authority/menu";
+import { DeptTreeNode, SysDept } from "@/model";
+import { useStore } from "@/store";
+import {
+  computedDeptTreeListData,
+  fetchDeptTree,
+  removeDept,
+} from "@/store/composition/dept";
 import { Confirm, Message } from "@/utils/message";
 import EditDialog from "./EditDialog.vue";
 
@@ -10,26 +15,21 @@ export default defineComponent({
     EditDialog,
   },
   setup() {
+    const store = useStore();
     const editDialogRef = ref();
     const loading = ref(false);
-    const treeData = reactive({
-      props: { children: "children", hasChildren: "hasChildren" },
-      key: "id",
-      data: [] as Array<MenuTreeNode>,
-    });
-    const selectData = ref([] as Array<MenuTreeNode>);
+    const treeData = computedDeptTreeListData();
+    const selectData = ref([] as Array<DeptTreeNode>);
 
     const fetchData = () => {
       loading.value = true;
-      getMenuTree()
-        .then((response) => {
+      fetchDeptTree(store)
+        .then((data) => {
           loading.value = false;
-          const data = response.data;
-          treeData.data = data;
           selectData.value = [
             {
               id: undefined,
-              name: "根菜单",
+              name: "根部门",
               children: data,
             },
           ];
@@ -39,14 +39,14 @@ export default defineComponent({
         });
     };
 
-    const showEditDialog = (params?: SysMenu | string) => {
+    const showEditDialog = (params?: SysDept | string) => {
       const dialog = unref(editDialogRef);
       dialog.show(params);
     };
 
-    function handleDelete(params: SysMenu): void {
-      Confirm.warning(`是否删除菜单${params.name}`).then(() => {
-        remove(params.id as string).then(() => {
+    function handleDelete(params: SysDept): void {
+      Confirm.warning(`是否删除部门${params.name}`).then(() => {
+        removeDept(store, params.id as string).then(() => {
           Message.success("操作成功");
           fetchData();
         });
