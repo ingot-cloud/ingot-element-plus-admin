@@ -15,6 +15,7 @@ module.exports = {
   },
   rules: {
     "@typescript-eslint/no-explicit-any": ["off"], // 关掉 any lint
+    "@typescript-eslint/no-unused-vars": ["off"], // 使用 script setup，template中已经使用的变量仍然提示未使用，所以关闭该规则
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
   }
