@@ -35,9 +35,7 @@
           </el-button>
         </template>
         <template #status="{ item }">
-          <el-tag :type="getCommonStatusTag(item.status)">
-            {{ getCommonStatusDesc(item.status) }}
-          </el-tag>
+          <ingot-common-status-tag :status="item.status" />
         </template>
         <template #actions="{ item }">
           <el-button size="mini" type="primary" @click="handleEdit(item)">
@@ -46,13 +44,11 @@
           <el-button size="mini" type="warning" @click="handleChild(item)">
             子权限
           </el-button>
-          <el-button
+          <ingot-common-status-button
             size="mini"
-            :type="getDisableButtonParams(item.status).type"
+            :status="item.status"
             @click="handleDisable(item, fetchData)"
-          >
-            {{ getDisableButtonParams(item.status).title }}
-          </el-button>
+          />
           <el-button
             size="mini"
             type="danger"
@@ -69,12 +65,7 @@
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
 import { tableHeaders } from "./biz/table";
-import {
-  getCommonStatusDesc,
-  getCommonStatusTag,
-  getDisableButtonParams,
-  SysAuthority,
-} from "@/model";
+import { SysAuthority } from "@/model";
 import {
   fetchData,
   handleDelete,
