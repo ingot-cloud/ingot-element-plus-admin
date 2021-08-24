@@ -10,15 +10,13 @@ import { page, update, remove } from "@/api/authority/authority";
 import { Confirm, Message } from "@/utils/message";
 import router from "@/router";
 
-export const condition = reactive({} as SysAuthority);
+export const condition = reactive<SysAuthority>({});
 export const pageInfo = reactive({
   current: 1,
   size: 20,
   total: 0,
   records: [],
 } as Page<SysAuthority>);
-
-export const editDialogRef = ref();
 
 export function fetchData(params?: PageChangeParams): void {
   if (params) {
@@ -33,19 +31,9 @@ export function fetchData(params?: PageChangeParams): void {
   });
 }
 
-export function handleCreate(): void {
-  const dialog = unref(editDialogRef);
-  dialog.show();
-}
-
-export function handleEdit(params: SysAuthority): void {
-  const dialog = unref(editDialogRef);
-  dialog.show(params);
-}
-
 export function handleDelete(
   params: SysAuthority,
-  callback?: FunctionConstructor
+  callback?: (params?: PageChangeParams) => void
 ): void {
   Confirm.warning(`是否删除权限(${params.name})`).then(() => {
     remove(params.id as string).then(() => {
@@ -59,7 +47,7 @@ export function handleDelete(
 
 export function handleDisable(
   params: SysAuthority,
-  callback?: FunctionConstructor
+  callback?: (params?: PageChangeParams) => void
 ): void {
   const status =
     params.status === CommonStatus.Enable

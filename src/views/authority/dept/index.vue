@@ -73,7 +73,7 @@ const store = useStore();
 const editDialogRef = ref<EditDialogAPI>();
 const loading = ref(false);
 const treeData = computedDeptTreeListData();
-const selectData = ref([] as Array<DeptTreeNode>);
+const selectData = ref<Array<DeptTreeNode>>([]);
 
 onMounted(() => {
   fetchData();

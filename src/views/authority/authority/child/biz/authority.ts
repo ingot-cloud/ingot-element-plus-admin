@@ -18,8 +18,6 @@ export const pageInfo = reactive({
   records: [],
 } as Page<SysAuthority>);
 
-export const editDialogRef = ref();
-
 export const parent = reactive({} as SysAuthority);
 
 export function fetchData(params?: PageChangeParams): void {
@@ -36,19 +34,9 @@ export function fetchData(params?: PageChangeParams): void {
   });
 }
 
-export function handleCreate(): void {
-  const dialog = unref(editDialogRef);
-  dialog.show({ parent });
-}
-
-export function handleEdit(params: SysAuthority): void {
-  const dialog = unref(editDialogRef);
-  dialog.show({ data: params, parent });
-}
-
 export function handleDelete(
   params: SysAuthority,
-  callback?: FunctionConstructor
+  callback?: (params?: PageChangeParams) => void
 ): void {
   Confirm.warning(`是否删除权限(${params.name})`).then(() => {
     remove(params.id as string).then(() => {
@@ -62,7 +50,7 @@ export function handleDelete(
 
 export function handleDisable(
   params: SysAuthority,
-  callback?: FunctionConstructor
+  callback?: (params?: PageChangeParams) => void
 ): void {
   const status =
     params.status === CommonStatus.Enable

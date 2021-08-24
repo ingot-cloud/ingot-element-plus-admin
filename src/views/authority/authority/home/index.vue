@@ -66,4 +66,37 @@
   </ingot-container>
   <EditDialog ref="editDialogRef" @success="fetchData" />
 </template>
-<script lang="ts" src="./authority.ts"></script>
+<script lang="ts" setup>
+import { onMounted, ref } from "vue";
+import { tableHeaders } from "./biz/table";
+import {
+  getCommonStatusDesc,
+  getCommonStatusTag,
+  getDisableButtonParams,
+  SysAuthority,
+} from "@/model";
+import {
+  fetchData,
+  handleDelete,
+  handleDisable,
+  handleChild,
+  condition,
+  pageInfo,
+} from "./biz/authority";
+import EditDialog from "./component/EditDialog.vue";
+import { API as EditDialogAPI } from "./component/EditDialog.vue";
+
+const editDialogRef = ref<EditDialogAPI>();
+
+onMounted(() => {
+  fetchData();
+});
+
+const handleCreate = (): void => {
+  editDialogRef.value?.show();
+};
+
+const handleEdit = (params: SysAuthority): void => {
+  editDialogRef.value?.show(params);
+};
+</script>

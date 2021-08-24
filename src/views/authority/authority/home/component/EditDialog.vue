@@ -73,8 +73,22 @@
   </el-dialog>
 </template>
 <script lang="ts">
+import { SysAuthority as P } from "@/model";
+export interface API {
+  show(data?: P): void;
+}
+</script>
+<script lang="ts" setup>
 import { SysAuthority } from "@/model";
-import { defineComponent, reactive, ref, nextTick, unref, toRaw } from "vue";
+import {
+  reactive,
+  ref,
+  nextTick,
+  unref,
+  toRaw,
+  defineEmits,
+  defineExpose,
+} from "vue";
 import { create, update } from "@/api/authority/authority";
 import { Message } from "@/utils/message";
 import {
@@ -102,77 +116,69 @@ const defaultEditForm: SysAuthority = {
 
 const keys = Object.keys(defaultEditForm);
 
-export default defineComponent({
-  emits: ["success"],
-  setup(_, { emit }) {
-    const editFormRef = ref();
-    const editForm = reactive(Object.assign({}, defaultEditForm));
-    const rawEditForm = reactive(Object.assign({}, defaultEditForm));
-    const loading = ref(false);
-    const title = ref("");
-    const edit = ref(false);
-    const visible = ref(false);
+const emits = defineEmits(["success"]);
 
-    return {
-      methodArray: ["*", "GET", "POST", "DELETE", "PUT"],
-      editFormRef,
-      title,
-      edit,
-      visible,
-      loading,
-      editForm,
-      rules,
-      show: (data?: SysAuthority) => {
-        visible.value = true;
+const editFormRef = ref();
+const editForm = reactive(Object.assign({}, defaultEditForm));
+const rawEditForm = reactive(Object.assign({}, defaultEditForm));
+const loading = ref(false);
+const title = ref("");
+const edit = ref(false);
+const visible = ref(false);
+const methodArray = ["*", "GET", "POST", "DELETE", "PUT"];
 
-        // 重置数据
-        copyParams(editForm, defaultEditForm);
-        copyParams(rawEditForm, defaultEditForm);
-        nextTick(() => {
-          const form = unref(editFormRef);
-          form.clearValidate();
+const show = (data?: SysAuthority) => {
+  visible.value = true;
+
+  // 重置数据
+  copyParams(editForm, defaultEditForm);
+  copyParams(rawEditForm, defaultEditForm);
+  nextTick(() => {
+    const form = unref(editFormRef);
+    form.clearValidate();
+  });
+
+  if (data) {
+    title.value = "编辑";
+    edit.value = true;
+    copyParams(editForm, data);
+    copyParams(rawEditForm, data);
+  } else {
+    title.value = "创建";
+    edit.value = false;
+  }
+};
+const handleConfirmClick = () => {
+  const form = unref(editFormRef);
+  form.validate((valid: boolean) => {
+    if (valid) {
+      loading.value = true;
+      let params: SysAuthority = {};
+      let request;
+      if (edit.value) {
+        params = getDiffWithIgnore(rawEditForm, editForm, ["id"]);
+        request = update(params);
+      } else {
+        copyParamsWithKeys(params, toRaw(editForm), keys);
+        request = create(params);
+      }
+
+      request
+        .then(() => {
+          loading.value = false;
+          Message.success("操作成功");
+          visible.value = false;
+          emits("success");
+        })
+        .catch(() => {
+          loading.value = false;
         });
+    }
+  });
+};
 
-        if (data) {
-          title.value = "编辑";
-          edit.value = true;
-          copyParams(editForm, data);
-          copyParams(rawEditForm, data);
-        } else {
-          title.value = "创建";
-          edit.value = false;
-        }
-      },
-      handleConfirmClick() {
-        const form = unref(editFormRef);
-        form.validate((valid: boolean) => {
-          if (valid) {
-            loading.value = true;
-            let params: SysAuthority = {};
-            let request;
-            if (edit.value) {
-              params = getDiffWithIgnore(rawEditForm, editForm, ["id"]);
-              request = update(params);
-            } else {
-              copyParamsWithKeys(params, toRaw(editForm), keys);
-              request = create(params);
-            }
-
-            request
-              .then(() => {
-                loading.value = false;
-                Message.success("操作成功");
-                visible.value = false;
-                emit("success");
-              })
-              .catch(() => {
-                loading.value = false;
-              });
-          }
-        });
-      },
-    };
-  },
+defineExpose({
+  show,
 });
 </script>
 <style lang="stylus" scoped>
