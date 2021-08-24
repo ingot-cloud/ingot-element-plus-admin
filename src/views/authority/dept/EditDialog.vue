@@ -65,7 +65,22 @@
   </el-dialog>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref, nextTick, unref, toRaw } from "vue";
+import { SysDept as P } from "@/model";
+export interface API {
+  show(data?: P | string): void;
+}
+</script>
+<script lang="ts" setup>
+import {
+  reactive,
+  ref,
+  nextTick,
+  unref,
+  toRaw,
+  defineEmits,
+  defineExpose,
+  defineProps,
+} from "vue";
 import {
   SysDept,
   DeptRoleScope,
@@ -77,10 +92,6 @@ import { createDept, updateDept } from "@/store/composition/dept";
 import { Message } from "@/utils/message";
 import { copyParams, getDiff } from "@/utils/object";
 
-const rules = {
-  name: [{ required: true, message: "请输入部门名称", trigger: "blur" }],
-};
-
 const defaultEditForm: SysDept = {
   id: undefined,
   pid: undefined,
@@ -90,102 +101,98 @@ const defaultEditForm: SysDept = {
   status: CommonStatus.Enable,
 };
 
-export default defineComponent({
-  emits: ["success"],
-  props: {
-    data: {
-      type: Array,
-    },
+const rules = {
+  name: [{ required: true, message: "请输入部门名称", trigger: "blur" }],
+};
+
+const treeSelectProps = {
+  children: "children",
+  label: "name",
+  value: "id",
+};
+
+const emits = defineEmits(["success"]);
+defineProps({
+  data: {
+    type: Array,
   },
-  setup(_, { emit }) {
-    const store = useStore();
-    const editFormRef = ref();
-    const editForm = reactive(Object.assign({}, defaultEditForm));
-    const rawForm: SysDept = {};
-    const loading = ref(false);
-    const title = ref("");
-    const edit = ref(false);
-    const canEditPid = ref(false);
-    const visible = ref(false);
+});
 
-    return {
-      editFormRef,
-      title,
-      canEditPid,
-      visible,
-      loading,
-      editForm,
-      rules,
-      CommonStatus,
-      getCommonStatusDesc,
-      treeSelectProps: {
-        children: "children",
-        label: "name",
-        value: "id",
-      },
-      show: (data?: SysDept | string) => {
-        visible.value = true;
+const store = useStore();
+const editFormRef = ref();
+const editForm = reactive(Object.assign({}, defaultEditForm));
+const rawForm: SysDept = {};
+const loading = ref(false);
+const title = ref("");
+const edit = ref(false);
+const canEditPid = ref(false);
+const visible = ref(false);
 
-        // 重置数据
-        copyParams(editForm, defaultEditForm);
-        copyParams(rawForm, defaultEditForm);
-        nextTick(() => {
-          const form = unref(editFormRef);
-          form.clearValidate();
-        });
-
-        if (data) {
-          if (typeof data === "string") {
-            title.value = "创建";
-            edit.value = false;
-            canEditPid.value = false;
-            editForm.pid = data;
-          } else {
-            copyParams(editForm, data);
-            copyParams(rawForm, data);
-            title.value = "编辑";
-            edit.value = true;
-            canEditPid.value = false;
-          }
-        } else {
-          title.value = "创建";
-          edit.value = false;
-          canEditPid.value = true;
+const handleConfirmClick = () => {
+  const form = unref(editFormRef);
+  form.validate((valid: boolean) => {
+    if (valid) {
+      let request;
+      if (edit.value) {
+        const params = getDiff<SysDept>(rawForm, editForm);
+        if (Object.keys(params).length === 0) {
+          Message.warning("未改变数据");
+          return;
         }
-      },
-      handleConfirmClick() {
-        const form = unref(editFormRef);
-        form.validate((valid: boolean) => {
-          if (valid) {
-            let request;
-            if (edit.value) {
-              const params = getDiff<SysDept>(rawForm, editForm);
-              if (Object.keys(params).length === 0) {
-                Message.warning("未改变数据");
-                return;
-              }
-              params.id = rawForm.id;
-              request = updateDept(store, params);
-            } else {
-              request = createDept(store, Object.assign({}, toRaw(editForm)));
-            }
+        params.id = rawForm.id;
+        request = updateDept(store, params);
+      } else {
+        request = createDept(store, Object.assign({}, toRaw(editForm)));
+      }
 
-            loading.value = true;
-            request
-              .then(() => {
-                loading.value = false;
-                Message.success("操作成功");
-                visible.value = false;
-                emit("success");
-              })
-              .catch(() => {
-                loading.value = false;
-              });
-          }
+      loading.value = true;
+      request
+        .then(() => {
+          loading.value = false;
+          Message.success("操作成功");
+          visible.value = false;
+          emits("success");
+        })
+        .catch(() => {
+          loading.value = false;
         });
-      },
-    };
-  },
+    }
+  });
+};
+
+const show = (data?: SysDept | string) => {
+  visible.value = true;
+
+  // 重置数据
+  copyParams(editForm, defaultEditForm);
+  copyParams(rawForm, defaultEditForm);
+  nextTick(() => {
+    const form = unref(editFormRef);
+    form.clearValidate();
+  });
+
+  if (data) {
+    if (typeof data === "string") {
+      title.value = "创建";
+      edit.value = false;
+      canEditPid.value = false;
+      editForm.pid = data;
+    } else {
+      copyParams(editForm, data);
+      copyParams(rawForm, data);
+      title.value = "编辑";
+      edit.value = true;
+      canEditPid.value = false;
+    }
+  } else {
+    title.value = "创建";
+    edit.value = false;
+    canEditPid.value = true;
+  }
+};
+
+defineExpose({
+  show,
 });
 </script>
 <style lang="stylus" scoped>

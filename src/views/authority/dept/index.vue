@@ -67,9 +67,10 @@ import {
 } from "@/store/composition/dept";
 import { Confirm, Message } from "@/utils/message";
 import EditDialog from "./EditDialog.vue";
+import { API as EditDialogAPI } from "./EditDialog.vue";
 
 const store = useStore();
-const editDialogRef = ref();
+const editDialogRef = ref<EditDialogAPI>();
 const loading = ref(false);
 const treeData = computedDeptTreeListData();
 const selectData = ref([] as Array<DeptTreeNode>);
@@ -97,8 +98,7 @@ const fetchData = () => {
 };
 
 const showEditDialog = (params?: SysDept | string) => {
-  const dialog = unref(editDialogRef);
-  dialog.show(params);
+  editDialogRef.value?.show(params);
 };
 
 const handleDelete = (params: SysDept) => {
