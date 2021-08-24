@@ -22,110 +22,101 @@
     </template>
     <el-tree
       :data="data"
-      :props="props"
+      :props="treeProps"
       :highlight-current="true"
       :expand-on-click-node="false"
       @node-click="onItemClick"
     ></el-tree>
   </el-popover>
 </template>
-<script lang="ts">
-import { defineComponent, ref, unref, watch } from "vue";
+<script lang="ts" setup>
+import { defineProps, defineEmits, ref, watch } from "vue";
 
-export default defineComponent({
-  props: {
-    modelValue: String,
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    data: {
-      type: Array,
-    },
-    placement: {
-      type: String,
-      default: "bottom",
-    },
-    placeholder: {
-      type: String,
-      default: "请选择",
-    },
-    width: {
-      type: String,
-      default: "500px",
-    },
-    size: {
-      type: String,
-      default: "small",
-    },
-    props: {
-      type: Object,
-      default() {
-        return {
-          children: "children",
-          label: "label",
-          value: "value",
-        };
-      },
-    },
+const props = defineProps({
+  modelValue: String,
+  disabled: {
+    type: Boolean,
+    default: false,
   },
-  emits: ["update:modelValue"],
-  setup(props, { emit }) {
-    const properties = props as any;
-    const innerRef = ref();
-    const status = ref("down");
-    const label = ref("");
-
-    const valueKey = properties.props.value;
-    const labelKey = properties.props.label;
-    const childKey = properties.props.children;
-    const getLabel = (arr: Array<any>, value: any): string => {
-      for (let i = 0, len = arr.length; i < len; i++) {
-        if (arr[i][valueKey] == value) {
-          return arr[i][labelKey];
-        }
-        if (arr[i][childKey] && arr[i][childKey].length !== 0) {
-          const label = getLabel(arr[i][childKey], value);
-          if (label) {
-            return label;
-          }
-        }
-      }
-      return "";
-    };
-
-    watch(
-      () => properties.modelValue,
-      (value) => {
-        label.value = getLabel(properties.data, value);
-      },
-      {
-        immediate: true,
-      }
-    );
-
-    return {
-      innerRef,
-      label,
-      status,
-      onItemClick(item: any) {
-        emit("update:modelValue", item[properties.props.value]);
-        label.value = item[properties.props.label];
-        const pop = unref(innerRef);
-        pop.hide();
-      },
-      onClearClick() {
-        emit("update:modelValue", "");
-        label.value = "";
-        const pop = unref(innerRef);
-        pop.hide();
-      },
-      onVisibleChanged(value: string) {
-        status.value = value;
-      },
-    };
+  data: {
+    type: Array,
+  },
+  placement: {
+    type: String,
+    default: "bottom",
+  },
+  placeholder: {
+    type: String,
+    default: "请选择",
+  },
+  width: {
+    type: String,
+    default: "500px",
+  },
+  size: {
+    type: String,
+    default: "small",
+  },
+  props: {
+    type: Object,
+    default() {
+      return {
+        children: "children",
+        label: "label",
+        value: "value",
+      };
+    },
   },
 });
+
+const emits = defineEmits(["update:modelValue"]);
+
+const innerRef = ref();
+const status = ref("down");
+const label = ref("");
+
+const treeProps = props.props;
+const valueKey = props.props.value;
+const labelKey = props.props.label;
+const childKey = props.props.children;
+const getLabel = (arr: Array<any>, value: any): string => {
+  for (let i = 0, len = arr.length; i < len; i++) {
+    if (arr[i][valueKey] == value) {
+      return arr[i][labelKey];
+    }
+    if (arr[i][childKey] && arr[i][childKey].length !== 0) {
+      const label = getLabel(arr[i][childKey], value);
+      if (label) {
+        return label;
+      }
+    }
+  }
+  return "";
+};
+
+watch(
+  () => props.modelValue,
+  (value) => {
+    label.value = getLabel(props.data as [], value);
+  },
+  {
+    immediate: true,
+  }
+);
+
+const onItemClick = (item: any) => {
+  emits("update:modelValue", item[props.props.value]);
+  label.value = item[props.props.label];
+  innerRef.value.hide();
+};
+const onClearClick = () => {
+  emits("update:modelValue", "");
+  label.value = "";
+  innerRef.value.hide();
+};
+const onVisibleChanged = (value: string) => {
+  status.value = value;
+};
 </script>
 <style lang="stylus" scoped>
 .icon-select-show-container

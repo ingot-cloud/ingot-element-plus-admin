@@ -3,16 +3,8 @@
     {{ getDisableButtonParams(status)?.title }}
   </el-button>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
 import { getDisableButtonParams } from "@/model";
-
-import { defineComponent } from "vue";
-export default defineComponent({
-  props: ["size", "status"],
-  setup() {
-    return {
-      getDisableButtonParams,
-    };
-  },
-});
+import { defineProps } from "vue";
+defineProps(["size", "status"]);
 </script>

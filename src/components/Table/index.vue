@@ -7,7 +7,7 @@
   </ingot-filter-container>
   <el-table
     size="small"
-    border
+    :border="true"
     ref="ingotTable"
     :data="data"
     @select-all="privateOnTableSelectAll"
@@ -80,7 +80,172 @@
     </div>
   </el-drawer>
 </template>
-<script lang="ts" src="./table.ts"></script>
+<script lang="ts">
+export interface API {
+  clearSelection(): void;
+  editHeader(): void;
+}
+</script>
+<script lang="ts" setup>
+import {
+  defineProps,
+  defineEmits,
+  defineExpose,
+  PropType,
+  ref,
+  watch,
+  unref,
+} from "vue";
+import type { HeaderItem, Page } from "./type";
+
+const props = defineProps({
+  data: {
+    type: Array,
+    default: () => [],
+  },
+  headers: {
+    type: Object as PropType<Array<HeaderItem>>,
+    default: () => null,
+  },
+  page: {
+    type: Object as PropType<Page>,
+    default() {
+      return {
+        current: 1,
+        size: 20,
+        total: 0,
+      };
+    },
+  },
+  pageSize: {
+    type: Array,
+    default() {
+      return [20, 30, 40, 50];
+    },
+  },
+  pageLayout: {
+    type: String,
+    default() {
+      return "total, sizes, prev, pager, next, jumper";
+    },
+  },
+  selection: {
+    type: Boolean,
+    default: false,
+  },
+  index: {
+    type: Boolean,
+    default: false,
+  },
+  indexLabel: {
+    type: String,
+    default: "序号",
+  },
+  rowKey: {
+    type: [String, Function] as PropType<string | ((row: any) => string)>,
+  },
+  defaultExpandAll: {
+    type: Boolean,
+    default: false,
+  },
+  expandRowKeys: {
+    type: Array,
+    default() {
+      return undefined;
+    },
+  },
+  treeProps: {
+    type: Object,
+    default() {
+      return { hasChildren: "hasChildren", children: "children" };
+    },
+  },
+  headerCellStyle: {
+    type: Object,
+    default() {
+      return {
+        background: "#fafafa",
+        color: "black",
+      };
+    },
+  },
+});
+
+const emits = defineEmits([
+  "handleSizeChange",
+  "handleCurrentChange",
+  "select",
+  "selectAll",
+  "selectionChange",
+]);
+
+const page = props.page;
+
+const headerDrawer = ref(false);
+const headersEnable = ref(
+  props.headers.filter((item: HeaderItem) => !item.hide) as Array<HeaderItem>
+);
+const headersEnableValue = ref(headersEnable.value.map((item) => item.prop));
+const headerTransferProps = { label: "label", key: "prop" };
+const headerTransferTitles = ["可选项", "显示项"];
+
+watch(
+  () => props.page.size,
+  (value) => {
+    size.value = value;
+  }
+);
+watch(
+  () => props.page.total,
+  (value) => {
+    total.value = value;
+  }
+);
+
+const current = page.current;
+const size = ref(page.size);
+const total = ref(page.total);
+
+const ingotTable = ref();
+
+const privateHandleSizeChange = (val: number) => {
+  emits("handleSizeChange", { value: val, type: "size" });
+};
+
+const privateHandleCurrentChange = (val: number) => {
+  emits("handleCurrentChange", { value: val, type: "current" });
+};
+const privateOnTableSelect = (selection: any) => {
+  emits("select", selection);
+};
+const privateOnTableSelectAll = (selection: any, row: any) => {
+  emits("selectAll", selection, row);
+};
+
+const privateOnTableSelectionChange = (selection: any) => {
+  emits("selectionChange", selection);
+};
+const privateOnHeaderChanged = (value: any) => {
+  headersEnable.value = props.headers.filter((item: HeaderItem) =>
+    value.includes(item.prop)
+  );
+};
+/**
+ * 用于多选表格，清空用户的选择
+ */
+const clearSelection = () => {
+  const table = unref(ingotTable);
+  table.clearSelection();
+};
+const editHeader = () => {
+  headerDrawer.value = true;
+};
+
+defineExpose({
+  clearSelection,
+  editHeader,
+});
+</script>
 <style lang="stylus" scoped>
 .pagination-container
   margin-top: 20px;

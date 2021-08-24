@@ -6,11 +6,7 @@
     <slot />
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({});
-</script>
-
+<script lang="ts" setup></script>
 <style lang="stylus">
 @import "~@/theme/style/variables.styl";
 .filter-container

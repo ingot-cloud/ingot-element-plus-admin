@@ -3,17 +3,9 @@
     {{ getCommonStatusDesc(status) }}
   </el-tag>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
 import { getCommonStatusDesc, getCommonStatusTag } from "@/model";
+import { defineProps } from "vue";
 
-import { defineComponent } from "vue";
-export default defineComponent({
-  props: ["status"],
-  setup() {
-    return {
-      getCommonStatusDesc,
-      getCommonStatusTag,
-    };
-  },
-});
+defineProps(["status"]);
 </script>

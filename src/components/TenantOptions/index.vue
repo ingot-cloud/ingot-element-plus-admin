@@ -9,8 +9,8 @@
     </el-option>
   </el-select>
 </template>
-<script lang="ts">
-import { defineComponent, onMounted } from "vue";
+<script lang="ts" setup>
+import { defineProps, onMounted } from "vue";
 import {
   computedGlobalTenant,
   fetchSimpleList,
@@ -19,32 +19,26 @@ import {
 } from "@/store/composition/tenant";
 import { useStore } from "@/store";
 
-export default defineComponent({
-  props: {
-    size: {
-      type: String,
-      default: "",
-    },
-  },
-  setup() {
-    const store = useStore();
-    const tenant = computedGlobalTenant();
-    const records = computedSimpleRecords();
-    onMounted(() => {
-      fetchSimpleList(store).then((data) => {
-        const defaultId = tenant.value || data[0].id;
-        changeGlobalTenant(defaultId);
-      });
-    });
-
-    return {
-      tenant,
-      records,
-      onTenantChanged: (value: string) => {
-        changeGlobalTenant(value);
-      },
-    };
+defineProps({
+  size: {
+    type: String,
+    default: "",
   },
 });
+
+const store = useStore();
+const tenant = computedGlobalTenant();
+const records = computedSimpleRecords();
+
+onMounted(() => {
+  fetchSimpleList(store).then((data) => {
+    const defaultId = tenant.value || data[0].id;
+    changeGlobalTenant(defaultId);
+  });
+});
+
+const onTenantChanged = (value: string) => {
+  changeGlobalTenant(value);
+};
 </script>
 <style lang="stylus" scoped></style>

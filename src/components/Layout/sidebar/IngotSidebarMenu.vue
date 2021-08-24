@@ -17,41 +17,24 @@
   </el-menu>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from "vue";
+<script lang="ts" setup>
+import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "@/store";
 import { getSidebarStatus } from "@/store/composition/app";
 import { getMenus } from "@/store/composition/router";
 import { SidebarStyle } from "@/theme";
 
-export default defineComponent({
-  props: {},
-  setup() {
-    const router = useRouter();
-    const store = useStore();
-    const { opened } = getSidebarStatus(store);
-    const {
-      scrollbarStyle,
-      sidebarBackgroundColor,
-      sidebarTextColor,
-      sidebarActiveTextColor,
-    } = SidebarStyle();
-
-    return {
-      opened,
-      scrollbarStyle,
-      sidebarBackgroundColor,
-      sidebarTextColor,
-      sidebarActiveTextColor,
-      activePath: computed(() => router.currentRoute.value.path),
-      menus: getMenus(store),
-      onNavMenuSelect: () => {
-        // todo toggleMenu()
-      },
-    };
-  },
-});
+const router = useRouter();
+const store = useStore();
+const { opened } = getSidebarStatus(store);
+const { sidebarBackgroundColor, sidebarTextColor, sidebarActiveTextColor } =
+  SidebarStyle();
+const activePath = computed(() => router.currentRoute.value.path);
+const menus = getMenus(store);
+const onNavMenuSelect = () => {
+  // todo toggleMenu()
+};
 </script>
 
 <style lang="stylus">

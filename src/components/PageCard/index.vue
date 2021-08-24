@@ -29,25 +29,23 @@
     <slot />
   </el-card>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({
-  emits: ["back"],
-  props: {
-    hideBack: {
-      type: Boolean,
-      default: false,
-    },
-    title: {
-      type: String,
-      default: "返回",
-    },
-    content: {
-      type: String,
-      default: null,
-    },
+<script lang="ts" setup>
+import { defineProps, defineEmits } from "vue";
+defineProps({
+  hideBack: {
+    type: Boolean,
+    default: false,
+  },
+  title: {
+    type: String,
+    default: "返回",
+  },
+  content: {
+    type: String,
+    default: null,
   },
 });
+defineEmits(["back"]);
 </script>
 
 <style lang="stylus">

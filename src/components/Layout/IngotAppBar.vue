@@ -38,36 +38,36 @@
   <TenantDialog ref="tenantDialogRef" />
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from "vue";
+<script lang="ts" setup>
+import { computed, ref } from "vue";
 import { AppBarStyle } from "@/theme";
 import { getSidebarStatus, toggleMenu } from "@/store/composition/app";
+import { handlLogout } from "@/store/composition/auth";
 // import MenuIcon from "./MenuIcon.vue";
 import { useStore } from "@/store";
-import { menuList, handleMenuCommand, tenantDialogRef } from "./appBar";
+import { menuList } from "./appBar";
+import type { Command } from "./appBar";
 import TenantDialog from "./TenantDialog.vue";
+import type { API as TenantDialogAPI } from "./TenantDialog.vue";
 
-export default defineComponent({
-  components: {
-    TenantDialog,
-  },
-  setup() {
-    const store = useStore();
-    const { opened } = getSidebarStatus(store);
-    const { appBarStyle, menuIconStyle, logoStyle } = AppBarStyle();
-    return {
-      appBarStyle,
-      menuIconStyle,
-      logoStyle,
-      opened,
-      menuList,
-      handleMenuCommand,
-      toggleMenu,
-      tenantDialogRef,
-      title: computed(() => store.state.title),
-    };
-  },
-});
+const store = useStore();
+const { opened } = getSidebarStatus(store);
+const { appBarStyle, menuIconStyle, logoStyle } = AppBarStyle();
+
+const title = computed(() => store.state.title);
+
+const tenantDialogRef = ref<TenantDialogAPI>();
+
+const handleMenuCommand = (command: Command): void => {
+  switch (command.action) {
+    case "logout":
+      handlLogout();
+      break;
+    case "tenant":
+      tenantDialogRef.value?.show();
+      break;
+  }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

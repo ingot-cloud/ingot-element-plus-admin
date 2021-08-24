@@ -6,18 +6,19 @@
   </el-dialog>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+export interface API {
+  show(): void;
+}
+</script>
+<script lang="ts" setup>
+import { defineExpose, ref } from "vue";
 
-export default defineComponent({
-  setup() {
-    const visible = ref(false);
-    return {
-      visible,
-      show: () => {
-        visible.value = true;
-      },
-    };
-  },
+const visible = ref(false);
+const show = () => {
+  visible.value = true;
+};
+defineExpose({
+  show,
 });
 </script>
 <style lang="stylus" scoped>

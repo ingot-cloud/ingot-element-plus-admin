@@ -33,19 +33,17 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
+import { defineProps, PropType } from "vue";
 
-export default defineComponent({
-  props: {
-    isActive: {
-      type: Boolean,
-      default: false,
-    },
-    toggleClick: {
-      type: Function,
-      default: null,
-    },
+defineProps({
+  isActive: {
+    type: Boolean,
+    default: false,
+  },
+  toggleClick: {
+    type: Function as PropType<(e: MouseEvent) => void>,
+    default: null,
   },
 });
 </script>

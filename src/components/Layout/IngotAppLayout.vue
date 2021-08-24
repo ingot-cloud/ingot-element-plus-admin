@@ -13,23 +13,14 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
 import { useStore } from "@/store";
 import { getAppLayoutClass } from "@/store/composition/app";
 import { SidebarStyle } from "@/theme";
 
-export default defineComponent({
-  setup() {
-    const store = useStore();
-    const { appLayoutClass } = getAppLayoutClass(store);
-    const { scrollbarStyle } = SidebarStyle();
-    return {
-      appLayoutClass,
-      scrollbarStyle,
-    };
-  },
-});
+const store = useStore();
+const { appLayoutClass } = getAppLayoutClass(store);
+const { scrollbarStyle } = SidebarStyle();
 </script>
 <style lang="stylus">
 @import "~@/theme/style/app-layout.styl";

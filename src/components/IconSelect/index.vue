@@ -29,43 +29,37 @@
     </div>
   </el-popover>
 </template>
-<script lang="ts">
-import { defineComponent, ref, unref } from "vue";
+<script lang="ts" setup>
+import { defineProps, defineEmits, ref } from "vue";
 import { icons } from "@/icons";
 
-export default defineComponent({
-  props: {
-    modelValue: String,
-    placement: {
-      type: String,
-      default: "bottom",
-    },
-    width: {
-      type: String,
-      default: "500px",
-    },
-    size: {
-      type: String,
-      default: "small",
-    },
+defineProps({
+  modelValue: String,
+  placement: {
+    type: String,
+    default: "bottom",
   },
-  emits: ["update:modelValue"],
-  setup(_, { emit }) {
-    const innerRef = ref();
-    return {
-      innerRef,
-      icons,
-      onItemClick(item: string) {
-        emit("update:modelValue", item);
-        const pop = unref(innerRef);
-        pop.hide();
-      },
-      onClearClick() {
-        emit("update:modelValue", "");
-      },
-    };
+  width: {
+    type: String,
+    default: "500px",
+  },
+  size: {
+    type: String,
+    default: "small",
   },
 });
+
+const emits = defineEmits(["update:modelValue"]);
+
+const innerRef = ref();
+
+const onItemClick = (item: string) => {
+  emits("update:modelValue", item);
+  innerRef.value.hide();
+};
+const onClearClick = () => {
+  emits("update:modelValue", "");
+};
 </script>
 <style lang="stylus" scoped>
 .icon-select-show-container

@@ -22,32 +22,28 @@
   </el-submenu>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from "vue";
+<script lang="ts" setup>
+import { defineProps, computed } from "vue";
 
-export default defineComponent({
-  props: {
-    route: {
-      type: Object,
-      default: null,
-    },
+const props = defineProps({
+  route: {
+    type: Object,
+    default: null,
   },
-  setup(props) {
-    return {
-      isSingle: computed(() => {
-        const children = props.route.children;
-        return !children || children.length === 0 || children.length === 1;
-      }),
-      singleRoute: computed(() => {
-        const children = props.route.children;
-        if (!children || children.length === 0) {
-          return props.route;
-        }
+});
 
-        return props.route.children[0];
-      }),
-    };
-  },
+const isSingle = computed(() => {
+  const children = props.route.children;
+  return !children || children.length === 0 || children.length === 1;
+});
+
+const singleRoute = computed(() => {
+  const children = props.route.children;
+  if (!children || children.length === 0) {
+    return props.route;
+  }
+
+  return props.route.children[0];
 });
 </script>
 
