@@ -11,19 +11,9 @@ import router from "@/router";
 
 export const loading = ref(false);
 
-export function handleCreate(editDialog: Ref): void {
-  const dialog = unref(editDialog);
-  dialog.show();
-}
-
-export function handleEdit(editDialog: Ref, params: RolePageItemVo): void {
-  const dialog = unref(editDialog);
-  dialog.show(params);
-}
-
 export function handleDelete(
   params: RolePageItemVo,
-  callback?: FunctionConstructor
+  callback?: () => void
 ): void {
   Confirm.warning(`是否删除角色(${params.name})`).then(() => {
     loading.value = true;
@@ -43,7 +33,7 @@ export function handleDelete(
 
 export function handleDisable(
   params: RolePageItemVo,
-  callback?: FunctionConstructor
+  callback?: () => void
 ): void {
   const status =
     params.status === CommonStatus.Enable

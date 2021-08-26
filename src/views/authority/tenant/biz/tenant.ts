@@ -6,20 +6,7 @@ import { Confirm, Message } from "@/utils/message";
 
 export const loading = ref(false);
 
-export function handleCreate(dialogRef: Ref): void {
-  const dialog = unref(dialogRef);
-  dialog.show();
-}
-
-export function handleEdit(dialogRef: Ref, params: SysTenant): void {
-  const dialog = unref(dialogRef);
-  dialog.show(params);
-}
-
-export function handleDelete(
-  params: SysTenant,
-  callback?: FunctionConstructor
-): void {
+export function handleDelete(params: SysTenant, callback?: () => void): void {
   Confirm.warning(`是否删除租户(${params.name})`).then(() => {
     loading.value = true;
     remove(store, params.id as string)
@@ -36,10 +23,7 @@ export function handleDelete(
   });
 }
 
-export function handleDisable(
-  params: SysTenant,
-  callback?: FunctionConstructor
-): void {
+export function handleDisable(params: SysTenant, callback?: () => void): void {
   const status =
     params.status === CommonStatus.Enable
       ? CommonStatus.Lock

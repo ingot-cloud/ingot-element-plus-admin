@@ -23,7 +23,7 @@
             class="item"
             size="small"
             type="success"
-            @click="handleCreate(editDialog)"
+            @click="handleCreate"
           >
             添加
           </el-button>
@@ -38,7 +38,7 @@
             class="action-item"
             size="mini"
             type="primary"
-            @click="handleEdit(editDialog, item)"
+            @click="handleEdit(item)"
           >
             编辑
           </el-button>
@@ -99,7 +99,42 @@
     <EditDialog ref="editDialog" @success="refreshData" />
   </ingot-container>
 </template>
-<script lang="ts" src="./role.ts"></script>
+<script lang="ts" setup>
+import { onMounted, reactive, ref } from "vue";
+import { tableHeaders } from "./biz/table";
+import { useStore } from "@/store";
+import { SysRole, RolePageItemVo } from "@/model";
+import {
+  getCommonStatusDesc,
+  getCommonStatusTag,
+  getDisableButtonParams,
+} from "@/model/common";
+import { fetchData, computedRecords } from "@/store/composition/role";
+import { handleDelete, handleDisable, handleBindCommand } from "./biz/role";
+import EditDialog from "./component/EditDialog.vue";
+import type { API as EditDialogAPI } from "./component/EditDialog.vue";
+
+const condition = reactive({} as SysRole);
+const store = useStore();
+const roleData = computedRecords();
+const editDialog = ref<EditDialogAPI>();
+
+const refreshData = () => {
+  fetchData(store, condition);
+};
+
+const handleCreate = (): void => {
+  editDialog.value?.show();
+};
+
+const handleEdit = (params: RolePageItemVo): void => {
+  editDialog.value?.show(params);
+};
+
+onMounted(() => {
+  refreshData();
+});
+</script>
 <style lang="stylus" scoped>
 .action-item
   margin-left 12px

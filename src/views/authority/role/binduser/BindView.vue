@@ -69,48 +69,61 @@
     </ingot-container>
   </el-drawer>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
+import { defineProps, defineEmits, defineExpose } from "vue";
 import { useRoute } from "vue-router";
 import { getBindUsers, bindUser } from "@/api/authority/role";
 import { tableHeaders } from "./header";
 import { Page, SysUser, IngotResponse, RoleBindParams } from "@/model";
-import {
-  unbindSetup,
-  BindSetupParams,
-} from "@/views/authority/role/common/bind";
-export default defineComponent({
-  props: {
-    id: {
-      type: String,
-      required: true,
-    },
+import { unbindSetup } from "@/views/authority/role/common/bind";
+
+const props = defineProps({
+  id: {
+    type: String,
+    required: true,
   },
-  emits: ["dataChanged"],
-  setup(props, { emit }) {
-    const route = useRoute();
-    const params: BindSetupParams<SysUser> = {
-      title: `角色：${route.query.name} - 关联更多用户`,
-      id: props.id,
-      tableHeaders,
-      singleConfirmMessage(item: SysUser) {
-        return `是否绑定用户:${item.username}`;
-      },
-      batchConfirmMessage: "是否绑定所选用户?",
-      fetchData(
-        page: Page,
-        id: string,
-        isBind: boolean,
-        condition?: SysUser
-      ): Promise<IngotResponse<Page<SysUser>>> {
-        return getBindUsers(page, id, isBind, condition);
-      },
-      bind(bindParams: RoleBindParams): Promise<IngotResponse<void>> {
-        return bindUser(bindParams);
-      },
-      emit,
-    };
-    return unbindSetup(params);
+});
+const emits = defineEmits(["dataChanged"]);
+const route = useRoute();
+const {
+  title,
+  isShow,
+  bindTable,
+  editBatch,
+  headers,
+  bindPageInfo,
+  selectData,
+  queryCondition,
+  fetchData,
+  handleBind,
+  handleBatchBind,
+  cancelEditBatch,
+  onSelectChanged,
+  show,
+} = unbindSetup({
+  title: `角色：${route.query.name} - 关联更多用户`,
+  id: props.id,
+  tableHeaders,
+  singleConfirmMessage(item: SysUser) {
+    return `是否绑定用户:${item.username}`;
   },
+  batchConfirmMessage: "是否绑定所选用户?",
+  fetchData(
+    page: Page,
+    id: string,
+    isBind: boolean,
+    condition?: SysUser
+  ): Promise<IngotResponse<Page<SysUser>>> {
+    return getBindUsers(page, id, isBind, condition);
+  },
+  bind(bindParams: RoleBindParams): Promise<IngotResponse<void>> {
+    return bindUser(bindParams);
+  },
+  emit: emits,
+});
+
+defineExpose({
+  show,
+  fetchData,
 });
 </script>

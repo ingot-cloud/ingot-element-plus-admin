@@ -23,7 +23,7 @@
             class="item"
             size="small"
             type="success"
-            @click="handleCreate(editDialog)"
+            @click="handleCreate"
           >
             添加
           </el-button>
@@ -34,11 +34,7 @@
           </el-tag>
         </template>
         <template #actions="{ item }">
-          <el-button
-            size="mini"
-            type="primary"
-            @click="handleEdit(editDialog, item)"
-          >
+          <el-button size="mini" type="primary" @click="handleEdit(item)">
             编辑
           </el-button>
           <el-button
@@ -62,4 +58,39 @@
 
   <EditDialog ref="editDialog" @success="refreshData" />
 </template>
-<script lang="ts" src="./tenant.ts"></script>
+<script lang="ts" setup>
+import { onMounted, reactive, ref } from "vue";
+import { tableHeaders } from "./biz/table";
+import { useStore } from "@/store";
+import { SysRole, SysTenant } from "@/model";
+import {
+  getCommonStatusDesc,
+  getCommonStatusTag,
+  getDisableButtonParams,
+} from "@/model/common";
+import { handleDelete, handleDisable } from "./biz/tenant";
+import { fetchData, computedRecords } from "@/store/composition/tenant";
+import EditDialog from "./component/EditDialog.vue";
+import type { API as EditDialogAPI } from "./component/EditDialog.vue";
+
+const condition = reactive({} as SysRole);
+const store = useStore();
+const records = computedRecords();
+const editDialog = ref<EditDialogAPI>();
+
+const refreshData = () => {
+  fetchData(store, condition);
+};
+
+const handleCreate = (): void => {
+  editDialog.value?.show();
+};
+
+const handleEdit = (params: SysTenant): void => {
+  editDialog.value?.show(params);
+};
+
+onMounted(() => {
+  refreshData();
+});
+</script>

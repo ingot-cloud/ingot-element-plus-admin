@@ -58,8 +58,22 @@
   </el-dialog>
 </template>
 <script lang="ts">
+import { RolePageItemVo as P } from "@/model";
+export interface API {
+  show(data?: P): void;
+}
+</script>
+<script lang="ts" setup>
 import { RolePageItemVo, SysRole } from "@/model";
-import { defineComponent, reactive, ref, nextTick, unref, toRaw } from "vue";
+import {
+  defineEmits,
+  defineExpose,
+  reactive,
+  ref,
+  nextTick,
+  unref,
+  toRaw,
+} from "vue";
 import { Message } from "@/utils/message";
 import { create, update } from "@/store/composition/role";
 import { store } from "@/store";
@@ -82,68 +96,62 @@ const defaultEditForm = {
 
 const keys = ["id", "name", "code", "type", "remark"];
 
-export default defineComponent({
-  emits: ["success"],
-  setup(_, { emit }) {
-    const title = ref("");
-    const edit = ref(false);
-    const visible = ref(false);
-    const loading = ref(false);
-    const roleEditFormRef = ref();
-    const editForm = reactive(Object.assign({}, defaultEditForm));
-    return {
-      title,
-      edit,
-      visible,
-      loading,
-      editForm,
-      roleEditFormRef,
-      rules,
-      show(data?: RolePageItemVo) {
-        visible.value = true;
+const emits = defineEmits(["success"]);
 
-        // 重置数据
-        copyParams(editForm, defaultEditForm);
-        nextTick(() => {
-          const form = unref(roleEditFormRef);
-          form.clearValidate();
+const title = ref("");
+const edit = ref(false);
+const visible = ref(false);
+const loading = ref(false);
+const roleEditFormRef = ref();
+const editForm = reactive(Object.assign({}, defaultEditForm));
+
+const show = (data?: RolePageItemVo) => {
+  visible.value = true;
+
+  // 重置数据
+  copyParams(editForm, defaultEditForm);
+  nextTick(() => {
+    const form = unref(roleEditFormRef);
+    form.clearValidate();
+  });
+
+  if (data) {
+    title.value = "编辑角色";
+    edit.value = true;
+    copyParams(editForm, data);
+  } else {
+    title.value = "创建角色";
+    edit.value = false;
+  }
+};
+
+const handleConfirmClick = () => {
+  const form = unref(roleEditFormRef);
+  form.validate((valid: boolean) => {
+    if (valid) {
+      loading.value = true;
+      const params: SysRole = {};
+      copyParamsWithKeys(params, toRaw(editForm), keys);
+
+      const request = edit.value
+        ? update(store, params)
+        : create(store, params);
+      request
+        .then(() => {
+          loading.value = false;
+          Message.success("操作成功");
+          visible.value = false;
+          emits("success");
+        })
+        .catch(() => {
+          loading.value = false;
         });
+    }
+  });
+};
 
-        if (data) {
-          title.value = "编辑角色";
-          edit.value = true;
-          copyParams(editForm, data);
-        } else {
-          title.value = "创建角色";
-          edit.value = false;
-        }
-      },
-      handleConfirmClick() {
-        const form = unref(roleEditFormRef);
-        form.validate((valid: boolean) => {
-          if (valid) {
-            loading.value = true;
-            const params: SysRole = {};
-            copyParamsWithKeys(params, toRaw(editForm), keys);
-
-            const request = edit.value
-              ? update(store, params)
-              : create(store, params);
-            request
-              .then(() => {
-                loading.value = false;
-                Message.success("操作成功");
-                visible.value = false;
-                emit("success");
-              })
-              .catch(() => {
-                loading.value = false;
-              });
-          }
-        });
-      },
-    };
-  },
+defineExpose({
+  show,
 });
 </script>
 <style lang="stylus" scoped>

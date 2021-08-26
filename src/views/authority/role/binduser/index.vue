@@ -70,4 +70,51 @@
   </ingot-container>
   <BindView ref="bindView" :id="id" @dataChanged="fetchData" />
 </template>
-<script lang="ts" src="./binduser.ts"></script>
+<script lang="ts" setup>
+import { defineProps } from "vue";
+import { useRoute } from "vue-router";
+import { getBindUsers, bindUser } from "@/api/authority/role";
+import { tableHeaders } from "./header";
+import { Page, SysUser, IngotResponse, RoleBindParams } from "@/model";
+import BindView from "./BindView.vue";
+import { bindSetup } from "@/views/authority/role/common/bind";
+
+const props = defineProps(["id"]);
+const route = useRoute();
+const {
+  title,
+  bindTable,
+  bindView,
+  editBatch,
+  headers,
+  bindPageInfo,
+  selectData,
+  queryCondition,
+  fetchData,
+  handleUnbind,
+  handleBatchUnbind,
+  cancelEditBatch,
+  editTableColumn,
+  onSelectChanged,
+  showBindMoreView,
+} = bindSetup({
+  title: `角色：${route.query.name}`,
+  id: props.id,
+  tableHeaders,
+  singleConfirmMessage(item: SysUser) {
+    return `是否解绑用户:${item.username}`;
+  },
+  batchConfirmMessage: "是否解绑所选用户?",
+  fetchData(
+    page: Page,
+    id: string,
+    isBind: boolean,
+    condition?: SysUser
+  ): Promise<IngotResponse<Page<SysUser>>> {
+    return getBindUsers(page, id, isBind, condition);
+  },
+  bind(bindParams: RoleBindParams): Promise<IngotResponse<void>> {
+    return bindUser(bindParams);
+  },
+});
+</script>

@@ -136,13 +136,18 @@
   </el-dialog>
 </template>
 <script lang="ts">
+export interface API {
+  show(): void;
+}
+</script>
+<script lang="ts" setup>
 import {
   SysOauthClientDetails,
   AuthType,
   getAuthTypeSelectList,
   grantTypeList,
 } from "@/model";
-import { defineComponent, reactive, ref, unref, toRaw } from "vue";
+import { defineEmits, reactive, ref, defineExpose, toRaw } from "vue";
 import { create } from "@/api/authority/client";
 import { Message } from "@/utils/message";
 import { copyParams } from "@/utils/object";
@@ -174,50 +179,41 @@ const defaultEditForm: SysOauthClientDetails = {
   remark: undefined,
 };
 
-export default defineComponent({
-  emits: ["success"],
-  setup(_, { emit }) {
-    const editFormRef = ref();
-    const editForm = reactive(Object.assign({}, defaultEditForm));
-    const loading = ref(false);
-    const title = ref("创建客户端");
-    const visible = ref(false);
+const emits = defineEmits(["success"]);
 
-    return {
-      grantTypeList,
-      getAuthTypeSelectList,
-      editFormRef,
-      title,
-      visible,
-      loading,
-      editForm,
-      rules,
-      show: () => {
-        visible.value = true;
-        copyParams(editForm, defaultEditForm);
-      },
-      handleConfirmClick() {
-        const form = unref(editFormRef);
-        form.validate((valid: boolean) => {
-          if (valid) {
-            loading.value = true;
-            const params: SysOauthClientDetails = toRaw(editForm);
+const editFormRef = ref();
+const editForm = reactive(Object.assign({}, defaultEditForm));
+const loading = ref(false);
+const title = ref("创建客户端");
+const visible = ref(false);
 
-            create(params)
-              .then(() => {
-                loading.value = false;
-                Message.success("操作成功");
-                visible.value = false;
-                emit("success");
-              })
-              .catch(() => {
-                loading.value = false;
-              });
-          }
+const show = () => {
+  visible.value = true;
+  copyParams(editForm, defaultEditForm);
+};
+
+const handleConfirmClick = () => {
+  editFormRef.value.validate((valid: boolean) => {
+    if (valid) {
+      loading.value = true;
+      const params: SysOauthClientDetails = toRaw(editForm);
+
+      create(params)
+        .then(() => {
+          loading.value = false;
+          Message.success("操作成功");
+          visible.value = false;
+          emits("success");
+        })
+        .catch(() => {
+          loading.value = false;
         });
-      },
-    };
-  },
+    }
+  });
+};
+
+defineExpose({
+  show,
 });
 </script>
 <style lang="stylus" scoped>

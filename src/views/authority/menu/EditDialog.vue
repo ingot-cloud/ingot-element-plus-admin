@@ -116,7 +116,22 @@
   </el-dialog>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref, nextTick, unref, toRaw } from "vue";
+import { SysMenu as P } from "@/model";
+export interface API {
+  show(data?: P | string): void;
+}
+</script>
+<script lang="ts" setup>
+import {
+  defineProps,
+  defineExpose,
+  defineEmits,
+  reactive,
+  ref,
+  nextTick,
+  unref,
+  toRaw,
+} from "vue";
 import { SysMenu, CommonStatus, getCommonStatusDesc } from "@/model";
 import { create, update } from "@/api/authority/menu";
 import { Message } from "@/utils/message";
@@ -143,102 +158,93 @@ const defaultEditForm: SysMenu = {
   remark: undefined,
 };
 
-export default defineComponent({
-  emits: ["success"],
-  props: {
-    data: {
-      type: Array,
-    },
+const emits = defineEmits(["success"]);
+const props = defineProps({
+  data: {
+    type: Array,
   },
-  setup(_, { emit }) {
-    const editFormRef = ref();
-    const editForm = reactive(Object.assign({}, defaultEditForm));
-    const rawForm: SysMenu = {};
-    const loading = ref(false);
-    const title = ref("");
-    const edit = ref(false);
-    const canEditPid = ref(false);
-    const visible = ref(false);
+});
 
-    return {
-      editFormRef,
-      title,
-      edit,
-      canEditPid,
-      visible,
-      loading,
-      editForm,
-      rules,
-      CommonStatus,
-      getCommonStatusDesc,
-      treeSelectProps: {
-        children: "children",
-        label: "name",
-        value: "id",
-      },
-      show: (data?: SysMenu | string) => {
-        visible.value = true;
+const editFormRef = ref();
+const editForm = reactive(Object.assign({}, defaultEditForm));
+const rawForm: SysMenu = {};
+const loading = ref(false);
+const title = ref("");
+const edit = ref(false);
+const canEditPid = ref(false);
+const visible = ref(false);
 
-        // 重置数据
-        copyParams(editForm, defaultEditForm);
-        copyParams(rawForm, defaultEditForm);
-        nextTick(() => {
-          const form = unref(editFormRef);
-          form.clearValidate();
-        });
+const treeSelectProps = {
+  children: "children",
+  label: "name",
+  value: "id",
+};
 
-        if (data) {
-          if (typeof data === "string") {
-            title.value = "创建";
-            edit.value = false;
-            canEditPid.value = false;
-            editForm.pid = data;
-          } else {
-            copyParams(editForm, data);
-            copyParams(rawForm, data);
-            title.value = "编辑";
-            edit.value = true;
-            canEditPid.value = false;
-          }
-        } else {
-          title.value = "创建";
-          edit.value = false;
-          canEditPid.value = true;
+const show = (data?: SysMenu | string) => {
+  visible.value = true;
+
+  // 重置数据
+  copyParams(editForm, defaultEditForm);
+  copyParams(rawForm, defaultEditForm);
+  nextTick(() => {
+    const form = unref(editFormRef);
+    form.clearValidate();
+  });
+
+  if (data) {
+    if (typeof data === "string") {
+      title.value = "创建";
+      edit.value = false;
+      canEditPid.value = false;
+      editForm.pid = data;
+    } else {
+      copyParams(editForm, data);
+      copyParams(rawForm, data);
+      title.value = "编辑";
+      edit.value = true;
+      canEditPid.value = false;
+    }
+  } else {
+    title.value = "创建";
+    edit.value = false;
+    canEditPid.value = true;
+  }
+};
+
+const handleConfirmClick = () => {
+  const form = unref(editFormRef);
+  form.validate((valid: boolean) => {
+    if (valid) {
+      let request;
+      if (edit.value) {
+        const params = getDiff<SysMenu>(rawForm, editForm);
+        if (Object.keys(params).length === 0) {
+          Message.warning("未改变数据");
+          return;
         }
-      },
-      handleConfirmClick() {
-        const form = unref(editFormRef);
-        form.validate((valid: boolean) => {
-          if (valid) {
-            let request;
-            if (edit.value) {
-              const params = getDiff<SysMenu>(rawForm, editForm);
-              if (Object.keys(params).length === 0) {
-                Message.warning("未改变数据");
-                return;
-              }
-              params.id = rawForm.id;
-              request = update(params);
-            } else {
-              request = create(Object.assign({}, toRaw(editForm)));
-            }
+        params.id = rawForm.id;
+        request = update(params);
+      } else {
+        request = create(Object.assign({}, toRaw(editForm)));
+      }
 
-            loading.value = true;
-            request
-              .then(() => {
-                loading.value = false;
-                Message.success("操作成功");
-                visible.value = false;
-                emit("success");
-              })
-              .catch(() => {
-                loading.value = false;
-              });
-          }
+      loading.value = true;
+      request
+        .then(() => {
+          loading.value = false;
+          Message.success("操作成功");
+          visible.value = false;
+          emits("success");
+        })
+        .catch(() => {
+          loading.value = false;
         });
-      },
-    };
-  },
+    }
+  });
+};
+
+defineExpose({
+  show,
 });
 </script>
 <style lang="stylus" scoped>

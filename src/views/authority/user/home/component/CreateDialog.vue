@@ -94,17 +94,26 @@
   </el-dialog>
 </template>
 <script lang="ts">
+export interface API {
+  show(): void;
+}
+</script>
+<script lang="ts" setup>
 import { RolePageItemVo } from "@/model";
-import { defineComponent, computed, ref, reactive, unref, nextTick } from "vue";
+import {
+  defineProps,
+  defineEmits,
+  defineExpose,
+  computed,
+  ref,
+  reactive,
+  unref,
+  nextTick,
+  PropType,
+} from "vue";
 import { Message } from "@/utils/message";
 import { copyParamsWithKeys, copyParams } from "@/utils/object";
 import { create } from "@/api/authority/user";
-
-interface Props {
-  deptName: string;
-  deptId: string;
-  roleList: Array<RolePageItemVo>;
-}
 
 const keys = ["username", "roleIds", "phone", "realName", "email"];
 
@@ -128,93 +137,80 @@ const defaultEditForm: CreateUser = {
   email: undefined,
 };
 
-export default defineComponent({
-  emits: ["success"],
-  props: {
-    deptName: {
-      type: String,
-      default: "",
-    },
-    deptId: {
-      type: String,
-      default: "",
-    },
-    tenantList: {
-      type: Array,
-      default() {
-        return [];
-      },
-    },
-    roleList: {
-      type: Array,
-      default: () => [],
-    },
+const emits = defineEmits(["success"]);
+const props = defineProps({
+  deptName: {
+    type: String,
+    default: "",
   },
-  setup(props, { emit }) {
-    const visible = ref(false);
-    const loading = ref(false);
-    const editForm = reactive(Object.assign({}, defaultEditForm));
-    const createForm = ref();
+  deptId: {
+    type: String,
+    default: "",
+  },
+  roleList: {
+    type: Array as PropType<Array<RolePageItemVo>>,
+    default: () => [],
+  },
+});
 
-    return {
-      createForm,
-      visible,
-      loading,
-      editForm,
-      roleRecords: computed(() =>
-        (props as any as Props).roleList.map((item) => {
-          return { label: item.name, value: item.id };
+const visible = ref(false);
+const loading = ref(false);
+const editForm = reactive(Object.assign({}, defaultEditForm));
+const createForm = ref();
+
+const rules = {
+  username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+  password: [{ required: true, message: "请输入登录密码", trigger: "blur" }],
+  confirmPassword: [
+    { required: true, message: "请再次输入登录密码", trigger: "blur" },
+  ],
+  roleIds: [{ required: true, message: "请选择角色", trigger: "blur" }],
+};
+
+const roleRecords = computed(() =>
+  props.roleList.map((item) => {
+    return { label: item.name, value: item.id };
+  })
+);
+
+const show = () => {
+  visible.value = true;
+  copyParams(editForm, defaultEditForm);
+  nextTick(() => {
+    const form = unref(createForm);
+    form.clearValidate();
+  });
+};
+
+const handleConfirmClick = () => {
+  const form = unref(createForm);
+  form.validate((valid: boolean) => {
+    if (valid) {
+      if (editForm.password !== editForm.confirmPassword) {
+        Message.warning("两次密码不一致");
+        return;
+      }
+      loading.value = true;
+      const params = {
+        deptId: (props as any).deptId,
+        newPassword: editForm.password,
+      };
+      copyParamsWithKeys(params, editForm, keys);
+      create(params)
+        .then(() => {
+          loading.value = false;
+          visible.value = false;
+          Message.success("操作成功");
+          emits("success");
         })
-      ),
-      show() {
-        visible.value = true;
-        copyParams(editForm, defaultEditForm);
-        nextTick(() => {
-          const form = unref(createForm);
-          form.clearValidate();
+        .catch(() => {
+          loading.value = false;
         });
-      },
-      handleConfirmClick() {
-        const form = unref(createForm);
-        form.validate((valid: boolean) => {
-          if (valid) {
-            if (editForm.password !== editForm.confirmPassword) {
-              Message.warning("两次密码不一致");
-              return;
-            }
-            loading.value = true;
-            const params = {
-              deptId: (props as any).deptId,
-              newPassword: editForm.password,
-            };
-            copyParamsWithKeys(params, editForm, keys);
-            create(params)
-              .then(() => {
-                loading.value = false;
-                visible.value = false;
-                Message.success("操作成功");
-                emit("success");
-              })
-              .catch(() => {
-                loading.value = false;
-              });
-          }
-        });
-      },
-      rules: {
-        username: [
-          { required: true, message: "请输入用户名", trigger: "blur" },
-        ],
-        password: [
-          { required: true, message: "请输入登录密码", trigger: "blur" },
-        ],
-        confirmPassword: [
-          { required: true, message: "请再次输入登录密码", trigger: "blur" },
-        ],
-        roleIds: [{ required: true, message: "请选择角色", trigger: "blur" }],
-      },
-    };
-  },
+    }
+  });
+};
+defineExpose({
+  show,
 });
 </script>
 <style lang="stylus" scoped>

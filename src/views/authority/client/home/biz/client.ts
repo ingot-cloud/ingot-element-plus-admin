@@ -10,8 +10,6 @@ import { page, update, remove } from "@/api/authority/client";
 import { Confirm, Message } from "@/utils/message";
 import router from "@/router";
 
-export const createDialogRef = ref();
-
 export const condition = reactive({} as SysOauthClientDetails);
 export const pageInfo = reactive({
   current: 1,
@@ -33,11 +31,6 @@ export function fetchData(params?: PageChangeParams): void {
   });
 }
 
-export function handleCreate(): void {
-  const dialog = unref(createDialogRef);
-  dialog.show();
-}
-
 export function handleManager(params: SysOauthClientDetails): void {
   router.push({
     path: `/authority/client/${params.id}`,
@@ -46,7 +39,7 @@ export function handleManager(params: SysOauthClientDetails): void {
 
 export function handleDelete(
   params: SysOauthClientDetails,
-  callback?: FunctionConstructor
+  callback?: (params?: PageChangeParams) => void
 ): void {
   Confirm.warning(`是否删除客户端(${params.clientId})`).then(() => {
     remove(params.clientId as string).then(() => {
@@ -60,7 +53,7 @@ export function handleDelete(
 
 export function handleDisable(
   params: SysOauthClientDetails,
-  callback?: FunctionConstructor
+  callback?: (params?: PageChangeParams) => void
 ): void {
   const status =
     params.status === CommonStatus.Enable

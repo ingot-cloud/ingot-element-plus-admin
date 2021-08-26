@@ -1,4 +1,4 @@
-import { onMounted, ref, reactive, toRaw, unref } from "vue";
+import { onMounted, ref, reactive, toRaw, unref, Ref } from "vue";
 import { HeaderItem } from "@/components/Table/type";
 import {
   Page,
@@ -25,6 +25,41 @@ export interface BindSetupParams<T> {
   emit?: any;
 }
 
+export interface BindSetupReturn<T> {
+  title: string;
+  bindTable: Ref;
+  bindView: Ref;
+  editBatch: Ref<boolean>;
+  headers: Ref;
+  bindPageInfo: any;
+  selectData: Ref;
+  queryCondition: any;
+  fetchData: (changeParams?: PageChangeParams | boolean) => void;
+  handleUnbind: (item: T) => void;
+  handleBatchUnbind: () => void;
+  cancelEditBatch: () => void;
+  editTableColumn: () => void;
+  onSelectChanged: (selection: Array<any>) => void;
+  showBindMoreView: () => void;
+}
+
+export interface UnbindSetupReturn<T> {
+  title: string;
+  isShow: Ref;
+  bindTable: Ref;
+  editBatch: Ref<boolean>;
+  headers: Ref;
+  bindPageInfo: any;
+  selectData: Ref;
+  queryCondition: any;
+  fetchData: (changeParams?: PageChangeParams | boolean) => void;
+  handleBind: (item: T) => void;
+  handleBatchBind: () => void;
+  cancelEditBatch: () => void;
+  onSelectChanged: (selection: Array<any>) => void;
+  show: () => void;
+}
+
 /**
  * 已绑数据视图 setup
  * @param params BindSetupParams
@@ -32,8 +67,8 @@ export interface BindSetupParams<T> {
  */
 export function bindSetup<T extends OptionIDEntity>(
   params: BindSetupParams<T>
-): any {
-  const headers = ref(Object.assign([], params.tableHeaders));
+): BindSetupReturn<T> {
+  const headers = ref(params.tableHeaders.slice());
   const editBatch = ref(false);
   const bindTable = ref();
   const bindView = ref();
@@ -87,8 +122,7 @@ export function bindSetup<T extends OptionIDEntity>(
           Message.success("操作成功");
           fetchData();
           // 更新未绑定数据
-          const view = unref(bindView);
-          view.fetchData();
+          bindView.value?.fetchData();
         });
     });
   };
@@ -103,8 +137,7 @@ export function bindSetup<T extends OptionIDEntity>(
         Message.success("操作成功");
         fetchData();
         // 更新未绑定数据
-        const view = unref(bindView);
-        view.fetchData();
+        bindView.value?.fetchData();
       });
     });
   };
@@ -171,7 +204,7 @@ export function bindSetup<T extends OptionIDEntity>(
  */
 export function unbindSetup<T extends OptionIDEntity>(
   params: BindSetupParams<T>
-): any {
+): UnbindSetupReturn<T> {
   const isShow = ref(false);
   const headers = ref(Object.assign([], params.tableHeaders));
   const editBatch = ref(false);

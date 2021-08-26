@@ -63,14 +63,6 @@ export function handleTreeNodeClick(node: DeptTreeNode): void {
 }
 
 /**
- * 创建用户
- */
-export function handleCreateUser(dialogRef: Ref): void {
-  const dialog = unref(dialogRef);
-  dialog.show();
-}
-
-/**
  * 编辑用户
  */
 export function handleDetailUser(params: UserPageItemVo): void {

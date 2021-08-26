@@ -34,7 +34,7 @@ const props = defineProps({
     default: false,
   },
   options: {
-    type: [] as PropType<Array<SelectItemParams>>,
+    type: Array as PropType<Array<SelectItemParams>>,
     default() {
       return [];
     },

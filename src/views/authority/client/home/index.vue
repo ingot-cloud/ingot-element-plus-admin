@@ -74,4 +74,43 @@
   </ingot-container>
   <CreateDialog ref="createDialogRef" @success="fetchData" />
 </template>
-<script lang="ts" src="./client.ts"></script>
+<script lang="ts" setup>
+import { onMounted, ref } from "vue";
+import { tableHeaders } from "./biz/table";
+import {
+  getCommonStatusDesc,
+  getCommonStatusTag,
+  getDisableButtonParams,
+} from "@/model/common";
+import {
+  fetchData,
+  handleDelete,
+  handleManager,
+  handleDisable,
+  condition,
+  pageInfo,
+} from "./biz/client";
+import CreateDialog from "./component/CreateDialog.vue";
+import type { API as CreateDialogAPI } from "./component/CreateDialog.vue";
+
+onMounted(() => {
+  fetchData();
+});
+
+const createDialogRef = ref<CreateDialogAPI>();
+
+const handleCreate = (): void => {
+  createDialogRef.value?.show();
+};
+
+const grantTypeList = (authorizedGrantTypes: string) => {
+  if (!authorizedGrantTypes) {
+    return [];
+  }
+  const arr = authorizedGrantTypes.split(",");
+  if (!arr || arr.length === 0) {
+    return null;
+  }
+  return arr;
+};
+</script>

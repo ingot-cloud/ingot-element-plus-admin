@@ -51,9 +51,7 @@
                 class="item"
                 size="small"
                 type="success"
-                @click="
-                  handleCreateUser(createDialog, roleRecords, tenantRecords)
-                "
+                @click="handleCreateUser"
               >
                 添加
               </el-button>
@@ -101,4 +99,50 @@
   />
 </template>
 
-<script lang="ts" src="./user.ts"></script>
+<script lang="ts" setup>
+import { onMounted, ref } from "vue";
+import { fetchDeptTree, computedDeptTreeData } from "@/store/composition/dept";
+import {
+  fetchCacheData as fetchRoleData,
+  computedRecords as computedRoleRecords,
+} from "@/store/composition/role";
+import {
+  showDept,
+  condition,
+  pageInfo,
+  fetchUserData,
+  handleTreeNodeClick,
+  handleDetailUser,
+  handleDeleteUser,
+  handleDisableUser,
+  currentDeptNode,
+} from "./biz/user";
+import { tableHeaders } from "./biz/table";
+import {
+  getCommonStatusDesc,
+  getCommonStatusTag,
+  getDisableButtonParams,
+} from "@/model";
+import { useStore } from "@/store";
+import CreateDialog from "./component/CreateDialog.vue";
+import type { API as CreateDialogAPI } from "./component/CreateDialog.vue";
+
+const createDialog = ref<CreateDialogAPI>();
+const deptTree = computedDeptTreeData();
+const roleRecords = computedRoleRecords();
+const store = useStore();
+
+/**
+ * 创建用户
+ */
+const handleCreateUser = (): void => {
+  createDialog.value?.show();
+};
+
+onMounted(() => {
+  fetchDeptTree(store).then((data) => {
+    handleTreeNodeClick(data[0]);
+  });
+  fetchRoleData(store);
+});
+</script>

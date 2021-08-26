@@ -144,7 +144,44 @@
     </ingot-page-card>
   </ingot-container>
 </template>
-<script lang="ts" src="./manager.ts"></script>
+<script lang="ts" setup>
+import { defineProps, reactive, ref, onMounted } from "vue";
+import {
+  SysOauthClientDetails,
+  getAuthTypeSelectList,
+  grantTypeList,
+} from "@/model";
+import { getOne, update } from "@/api/authority/client";
+import { copyParams, getDiffWithIgnore } from "@/utils/object";
+import { Message } from "@/utils/message";
+
+const editFormRef = ref();
+const editForm = reactive({} as SysOauthClientDetails);
+const rawForm = reactive({} as SysOauthClientDetails);
+
+const edit = ref(false);
+
+const props = defineProps(["id"]);
+
+const handleSaveEdit = () => {
+  const params = getDiffWithIgnore(rawForm, editForm, ["clientId"]);
+  update(params).then(() => {
+    Message.success("操作成功");
+  });
+};
+
+const handleCancelEdit = () => {
+  edit.value = false;
+  copyParams(editForm, rawForm);
+};
+
+onMounted(() => {
+  getOne(props.id).then((response) => {
+    copyParams(editForm, response.data);
+    copyParams(rawForm, response.data);
+  });
+});
+</script>
 <style lang="stylus" scoped>
 .form-item
   width 100%

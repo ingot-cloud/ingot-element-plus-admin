@@ -70,4 +70,56 @@
   </ingot-container>
   <BindView ref="bindView" :id="id" @dataChanged="fetchData" />
 </template>
-<script lang="ts" src="./bindclient.ts"></script>
+<script lang="ts" setup>
+import { defineProps } from "vue";
+import { useRoute } from "vue-router";
+import { getBindClients, bindClient } from "@/api/authority/role";
+import { tableHeaders } from "./header";
+import {
+  Page,
+  SysOauthClientDetails,
+  IngotResponse,
+  RoleBindParams,
+} from "@/model";
+import BindView from "./BindView.vue";
+import { bindSetup } from "@/views/authority/role/common/bind";
+
+const props = defineProps(["id"]);
+const route = useRoute();
+const {
+  title,
+  bindTable,
+  bindView,
+  editBatch,
+  headers,
+  bindPageInfo,
+  selectData,
+  queryCondition,
+  fetchData,
+  handleUnbind,
+  handleBatchUnbind,
+  cancelEditBatch,
+  editTableColumn,
+  onSelectChanged,
+  showBindMoreView,
+} = bindSetup({
+  title: `角色：${route.query.name}`,
+  id: props.id,
+  tableHeaders,
+  singleConfirmMessage(item: SysOauthClientDetails) {
+    return `是否解绑客户端:${item.clientId}`;
+  },
+  batchConfirmMessage: "是否解绑所选客户端?",
+  fetchData(
+    page: Page,
+    id: string,
+    isBind: boolean,
+    condition?: SysOauthClientDetails
+  ): Promise<IngotResponse<Page<SysOauthClientDetails>>> {
+    return getBindClients(page, id, isBind, condition);
+  },
+  bind(bindParams: RoleBindParams): Promise<IngotResponse<void>> {
+    return bindClient(bindParams);
+  },
+});
+</script>

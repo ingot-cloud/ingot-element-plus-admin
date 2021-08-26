@@ -55,5 +55,59 @@
   </ingot-container>
   <EditDialog ref="editDialogRef" :data="selectData" @success="fetchData" />
 </template>
-<script lang="ts" src="./menu.ts"></script>
+<script lang="ts" setup>
+import { onMounted, ref, reactive } from "vue";
+import { tableHeaders } from "./table";
+import { MenuTreeNode, SysMenu } from "@/model";
+import { getMenuTree, remove } from "@/api/authority/menu";
+import { Confirm, Message } from "@/utils/message";
+import EditDialog from "./EditDialog.vue";
+import type { API as EditDialogAPI } from "./EditDialog.vue";
+
+const editDialogRef = ref<EditDialogAPI>();
+const loading = ref(false);
+const menuData = reactive({
+  props: { children: "children", hasChildren: "hasChildren" },
+  key: "id",
+  data: [] as Array<MenuTreeNode>,
+});
+const selectData = ref([] as Array<MenuTreeNode>);
+
+const fetchData = () => {
+  loading.value = true;
+  getMenuTree()
+    .then((response) => {
+      loading.value = false;
+      const data = response.data;
+      menuData.data = data;
+      selectData.value = [
+        {
+          id: undefined,
+          name: "根菜单",
+          children: data,
+        },
+      ];
+    })
+    .catch(() => {
+      loading.value = false;
+    });
+};
+
+const showEditDialog = (params?: SysMenu | string) => {
+  editDialogRef.value?.show(params);
+};
+
+function handleDelete(params: SysMenu): void {
+  Confirm.warning(`是否删除菜单${params.name}`).then(() => {
+    remove(params.id as string).then(() => {
+      Message.success("操作成功");
+      fetchData();
+    });
+  });
+}
+
+onMounted(() => {
+  fetchData();
+});
+</script>
 <style lang="stylus" scoped></style>
