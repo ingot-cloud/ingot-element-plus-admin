@@ -21,9 +21,16 @@
   >
     <el-table-column
       v-if="selection"
-      width="50"
-      :align="selectionAlign"
+      :width="selectionProps.width"
+      :align="selectionProps.align"
       type="selection"
+    />
+    <el-table-column
+      v-if="index"
+      :width="indexProps.width"
+      :align="indexProps.align"
+      :label="indexProps.label"
+      type="index"
     />
 
     <el-table-column
@@ -126,9 +133,28 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  selectionAlign: {
-    type: String,
-    default: "center",
+  selectionProps: {
+    type: Object as PropType<HeaderItem>,
+    default() {
+      return {
+        align: "center",
+        width: "50",
+      };
+    },
+  },
+  index: {
+    type: Boolean,
+    default: false,
+  },
+  indexProps: {
+    type: Object as PropType<HeaderItem>,
+    default() {
+      return {
+        label: "序号",
+        align: "center",
+        width: "50",
+      };
+    },
   },
   rowKey: {
     type: [String, Function] as PropType<string | ((row: any) => string)>,
