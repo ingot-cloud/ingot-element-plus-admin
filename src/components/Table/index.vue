@@ -20,6 +20,13 @@
     :header-cell-style="headerCellStyle"
   >
     <el-table-column
+      v-if="selection"
+      width="50"
+      align="center"
+      type="selection"
+    />
+
+    <el-table-column
       v-for="item in headersEnable"
       :key="item.prop"
       :label="item.label"
@@ -114,6 +121,10 @@ const props = defineProps({
     default() {
       return "total, sizes, prev, pager, next, jumper";
     },
+  },
+  selection: {
+    type: Boolean,
+    default: false,
   },
   rowKey: {
     type: [String, Function] as PropType<string | ((row: any) => string)>,

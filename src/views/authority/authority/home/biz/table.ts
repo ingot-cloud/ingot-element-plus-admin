@@ -1,8 +1,9 @@
 export const tableHeaders = [
   {
     label: "序号",
-    prop: "id",
     type: "index",
+    align: "center",
+    width: "50",
   },
   {
     label: "权限名称",
