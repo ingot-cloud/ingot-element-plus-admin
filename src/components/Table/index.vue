@@ -22,7 +22,7 @@
     <el-table-column
       v-if="selection"
       width="50"
-      align="center"
+      :align="selectionAlign"
       type="selection"
     />
 
@@ -125,6 +125,10 @@ const props = defineProps({
   selection: {
     type: Boolean,
     default: false,
+  },
+  selectionAlign: {
+    type: String,
+    default: "center",
   },
   rowKey: {
     type: [String, Function] as PropType<string | ((row: any) => string)>,
