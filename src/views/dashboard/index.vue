@@ -6,18 +6,13 @@
   </ingot-container>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { useStore } from "@/store";
-import { user, roles } from "@/store/composition/auth";
-import { defineComponent } from "vue";
-export default defineComponent({
-  components: {},
-  setup() {
-    const store = useStore();
-    return {
-      user: user(store),
-      roles: roles(store),
-    };
-  },
-});
+import {
+  user as userComputed,
+  roles as rolesComputed,
+} from "@/store/composition/auth";
+const store = useStore();
+const user = userComputed(store);
+const roles = rolesComputed(store);
 </script>

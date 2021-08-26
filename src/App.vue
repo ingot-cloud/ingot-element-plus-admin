@@ -5,17 +5,7 @@
     </keep-alive>
   </router-view>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  setup() {
-    const cacheViews: string[] = [];
-
-    return {
-      cacheViews,
-    };
-  },
-});
+<script lang="ts" setup>
+const cacheViews: string[] = [];
 </script>
 <style lang="stylus"></style>

@@ -21,8 +21,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
 import Password from "./Password.vue";
 import ScanCode from "./ScanCode.vue";
 import { LoginColorStyle } from "@/theme";
@@ -31,37 +30,20 @@ enum LoginType {
   Password = "password",
   ScanCode = "scanCode",
 }
+const { topbarTitleLeft, topbarTitleRight, content, otherLogin } =
+  LoginColorStyle();
 
-export default defineComponent({
-  components: { Password, ScanCode },
-  data() {
-    return {
-      currentTab: LoginType.Password,
-      tabs: [
-        {
-          title: "账户密码登录",
-          name: LoginType.Password,
-        },
-        {
-          title: "扫码登录",
-          name: LoginType.ScanCode,
-        },
-      ],
-    };
+const currentTab = LoginType.Password;
+const tabs = [
+  {
+    title: "账户密码登录",
+    name: LoginType.Password,
   },
-  setup() {
-    const { topbarTitleLeft, topbarTitleRight, content, otherLogin } =
-      LoginColorStyle();
-
-    return {
-      topbarTitleLeft,
-      topbarTitleRight,
-      content,
-      otherLogin,
-      LoginType,
-    };
+  {
+    title: "扫码登录",
+    name: LoginType.ScanCode,
   },
-});
+];
 </script>
 
 <style lang="stylus">

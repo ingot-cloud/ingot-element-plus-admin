@@ -33,28 +33,18 @@
     </el-form-item>
   </el-form>
 </template>
-<script lang="ts">
-import { defineComponent, ref } from "vue";
+<script lang="ts" setup>
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import password from "./biz/password";
 
-export default defineComponent({
-  setup() {
-    const { formModel, rules, loading, handleLogin } = password;
-    const formRef = ref();
-    const router = useRouter();
+const { formModel, rules, loading } = password;
+const formRef = ref();
+const router = useRouter();
 
-    return {
-      formRef,
-      formModel,
-      rules,
-      loading,
-      handleLogin: () => {
-        handleLogin(formRef, router);
-      },
-    };
-  },
-});
+const handleLogin = () => {
+  password.handleLogin(formRef, router);
+};
 </script>
 <style lang="stylus" scoped>
 .title-container
