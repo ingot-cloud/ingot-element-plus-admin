@@ -34,6 +34,7 @@ export const tableHeaders = [
   {
     label: "备注",
     prop: "remark",
+    hide: true,
   },
   {
     label: "操作",

@@ -10,6 +10,11 @@ export const tableHeaders = [
     prop: "username",
   },
   {
+    label: "真实姓名",
+    prop: "realName",
+    hide: true,
+  },
+  {
     label: "手机号",
     prop: "phone",
   },

@@ -1,7 +1,7 @@
 <template>
   <ingot-container>
     <ingot-page-card :hideBack="true">
-      <ingot-table :data="roleData" :headers="tableHeaders">
+      <ingot-table :data="roleData" ref="tableRef" :headers="tableHeaders">
         <template #filter>
           <el-input
             v-model="condition.name"
@@ -26,6 +26,9 @@
             @click="handleCreate"
           >
             添加
+          </el-button>
+          <el-button size="small" @click="editTableColumn" class="item">
+            自定义列
           </el-button>
         </template>
         <template #status="{ item }">
@@ -113,11 +116,13 @@ import { fetchData, computedRecords } from "@/store/composition/role";
 import { handleDelete, handleDisable, handleBindCommand } from "./biz/role";
 import EditDialog from "./component/EditDialog.vue";
 import type { API as EditDialogAPI } from "./component/EditDialog.vue";
+import type { API as TableAPI } from "@/components/Table/index.vue";
 
 const condition = reactive({} as SysRole);
 const store = useStore();
 const roleData = computedRecords();
 const editDialog = ref<EditDialogAPI>();
+const tableRef = ref<TableAPI>();
 
 const refreshData = () => {
   fetchData(store, condition);
@@ -129,6 +134,13 @@ const handleCreate = (): void => {
 
 const handleEdit = (params: RolePageItemVo): void => {
   editDialog.value?.show(params);
+};
+
+/**
+ * 编辑表格显示列
+ */
+const editTableColumn = () => {
+  tableRef.value?.editHeader();
 };
 
 onMounted(() => {

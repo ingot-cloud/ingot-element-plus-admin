@@ -5,6 +5,7 @@
         :data="pageInfo.records"
         :headers="tableHeaders"
         :page="pageInfo"
+        ref="tableRef"
         @handleSizeChange="fetchData"
         @handleCurrentChange="fetchData"
       >
@@ -32,6 +33,9 @@
             @click="handleCreate"
           >
             添加
+          </el-button>
+          <el-button size="small" @click="editTableColumn" class="item">
+            自定义列
           </el-button>
         </template>
         <template #status="{ item }">
@@ -76,8 +80,17 @@ import {
 } from "./biz/authority";
 import EditDialog from "./component/EditDialog.vue";
 import { API as EditDialogAPI } from "./component/EditDialog.vue";
+import type { API as TableAPI } from "@/components/Table/index.vue";
 
 const editDialogRef = ref<EditDialogAPI>();
+const tableRef = ref<TableAPI>();
+
+/**
+ * 编辑表格显示列
+ */
+const editTableColumn = () => {
+  tableRef.value?.editHeader();
+};
 
 onMounted(() => {
   fetchData();

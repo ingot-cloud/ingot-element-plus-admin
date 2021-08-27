@@ -24,6 +24,7 @@
             :data="pageInfo.records"
             :headers="tableHeaders"
             :page="pageInfo"
+            ref="tableRef"
             @handleSizeChange="fetchUserData"
             @handleCurrentChange="fetchUserData"
           >
@@ -54,6 +55,9 @@
                 @click="handleCreateUser"
               >
                 添加
+              </el-button>
+              <el-button size="small" @click="editTableColumn" class="item">
+                自定义列
               </el-button>
             </template>
             <template #status="{ item }">
@@ -126,17 +130,26 @@ import {
 import { useStore } from "@/store";
 import CreateDialog from "./component/CreateDialog.vue";
 import type { API as CreateDialogAPI } from "./component/CreateDialog.vue";
+import type { API as TableAPI } from "@/components/Table/index.vue";
 
 const createDialog = ref<CreateDialogAPI>();
 const deptTree = computedDeptTreeData();
 const roleRecords = computedRoleRecords();
 const store = useStore();
+const tableRef = ref<TableAPI>();
 
 /**
  * 创建用户
  */
 const handleCreateUser = (): void => {
   createDialog.value?.show();
+};
+
+/**
+ * 编辑表格显示列
+ */
+const editTableColumn = () => {
+  tableRef.value?.editHeader();
 };
 
 onMounted(() => {

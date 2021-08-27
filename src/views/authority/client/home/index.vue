@@ -5,6 +5,7 @@
         :data="pageInfo.records"
         :headers="tableHeaders"
         :page="pageInfo"
+        ref="tableRef"
         @handleSizeChange="fetchData"
         @handleCurrentChange="fetchData"
       >
@@ -32,6 +33,9 @@
             @click="handleCreate()"
           >
             添加
+          </el-button>
+          <el-button size="small" @click="editTableColumn" class="item">
+            自定义列
           </el-button>
         </template>
 
@@ -92,12 +96,21 @@ import {
 } from "./biz/client";
 import CreateDialog from "./component/CreateDialog.vue";
 import type { API as CreateDialogAPI } from "./component/CreateDialog.vue";
+import type { API as TableAPI } from "@/components/Table/index.vue";
 
 onMounted(() => {
   fetchData();
 });
 
 const createDialogRef = ref<CreateDialogAPI>();
+const tableRef = ref<TableAPI>();
+
+/**
+ * 编辑表格显示列
+ */
+const editTableColumn = () => {
+  tableRef.value?.editHeader();
+};
 
 const handleCreate = (): void => {
   createDialogRef.value?.show();

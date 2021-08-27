@@ -6,6 +6,7 @@
         :headers="tableHeaders"
         :row-key="menuData.key"
         :tree-props="menuData.props"
+        ref="tableRef"
       >
         <template #filter>
           <el-button
@@ -23,6 +24,9 @@
             @click="showEditDialog()"
           >
             添加
+          </el-button>
+          <el-button size="small" @click="editTableColumn" class="item">
+            自定义列
           </el-button>
         </template>
         <template #icon="{ item }">
@@ -63,6 +67,7 @@ import { getMenuTree, remove } from "@/api/authority/menu";
 import { Confirm, Message } from "@/utils/message";
 import EditDialog from "./EditDialog.vue";
 import type { API as EditDialogAPI } from "./EditDialog.vue";
+import type { API as TableAPI } from "@/components/Table/index.vue";
 
 const editDialogRef = ref<EditDialogAPI>();
 const loading = ref(false);
@@ -72,6 +77,14 @@ const menuData = reactive({
   data: [] as Array<MenuTreeNode>,
 });
 const selectData = ref([] as Array<MenuTreeNode>);
+const tableRef = ref<TableAPI>();
+
+/**
+ * 编辑表格显示列
+ */
+const editTableColumn = () => {
+  tableRef.value?.editHeader();
+};
 
 const fetchData = () => {
   loading.value = true;

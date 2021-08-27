@@ -4,6 +4,7 @@
       <ingot-table
         :data="treeData.data"
         :headers="tableHeaders"
+        ref="tableRef"
         :row-key="treeData.key"
         :tree-props="treeData.props"
       >
@@ -23,6 +24,9 @@
             @click="showEditDialog()"
           >
             添加
+          </el-button>
+          <el-button size="small" @click="editTableColumn" class="item">
+            自定义列
           </el-button>
         </template>
         <template #icon="{ item }">
@@ -71,16 +75,25 @@ import {
 import { Confirm, Message } from "@/utils/message";
 import EditDialog from "./EditDialog.vue";
 import { API as EditDialogAPI } from "./EditDialog.vue";
+import type { API as TableAPI } from "@/components/Table/index.vue";
 
 const store = useStore();
 const editDialogRef = ref<EditDialogAPI>();
 const loading = ref(false);
 const treeData = computedDeptTreeListData();
 const selectData = ref<Array<DeptTreeNode>>([]);
+const tableRef = ref<TableAPI>();
 
 onMounted(() => {
   fetchData();
 });
+
+/**
+ * 编辑表格显示列
+ */
+const editTableColumn = () => {
+  tableRef.value?.editHeader();
+};
 
 const fetchData = () => {
   loading.value = true;
