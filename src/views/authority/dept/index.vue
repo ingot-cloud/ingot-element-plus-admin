@@ -32,6 +32,9 @@
             style="width: 20px; height: 20px"
           />
         </template>
+        <template #scope="{ item }">
+          {{ getDeptRoleScopeDesc(item.scope) }}
+        </template>
         <template #status="{ item }">
           <ingot-common-status-tag :status="item.status" />
         </template>
@@ -58,7 +61,7 @@
 <script lang="ts" setup>
 import { onMounted, ref, unref } from "vue";
 import { tableHeaders } from "./table";
-import { DeptTreeNode, SysDept } from "@/model";
+import { DeptTreeNode, SysDept, getDeptRoleScopeDesc } from "@/model";
 import { useStore } from "@/store";
 import {
   computedDeptTreeListData,
