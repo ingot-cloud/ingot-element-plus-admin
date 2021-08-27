@@ -10,6 +10,7 @@ import {
   SysDept,
   SysMenu,
   SysOauthClientDetails,
+  DeptTreeNode,
 } from "@/model";
 import { filterParams } from "@/utils/object";
 
@@ -87,18 +88,16 @@ export function bindDept(params: RoleBindParams): Promise<IngotResponse<void>> {
 }
 
 export function getBindDepts(
-  page: Page,
   id: string,
   isBind: boolean,
   condition?: SysDept
-): Promise<IngotResponse<Page<SysDept>>> {
+): Promise<IngotResponse<Array<DeptTreeNode>>> {
   if (condition) {
     filterParams(condition);
   }
-  return request.get<Page<SysDept>>({
+  return request.get<Array<DeptTreeNode>>({
     url: `/api/pms/v1/role/bindDept/${id}`,
     params: {
-      ...page,
       isBind,
       ...condition,
     },
