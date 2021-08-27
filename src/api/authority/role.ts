@@ -11,6 +11,7 @@ import {
   SysMenu,
   SysOauthClientDetails,
   DeptTreeNode,
+  MenuTreeNode,
 } from "@/model";
 import { filterParams } from "@/utils/object";
 
@@ -112,18 +113,16 @@ export function bindMenu(params: RoleBindParams): Promise<IngotResponse<void>> {
 }
 
 export function getBindMenus(
-  page: Page,
   id: string,
   isBind: boolean,
   condition?: SysMenu
-): Promise<IngotResponse<Page<SysMenu>>> {
+): Promise<IngotResponse<Array<MenuTreeNode>>> {
   if (condition) {
     filterParams(condition);
   }
-  return request.get<Page<SysMenu>>({
+  return request.get<Array<MenuTreeNode>>({
     url: `/api/pms/v1/role/bindMenu/${id}`,
     params: {
-      ...page,
       isBind,
       ...condition,
     },
