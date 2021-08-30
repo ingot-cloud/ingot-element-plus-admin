@@ -1,11 +1,5 @@
 export const tableHeaders = [
   {
-    label: "序号",
-    type: "index",
-    align: "center",
-    width: "50",
-  },
-  {
     label: "权限名称",
     prop: "name",
   },
@@ -30,12 +24,10 @@ export const tableHeaders = [
     prop: "status",
   },
   {
-    label: "创建时间",
-    prop: "createdAt",
-  },
-  {
     label: "操作",
-    width: "210",
+    width: "290",
     prop: "actions",
+    fixed: "right",
+    align: "center",
   },
 ];

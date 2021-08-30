@@ -1,5 +1,9 @@
 import { CommonStatus } from "./common";
 
+export interface AuthorityTreeNode extends SysAuthority {
+  children?: Array<AuthorityTreeNode>;
+}
+
 export interface SysAuthority {
   id?: string;
   pid?: string;

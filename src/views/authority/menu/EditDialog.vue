@@ -159,7 +159,7 @@ const defaultEditForm: SysMenu = {
 };
 
 const emits = defineEmits(["success"]);
-const props = defineProps({
+defineProps({
   data: {
     type: Array,
   },

@@ -155,16 +155,6 @@ const managementRoutes: Array<RouteRecordRaw> = [
             component: () =>
               import("@/views/authority/authority/home/index.vue"),
           },
-          {
-            name: "SysAuthorityAuthorityManagerChild",
-            meta: {
-              title: "子权限",
-              hidden: true,
-            },
-            path: "/authority/authority/chilid",
-            component: () =>
-              import("@/views/authority/authority/child/index.vue"),
-          },
         ],
       },
       {

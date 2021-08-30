@@ -1,24 +1,16 @@
 import request from "@/net";
-import { IngotResponse, Page, SysAuthority } from "@/model";
+import { IngotResponse, SysAuthority, AuthorityTreeNode } from "@/model";
 import { filterParams } from "@/utils/object";
 
 /**
  * 获取权限分页信息
  * @returns
  */
-export function page(
-  page: Page,
-  condition?: SysAuthority
-): Promise<IngotResponse<Page<SysAuthority>>> {
-  if (condition) {
-    filterParams(condition);
-  }
-  return request.get<Page<SysAuthority>>({
-    url: "/api/pms/v1/authority/page",
-    params: {
-      ...page,
-      ...condition,
-    },
+export function getAuthorityTree(): Promise<
+  IngotResponse<Array<AuthorityTreeNode>>
+> {
+  return request.get<Array<AuthorityTreeNode>>({
+    url: "/api/pms/v1/authority/tree",
   });
 }
 
