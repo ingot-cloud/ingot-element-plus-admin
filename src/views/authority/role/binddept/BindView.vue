@@ -14,6 +14,7 @@
         :tree-props="treeData.props"
         :selection="editBatch"
         :index="!editBatch"
+        :selectable="selectable"
         ref="bindTable"
         @handleSizeChange="fetchData"
         @handleCurrentChange="fetchData"
@@ -65,7 +66,12 @@
           <ingot-common-status-tag :status="item.status" />
         </template>
         <template #actions="{ item }">
-          <el-button size="mini" type="success" @click="handleBind(item)">
+          <el-button
+            size="mini"
+            type="success"
+            @click="handleBind(item)"
+            :disabled="!selectable(item)"
+          >
             绑定
           </el-button>
         </template>
@@ -74,7 +80,13 @@
   </el-drawer>
 </template>
 <script lang="ts" setup>
-import { defineProps, defineEmits, defineExpose } from "vue";
+import {
+  defineProps,
+  defineEmits,
+  defineExpose,
+  PropType,
+  computed,
+} from "vue";
 import { useRoute } from "vue-router";
 import { getBindDepts, bindDept } from "@/api/authority/role";
 import { tableHeaders } from "./header";
@@ -93,12 +105,20 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  bindArray: {
+    type: Array as PropType<Array<DeptTreeNode>>,
+    required: true,
+  },
 });
 const emits = defineEmits(["dataChanged"]);
 const route = useRoute();
 const treeData = {
   props: { children: "children", hasChildren: "hasChildren" },
   key: "id",
+};
+const bindIds = computed(() => props.bindArray.map((item) => item.id));
+const selectable = (row: DeptTreeNode) => {
+  return !bindIds.value.includes(row.id);
 };
 const {
   title,

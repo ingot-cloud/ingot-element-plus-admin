@@ -23,6 +23,7 @@
       v-if="selection"
       :width="selectionProps.width"
       :align="selectionProps.align"
+      :selectable="selectable"
       type="selection"
     />
     <el-table-column
@@ -141,6 +142,9 @@ const props = defineProps({
         width: "50",
       };
     },
+  },
+  selectable: {
+    type: Function as PropType<(row: any, index: number) => boolean>,
   },
   index: {
     type: Boolean,

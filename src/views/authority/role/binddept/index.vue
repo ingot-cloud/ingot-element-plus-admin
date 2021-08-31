@@ -72,7 +72,12 @@
       </ingot-table>
     </ingot-page-card>
   </ingot-container>
-  <BindView ref="bindView" :id="id" @dataChanged="fetchData" />
+  <BindView
+    ref="bindView"
+    :id="id"
+    :bindArray="bindPageInfo.records"
+    @dataChanged="fetchData"
+  />
 </template>
 <script lang="ts" setup>
 import { defineProps } from "vue";
