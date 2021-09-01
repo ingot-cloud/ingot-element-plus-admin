@@ -12,6 +12,7 @@ import {
   SysOauthClientDetails,
   DeptTreeNode,
   MenuTreeNode,
+  AuthorityTreeNode,
 } from "@/model";
 import { filterParams } from "@/utils/object";
 
@@ -63,18 +64,16 @@ export function bindAuthority(
 }
 
 export function getBindAuthorities(
-  page: Page,
   id: string,
   isBind: boolean,
   condition?: SysAuthority
-): Promise<IngotResponse<Page<SysAuthority>>> {
+): Promise<IngotResponse<Array<AuthorityTreeNode>>> {
   if (condition) {
     filterParams(condition);
   }
-  return request.get<Page<SysAuthority>>({
+  return request.get<Array<AuthorityTreeNode>>({
     url: `/api/pms/v1/role/bindAuthority/${id}`,
     params: {
-      ...page,
       isBind,
       ...condition,
     },

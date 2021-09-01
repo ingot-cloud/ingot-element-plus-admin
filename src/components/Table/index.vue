@@ -86,6 +86,7 @@ export interface API {
   clearSelection(): void;
   editHeader(): void;
 }
+export default {};
 </script>
 <script lang="ts" setup>
 import {

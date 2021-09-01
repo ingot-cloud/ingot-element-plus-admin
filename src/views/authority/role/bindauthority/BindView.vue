@@ -1,6 +1,12 @@
 <template>
-  <ingot-container>
-    <ingot-page-card @back="$router.back()" :content="title">
+  <el-drawer
+    :title="title"
+    v-model="isShow"
+    direction="ltr"
+    :modal="false"
+    size="70%"
+  >
+    <ingot-container>
       <ingot-table
         :headers="headers"
         :data="bindPageInfo.records"
@@ -8,6 +14,7 @@
         :tree-props="treeData.props"
         :selection="editBatch"
         :index="!editBatch"
+        :selectable="selectable"
         ref="bindTable"
         @handleSizeChange="fetchData"
         @handleCurrentChange="fetchData"
@@ -32,15 +39,9 @@
           </el-button>
         </template>
         <template #filter>
-          <el-button size="small" @click="showBindMoreView">
-            绑定更多
-          </el-button>
-          <el-button size="small" @click="editTableColumn" class="item">
-            自定义列
-          </el-button>
           <div v-if="!editBatch" class="item">
             <el-button size="small" @click="editBatch = true">
-              批量解绑
+              批量绑定
             </el-button>
           </div>
           <div v-else class="item">
@@ -49,9 +50,9 @@
               type="danger"
               class="item"
               :disabled="selectData.length === 0"
-              @click="handleBatchUnbind"
+              @click="handleBatchBind"
             >
-              解绑
+              绑定
             </el-button>
             <el-button size="small" type="warning" @click="cancelEditBatch">
               取消
@@ -65,66 +66,83 @@
           <ingot-common-status-tag :status="item.status" />
         </template>
         <template #actions="{ item }">
-          <el-button size="mini" type="danger" @click="handleUnbind(item)">
-            解绑
+          <el-button
+            size="mini"
+            type="success"
+            @click="handleBind(item)"
+            :disabled="!selectable(item)"
+          >
+            绑定
           </el-button>
         </template>
       </ingot-table>
-    </ingot-page-card>
-  </ingot-container>
-  <BindView
-    ref="bindView"
-    :id="id"
-    :bindArray="bindPageInfo.records"
-    @dataChanged="fetchData"
-  />
+    </ingot-container>
+  </el-drawer>
 </template>
 <script lang="ts" setup>
-import { defineProps } from "vue";
+import {
+  defineProps,
+  defineEmits,
+  defineExpose,
+  PropType,
+  computed,
+} from "vue";
 import { useRoute } from "vue-router";
 import { getBindAuthorities, bindAuthority } from "@/api/authority/role";
 import { tableHeaders } from "./header";
 import {
   Page,
   SysAuthority,
+  AuthorityTreeNode,
   IngotResponse,
   RoleBindParams,
   getDeptRoleScopeDesc,
-  AuthorityTreeNode,
 } from "@/model";
-import BindView from "./BindView.vue";
-import { bindSetup } from "@/views/authority/role/common/bind";
+import { unbindSetup } from "@/views/authority/role/common/bind";
 
-const props = defineProps(["id"]);
+const props = defineProps({
+  id: {
+    type: String,
+    required: true,
+  },
+  bindArray: {
+    type: Array as PropType<Array<AuthorityTreeNode>>,
+    required: true,
+  },
+});
+const emits = defineEmits(["dataChanged"]);
 const route = useRoute();
 const treeData = {
   props: { children: "children", hasChildren: "hasChildren" },
   key: "id",
 };
+const bindIds = computed(() => props.bindArray.map((item) => item.id));
+const selectable = (row: AuthorityTreeNode) => {
+  return !bindIds.value.includes(row.id);
+};
 const {
   title,
+  isShow,
   bindTable,
-  bindView,
   editBatch,
   headers,
   bindPageInfo,
   selectData,
   queryCondition,
   fetchData,
-  handleUnbind,
-  handleBatchUnbind,
+  handleBind,
+  handleBatchBind,
   cancelEditBatch,
-  editTableColumn,
   onSelectChanged,
-  showBindMoreView,
-} = bindSetup({
-  title: `角色：${route.query.name}`,
+  show,
+} = unbindSetup({
+  title: `角色：${route.query.name} - 关联更多权限`,
   id: props.id,
   tableHeaders,
   singleConfirmMessage(item: SysAuthority) {
-    return `是否解绑权限:${item.name}`;
+    return `是否绑定权限:${item.name}`;
   },
-  batchConfirmMessage: "是否解绑所选权限?",
+  batchConfirmMessage: "是否绑定所选权限?",
   fetchData(
     page: Page,
     id: string,
@@ -152,5 +170,11 @@ const {
   bind(bindParams: RoleBindParams): Promise<IngotResponse<void>> {
     return bindAuthority(bindParams);
   },
+  emit: emits,
+});
+
+defineExpose({
+  show,
+  fetchData,
 });
 </script>
