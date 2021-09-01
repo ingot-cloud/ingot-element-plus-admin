@@ -59,6 +59,13 @@
             </el-button>
           </div>
         </template>
+        <template #icon="{ item }">
+          <ingot-icon
+            v-if="item.icon"
+            :icon="item.icon"
+            style="width: 20px; height: 20px"
+          />
+        </template>
         <template #scope="{ item }">
           {{ getDeptRoleScopeDesc(item.scope) }}
         </template>
@@ -116,9 +123,24 @@ const treeData = {
   props: { children: "children", hasChildren: "hasChildren" },
   key: "id",
 };
-const bindIds = computed(() => props.bindArray.map((item) => item.id));
+
+const stretch = (tree: Array<MenuTreeNode>): Array<string> => {
+  let ids: Array<string> = [];
+
+  tree.forEach((item) => {
+    ids.push(item.id as string);
+    if (item.children) {
+      ids = ids.concat(stretch(item.children));
+    }
+  });
+
+  return ids;
+};
+
+const bindIds = computed(() => stretch(props.bindArray));
+
 const selectable = (row: MenuTreeNode) => {
-  return !bindIds.value.includes(row.id);
+  return !bindIds.value.includes(row.id as string);
 };
 const {
   title,

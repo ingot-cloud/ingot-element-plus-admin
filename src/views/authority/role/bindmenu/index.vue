@@ -58,6 +58,13 @@
             </el-button>
           </div>
         </template>
+        <template #icon="{ item }">
+          <ingot-icon
+            v-if="item.icon"
+            :icon="item.icon"
+            style="width: 20px; height: 20px"
+          />
+        </template>
         <template #scope="{ item }">
           {{ getDeptRoleScopeDesc(item.scope) }}
         </template>
