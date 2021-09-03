@@ -18,7 +18,7 @@ export function refreshToken(
     scope: "web",
   });
   return request.post<UserToken>({
-    url: "/api/acs/oauth/token",
+    url: "/api/auth/oauth/token",
     params: data,
     config: {
       headers: {
@@ -50,7 +50,7 @@ export function login({
     scope: "web",
   });
   return request.post<UserToken>({
-    url: "/api/acs/oauth/token",
+    url: "/api/auth/oauth/token",
     params: data,
     config: {
       headers: {
