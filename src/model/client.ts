@@ -46,6 +46,39 @@ export function grantTypeList(): Array<SelectItemParams> {
   ];
 }
 
+export enum ClientAuthMethod {
+  CLIENT_SECRET_BASIC = "client_secret_basic",
+  CLIENT_SECRET_POST = "client_secret_post",
+  CLIENT_SECRET_JWT = "client_secret_jwt",
+  PRIVATE_KEY_JWT = "private_key_jwt",
+  NONE = "none",
+}
+
+export function getClientAuthMethodList(): Array<SelectItemParams> {
+  return [
+    {
+      label: "Client Secret Basic",
+      value: ClientAuthMethod.CLIENT_SECRET_BASIC,
+    },
+    {
+      label: "Client Secret Post",
+      value: ClientAuthMethod.CLIENT_SECRET_POST,
+    },
+    {
+      label: "Client Secret JWT",
+      value: ClientAuthMethod.CLIENT_SECRET_JWT,
+    },
+    {
+      label: "Private Key JWT",
+      value: ClientAuthMethod.PRIVATE_KEY_JWT,
+    },
+    {
+      label: "None",
+      value: ClientAuthMethod.NONE,
+    },
+  ];
+}
+
 export interface OAuth2RegisteredClient {
   id?: string;
   clientId?: string;
@@ -56,12 +89,12 @@ export interface OAuth2RegisteredClient {
   authorizationGrantTypes?: string;
   redirectUris?: string;
   scopes?: string;
-  requireProofKey?: string;
-  requireAuthorizationConsent?: number;
-  accessTokenTimeToLive?: number;
-  reuseRefreshTokens?: string;
+  requireProofKey?: boolean;
+  requireAuthorizationConsent?: boolean;
+  accessTokenTimeToLive?: string;
+  reuseRefreshTokens?: boolean;
   refreshTokenTimeToLive?: string;
-  idTokenSignatureAlgorithm?: AuthType;
+  idTokenSignatureAlgorithm?: string;
   tokenAuthenticationMethod?: string;
   status?: CommonStatus;
 }

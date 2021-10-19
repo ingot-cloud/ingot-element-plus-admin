@@ -33,7 +33,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="秘钥" prop="clientSecret">
+            <el-form-item label="客户端秘钥" prop="clientSecret">
               <el-input
                 v-model="editForm.clientSecret"
                 disabled
@@ -67,11 +67,23 @@
           </el-col>
         </el-row>
 
-        <el-form-item label="Client授权类型">
+        <el-form-item label="Client认证方式">
+          <ingot-select
+            v-model="editForm.clientAuthenticationMethods"
+            :options="getClientAuthMethodList()"
+            placeholder="请选择Client认证方式"
+            split=","
+            size="small"
+            multiple
+            class="form-item"
+          />
+        </el-form-item>
+
+        <el-form-item label="授权授予类型">
           <ingot-select
             v-model="editForm.authorizationGrantTypes"
             :options="grantTypeList()"
-            placeholder="请选择允许授权类型"
+            placeholder="请选择允许授予类型"
             split=","
             size="small"
             multiple
@@ -171,6 +183,7 @@ import {
   getAuthTypeSelectList,
   grantTypeList,
   AuthorizedGrantType,
+  getClientAuthMethodList,
 } from "@/model";
 import { getOne, update } from "@/api/authority/client";
 import { copyParams, getDiffWithIgnore } from "@/utils/object";
@@ -185,6 +198,10 @@ const edit = ref(false);
 const props = defineProps(["id"]);
 
 const handleSaveEdit = () => {
+  if (editForm.scopes === "") {
+    Message.warning("访问范围不能为空");
+    return;
+  }
   const params = getDiffWithIgnore(rawForm, editForm, ["clientId"]);
   update(params).then(() => {
     Message.success("操作成功");

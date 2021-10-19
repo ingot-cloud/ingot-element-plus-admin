@@ -34,19 +34,19 @@
 
       <el-row :gutter="20">
         <el-col :span="12">
-          <el-form-item label="资源ID" prop="resourceId">
+          <el-form-item label="客户端名称" prop="clientName">
             <el-input
-              v-model="editForm.resourceId"
+              v-model="editForm.clientName"
               clearable
-              placeholder="请输入客户端资源ID"
+              placeholder="请输入客户端名称"
               class="form-item"
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="访问范围">
+          <el-form-item label="访问范围" prop="scopes">
             <el-input
-              v-model="editForm.scope"
+              v-model="editForm.scopes"
               clearable
               placeholder="请输入客户端scope"
               class="form-item"
@@ -55,9 +55,21 @@
         </el-col>
       </el-row>
 
-      <el-form-item label="允许授权类型">
+      <el-form-item label="Client认证方式">
         <ingot-select
-          v-model="editForm.authorizedGrantTypes"
+          v-model="editForm.clientAuthenticationMethods"
+          :options="getClientAuthMethodList()"
+          placeholder="请选择Client认证方式"
+          split=","
+          size="small"
+          multiple
+          class="form-item"
+        />
+      </el-form-item>
+
+      <el-form-item label="Client授权类型">
+        <ingot-select
+          v-model="editForm.authorizationGrantTypes"
           :options="grantTypeList()"
           placeholder="请选择允许授权类型"
           split=","
@@ -68,7 +80,7 @@
       </el-form-item>
       <el-form-item label="重定向URL">
         <el-input
-          v-model="editForm.webServerRedirectUri"
+          v-model="editForm.redirectUris"
           clearable
           placeholder="请输入重定向URL"
           class="form-item"
@@ -79,7 +91,7 @@
         <el-col :span="12">
           <el-form-item label="访问Token失效时间">
             <el-input
-              v-model="editForm.accessTokenValidity"
+              v-model="editForm.accessTokenTimeToLive"
               clearable
               type="number"
               placeholder="请输入访问Token失效时间"
@@ -88,9 +100,22 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
+          <el-form-item label="Token授权类型">
+            <ingot-select
+              v-model="editForm.tokenAuthenticationMethod"
+              :options="getAuthTypeSelectList()"
+              size="small"
+              class="form-item"
+            />
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :gutter="20" v-if="grantRefreshToken">
+        <el-col :span="12">
           <el-form-item label="刷新Token失效时间">
             <el-input
-              v-model="editForm.refreshTokenValidity"
+              v-model="editForm.refreshTokenTimeToLive"
               clearable
               type="number"
               placeholder="请输入刷新Token失效时间"
@@ -98,27 +123,34 @@
             ></el-input>
           </el-form-item>
         </el-col>
+        <el-col :span="12">
+          <el-form-item label="重复使用刷新Token">
+            <el-switch
+              v-model="editForm.reuseRefreshTokens"
+              size="small"
+              class="form-item"
+            />
+          </el-form-item>
+        </el-col>
       </el-row>
 
-      <el-row :gutter="20">
+      <el-row :gutter="20" v-if="grantCode">
         <el-col :span="12">
-          <el-form-item label="授权类型">
-            <ingot-select
-              v-model="editForm.authType"
-              :options="getAuthTypeSelectList()"
+          <el-form-item label="需要提供验证密钥质询和验证器">
+            <el-switch
+              v-model="editForm.requireProofKey"
               size="small"
               class="form-item"
             />
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="备注">
-            <el-input
-              v-model="editForm.remark"
-              clearable
-              placeholder="请输入备注信息"
+          <el-form-item label="需要授权同意">
+            <el-switch
+              v-model="editForm.requireAuthorizationConsent"
+              size="small"
               class="form-item"
-            ></el-input>
+            />
           </el-form-item>
         </el-col>
       </el-row>
@@ -142,12 +174,14 @@ export interface API {
 </script>
 <script lang="ts" setup>
 import {
-  SysOauthClientDetails,
+  OAuth2RegisteredClient,
   AuthType,
   getAuthTypeSelectList,
   grantTypeList,
+  AuthorizedGrantType,
+  getClientAuthMethodList,
 } from "@/model";
-import { defineEmits, reactive, ref, defineExpose, toRaw } from "vue";
+import { defineEmits, reactive, ref, defineExpose, toRaw, computed } from "vue";
 import { create } from "@/api/authority/client";
 import { Message } from "@/utils/message";
 import { copyParams } from "@/utils/object";
@@ -157,26 +191,30 @@ const rules = {
   clientSecret: [
     { required: true, message: "请输入客户端秘钥", trigger: "blur" },
   ],
-  resourceId: [{ required: true, message: "请输入资源ID", trigger: "blur" }],
+  clientName: [
+    { required: true, message: "请输入客户端名称", trigger: "blur" },
+  ],
+  scopes: [
+    { required: true, message: "请输入客户端访问范围", trigger: "blur" },
+  ],
 };
 
-const defaultEditForm: SysOauthClientDetails = {
+const defaultEditForm: OAuth2RegisteredClient = {
   id: undefined,
   clientId: undefined,
   clientSecret: undefined,
-  resourceId: undefined,
-  resourceIds: undefined,
-  scope: undefined,
-  authorizedGrantTypes: undefined,
-  webServerRedirectUri: undefined,
-  authorities: undefined,
-  accessTokenValidity: 7200,
-  refreshTokenValidity: 7200,
-  additionalInformation: undefined,
-  autoapprove: undefined,
-  authType: AuthType.Standard,
-  type: undefined,
-  remark: undefined,
+  clientName: undefined,
+  clientAuthenticationMethods: undefined,
+  authorizationGrantTypes: undefined,
+  redirectUris: undefined,
+  scopes: undefined,
+  requireProofKey: false,
+  requireAuthorizationConsent: false,
+  accessTokenTimeToLive: undefined,
+  reuseRefreshTokens: false,
+  refreshTokenTimeToLive: undefined,
+  idTokenSignatureAlgorithm: undefined,
+  tokenAuthenticationMethod: AuthType.Standard,
 };
 
 const emits = defineEmits(["success"]);
@@ -196,7 +234,7 @@ const handleConfirmClick = () => {
   editFormRef.value.validate((valid: boolean) => {
     if (valid) {
       loading.value = true;
-      const params: SysOauthClientDetails = toRaw(editForm);
+      const params: OAuth2RegisteredClient = toRaw(editForm);
 
       create(params)
         .then(() => {
@@ -211,6 +249,24 @@ const handleConfirmClick = () => {
     }
   });
 };
+
+const grantRefreshToken = computed(() => {
+  return (
+    editForm.authorizationGrantTypes &&
+    (editForm.authorizationGrantTypes as string).indexOf(
+      AuthorizedGrantType.RefreshToken
+    ) > -1
+  );
+});
+
+const grantCode = computed(() => {
+  return (
+    editForm.authorizationGrantTypes &&
+    (editForm.authorizationGrantTypes as string).indexOf(
+      AuthorizedGrantType.Code
+    ) > -1
+  );
+});
 
 defineExpose({
   show,
