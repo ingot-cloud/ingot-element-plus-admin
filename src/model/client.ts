@@ -1,8 +1,8 @@
 import { CommonStatus, SelectItemParams } from "./common";
 
 export enum AuthType {
-  Unique = "unique",
-  Standard = "standard",
+  Unique = "1",
+  Standard = "0",
 }
 
 export function getAuthTypeSelectList(): Array<SelectItemParams> {

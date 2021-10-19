@@ -39,13 +39,23 @@
           </el-button>
         </template>
 
-        <template #authorizedGrantTypes="{ item }">
+        <template #authorizationGrantTypes="{ item }">
           <el-tag
             style="margin: 1px"
-            v-for="grant in grantTypeList(item.authorizedGrantTypes)"
+            v-for="grant in stringToArray(item.authorizationGrantTypes)"
             :key="grant"
           >
             {{ grant }}
+          </el-tag>
+        </template>
+
+        <template #scopes="{ item }">
+          <el-tag
+            style="margin: 1px"
+            v-for="scope in stringToArray(item.scopes)"
+            :key="scope"
+          >
+            {{ scope }}
           </el-tag>
         </template>
 
@@ -116,11 +126,11 @@ const handleCreate = (): void => {
   createDialogRef.value?.show();
 };
 
-const grantTypeList = (authorizedGrantTypes: string) => {
-  if (!authorizedGrantTypes) {
+const stringToArray = (target: string, split = ",") => {
+  if (!target) {
     return [];
   }
-  const arr = authorizedGrantTypes.split(",");
+  const arr = target.split(split);
   if (!arr || arr.length === 0) {
     return null;
   }
