@@ -67,7 +67,8 @@ const bizResponseFailureHandler = (
           .catch(() => {
             // 刷新失败退出登录
             handlLogout();
-            Message.warning(data.message, { showClose: true });
+            console.debug(data.message);
+            Message.warning("令牌失效", { showClose: true });
             reject(response);
           });
       });
