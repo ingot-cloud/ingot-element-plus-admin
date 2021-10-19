@@ -2,7 +2,7 @@ enum StatusCode {
   Unknown = "-1",
   OK = "0200",
 
-  TokenInvalid = "S0001",
+  TokenInvalid = "invalid_token",
   TokenSignBack = "S0003",
 }
 

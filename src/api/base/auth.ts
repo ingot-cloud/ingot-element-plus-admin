@@ -3,7 +3,7 @@ import Qs from "qs";
 import { UserToken, IngotResponse } from "@/model";
 import { getLoginTenant } from "@/store/composition/auth";
 
-const BasicToken = "Basic d2ViLWNsb3VkOndlYi1jbG91ZA==";
+const BasicToken = "Basic aW5nb3Q6aW5nb3Q=";
 
 /**
  * 刷新Token
@@ -15,10 +15,9 @@ export function refreshToken(
   const data = Qs.stringify({
     refresh_token: refreshToken,
     grant_type: "refresh_token",
-    scope: "web",
   });
   return request.post<UserToken>({
-    url: "/api/auth/oauth/token",
+    url: "/api/auth/oauth2/token",
     params: data,
     config: {
       headers: {
@@ -47,10 +46,9 @@ export function login({
     username,
     password,
     grant_type: "password",
-    scope: "web",
   });
   return request.post<UserToken>({
-    url: "/api/auth/oauth/token",
+    url: "/api/auth/oauth2/token",
     params: data,
     config: {
       headers: {
