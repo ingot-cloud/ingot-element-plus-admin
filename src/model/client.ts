@@ -46,23 +46,22 @@ export function grantTypeList(): Array<SelectItemParams> {
   ];
 }
 
-export interface SysOauthClientDetails {
+export interface OAuth2RegisteredClient {
   id?: string;
   clientId?: string;
+  clientIdIssuedAt?: string;
   clientSecret?: string;
-  resourceId?: string;
-  resourceIds?: string;
-  scope?: string;
-  authorizedGrantTypes?: string;
-  webServerRedirectUri?: string;
-  authorities?: string;
-  accessTokenValidity?: number;
-  refreshTokenValidity?: number;
-  additionalInformation?: string;
-  autoapprove?: string;
-  authType?: AuthType;
-  type?: string;
+  clientName?: string;
+  clientAuthenticationMethods?: string;
+  authorizationGrantTypes?: string;
+  redirectUris?: string;
+  scopes?: string;
+  requireProofKey?: string;
+  requireAuthorizationConsent?: number;
+  accessTokenTimeToLive?: number;
+  reuseRefreshTokens?: string;
+  refreshTokenTimeToLive?: string;
+  idTokenSignatureAlgorithm?: AuthType;
+  tokenAuthenticationMethod?: string;
   status?: CommonStatus;
-  remark?: string;
-  createdAt?: string;
 }

@@ -1,5 +1,5 @@
 import request from "@/net";
-import { IngotResponse, Page, SysOauthClientDetails } from "@/model";
+import { IngotResponse, Page, OAuth2RegisteredClient } from "@/model";
 import { filterParams } from "@/utils/object";
 
 /**
@@ -8,12 +8,12 @@ import { filterParams } from "@/utils/object";
  */
 export function page(
   page: Page,
-  condition?: SysOauthClientDetails
-): Promise<IngotResponse<Page<SysOauthClientDetails>>> {
+  condition?: OAuth2RegisteredClient
+): Promise<IngotResponse<Page<OAuth2RegisteredClient>>> {
   if (condition) {
     filterParams(condition);
   }
-  return request.get<Page<SysOauthClientDetails>>({
+  return request.get<Page<OAuth2RegisteredClient>>({
     url: "/api/pms/v1/client/page",
     params: {
       ...page,
@@ -29,8 +29,8 @@ export function page(
  */
 export function getOne(
   id: string
-): Promise<IngotResponse<SysOauthClientDetails>> {
-  return request.get<SysOauthClientDetails>({
+): Promise<IngotResponse<OAuth2RegisteredClient>> {
+  return request.get<OAuth2RegisteredClient>({
     url: `/api/pms/v1/client/${id}`,
   });
 }
@@ -41,7 +41,7 @@ export function getOne(
  * @returns
  */
 export function create(
-  params: SysOauthClientDetails
+  params: OAuth2RegisteredClient
 ): Promise<IngotResponse<void>> {
   filterParams(params);
   return request.post<void>({
@@ -56,7 +56,7 @@ export function create(
  * @returns
  */
 export function update(
-  params: SysOauthClientDetails
+  params: OAuth2RegisteredClient
 ): Promise<IngotResponse<void>> {
   filterParams(params);
   return request.put<void>({

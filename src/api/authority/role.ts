@@ -9,7 +9,7 @@ import {
   SysAuthority,
   SysDept,
   SysMenu,
-  SysOauthClientDetails,
+  OAuth2RegisteredClient,
   DeptTreeNode,
   MenuTreeNode,
   AuthorityTreeNode,
@@ -141,12 +141,12 @@ export function getBindClients(
   page: Page,
   id: string,
   isBind: boolean,
-  condition?: SysOauthClientDetails
-): Promise<IngotResponse<Page<SysOauthClientDetails>>> {
+  condition?: OAuth2RegisteredClient
+): Promise<IngotResponse<Page<OAuth2RegisteredClient>>> {
   if (condition) {
     filterParams(condition);
   }
-  return request.get<Page<SysOauthClientDetails>>({
+  return request.get<Page<OAuth2RegisteredClient>>({
     url: `/api/pms/v1/role/bindClient/${id}`,
     params: {
       ...page,

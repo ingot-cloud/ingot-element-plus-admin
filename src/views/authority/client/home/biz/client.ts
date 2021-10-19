@@ -1,5 +1,5 @@
 import {
-  SysOauthClientDetails,
+  OAuth2RegisteredClient,
   Page,
   PageChangeParams,
   CommonStatus,
@@ -10,13 +10,13 @@ import { page, update, remove } from "@/api/authority/client";
 import { Confirm, Message } from "@/utils/message";
 import router from "@/router";
 
-export const condition = reactive({} as SysOauthClientDetails);
+export const condition = reactive({} as OAuth2RegisteredClient);
 export const pageInfo = reactive({
   current: 1,
   size: 20,
   total: 0,
   records: [],
-} as Page<SysOauthClientDetails>);
+} as Page<OAuth2RegisteredClient>);
 
 export function fetchData(params?: PageChangeParams): void {
   if (params) {
@@ -31,14 +31,14 @@ export function fetchData(params?: PageChangeParams): void {
   });
 }
 
-export function handleManager(params: SysOauthClientDetails): void {
+export function handleManager(params: OAuth2RegisteredClient): void {
   router.push({
     path: `/authority/client/${params.id}`,
   });
 }
 
 export function handleDelete(
-  params: SysOauthClientDetails,
+  params: OAuth2RegisteredClient,
   callback?: (params?: PageChangeParams) => void
 ): void {
   Confirm.warning(`是否删除客户端(${params.clientId})`).then(() => {
@@ -52,7 +52,7 @@ export function handleDelete(
 }
 
 export function handleDisable(
-  params: SysOauthClientDetails,
+  params: OAuth2RegisteredClient,
   callback?: (params?: PageChangeParams) => void
 ): void {
   const status =

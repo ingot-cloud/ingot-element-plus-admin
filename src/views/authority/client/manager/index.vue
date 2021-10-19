@@ -147,7 +147,7 @@
 <script lang="ts" setup>
 import { defineProps, reactive, ref, onMounted } from "vue";
 import {
-  SysOauthClientDetails,
+  OAuth2RegisteredClient,
   getAuthTypeSelectList,
   grantTypeList,
 } from "@/model";
@@ -156,8 +156,8 @@ import { copyParams, getDiffWithIgnore } from "@/utils/object";
 import { Message } from "@/utils/message";
 
 const editFormRef = ref();
-const editForm = reactive({} as SysOauthClientDetails);
-const rawForm = reactive({} as SysOauthClientDetails);
+const editForm = reactive({} as OAuth2RegisteredClient);
+const rawForm = reactive({} as OAuth2RegisteredClient);
 
 const edit = ref(false);
 
