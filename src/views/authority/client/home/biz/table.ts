@@ -16,18 +16,22 @@ export const tableHeaders = [
   {
     label: "认证方式",
     prop: "clientAuthenticationMethods",
+    width: "100",
   },
   {
     label: "授权类型",
     prop: "authorizationGrantTypes",
+    width: "180",
   },
   {
     label: "重定向URI",
     prop: "redirectUris",
+    width: "100",
   },
   {
     label: "访问范围",
     prop: "scopes",
+    width: "150",
   },
   {
     label: "需要提供验证密钥质询和验证器(授权码流程)",

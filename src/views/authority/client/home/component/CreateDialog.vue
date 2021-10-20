@@ -103,7 +103,7 @@
           <el-form-item label="Token授权类型">
             <ingot-select
               v-model="editForm.tokenAuthenticationMethod"
-              :options="getAuthTypeSelectList()"
+              :options="getTokenAuthMethodSelectList()"
               size="small"
               class="form-item"
             />
@@ -175,8 +175,8 @@ export interface API {
 <script lang="ts" setup>
 import {
   OAuth2RegisteredClient,
-  AuthType,
-  getAuthTypeSelectList,
+  TokenAuthMethod,
+  getTokenAuthMethodSelectList,
   grantTypeList,
   AuthorizedGrantType,
   getClientAuthMethodList,
@@ -214,7 +214,7 @@ const defaultEditForm: OAuth2RegisteredClient = {
   reuseRefreshTokens: false,
   refreshTokenTimeToLive: undefined,
   idTokenSignatureAlgorithm: undefined,
-  tokenAuthenticationMethod: AuthType.Standard,
+  tokenAuthenticationMethod: TokenAuthMethod.Standard,
 };
 
 const emits = defineEmits(["success"]);

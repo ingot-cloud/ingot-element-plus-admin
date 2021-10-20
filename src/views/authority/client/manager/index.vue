@@ -115,7 +115,7 @@
             <el-form-item label="Token授权类型">
               <ingot-select
                 v-model="editForm.tokenAuthenticationMethod"
-                :options="getAuthTypeSelectList()"
+                :options="getTokenAuthMethodSelectList()"
                 size="small"
                 class="form-item"
               />
@@ -180,7 +180,7 @@
 import { defineProps, reactive, ref, onMounted, computed } from "vue";
 import {
   OAuth2RegisteredClient,
-  getAuthTypeSelectList,
+  getTokenAuthMethodSelectList,
   grantTypeList,
   AuthorizedGrantType,
   getClientAuthMethodList,

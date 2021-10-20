@@ -59,10 +59,14 @@
           </el-tag>
         </template>
 
-        <template #status="{ item }">
-          <el-tag :type="getCommonStatusTag(item.status)">
-            {{ getCommonStatusDesc(item.status) }}
+        <template #tokenAuthenticationMethod="{ item }">
+          <el-tag :type="getTokenAuthMethodTag(item.status)">
+            {{ getTokenAuthMethodLabel(item.status) }}
           </el-tag>
+        </template>
+
+        <template #status="{ item }">
+          <ingot-common-status-tag :status="item.status" />
         </template>
         <template #actions="{ item }">
           <el-button size="mini" type="primary" @click="handleManager(item)">
@@ -92,10 +96,10 @@
 import { onMounted, ref } from "vue";
 import { tableHeaders } from "./biz/table";
 import {
-  getCommonStatusDesc,
-  getCommonStatusTag,
   getDisableButtonParams,
-} from "@/model/common";
+  getTokenAuthMethodTag,
+  getTokenAuthMethodLabel,
+} from "@/model";
 import {
   fetchData,
   handleDelete,

@@ -1,19 +1,37 @@
 import { CommonStatus, SelectItemParams } from "./common";
 
-export enum AuthType {
+export enum TokenAuthMethod {
   Unique = "1",
   Standard = "0",
 }
 
-export function getAuthTypeSelectList(): Array<SelectItemParams> {
+export function getTokenAuthMethodLabel(method: TokenAuthMethod): string {
+  switch (method) {
+    case TokenAuthMethod.Unique:
+      return "唯一";
+    case TokenAuthMethod.Standard:
+      return "标准";
+  }
+}
+
+export function getTokenAuthMethodTag(method: TokenAuthMethod): string {
+  switch (method) {
+    case TokenAuthMethod.Unique:
+      return "warning";
+    case TokenAuthMethod.Standard:
+      return "danger";
+  }
+}
+
+export function getTokenAuthMethodSelectList(): Array<SelectItemParams> {
   return [
     {
       label: "标准",
-      value: AuthType.Standard,
+      value: TokenAuthMethod.Standard,
     },
     {
       label: "唯一",
-      value: AuthType.Unique,
+      value: TokenAuthMethod.Unique,
     },
   ];
 }

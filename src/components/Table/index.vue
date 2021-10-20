@@ -45,7 +45,7 @@
     >
       <template #="scope" v-if="!item.type">
         <slot :name="item.prop" :item="scope.row" :index="scope.$index">
-          {{ scope.row[item.prop] }}
+          {{ scope.row[String(item.prop)] }}
         </slot>
       </template>
     </el-table-column>
