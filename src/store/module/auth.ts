@@ -3,7 +3,7 @@ import { StoreType, UserInfo, UserToken } from "@/model";
 import { AuthModuleState, RootState } from "@/store/types";
 import { StoreManager } from "@/utils/store";
 import { getUserInfo } from "@/api/base/user";
-import { refreshToken } from "@/api/base/auth";
+import { refreshToken, revoke } from "@/api/base/auth";
 import { Mutations, Getters, Actions } from "@/store/constants/auth";
 
 export { moduleName } from "@/store/constants/auth";
@@ -142,9 +142,12 @@ const authModule: Module<AuthModuleState, RootState> = {
     },
     [`${Actions.clear}`]({ commit }) {
       return new Promise<void>((resolve) => {
-        commit(Mutations.removeToken);
-        commit(Mutations.removeUserInfo);
-        resolve();
+        const doResult = () => {
+          commit(Mutations.removeToken);
+          commit(Mutations.removeUserInfo);
+          resolve();
+        };
+        revoke().then(doResult).catch(doResult);
       });
     },
   },

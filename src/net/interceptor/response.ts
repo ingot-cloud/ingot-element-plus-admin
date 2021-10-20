@@ -66,10 +66,10 @@ const bizResponseFailureHandler = (
           })
           .catch(() => {
             // 刷新失败退出登录
-            handlLogout();
+            // handlLogout();
             console.debug(data.message);
             Message.warning("令牌失效", { showClose: true });
-            reject(response);
+            // reject(response);
           });
       });
     case StatusCode.TokenSignBack:

@@ -58,3 +58,12 @@ export function login({
     },
   });
 }
+
+/**
+ * 撤销Token
+ */
+export function revoke(): Promise<IngotResponse<void>> {
+  return request.delete<void>({
+    url: "/api/auth/token",
+  });
+}
