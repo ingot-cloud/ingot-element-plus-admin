@@ -205,6 +205,7 @@ const handleSaveEdit = () => {
   const params = getDiffWithIgnore(rawForm, editForm, ["clientId"]);
   update(params).then(() => {
     Message.success("操作成功");
+    fetchData();
     edit.value = false;
   });
 };
@@ -232,11 +233,15 @@ const grantCode = computed(() => {
   );
 });
 
-onMounted(() => {
+const fetchData = () => {
   getOne(props.id).then((response) => {
     copyParams(editForm, response.data);
     copyParams(rawForm, response.data);
   });
+};
+
+onMounted(() => {
+  fetchData();
 });
 </script>
 <style lang="stylus" scoped>
