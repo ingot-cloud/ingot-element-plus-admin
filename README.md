@@ -1,2 +1,2 @@
 # ingot-admin
-Ingot Admin
+vue3, vite, pinia, element-plus, vueuse

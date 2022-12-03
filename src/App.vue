@@ -8,4 +8,3 @@
 <script lang="ts" setup>
 const cacheViews: string[] = [];
 </script>
-<style lang="stylus"></style>
