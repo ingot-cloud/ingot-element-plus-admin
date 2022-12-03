@@ -1,8 +1,4 @@
-<script setup lang="ts">
-import SwitchDark from '@/components/SwitchDark.vue';
-
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <SwitchDark />

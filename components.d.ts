@@ -7,11 +7,14 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BaseContainer: typeof import('./src/components/BaseContainer.vue')['default']
+    Container: typeof import("./src/components/Container.vue")["default"]
     ElButton: typeof import('element-plus/es')['ElButton']
     ElIcon: typeof import('element-plus/es')['ElIcon']
-    ElRow: typeof import('element-plus/es')['ElRow']
+    ElRow: typeof import("element-plus/es")["ElRow"]
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    FilterContainer: typeof import('./src/components/FilterContainer.vue')['default']
+    HelloWorld: typeof import("./src/components/HelloWorld.vue")["default"]
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
     IconDark: typeof import('./src/components/icons/IconDark.vue')['default']
     IconDocumentation: typeof import('./src/components/icons/IconDocumentation.vue')['default']
@@ -22,7 +25,5 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SwitchDark: typeof import('./src/components/SwitchDark.vue')['default']
-    TheWelcome: typeof import('./src/components/TheWelcome.vue')['default']
-    WelcomeItem: typeof import('./src/components/WelcomeItem.vue')['default']
   }
 }
