@@ -15,6 +15,8 @@ declare module '@vue/runtime-core' {
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElRow: typeof import("element-plus/es")["ElRow"]
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
+    ElTabPane: typeof import('element-plus/es')['ElTabPane']
+    ElTabs: typeof import('element-plus/es')['ElTabs']
     FilterContainer: typeof import('./src/components/FilterContainer.vue')['default']
     HelloWorld: typeof import("./src/components/HelloWorld.vue")["default"]
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']

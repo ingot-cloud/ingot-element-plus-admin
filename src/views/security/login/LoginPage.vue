@@ -1,0 +1,118 @@
+<template>
+  <div class="login-topbar">
+    <div class="topbar-content">
+      <div class="title-left">Ingot Cloud</div>
+      <div class="title-right">登录</div>
+      <SwitchDark />
+    </div>
+  </div>
+  <div class="login-container">
+    <div class="login-content">
+      <el-tabs v-model="currentTab" stretch>
+        <el-tab-pane v-for="item in tabs" :key="item.name" :name="item.name">
+          <template #label>
+            <span><i class="el-icon-date"></i> {{ item.title }}</span>
+          </template>
+          <!-- <Password v-if="currentTab === LoginType.Password" />
+          <ScanCode v-if="currentTab === LoginType.ScanCode" /> -->
+        </el-tab-pane>
+      </el-tabs>
+      <div class="other-login">其他登录方式</div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+// import Password from "./Password.vue";
+// import ScanCode from "./ScanCode.vue";
+
+enum LoginType {
+  Password = "password",
+  Sms = "sms",
+}
+
+const currentTab = LoginType.Password;
+const tabs = [
+  {
+    title: "账户密码登录",
+    name: LoginType.Password,
+  },
+  {
+    title: "短信登录",
+    name: LoginType.Sms,
+  },
+];
+</script>
+
+<style lang="postcss">
+.login-topbar {
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--el-border-color);
+  height: 80px;
+  width: 100%;
+  position: absolute;
+  z-index: 1000;
+  clear: both;
+  & .topbar-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    & .title-left {
+      font-size: 24px;
+      padding: 0 10px;
+      color: var(--el-color-primary);
+    }
+    & .title-right {
+      text-align: left;
+      font-size: 24px;
+      padding: 0 10px;
+      border-left: 1px solid #999;
+      color: var(--el-text-color-primary);
+    }
+  }
+}
+.login-container {
+  --login-content-height: 560px;
+  --login-content-header-height: 52px;
+  --login-content-other-login-height: 40px;
+  --login-content-pannel-height: calc(
+    var(--login-content-height) - var(--login-content-header-height) -
+      var(--login-content-other-login-height)
+  );
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  & .login-content {
+    box-shadow: var(--el-box-shadow);
+    height: var(--login-content-height);
+    width: 600px;
+    & .el-tabs__header {
+      margin: 0;
+      & .el-tabs__item {
+        height: var(--login-content-header-height);
+        line-height: var(--login-content-header-height);
+      }
+    }
+    & .el-tabs__content {
+      height: var(--login-content-pannel-height);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    & .other-login {
+      border-top: 1px solid #d8d8d8;
+      color: #999999;
+      height: var(--login-content-other-login-height);
+      line-height: var(--login-content-other-login-height);
+      font-size: 14px;
+      padding-left: 20px;
+    }
+  }
+}
+</style>

@@ -9,8 +9,13 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/",
-    name: "home",
+    name: "Home",
     component: () => import("@/views/HomeView.vue"),
+  },
+  {
+    path: "/login",
+    name: "LoginPage",
+    component: () => import("@/views/security/login/LoginPage.vue"),
   },
 ];
 
