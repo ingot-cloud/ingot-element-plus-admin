@@ -23,6 +23,12 @@ const handleLogin = (formRef: Ref, router: Router): void => {
   form.validate((valid: boolean) => {
     if (valid) {
       loading.value = true;
+      const params = router.currentRoute.value.query;
+      router.replace({
+        path: params.redirect ? String(params.redirect) : "/",
+      });
+
+      loading.value = false;
     }
   });
 };

@@ -10,6 +10,8 @@
     </div>
     <IngotSpacer />
 
+    <SwitchDark />
+
     <div class="menu">
       <div class="avatar-menu">
         <el-dropdown trigger="hover" @command="handleMenuCommand">
@@ -59,14 +61,12 @@ const handleMenuCommand = (command: Command): void => {
 </script>
 
 <style scoped lang="postcss">
-@import "@/styles/base.css";
-
 .app-bar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: var(--nav-bar-height);
+  height: var(--app-bar-height);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -74,8 +74,8 @@ const handleMenuCommand = (command: Command): void => {
   z-index: 1000 !important;
   border-bottom: 1px solid var(--el-border-color);
   & .menu-icon-container {
-    height: var(--nav-bar-height);
-    width: var(--nav-bar-height);
+    height: var(--app-bar-height);
+    width: var(--app-bar-height);
     display: flex;
     align-items: center;
     justify-content: center;

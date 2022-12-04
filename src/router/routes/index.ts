@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from "vue-router";
+import AppLayout from "@/components/AppLayout.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -9,8 +10,22 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/",
-    name: "Home",
-    component: () => import("@/views/HomeView.vue"),
+    name: "Root",
+    redirect: "/dashboard",
+    component: AppLayout,
+    meta: {
+      hidden: false,
+    },
+    children: [
+      {
+        path: "/dashboard",
+        meta: {
+          title: "Ingot Cloud",
+          icon: "dash-board",
+        },
+        component: () => import("@/views/dashboard/DashboardPage.vue"),
+      },
+    ],
   },
   {
     path: "/login",
