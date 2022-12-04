@@ -26,9 +26,7 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
         },
       }),
       AutoImport({
-        dirs: [
-          './src/components',
-        ],
+        dirs: ["./src/components"],
         resolvers: [ElementPlusResolver()],
       }),
       Components({

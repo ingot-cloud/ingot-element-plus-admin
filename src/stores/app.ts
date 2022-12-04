@@ -6,6 +6,11 @@ import { StoreType } from "@/models/storage";
 const KEY_SIDEBAR_OPEN = "sidebarOpen";
 
 export const useAppStore = defineStore("app", () => {
+  const title = import.meta.env.VITE_APP_TITLE;
+  return { title };
+});
+
+export const useAppSidebarStore = defineStore("app.sidebar", () => {
   const sidebarOpened = ref(false);
   const getSidebarOpened = computed(() => {
     const value = StoreManager.get(KEY_SIDEBAR_OPEN, StoreType.Session);

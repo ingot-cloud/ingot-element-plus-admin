@@ -1,7 +1,7 @@
 <template>
   <div class="login-topbar">
     <div class="topbar-content">
-      <div class="title-left">Ingot Cloud</div>
+      <div class="title-left">{{ title }}</div>
       <div class="title-right">登录</div>
       <IngotSpacer />
       <SwitchDark />
@@ -24,6 +24,7 @@
 </template>
 
 <script lang="ts" setup>
+import { useAppStore } from "@/stores/app";
 // import Password from "./Password.vue";
 // import ScanCode from "./ScanCode.vue";
 
@@ -31,6 +32,8 @@ enum LoginType {
   Password = "password",
   Sms = "sms",
 }
+
+const title = useAppStore().title;
 
 const currentTab = LoginType.Password;
 const tabs = [

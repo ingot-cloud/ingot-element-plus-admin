@@ -39,16 +39,15 @@
 </template>
 
 <script lang="ts" setup>
-import { useAppStore } from "@/stores/app";
+import { useAppStore, useAppSidebarStore } from "@/stores/app";
 import type { Command, MenuItem } from "@/models/appBar";
 
 defineProps<{
   menuList: Array<MenuItem>;
 }>();
 
-const store = useAppStore();
-
-const title = "ingot";
+const store = useAppSidebarStore();
+const title = useAppStore().title;
 
 const handleMenuCommand = (command: Command): void => {
   switch (command.action) {
