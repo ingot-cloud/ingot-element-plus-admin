@@ -8,7 +8,7 @@
       <img class="logo-image" src="@/assets/logo.png" />
       <span class="logo-text">{{ title }}</span>
     </div>
-    <div style="flex: 1"></div>
+    <IngotSpacer />
 
     <div class="menu">
       <div class="avatar-menu">

@@ -3,6 +3,7 @@
     <div class="topbar-content">
       <div class="title-left">Ingot Cloud</div>
       <div class="title-right">登录</div>
+      <IngotSpacer />
       <SwitchDark />
     </div>
   </div>
@@ -60,6 +61,7 @@ const tabs = [
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding-right: 10px;
     & .title-left {
       font-size: 24px;
       padding: 0 10px;
@@ -82,6 +84,7 @@ const tabs = [
     var(--login-content-height) - var(--login-content-header-height) -
       var(--login-content-other-login-height)
   );
+  --other-login-text-color: #999999;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -107,7 +110,7 @@ const tabs = [
     }
     & .other-login {
       border-top: 1px solid #d8d8d8;
-      color: #999999;
+      color: var(--other-login-text-color);
       height: var(--login-content-other-login-height);
       line-height: var(--login-content-other-login-height);
       font-size: 14px;
