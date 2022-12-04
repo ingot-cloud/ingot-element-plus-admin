@@ -1,8 +1,8 @@
 <template>
   <div :class="mainLayoutClass">
-    <AppBar />
+    <in-app-bar />
     <el-scrollbar class="sidebar-container" wrap-class="scrollbar-wrapper">
-      <ingot-sidebar-menu />
+      <in-sidebar-menu />
     </el-scrollbar>
     <div class="content-container">
       <router-view />

@@ -1,6 +1,6 @@
 <template>
   <div class="app-bar">
-    <div class="menu-icon-container" @click="store.toggleSidebar">
+    <div class="menu-icon-container" @click="store.toggleSidebar()">
       <!-- <MenuIcon className="menu-icon" :isActive="opened" /> -->
       <ingot-icon icon="nav-menu" className="nav-menu-icon" />
     </div>
@@ -8,9 +8,9 @@
       <img class="logo-image" src="@/assets/logo.png" />
       <span class="logo-text">{{ title }}</span>
     </div>
-    <IngotSpacer />
+    <in-spacer />
 
-    <SwitchDark />
+    <in-switch-dark />
 
     <div class="menu">
       <div class="avatar-menu">
@@ -37,7 +37,6 @@
       </div>
     </div>
   </div>
-  <TenantDialog ref="tenantDialogRef" />
 </template>
 
 <script lang="ts" setup>

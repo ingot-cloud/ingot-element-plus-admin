@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from "vue-router";
-import AppLayout from "@/components/AppLayout.vue";
+import InAppLayout from "@/components/InAppLayout.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -12,7 +12,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "Root",
     redirect: "/dashboard",
-    component: AppLayout,
+    component: InAppLayout,
     meta: {
       hidden: false,
     },
@@ -30,6 +30,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/login",
     name: "LoginPage",
+    meta: {
+      permitAuth: true,
+      hidden: true,
+    },
     component: () => import("@/views/security/login/LoginPage.vue"),
   },
 ];

@@ -3,8 +3,8 @@
     <div class="topbar-content">
       <div class="title-left">{{ title }}</div>
       <div class="title-right">登录</div>
-      <IngotSpacer />
-      <SwitchDark />
+      <in-spacer />
+      <in-switch-dark />
     </div>
   </div>
   <div class="login-container">

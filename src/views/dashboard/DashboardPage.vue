@@ -1,9 +1,9 @@
 <template>
-  <BaseContainer>
+  <in-container>
     首页
     <div>user.username</div>
     <div>roles</div>
-  </BaseContainer>
+  </in-container>
 </template>
 
 <script lang="ts" setup></script>
