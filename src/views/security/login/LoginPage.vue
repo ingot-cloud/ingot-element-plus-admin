@@ -15,7 +15,7 @@
             <span><i class="el-icon-date"></i> {{ item.title }}</span>
           </template>
           <PasswordView v-if="currentTab === LoginType.Password" />
-          <!-- <ScanCode v-if="currentTab === LoginType.ScanCode" /> -->
+          <SmsView v-if="currentTab === LoginType.Sms" />
         </el-tab-pane>
       </el-tabs>
       <div class="other-login">其他登录方式</div>
@@ -26,7 +26,7 @@
 <script lang="ts" setup>
 import { useAppStore } from "@/stores/app";
 import PasswordView from "./password/PasswordView.vue";
-// import ScanCode from "./ScanCode.vue";
+import SmsView from "./sms/SmsView.vue";
 
 enum LoginType {
   Password = "password",
