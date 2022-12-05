@@ -2,7 +2,7 @@
   <div class="app-bar">
     <div class="menu-icon-container" @click="handleMenuIconClick">
       <!-- <MenuIcon className="menu-icon" :isActive="opened" /> -->
-      <ingot-icon icon="nav-menu" className="nav-menu-icon" />
+      <icon-nav-menu class="nav-menu-icon" />
     </div>
     <div class="logo">
       <img class="logo-image" src="@/assets/logo.png" />

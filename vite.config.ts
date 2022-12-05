@@ -26,7 +26,8 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
         },
       }),
       AutoImport({
-        dirs: ["./src/components", "./src/icons"],
+        dirs: ["./src/components"],
+        dts: true,
         resolvers: [ElementPlusResolver()],
       }),
       Components({
