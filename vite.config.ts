@@ -7,6 +7,9 @@ import { createHtmlPlugin } from "vite-plugin-html";
 import postcssNesting from "postcss-nesting";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
+import Icons from "unplugin-icons/vite";
+import IconsResolver from "unplugin-icons/resolver";
+import Unocss from "unocss/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
 // https://vitejs.dev/config/
@@ -25,14 +28,34 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
           },
         },
       }),
+      // https://github.com/antfu/unplugin-auto-import
       AutoImport({
         dirs: ["./src/components"],
         dts: true,
+        vueTemplate: true,
         resolvers: [ElementPlusResolver()],
       }),
+      // https://github.com/antfu/vite-plugin-components
       Components({
-        resolvers: [ElementPlusResolver()],
+        dts: true,
+        resolvers: [
+          ElementPlusResolver(),
+          IconsResolver({
+            alias: {
+              // park: 'icon-park',
+            },
+            customCollections: ["icons"],
+          }),
+        ],
       }),
+      // https://github.com/antfu/unplugin-icons
+      Icons({
+        autoInstall: true,
+        compiler: "vue3",
+        defaultClass: "inline",
+      }),
+      // https://github.com/unocss/unocss
+      Unocss(),
     ],
     resolve: {
       alias: {

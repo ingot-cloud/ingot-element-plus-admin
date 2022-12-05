@@ -1,20 +1,31 @@
 <template>
-  <div :class="mainLayoutClass">
-    <in-app-bar />
-    <el-scrollbar class="sidebar-container" wrap-class="scrollbar-wrapper">
-      <in-sidebar-menu />
-    </el-scrollbar>
-    <div class="content-container">
-      <router-view />
-    </div>
-  </div>
+  <el-container :class="mainLayoutClass">
+    <el-aside width="var(--sidebar-width)" style="background: red">
+      <el-scrollbar class="sidebar-container" wrap-class="scrollbar-wrapper">
+        <in-sidebar-menu />
+      </el-scrollbar>
+    </el-aside>
+
+    <el-container>
+      <el-header height="var(--app-bar-height)">
+        <in-app-bar />
+      </el-header>
+
+      <el-main style="background: blue">
+        <div class="content-container">
+          <router-view v-slot="{ Component }">
+            <keep-alive :include="cacheViews">
+              <component :is="Component" />
+            </keep-alive>
+          </router-view>
+        </div>
+      </el-main>
+    </el-container>
+  </el-container>
 </template>
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useAppSidebarStore } from "@/stores/app";
-// import { useStore } from "@/store";
-// import { getAppLayoutClass } from "@/store/composition/app";
-// import { SidebarStyle } from "@/theme";
 
 const appSidebarStore = useAppSidebarStore();
 const mainLayoutClass = computed(() => {
@@ -24,9 +35,7 @@ const mainLayoutClass = computed(() => {
   };
 });
 
-// const store = useStore();
-// const { appLayoutClass } = getAppLayoutClass(store);
-// const { scrollbarStyle } = SidebarStyle();
+const cacheViews: string[] = [];
 </script>
 <style lang="postcss">
 .ingot-app-layout {

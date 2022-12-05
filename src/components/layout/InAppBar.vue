@@ -1,8 +1,10 @@
 <template>
   <div class="app-bar">
     <div class="menu-icon-container" @click="handleMenuIconClick">
-      <!-- <MenuIcon className="menu-icon" :isActive="opened" /> -->
-      <icon-nav-menu class="nav-menu-icon" />
+      <el-icon class="text-icon cursor-pointer nav-menu-icon">
+        <i-ep-expand v-if="getSidebarOpened" />
+        <i-ep-fold v-else />
+      </el-icon>
     </div>
     <div class="logo">
       <img class="logo-image" src="@/assets/logo.png" />
@@ -42,14 +44,16 @@
 <script lang="ts" setup>
 import { useAppStore, useAppSidebarStore } from "@/stores/app";
 import type { Command, MenuItem } from "@/models/appBar";
+import { storeToRefs } from "pinia";
 
 defineProps<{
   menuList: Array<MenuItem>;
 }>();
 
 const store = useAppSidebarStore();
-const title = useAppStore().title;
+const { title } = useAppStore();
 
+const { getSidebarOpened } = storeToRefs(store);
 const handleMenuIconClick = () => {
   store.toggleSidebar();
 };
@@ -65,32 +69,23 @@ const handleMenuCommand = (command: Command): void => {
 
 <style scoped lang="postcss">
 .app-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: var(--app-bar-height);
+  height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px 0px;
-  z-index: 1000 !important;
   border-bottom: 1px solid var(--el-border-color);
   & .menu-icon-container {
     height: var(--app-bar-height);
     width: var(--app-bar-height);
     display: flex;
-    align-items: center;
     justify-content: center;
-    background: var(--el-color-primary);
+    align-items: center;
     & .nav-menu-icon {
-      width: 20px;
-      height: 20px;
-      fill: white;
+      color: var(--el-color-primary);
     }
   }
   & .logo {
-    margin-left: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
