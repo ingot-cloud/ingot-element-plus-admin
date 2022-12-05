@@ -9,7 +9,7 @@
   </el-menu-item>
   <el-sub-menu v-else :index="route.path">
     <template #title>
-      <ingot-icon :icon="route.meta.icon" className="menu-icon" />
+      <!-- <ingot-icon :icon="route.meta.icon" className="menu-icon" /> -->
       <span class="menu-title">
         {{ route.meta.title }}
       </span>

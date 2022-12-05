@@ -16,12 +16,14 @@
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useAppSidebarStore } from "@/stores/app";
-import { userRouterStore } from "@/stores/router";
+import { userRouterStore } from "@/stores/modules/router";
 
 const router = useRouter();
-const opened = useAppSidebarStore().getSidebarOpened;
+const opened = computed(() => useAppSidebarStore().getSidebarOpened);
+
 const activePath = computed(() => router.currentRoute.value.path);
 const menus = userRouterStore().getMenus;
+
 const onNavMenuSelect = () => {
   // todo toggleMenu()
 };

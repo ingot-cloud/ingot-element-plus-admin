@@ -1,6 +1,6 @@
 <template>
   <div class="app-bar">
-    <div class="menu-icon-container" @click="store.toggleSidebar()">
+    <div class="menu-icon-container" @click="handleMenuIconClick">
       <!-- <MenuIcon className="menu-icon" :isActive="opened" /> -->
       <ingot-icon icon="nav-menu" className="nav-menu-icon" />
     </div>
@@ -49,6 +49,10 @@ defineProps<{
 
 const store = useAppSidebarStore();
 const title = useAppStore().title;
+
+const handleMenuIconClick = () => {
+  store.toggleSidebar();
+};
 
 const handleMenuCommand = (command: Command): void => {
   switch (command.action) {

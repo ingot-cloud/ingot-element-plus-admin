@@ -20,7 +20,7 @@ export class AuthGuard extends BaseNavigationGuard {
       //   }
       // } else {
       //   // 不执行后面所有 NavigationGuard 的逻辑
-      to.skipAfterGuard = true;
+      // to.skipAfterGuard = true;
       // }
       console.log("AuthGuard");
     };
