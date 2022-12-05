@@ -1,0 +1,14 @@
+:root {
+  --app-bar-height: 50px;
+  --app-bar-padding: 0 15px;
+  --sidebar-menu-icon-size: 20px;
+  --sidebar-hide: 56px;
+  --sidebar-show: 210px;
+  --sidebar-bg-color: #191a20;
+  --sidebar-bg-hover-color: #14151a;
+  --sidebar-text-color: #bdbdc0;
+  --sidebar-text-active-color: #ffffff;
+}
+
+:root {
+}
