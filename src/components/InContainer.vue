@@ -8,6 +8,6 @@
 
 <style lang="postcss" scoped>
 .container {
-  padding: 10px;
+  @apply w-full h-full box-border overflow-x-hidden p-20px b rd b-[var(--el-border-color)] bg-[var(--el-bg-color)] shadow-sm;
 }
 </style>
