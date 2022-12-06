@@ -45,6 +45,7 @@ declare module '@vue/runtime-core' {
     IconUser: typeof import('./src/components/icons/IconUser.vue')['default']
     IEpExpand: typeof import('~icons/ep/expand')['default']
     IEpFold: typeof import('~icons/ep/fold')['default']
+    IEpUser: typeof import('~icons/ep/user')['default']
     InAppBar: typeof import('./src/components/layout/InAppBar.vue')['default']
     InAppLayout: typeof import('./src/components/layout/InAppLayout.vue')['default']
     InBaseContainer: typeof import("./src/components/InBaseContainer.vue")["default"]

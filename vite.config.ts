@@ -9,6 +9,7 @@ import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import Icons from "unplugin-icons/vite";
 import IconsResolver from "unplugin-icons/resolver";
+import { FileSystemIconLoader } from "unplugin-icons/loaders";
 import Unocss from "unocss/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
@@ -53,6 +54,9 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
         autoInstall: true,
         compiler: "vue3",
         defaultClass: "inline",
+        customCollections: {
+          icons: FileSystemIconLoader("./src/assets/icons"),
+        },
       }),
       // https://github.com/unocss/unocss
       Unocss(),

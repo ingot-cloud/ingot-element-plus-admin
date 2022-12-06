@@ -27,6 +27,7 @@
               :command="item.command"
               :divided="item.divided"
             >
+              <Icon mr-2 :icon="item.icon" />
               {{ item.title }}
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -37,13 +38,11 @@
 </template>
 
 <script lang="ts" setup>
+import { Icon } from "@iconify/vue";
 import { useAppSidebarStore } from "@/stores/app";
-import type { Command, MenuItem } from "@/models/appBar";
+import type { Command } from "@/models/appBar";
+import { menuList } from "@/models/appBar";
 import { storeToRefs } from "pinia";
-
-defineProps<{
-  menuList: Array<MenuItem>;
-}>();
 
 const store = useAppSidebarStore();
 
@@ -55,7 +54,6 @@ const handleMenuIconClick = () => {
 const handleMenuCommand = (command: Command): void => {
   switch (command.action) {
     case "logout":
-      //   handlLogout();
       break;
   }
 };
@@ -87,5 +85,4 @@ const handleMenuCommand = (command: Command): void => {
     border-radius: 18px;
   }
 }
-/* } */
 </style>
