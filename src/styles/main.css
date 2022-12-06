@@ -11,5 +11,5 @@ html, body, #app {
 
 ::-webkit-scrollbar-thumb {
   @apply b-rd-6;
-  background-color: var(--el-color-info-light-5);
+  background-color: var(--in-color-info-light-5);
 }

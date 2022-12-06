@@ -63,13 +63,13 @@ const handleMenuCommand = (command: Command): void => {
 
 <style scoped lang="postcss">
 .menu-icon-container {
-  height: var(--app-bar-height);
-  width: var(--app-bar-height);
+  height: var(--in-app-bar-height);
+  width: var(--in-app-bar-height);
   display: flex;
   justify-content: flex-start;
   align-items: center;
   & .nav-menu-icon {
-    color: var(--el-color-primary);
+    color: var(--in-color-primary);
   }
 }
 

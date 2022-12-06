@@ -1,15 +1,15 @@
 .el-header {
-  --el-header-padding: var(--app-bar-padding);
-  --el-header-height: var(--app-bar-height);
+  --el-header-padding: var(--in-app-bar-padding);
+  --el-header-height: var(--in-app-bar-height);
 }
 
 .el-tabs {
-  --el-tabs-header-height: var(--tabs-height);
+  --el-tabs-header-height: var(--in-tabs-height);
 }
 
 .el-menu {
-  --el-menu-bg-color: var(--sidebar-bg-color);
-  --el-menu-hover-bg-color: var(--sidebar-bg-hover-color);
-  --el-menu-text-color: var(--sidebar-text-color);
-  --el-menu-active-color: var(--sidebar-text-active-color);
+  --el-menu-bg-color: var(--in-sidebar-bg-color);
+  --el-menu-hover-bg-color: var(--in-sidebar-bg-hover-color);
+  --el-menu-text-color: var(--in-sidebar-text-color);
+  --el-menu-active-color: var(--in-sidebar-text-active-color);
 }

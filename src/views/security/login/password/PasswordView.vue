@@ -50,7 +50,7 @@ const handleLogin = () => {
   margin-bottom: 22px;
   font-size: 18px;
   font-weight: 400;
-  color: var(--el-text-color-secondary);
+  color: var(--in-text-color-secondary);
 }
 
 .form-item {

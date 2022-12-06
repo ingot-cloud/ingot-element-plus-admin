@@ -2,7 +2,9 @@
   <div
     class="ingot-menu"
     :class="[
-      getSidebarOpened ? 'w-[var(--sidebar-show)]' : 'w-[var(--sidebar-hide)]',
+      getSidebarOpened
+        ? 'w-[var(--in-sidebar-show)]'
+        : 'w-[var(--in-sidebar-hide)]',
     ]"
   >
     <div
@@ -10,7 +12,7 @@
       justify-center
       items-center
       box-border
-      class="h-[var(--app-bar-height)] b-b b-b-[#414243]"
+      class="h-[var(--in-app-bar-height)] b-b b-b-[#414243]"
     >
       <img class="logo-image" src="@/assets/logo.png" />
       <span
@@ -66,7 +68,7 @@ const onNavMenuSelect = () => {
 .ingot-menu {
   @apply flex flex-col h-full transition-width transition-ease transition-duration-300;
   & .el-scrollbar {
-    height: calc(100% - var(--app-bar-height));
+    height: calc(100% - var(--in-app-bar-height));
   }
   & .logo-image {
     height: 35px;
@@ -82,7 +84,7 @@ const onNavMenuSelect = () => {
     left: 0;
     width: 4px;
     content: "";
-    background: var(--el-color-primary);
+    background: var(--in-color-primary);
   }
 }
 </style>

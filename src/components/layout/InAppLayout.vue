@@ -24,17 +24,17 @@ const cacheViews: string[] = [];
 </script>
 <style lang="postcss" scoped>
 .el-aside {
-  @apply overflow-inherit box-border w-auto\! bg-[var(--sidebar-bg-color)] b-r b-r-[var(--sidebar-bg-color)] dark:b-r-[var(--el-border-color)];
+  @apply overflow-inherit box-border w-auto\! bg-[var(--in-sidebar-bg-color)] b-r b-r-[var(--in-sidebar-bg-color)] dark:b-r-[var(--in-border-color)];
 }
 
 .el-header {
-  @apply flex items-center justify-between box-border dark:bg-[var(--el-bg-color)] b-b b-b-[var(--el-border-color)];
+  @apply flex items-center justify-between box-border dark:bg-[var(--in-bg-color)] b-b b-b-[var(--in-border-color)];
 }
 
 .el-main {
-  @apply bg-[var(--el-bg-color-page)] box-border p-10px overflow-x-hidden;
+  @apply bg-[var(--in-bg-color-page)] box-border p-10px overflow-x-hidden;
   &::-webkit-scrollbar {
-    @apply bg-[var(--el-bg-color-page)];
+    @apply bg-[var(--in-bg-color-page)];
   }
 }
 </style>

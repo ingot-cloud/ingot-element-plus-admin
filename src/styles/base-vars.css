@@ -1,14 +1,24 @@
 :root {
-  --app-bar-height: 50px;
-  --app-bar-padding: 0 15px;
-  --sidebar-menu-icon-size: 20px;
-  --sidebar-hide: 56px;
-  --sidebar-show: 210px;
-  --sidebar-bg-color: #191a20;
-  --sidebar-bg-hover-color: #14151a;
-  --sidebar-text-color: #bdbdc0;
-  --sidebar-text-active-color: #ffffff;
+  --in-app-bar-height: 50px;
+  --in-app-bar-padding: 0 15px;
+  --in-sidebar-menu-icon-size: 20px;
+  --in-sidebar-hide: 56px;
+  --in-sidebar-show: 210px;
+  --in-tabs-height: 40px;
 }
 
 :root {
+  --in-sidebar-bg-color: #191a20;
+  --in-sidebar-bg-hover-color: #14151a;
+  --in-sidebar-text-color: #bdbdc0;
+  --in-sidebar-text-active-color: #ffffff;
+
+  --in-color-primary: var(--el-color-primary);
+  --in-text-color-primary: var(--el-text-color-primary);
+  --in-text-color-secondary: var(--el-text-color-secondary);
+  --in-box-shadow: var(--el-box-shadow);
+  --in-bg-color: var(--el-bg-color);
+  --in-bg-color-page: var(--el-bg-color-page);
+  --in-border-color: var(--el-border-color);
+  --in-color-info-light-5: var(--el-color-info-light-5);
 }

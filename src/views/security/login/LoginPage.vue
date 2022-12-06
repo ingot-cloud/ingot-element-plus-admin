@@ -51,7 +51,7 @@ const tabs = [
 <style lang="postcss">
 .login-topbar {
   box-sizing: border-box;
-  border-bottom: 1px solid var(--el-border-color);
+  border-bottom: 1px solid var(--in-border-color);
   height: 80px;
   width: 100%;
   position: absolute;
@@ -68,14 +68,14 @@ const tabs = [
     & .title-left {
       font-size: 24px;
       padding: 0 10px;
-      color: var(--el-color-primary);
+      color: var(--in-color-primary);
     }
     & .title-right {
       text-align: left;
       font-size: 24px;
       padding: 0 10px;
       border-left: 1px solid #999;
-      color: var(--el-text-color-primary);
+      color: var(--in-text-color-primary);
     }
   }
 }
@@ -94,7 +94,7 @@ const tabs = [
   justify-content: center;
   align-items: center;
   & .login-content {
-    box-shadow: var(--el-box-shadow);
+    box-shadow: var(--in-box-shadow);
     height: var(--login-content-height);
     width: 600px;
     & .el-tabs__header {
