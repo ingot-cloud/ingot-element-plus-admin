@@ -14,7 +14,7 @@ export const menuList: Array<MenuItem> = [
   {
     divided: false,
     command: { action: "user", params: "" },
-    icon: "ep:user",
+    icon: "ep-user",
     title: "个人信息",
   },
   {

@@ -6,6 +6,7 @@ import {
   presetWebFonts,
   transformerDirectives,
 } from "unocss";
+import { FileSystemIconLoader } from "unplugin-icons/loaders";
 
 export default defineConfig({
   rules: [
@@ -28,6 +29,7 @@ export default defineConfig({
         ep: () => import("@iconify-json/ep/icons.json").then((i) => i.default),
         mdi: () =>
           import("@iconify-json/mdi/icons.json").then((i) => i.default),
+        ingot: FileSystemIconLoader("./src/assets/icons"),
       },
       scale: 1.4,
       warn: true,

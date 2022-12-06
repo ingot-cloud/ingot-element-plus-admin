@@ -32,20 +32,18 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
       // https://github.com/antfu/unplugin-auto-import
       AutoImport({
         dirs: ["./src/components"],
-        dts: true,
+        dts: "./auto-imports.d.ts",
         vueTemplate: true,
         resolvers: [ElementPlusResolver()],
       }),
       // https://github.com/antfu/vite-plugin-components
       Components({
-        dts: true,
+        dts: "./components.d.ts",
         resolvers: [
           ElementPlusResolver(),
           IconsResolver({
-            alias: {
-              // park: 'icon-park',
-            },
-            customCollections: ["icons"],
+            // prefix: false,
+            customCollections: ["ingot"],
           }),
         ],
       }),
@@ -55,7 +53,7 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
         compiler: "vue3",
         defaultClass: "inline",
         customCollections: {
-          icons: FileSystemIconLoader("./src/assets/icons"),
+          ingot: FileSystemIconLoader("./src/assets/icons"),
         },
       }),
       // https://github.com/unocss/unocss
