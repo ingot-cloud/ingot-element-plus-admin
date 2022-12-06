@@ -1,7 +1,7 @@
 <template>
   <div class="menu-icon-container" @click="handleMenuIconClick">
     <el-icon class="text-icon cursor-pointer nav-menu-icon">
-      <i-ep-expand v-if="getSidebarOpened" />
+      <i-ep-expand v-if="!getSidebarOpened" />
       <i-ep-fold v-else />
     </el-icon>
   </div>
@@ -66,7 +66,7 @@ const handleMenuCommand = (command: Command): void => {
   height: var(--app-bar-height);
   width: var(--app-bar-height);
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   & .nav-menu-icon {
     color: var(--el-color-primary);

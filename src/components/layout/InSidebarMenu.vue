@@ -1,22 +1,22 @@
 <template>
-  <div class="ingot-menu">
+  <div
+    class="ingot-menu"
+    :class="[
+      getSidebarOpened ? 'w-[var(--sidebar-show)]' : 'w-[var(--sidebar-hide)]',
+    ]"
+  >
     <div
       flex
       justify-center
       items-center
       box-border
       class="h-[var(--app-bar-height)] b-b b-b-[#414243]"
-      :class="[
-        getSidebarOpened
-          ? 'w-[var(--sidebar-show)]'
-          : 'w-[var(--sidebar-hide)]',
-      ]"
     >
       <img class="logo-image" src="@/assets/logo.png" />
       <span
         v-if="getSidebarOpened"
         m-l-2
-        text-8
+        text-5
         font-bold
         truncate
         class="text-[#dadada]"
