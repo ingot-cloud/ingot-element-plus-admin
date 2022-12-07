@@ -2,7 +2,7 @@
   <div
     class="ingot-menu"
     :class="[
-      getSidebarOpened ? 'w-[var(--in-menu-show)]' : 'w-[var(--in-menu-hide)]',
+      getMenuOpened ? 'w-[var(--in-menu-show)]' : 'w-[var(--in-menu-hide)]',
     ]"
   >
     <div
@@ -14,20 +14,20 @@
     >
       <img class="logo-image" src="@/assets/logo.png" />
       <span
-        v-if="getSidebarOpened"
+        v-if="getMenuOpened"
         m-l-2
         text-5
         font-bold
         truncate
         class="text-[#dadada]"
       >
-        {{ title }}
+        {{ app.title }}
       </span>
     </div>
     <el-scrollbar>
       <el-menu
         class="overflow-x-hidden b-r-none!"
-        :collapse="!getSidebarOpened"
+        :collapse="!getMenuOpened"
         :default-active="activePath"
         :collapse-transition="false"
         :unique-opened="true"
@@ -43,15 +43,15 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useRouter } from "vue-router";
-import { useAppStore, useAppSidebarStore } from "@/stores/app";
+import { useAppStore, useAppMenuStore } from "@/stores/modules/app";
 import { userRouterStore } from "@/stores/modules/router";
 import { storeToRefs } from "pinia";
 
 const router = useRouter();
-const getSidebarOpened = storeToRefs(useAppSidebarStore()).getSidebarOpened;
+const { getMenuOpened } = storeToRefs(useAppMenuStore());
 const activePath = computed(() => router.currentRoute.value.path);
 const menus = userRouterStore().getMenus;
-const { title } = useAppStore();
+const { app } = storeToRefs(useAppStore());
 
 const onNavMenuSelect = () => {
   // todo toggleMenu()

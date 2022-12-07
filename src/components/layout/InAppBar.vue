@@ -1,7 +1,7 @@
 <template>
   <div class="menu-icon-container" @click="handleMenuIconClick">
     <el-icon class="text-icon cursor-pointer nav-menu-icon">
-      <i-ep-expand v-if="!getSidebarOpened" />
+      <i-ep-expand v-if="!getMenuOpened" />
       <i-ep-fold v-else />
     </el-icon>
   </div>
@@ -37,16 +37,16 @@
 
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue";
-import { useAppSidebarStore } from "@/stores/app";
+import { useAppMenuStore } from "@/stores/modules/app";
 import type { Command } from "@/models/appBar";
 import { menuList } from "@/models/appBar";
 import { storeToRefs } from "pinia";
 
-const store = useAppSidebarStore();
+const store = useAppMenuStore();
 
-const { getSidebarOpened } = storeToRefs(store);
+const { getMenuOpened } = storeToRefs(store);
 const handleMenuIconClick = () => {
-  store.toggleSidebar();
+  store.toggleMenu();
 };
 
 const handleMenuCommand = (command: Command): void => {

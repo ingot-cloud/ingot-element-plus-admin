@@ -1,10 +1,15 @@
 <template>
-  <router-view v-slot="{ Component }">
-    <keep-alive :include="cacheViews">
-      <component :is="Component" />
-    </keep-alive>
-  </router-view>
+  <el-config-provider :button="buttonConfig" :size="app.componentSize">
+    <router-view />
+  </el-config-provider>
 </template>
 <script lang="ts" setup>
-const cacheViews: string[] = [];
+import { reactive } from "vue";
+import { useAppStore } from "@/stores/modules/app";
+import { storeToRefs } from "pinia";
+
+const { app } = storeToRefs(useAppStore());
+const buttonConfig = reactive({
+  autoInsertSpace: false,
+});
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="login-topbar">
     <div class="topbar-content">
-      <div class="title-left">{{ title }}</div>
+      <div class="title-left">{{ app.title }}</div>
       <div class="title-right">登录</div>
       <in-spacer />
       <in-switch-dark />
@@ -24,16 +24,17 @@
 </template>
 
 <script lang="ts" setup>
-import { useAppStore } from "@/stores/app";
+import { useAppStore } from "@/stores/modules/app";
 import PasswordView from "./password/PasswordView.vue";
 import SmsView from "./sms/SmsView.vue";
+import { storeToRefs } from "pinia";
 
 enum LoginType {
   Password = "password",
   Sms = "sms",
 }
 
-const title = useAppStore().title;
+const { app } = storeToRefs(useAppStore());
 
 const currentTab = LoginType.Password;
 const tabs = [
