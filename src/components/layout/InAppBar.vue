@@ -6,11 +6,9 @@
     </el-icon>
   </div>
 
-  <in-spacer />
+  <div flex justify-center items-center gap-4>
+    <in-switch-dark />
 
-  <in-switch-dark />
-
-  <div class="menu">
     <div class="avatar-menu">
       <el-dropdown trigger="hover" @command="handleMenuCommand">
         <div class="avatar-wrapper">
@@ -71,14 +69,8 @@ const handleMenuCommand = (command: Command): void => {
   }
 }
 
-.menu {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
-  & .avatar-menu {
-    margin-right: 10px;
-  }
+.avatar-menu {
+  margin-right: 10px;
   & .user-avatar {
     width: 36px;
     height: 36px;

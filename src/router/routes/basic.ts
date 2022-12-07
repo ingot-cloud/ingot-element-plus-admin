@@ -17,7 +17,6 @@ const managementRoutes: Array<RouteRecordRaw> = [
         name: "BasicUser",
         meta: {
           title: "用户管理",
-          icon: "user",
         },
         path: "/basic/user",
         component: () => import("@/views/basic/user/UserPage.vue"),
@@ -26,7 +25,6 @@ const managementRoutes: Array<RouteRecordRaw> = [
         name: "BasicDept",
         meta: {
           title: "部门管理",
-          icon: "dept",
         },
         path: "/basic/dept",
         component: () => import("@/views/basic/dept/DeptPage.vue"),
@@ -35,7 +33,6 @@ const managementRoutes: Array<RouteRecordRaw> = [
         name: "BasicRole",
         meta: {
           title: "角色管理",
-          icon: "role",
         },
         path: "/basic/role",
         redirect: "/basic/role/list",
@@ -45,7 +42,6 @@ const managementRoutes: Array<RouteRecordRaw> = [
             name: "BasicRoleList",
             meta: {
               title: "角色管理",
-              icon: "role",
             },
             path: "/basic/role/list",
             component: () => import("@/views/basic/role/RolePage.vue"),
@@ -111,7 +107,6 @@ const managementRoutes: Array<RouteRecordRaw> = [
         name: "BasicTenant",
         meta: {
           title: "租户管理",
-          icon: "tenant",
         },
         path: "/basic/tenant",
         component: () => import("@/views/basic/tenant/TenantPage.vue"),
@@ -120,7 +115,6 @@ const managementRoutes: Array<RouteRecordRaw> = [
         name: "BasicMenu",
         meta: {
           title: "菜单管理",
-          icon: "menu",
         },
         path: "/basic/menu",
         component: () => import("@/views/basic/menu/MenuPage.vue"),
@@ -129,7 +123,6 @@ const managementRoutes: Array<RouteRecordRaw> = [
         name: "BasicAuthority",
         meta: {
           title: "权限管理",
-          icon: "authority",
         },
         path: "/basic/authority",
         redirect: "/basic/authority/list",
@@ -139,7 +132,6 @@ const managementRoutes: Array<RouteRecordRaw> = [
             name: "BasicAuthorityList",
             meta: {
               title: "权限管理",
-              icon: "authority",
             },
             path: "/basic/authority/list",
             component: () =>
@@ -151,7 +143,6 @@ const managementRoutes: Array<RouteRecordRaw> = [
         name: "BasicClient",
         meta: {
           title: "客户端管理",
-          icon: "client",
         },
         path: "/basic/client",
         redirect: "/basic/client/list",
@@ -161,7 +152,6 @@ const managementRoutes: Array<RouteRecordRaw> = [
             name: "BasicClientList",
             meta: {
               title: "客户端管理",
-              icon: "client",
             },
             path: "/basic/client/list",
             component: () => import("@/views/basic/client/ClientPage.vue"),

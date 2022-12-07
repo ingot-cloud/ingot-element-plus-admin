@@ -1,7 +1,7 @@
 <template>
   <el-container w-full h-full min-w-740px>
     <el-aside>
-      <in-sidebar-menu />
+      <in-menu />
     </el-aside>
 
     <el-container>

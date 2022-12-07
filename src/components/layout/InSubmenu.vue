@@ -1,13 +1,13 @@
 <template>
   <el-menu-item v-if="isSingle" :index="singleRoute.path">
-    <in-icon
-      v-if="singleRoute.meta && singleRoute.meta.icon"
-      :name="singleRoute.meta.icon"
-      mr-2
-      w-20px
-      h-20px
-    />
     <template #title>
+      <in-icon
+        v-if="singleRoute.meta && singleRoute.meta.icon"
+        :name="singleRoute.meta.icon"
+        mr-2
+        w-20px
+        h-20px
+      />
       <span v-if="singleRoute.meta && singleRoute.meta.title">
         {{ singleRoute.meta.title }}
       </span>
@@ -26,7 +26,7 @@
         {{ route.meta.title }}
       </span>
     </template>
-    <in-sidebar-item
+    <in-submenu
       v-for="child in route.children"
       :key="child.path"
       :route="child"

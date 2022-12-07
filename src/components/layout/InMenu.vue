@@ -36,11 +36,7 @@
         router
         @select="onNavMenuSelect"
       >
-        <in-sidebar-item
-          v-for="route in menus"
-          :key="route.path"
-          :route="route"
-        />
+        <in-submenu v-for="route in menus" :key="route.path" :route="route" />
       </el-menu>
     </el-scrollbar>
   </div>
