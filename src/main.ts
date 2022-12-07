@@ -5,6 +5,7 @@ import router from "./router";
 import pinia from "./stores";
 import "@/styles/theme";
 import "uno.css";
+import "virtual:svg-icons-register";
 
 const app = createApp(App);
 app.use(pinia).use(router).mount("#app");

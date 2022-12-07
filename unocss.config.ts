@@ -6,7 +6,7 @@ import {
   presetWebFonts,
   transformerDirectives,
 } from "unocss";
-import { FileSystemIconLoader } from "unplugin-icons/loaders";
+import { FileSystemIconLoader } from "@iconify/utils/lib/loader/node-loaders";
 
 export default defineConfig({
   rules: [
@@ -20,6 +20,7 @@ export default defineConfig({
   presets: [
     presetUno(),
     presetAttributify(),
+    // 预设 icon，class匹配icon
     presetIcons({
       // cdn: 'https://esm.sh/',
       // When using bundlers, you can provide the collections using dynamic imports so they will be bundler as async chunk and loaded on demand.

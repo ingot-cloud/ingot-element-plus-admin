@@ -12,6 +12,8 @@ import IconsResolver from "unplugin-icons/resolver";
 import { FileSystemIconLoader } from "unplugin-icons/loaders";
 import Unocss from "unocss/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
+import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode, command, ssrBuild }) => {
@@ -29,8 +31,15 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
           },
         },
       }),
+      createSvgIconsPlugin({
+        // 指定需要缓存的图标文件夹
+        iconDirs: [path.resolve(process.cwd(), "src/assets/icons")],
+        // 指定symbolId格式
+        symbolId: "ingot-[dir]-[name]",
+      }),
       // https://github.com/antfu/unplugin-auto-import
       AutoImport({
+        // imports: ["vue", "vue/macros", "vue-router", "@vueuse/core"],
         dirs: ["./src/components"],
         dts: "./auto-imports.d.ts",
         vueTemplate: true,
@@ -42,7 +51,6 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
         resolvers: [
           ElementPlusResolver(),
           IconsResolver({
-            // prefix: false,
             customCollections: ["ingot"],
           }),
         ],

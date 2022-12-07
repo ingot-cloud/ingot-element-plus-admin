@@ -1,16 +1,28 @@
 <template>
   <el-menu-item v-if="isSingle" :index="singleRoute.path">
-    <!-- <ingot-icon :icon="singleRoute.meta.icon" className="menu-icon" /> -->
     <template #title>
-      <span>
+      <in-icon
+        v-if="singleRoute.meta && singleRoute.meta.icon"
+        :name="singleRoute.meta.icon"
+        mr-2
+        w-1em
+        h-1em
+      />
+      <span v-if="singleRoute.meta && singleRoute.meta.title">
         {{ singleRoute.meta.title }}
       </span>
     </template>
   </el-menu-item>
   <el-sub-menu v-else :index="route.path">
     <template #title>
-      <!-- <ingot-icon :icon="route.meta.icon" className="menu-icon" /> -->
-      <span>
+      <in-icon
+        v-if="route.meta && route.meta.icon"
+        :name="route.meta.icon"
+        mr-2
+        w-1em
+        h-1em
+      />
+      <span v-if="route.meta && route.meta.title">
         {{ route.meta.title }}
       </span>
     </template>
@@ -24,10 +36,12 @@
 
 <script lang="ts" setup>
 import { defineProps, computed } from "vue";
+import type { PropType } from "vue";
+import type { RouteRecordRaw } from "vue-router";
 
 const props = defineProps({
   route: {
-    type: Object,
+    type: Object as PropType<RouteRecordRaw>,
     default: null,
   },
 });
@@ -39,10 +53,9 @@ const isSingle = computed(() => {
 
 const singleRoute = computed(() => {
   const children = props.route.children;
-  if (!children || children.length === 0) {
-    return props.route;
+  if (children && children.length !== 0) {
+    return children[0];
   }
-
-  return props.route.children[0];
+  return props.route;
 });
 </script>
