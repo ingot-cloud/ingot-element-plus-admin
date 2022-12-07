@@ -1,13 +1,13 @@
 <template>
   <el-menu-item v-if="isSingle" :index="singleRoute.path">
+    <in-icon
+      v-if="singleRoute.meta && singleRoute.meta.icon"
+      :name="singleRoute.meta.icon"
+      mr-2
+      w-20px
+      h-20px
+    />
     <template #title>
-      <in-icon
-        v-if="singleRoute.meta && singleRoute.meta.icon"
-        :name="singleRoute.meta.icon"
-        mr-2
-        w-1em
-        h-1em
-      />
       <span v-if="singleRoute.meta && singleRoute.meta.title">
         {{ singleRoute.meta.title }}
       </span>
@@ -19,8 +19,8 @@
         v-if="route.meta && route.meta.icon"
         :name="route.meta.icon"
         mr-2
-        w-1em
-        h-1em
+        w-20px
+        h-20px
       />
       <span v-if="route.meta && route.meta.title">
         {{ route.meta.title }}

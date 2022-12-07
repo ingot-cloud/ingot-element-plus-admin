@@ -10,7 +10,7 @@ const managementRoutes: Array<RouteRecordRaw> = [
     redirect: "/basic/user",
     meta: {
       title: "基础管理",
-      icon: "user",
+      icon: "basic",
     },
     children: [
       {
