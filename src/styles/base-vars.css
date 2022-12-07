@@ -1,17 +1,18 @@
 :root {
   --in-app-bar-height: 50px;
   --in-app-bar-padding: 0 15px;
-  --in-sidebar-menu-icon-size: 20px;
-  --in-sidebar-hide: 56px;
-  --in-sidebar-show: 210px;
+  --in-menu-icon-size: var(--el-menu-icon-width);
+  --in-menu-show: 210px;
+  --in-menu-hide: 56px;
+  --in-menu-base-level-padding: 16px;
   --in-tabs-height: 40px;
 }
 
 :root {
-  --in-sidebar-bg-color: #191a20;
-  --in-sidebar-bg-hover-color: #14151a;
-  --in-sidebar-text-color: #bdbdc0;
-  --in-sidebar-text-active-color: #ffffff;
+  --in-menu-bg-color: #191a20;
+  --in-menu-bg-hover-color: #14151a;
+  --in-menu-text-color: #bdbdc0;
+  --in-menu-text-active-color: #ffffff;
 
   --in-color-primary: var(--el-color-primary);
   --in-text-color-primary: var(--el-text-color-primary);

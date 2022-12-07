@@ -24,7 +24,7 @@ const cacheViews: string[] = [];
 </script>
 <style lang="postcss" scoped>
 .el-aside {
-  @apply overflow-inherit box-border w-auto\! bg-[var(--in-sidebar-bg-color)] b-r b-r-[var(--in-sidebar-bg-color)] dark:b-r-[var(--in-border-color)];
+  @apply overflow-inherit box-border w-auto\! bg-[var(--in-menu-bg-color)] b-r b-r-[var(--in-menu-bg-color)] dark:b-r-[var(--in-border-color)];
 }
 
 .el-header {

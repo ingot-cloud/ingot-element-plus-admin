@@ -8,8 +8,9 @@
 }
 
 .el-menu {
-  --el-menu-bg-color: var(--in-sidebar-bg-color);
-  --el-menu-hover-bg-color: var(--in-sidebar-bg-hover-color);
-  --el-menu-text-color: var(--in-sidebar-text-color);
-  --el-menu-active-color: var(--in-sidebar-text-active-color);
+  --el-menu-bg-color: var(--in-menu-bg-color);
+  --el-menu-hover-bg-color: var(--in-menu-bg-hover-color);
+  --el-menu-text-color: var(--in-menu-text-color);
+  --el-menu-active-color: var(--in-menu-text-active-color);
+  --el-menu-base-level-padding: var(--in-menu-base-level-padding);
 }

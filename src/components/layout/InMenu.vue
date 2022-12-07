@@ -2,9 +2,7 @@
   <div
     class="ingot-menu"
     :class="[
-      getSidebarOpened
-        ? 'w-[var(--in-sidebar-show)]'
-        : 'w-[var(--in-sidebar-hide)]',
+      getSidebarOpened ? 'w-[var(--in-menu-show)]' : 'w-[var(--in-menu-hide)]',
     ]"
   >
     <div

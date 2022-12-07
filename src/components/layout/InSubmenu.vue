@@ -1,13 +1,12 @@
 <template>
   <el-menu-item v-if="isSingle" :index="singleRoute.path">
+    <in-icon
+      v-if="singleRoute.meta && singleRoute.meta.icon"
+      :name="singleRoute.meta.icon"
+      class="w-[var(--in-menu-icon-size)] h-[var(--in-menu-icon-size)]"
+      :class="{ 'mr-2': getSidebarOpened }"
+    />
     <template #title>
-      <in-icon
-        v-if="singleRoute.meta && singleRoute.meta.icon"
-        :name="singleRoute.meta.icon"
-        mr-2
-        w-20px
-        h-20px
-      />
       <span v-if="singleRoute.meta && singleRoute.meta.title">
         {{ singleRoute.meta.title }}
       </span>
@@ -18,9 +17,8 @@
       <in-icon
         v-if="route.meta && route.meta.icon"
         :name="route.meta.icon"
-        mr-2
-        w-20px
-        h-20px
+        class="w-[var(--in-menu-icon-size)] h-[var(--in-menu-icon-size)]"
+        :class="{ 'mr-2': getSidebarOpened }"
       />
       <span v-if="route.meta && route.meta.title">
         {{ route.meta.title }}
@@ -38,6 +36,8 @@
 import { defineProps, computed } from "vue";
 import type { PropType } from "vue";
 import type { RouteRecordRaw } from "vue-router";
+import { useAppSidebarStore } from "@/stores/app";
+import { storeToRefs } from "pinia";
 
 const props = defineProps({
   route: {
@@ -45,6 +45,8 @@ const props = defineProps({
     default: null,
   },
 });
+
+const getSidebarOpened = storeToRefs(useAppSidebarStore()).getSidebarOpened;
 
 const isSingle = computed(() => {
   const children = props.route.children;
