@@ -1,5 +1,5 @@
 <template>
-  <el-container w-full h-full min-w-740px>
+  <el-container w-full h-full>
     <el-aside>
       <in-menu />
     </el-aside>
