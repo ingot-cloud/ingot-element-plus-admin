@@ -4,7 +4,7 @@ import { StoreManager } from "@/utils/storage";
 import { StoreType } from "@/models/storage";
 import type { AppStore } from "../types";
 
-const KEY_SIDEBAR_OPEN = "sidebarOpen";
+const KEY_SIDEBAR_OPEN = "menu.open";
 
 /**
  * 全局配置
@@ -13,6 +13,12 @@ export const useAppStore = defineStore("app", () => {
   const app = reactive<AppStore>({
     title: import.meta.env.VITE_APP_TITLE,
     componentSize: "default",
+    netConfig: {
+      baseURL: import.meta.env.VITE_APP_NET_BASE_URL || undefined,
+      timeout: import.meta.env.VITE_APP_NET_DEFAULT_TIMEOUT || 10_000,
+      timeoutErrorMessage:
+        import.meta.env.VITE_APP_NET_DEFAULT_TIMEOUT_MESSAGE || undefined,
+    },
   });
   return { app };
 });
