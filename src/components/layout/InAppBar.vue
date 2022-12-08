@@ -5,6 +5,7 @@
 
   <div flex justify-center items-center gap-4>
     <in-switch-dark />
+    <in-cmp-size />
     <in-fullscreen />
     <in-user-dropdown />
   </div>

@@ -40,6 +40,7 @@ declare module '@vue/runtime-core' {
     InAppBar: typeof import('./src/components/layout/InAppBar.vue')['default']
     InAppLayout: typeof import('./src/components/layout/InAppLayout.vue')['default']
     InBaseContainer: typeof import("./src/components/InBaseContainer.vue")["default"]
+    InCmpSize: typeof import('./src/components/cmp-size/InCmpSize.vue')['default']
     InContainer: typeof import('./src/components/InContainer.vue')['default']
     InFilterContainer: typeof import('./src/components/InFilterContainer.vue')['default']
     InFullscreen: typeof import('./src/components/InFullscreen.vue')['default']
