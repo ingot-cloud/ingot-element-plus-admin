@@ -1,10 +1,6 @@
 import { ref, reactive, computed } from "vue";
 import { defineStore } from "pinia";
-import { StoreManager } from "@/utils/storage";
-import { StoreType } from "@/models/storage";
 import type { AppStore } from "../types";
-
-const KEY_SIDEBAR_OPEN = "menu.open";
 
 /**
  * 全局配置
@@ -31,21 +27,11 @@ export const useAppMenuStore = defineStore(
   () => {
     const menuOpenStatus = ref(false);
     const getMenuOpened = computed(() => {
-      const value = StoreManager.get(KEY_SIDEBAR_OPEN, StoreType.Session);
-      if (value) {
-        menuOpenStatus.value = value === "1";
-      }
       return menuOpenStatus.value;
     });
     function toggleMenu() {
       menuOpenStatus.value = !menuOpenStatus.value;
-      StoreManager.set({
-        key: KEY_SIDEBAR_OPEN,
-        value: menuOpenStatus.value ? "1" : "0",
-        type: StoreType.Session,
-      });
     }
-
     return { menuOpenStatus, getMenuOpened, toggleMenu };
   },
   {
