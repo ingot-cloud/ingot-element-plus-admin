@@ -8,6 +8,7 @@ import {
 import type { R } from "@/models/net";
 import NProgress from "@/components/nprogress";
 import { useAppStore } from "@/stores/modules/app";
+import CancelManager from "./cancel";
 
 class Http {
   private instance: AxiosInstance;
@@ -23,6 +24,7 @@ class Http {
     this.instance.interceptors.request.use(
       (config: AxiosRequestConfig) => {
         NProgress.start();
+        CancelManager.addPending(config);
         return onRequestFulfilled(config);
       },
       (error: AxiosError) => {
@@ -32,10 +34,12 @@ class Http {
     this.instance.interceptors.response.use(
       (response: AxiosResponse<R>) => {
         NProgress.done();
+        CancelManager.removePending(response.config);
         return onResponseFulfilled(response);
       },
       (error: AxiosError<R>) => {
         NProgress.done();
+        CancelManager.removePending(error.config);
         return onResponseRejected(error);
       }
     );
