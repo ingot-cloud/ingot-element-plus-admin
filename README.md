@@ -4,6 +4,7 @@
   * [vue3](https://github.com/vuejs/core)
   * [vite](https://github.com/vitejs/vite)
   * [pinia](https://github.com/vuejs/pinia)
+  * [pinia-plugin-persistedstate](https://github.com/prazdevs/pinia-plugin-persistedstate)
   * [element-plus](https://github.com/element-plus/element-plus)
   * [vueuse](https://github.com/vueuse/vueuse)
   * [unocss](https://github.com/unocss/unocss)
