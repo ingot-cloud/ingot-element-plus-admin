@@ -15,3 +15,17 @@ export const TYPE_BOOLEAN = "Boolean";
 export function is(val: unknown, type: string) {
   return toString.call(val) === `[object ${type}]`;
 }
+
+/**
+ * 是否为方法
+ */
+export function isFunction(val: unknown) {
+  return is(val, TYPE_FUNCTION);
+}
+
+/**
+ * 是否为对象
+ */
+export function isObject(val: unknown) {
+  return is(val, TYPE_OBJECT);
+}
