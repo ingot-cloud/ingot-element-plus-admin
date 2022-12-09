@@ -26,23 +26,32 @@ export const useAppStore = defineStore("app", () => {
 /**
  * App 菜单
  */
-export const useAppMenuStore = defineStore("app.menu", () => {
-  const sidebarOpened = ref(false);
-  const getMenuOpened = computed(() => {
-    const value = StoreManager.get(KEY_SIDEBAR_OPEN, StoreType.Session);
-    if (value) {
-      sidebarOpened.value = value === "1";
-    }
-    return sidebarOpened.value;
-  });
-  function toggleMenu() {
-    sidebarOpened.value = !sidebarOpened.value;
-    StoreManager.set({
-      key: KEY_SIDEBAR_OPEN,
-      value: sidebarOpened.value ? "1" : "0",
-      type: StoreType.Session,
+export const useAppMenuStore = defineStore(
+  "app.menu",
+  () => {
+    const menuOpenStatus = ref(false);
+    const getMenuOpened = computed(() => {
+      const value = StoreManager.get(KEY_SIDEBAR_OPEN, StoreType.Session);
+      if (value) {
+        menuOpenStatus.value = value === "1";
+      }
+      return menuOpenStatus.value;
     });
-  }
+    function toggleMenu() {
+      menuOpenStatus.value = !menuOpenStatus.value;
+      StoreManager.set({
+        key: KEY_SIDEBAR_OPEN,
+        value: menuOpenStatus.value ? "1" : "0",
+        type: StoreType.Session,
+      });
+    }
 
-  return { sidebarOpened, getMenuOpened, toggleMenu };
-});
+    return { menuOpenStatus, getMenuOpened, toggleMenu };
+  },
+  {
+    persist: {
+      storage: localStorage,
+      paths: ["menuOpenStatus"],
+    },
+  }
+);
