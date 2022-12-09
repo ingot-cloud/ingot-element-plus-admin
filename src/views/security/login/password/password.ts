@@ -1,6 +1,7 @@
 import { reactive, ref, unref } from "vue";
 import type { Ref } from "vue";
 import type { Router } from "vue-router";
+import { useAuthStore } from "@/stores/modules/auth";
 
 const formModel = reactive({
   username: "",
@@ -23,11 +24,20 @@ const handleLogin = (formRef: Ref, router: Router): void => {
   form.validate((valid: boolean) => {
     if (valid) {
       loading.value = true;
-      const params = router.currentRoute.value.query;
-      router.replace({
-        path: params.redirect ? String(params.redirect) : "/",
-      });
+      useAuthStore()
+        .login({ ...formModel })
+        .then(() => {
+          const params = router.currentRoute.value.query;
+          router.replace({
+            path: params.redirect ? String(params.redirect) : "/",
+          });
 
+          loading.value = false;
+          form.resetFields();
+        })
+        .catch(() => {
+          loading.value = false;
+        });
       loading.value = false;
     }
   });
