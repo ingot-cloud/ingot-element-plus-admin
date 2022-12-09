@@ -25,4 +25,8 @@ export interface AppStore {
    * 网络配置
    */
   netConfig: NetConfig;
+  /**
+   * 租户ID
+   */
+  tenant: string;
 }

@@ -1,5 +1,5 @@
 import { ref, reactive, computed } from "vue";
-import { defineStore } from "pinia";
+import { defineStore, storeToRefs } from "pinia";
 import type { AppStore } from "../types";
 
 /**
@@ -15,8 +15,12 @@ export const useAppStore = defineStore("app", () => {
       timeoutErrorMessage:
         import.meta.env.VITE_APP_NET_DEFAULT_TIMEOUT_MESSAGE || undefined,
     },
+    tenant: import.meta.env.VITE_APP_TENANT,
   });
-  return { app };
+
+  const getTenant = computed(() => app.tenant);
+
+  return { app, getTenant };
 });
 
 /**

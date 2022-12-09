@@ -1,7 +1,7 @@
 import { reactive, computed } from "vue";
 import { defineStore, storeToRefs } from "pinia";
 import type { UserToken } from "@/models/security";
-import { LoginAPI } from "@/api/common/auth";
+import { PasswordTokenAPI } from "@/api/common/auth";
 
 /**
  * 授权信息
@@ -36,7 +36,7 @@ export const useAuthStore = defineStore(
       password: string;
     }): Promise<void> => {
       return new Promise((resolve, reject) => {
-        LoginAPI({
+        PasswordTokenAPI({
           username,
           password,
         })
