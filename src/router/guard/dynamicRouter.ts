@@ -15,7 +15,6 @@ export class DynamicRouterGuard extends BaseNavigationGuard {
         router.addRoute(route);
       });
 
-      console.log("DynamicRouterGuard");
       return true;
     };
   }
