@@ -5,3 +5,12 @@ export interface UserToken {
   expiresIn?: number;
   scope?: string;
 }
+
+export interface User {
+  username: string;
+}
+
+export interface UserInfo {
+  user: User;
+  roles: Array<string>;
+}

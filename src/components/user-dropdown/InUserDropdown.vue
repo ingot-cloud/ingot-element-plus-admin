@@ -4,13 +4,13 @@
       <div flex flex-row items-center>
         <img
           src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"
-          h-36px
-          w-36px
-          mr-5px
-          rd-18px
+          h-24px
+          w-24px
+          mr-8px
+          rd-12px
           class="user-avatar"
         />
-        <span>用户名</span>
+        <span>{{ getUsername }}</span>
       </div>
       <template #dropdown>
         <el-dropdown-menu class="user-dropdown">
@@ -32,6 +32,10 @@
 import { Icon } from "@iconify/vue";
 import type { Command } from "./data";
 import { menuList } from "./data";
+import { useUserInfoStore } from "@/stores/modules/auth";
+import { storeToRefs } from "pinia";
+
+const { getUsername } = storeToRefs(useUserInfoStore());
 
 const handleMenuCommand = (command: Command): void => {
   switch (command.action) {
