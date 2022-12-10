@@ -7,17 +7,16 @@ import {
 } from "./interceptor/response";
 import type { R } from "@/models/net";
 import NProgress from "@/components/nprogress";
-import { useAppStore } from "@/stores/modules/app";
 import CancelManager from "./cancel";
 
 class Http {
   private instance: AxiosInstance;
   public constructor() {
-    const { app } = useAppStore();
     this.instance = axios.create({
-      baseURL: app.netConfig.baseURL,
-      timeout: app.netConfig.timeout,
-      timeoutErrorMessage: app.netConfig.timeoutErrorMessage,
+      baseURL: import.meta.env.VITE_APP_NET_BASE_URL || undefined,
+      timeout: import.meta.env.VITE_APP_NET_DEFAULT_TIMEOUT || 10_000,
+      timeoutErrorMessage:
+        import.meta.env.VITE_APP_NET_DEFAULT_TIMEOUT_MESSAGE || undefined,
     });
 
     // default interceptors

@@ -1,8 +1,8 @@
 import { reactive, computed } from "vue";
-import { defineStore, storeToRefs } from "pinia";
-import type { UserToken } from "@/models/security";
+import { defineStore } from "pinia";
+import type { UserToken, UserInfo } from "@/models/security";
 import { PasswordTokenAPI } from "@/api/common/auth";
-
+import { UserInfoAPI } from "@/api/common/user";
 /**
  * 授权信息
  */
@@ -61,11 +61,40 @@ export const useAuthStore = defineStore(
 );
 
 /**
- * 获取请求token
+ * 用户信息
  */
-export const getAccessToken = storeToRefs(useAuthStore()).getAccessToken;
+export const useUserInfoStore = defineStore("security.user", () => {
+  const userInfo = reactive<UserInfo>({
+    user: {
+      username: "欢迎登录",
+    },
+    roles: [],
+  });
 
-/**
- * 获取刷新token
- */
-export const getRefreshToken = storeToRefs(useAuthStore()).getRefreshToken;
+  const getUsername = computed(() => userInfo.user.username);
+  const getRoles = computed(() => userInfo.roles);
+  const getUserInfoWhetherExist = computed(
+    () => userInfo.roles && userInfo.roles.length !== 0
+  );
+
+  const fetchUserInfo = () => {
+    return new Promise((resolve, reject) => {
+      UserInfoAPI()
+        .then((response) => {
+          Object.assign(userInfo, response.data);
+          resolve(response.data);
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
+  };
+
+  return {
+    userInfo,
+    getUsername,
+    getRoles,
+    getUserInfoWhetherExist,
+    fetchUserInfo,
+  };
+});

@@ -1,12 +1,12 @@
 import Http from "@/net";
 import type { UserToken, R } from "@/models";
-
-const BasicToken = "Basic aW5nb3Q6aW5nb3Q=";
+import { useAppStore } from "@/stores/modules/app";
+import { storeToRefs } from "pinia";
 
 /**
  * 通过密码登录
  */
-export function LoginAPI({
+export function PasswordTokenAPI({
   username,
   password,
 }: {
@@ -20,7 +20,17 @@ export function LoginAPI({
   };
   return Http.postForm<UserToken>("/api/auth/oauth2/token", data, {
     headers: {
-      Authorization: BasicToken,
+      Authorization: storeToRefs(useAppStore()).getBasicToken.value,
     },
   });
 }
+
+/**
+ * 刷新Token
+ */
+export function RefreshTokenAPI() {}
+
+/**
+ * 撤销Token
+ */
+export function RevokeTokenAPI() {}
