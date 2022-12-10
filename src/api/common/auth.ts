@@ -28,9 +28,25 @@ export function PasswordTokenAPI({
 /**
  * 刷新Token
  */
-export function RefreshTokenAPI() {}
+export function RefreshTokenAPI(refreshToken: string): Promise<R<UserToken>> {
+  const data = {
+    refresh_token: refreshToken,
+    grant_type: "refresh_token",
+  };
+  return Http.postForm<UserToken>("/api/auth/oauth2/token", data, {
+    headers: {
+      Authorization: storeToRefs(useAppStore()).getBasicToken.value,
+    },
+  });
+}
 
 /**
  * 撤销Token
  */
-export function RevokeTokenAPI() {}
+export function RevokeTokenAPI(token: string): Promise<R> {
+  return Http.delete<void>("/api/auth/token", null, {
+    headers: {
+      Authorization: token,
+    },
+  });
+}
