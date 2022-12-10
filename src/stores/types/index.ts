@@ -29,4 +29,8 @@ export interface AppStore {
    * 租户ID
    */
   tenant: string;
+  /**
+   * basic token
+   */
+  basicToken: string;
 }
