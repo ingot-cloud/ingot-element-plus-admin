@@ -1,11 +1,16 @@
 <template>
-  <div class="avatar-menu">
+  <div mr-10px>
     <el-dropdown trigger="hover" @command="handleMenuCommand">
-      <div class="avatar-wrapper">
+      <div flex flex-row items-center>
         <img
           src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"
+          h-36px
+          w-36px
+          mr-5px
+          rd-18px
           class="user-avatar"
         />
+        <span>用户名</span>
       </div>
       <template #dropdown>
         <el-dropdown-menu class="user-dropdown">
@@ -35,13 +40,3 @@ const handleMenuCommand = (command: Command): void => {
   }
 };
 </script>
-<style lang="postcss" scoped>
-.avatar-menu {
-  margin-right: 10px;
-  & .user-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 18px;
-  }
-}
-</style>
