@@ -56,13 +56,13 @@ const bizResponseFailureHandler = (
           .then((userToken) => {
             // 刷新成功重试刚才的请求，替换token重新请求
             // 避免再次请求失败，刷新token后的重试不走失效逻辑
-            const newConfig = Object.assign({}, config);
-            newConfig.refreshTokenAndRetry = true;
-            newConfig.headers = newConfig.headers || {};
-            newConfig.headers[
+            const retryConfig = Object.assign({}, config);
+            retryConfig.refreshTokenAndRetry = true;
+            retryConfig.headers = retryConfig.headers || {};
+            retryConfig.headers[
               "Authorization"
             ] = `${userToken.tokenType} ${userToken.accessToken}`;
-            return Http.rawRequest(newConfig);
+            return Http.rawRequest(retryConfig);
           })
           .then((temp) => {
             resolve(temp);
