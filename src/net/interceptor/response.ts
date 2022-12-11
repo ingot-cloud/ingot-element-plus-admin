@@ -4,6 +4,7 @@ import type { R } from "@/models/net";
 import { StatusCode } from "@/net/status-code";
 import { useAuthStore } from "@/stores/modules/auth";
 import Http from "@/net";
+import { logoutAndReload } from "@/utils/security";
 
 /**
  * 未知响应实体
@@ -68,11 +69,9 @@ const bizResponseFailureHandler = (
             resolve(temp);
           })
           .catch(() => {
-            // 刷新失败退出登录
-            useAuthStore()
-              .logout()
-              .then(() => location.reload());
             Message.warning("令牌失效", { showClose: true });
+            // 刷新失败退出登录
+            logoutAndReload();
           });
       });
     case StatusCode.TokenSignBack:
@@ -80,9 +79,7 @@ const bizResponseFailureHandler = (
         confirmButtonText: "重新登录",
         cancelButtonText: "取消",
       }).then(() => {
-        useAuthStore()
-          .logout()
-          .then(() => location.reload());
+        logoutAndReload();
       });
       break;
     default:

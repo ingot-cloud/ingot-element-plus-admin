@@ -32,16 +32,15 @@
 import { Icon } from "@iconify/vue";
 import type { Command } from "./data";
 import { menuList } from "./data";
-import { useUserInfoStore, useAuthStore } from "@/stores/modules/auth";
+import { useUserInfoStore } from "@/stores/modules/auth";
 import { storeToRefs } from "pinia";
+import { logoutAndReload } from "@/utils/security";
 
 const { getUsername } = storeToRefs(useUserInfoStore());
 const handleMenuCommand = (command: Command): void => {
   switch (command.action) {
     case "logout":
-      useAuthStore()
-        .logout()
-        .then(() => location.reload());
+      logoutAndReload();
       break;
   }
 };
