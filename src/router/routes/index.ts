@@ -12,17 +12,17 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Root",
-    redirect: "/dashboard",
+    redirect: "/home",
     component: InAppLayout,
     meta: {
       hidden: false,
     },
     children: [
       {
-        path: "/dashboard",
+        path: "/home",
         meta: {
           title: "首页",
-          icon: "dash-board",
+          icon: "home",
         },
         component: () => import("@/views/dashboard/DashboardPage.vue"),
       },
