@@ -20,12 +20,12 @@ const filterMenus = (menu: Array<RouteRecordRaw>): Array<RouteRecordRaw> => {
     });
 };
 
-export const userRouterStore = defineStore("router", () => {
+export const useRouterStore = defineStore("router", () => {
   const menus = ref<Array<RouteRecordRaw>>([]);
   const dynamicRoutes = ref<Array<RouteRecordRaw>>([]);
   const getMenus = computed(() => menus.value);
 
-  const fetchRouters = async (forceRefresh?: boolean) => {
+  const fetchRoutes = async (forceRefresh?: boolean) => {
     if (forceRefresh || menus.value.length === 0) {
       // todo 发送请求获取菜单列表，并且和固定的routes合并
       dynamicRoutes.value = [];
@@ -39,5 +39,5 @@ export const userRouterStore = defineStore("router", () => {
     };
   };
 
-  return { menus, getMenus, fetchRouters };
+  return { menus, getMenus, fetchRoutes };
 });

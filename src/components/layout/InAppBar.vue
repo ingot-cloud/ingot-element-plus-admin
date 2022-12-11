@@ -1,6 +1,7 @@
 <template>
   <div flex justify-center items-center>
     <in-menu-toggle />
+    <in-breadcrumb />
   </div>
 
   <div flex justify-center items-center gap-4>
@@ -10,5 +11,3 @@
     <in-user-dropdown />
   </div>
 </template>
-
-<script lang="ts" setup></script>

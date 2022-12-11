@@ -44,13 +44,13 @@
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useAppStore, useAppMenuStore } from "@/stores/modules/app";
-import { userRouterStore } from "@/stores/modules/router";
+import { useRouterStore } from "@/stores/modules/router";
 import { storeToRefs } from "pinia";
 
 const router = useRouter();
 const { getMenuOpened } = storeToRefs(useAppMenuStore());
 const activePath = computed(() => router.currentRoute.value.path);
-const menus = userRouterStore().getMenus;
+const menus = useRouterStore().getMenus;
 const { app } = storeToRefs(useAppStore());
 
 const onNavMenuSelect = () => {
