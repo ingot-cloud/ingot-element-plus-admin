@@ -4,10 +4,17 @@ export {};
 declare module "axios" {
   interface AxiosRequestConfig {
     /**
-     * 是否触发不触发公共请求失败处理器
-     * 默认触发
+     * 是否手动处理失败流程
+     * 默认自动交由公共失败处理器处理
      */
-    notTriggerBizFailureHandler?: boolean;
+    manualProcessingFailure?: boolean;
+
+    /**
+     * 是否手动处理中断。
+     * 默认情况下，所有请求会自动加入到CancelManager中，可以统一中断所有请求，
+     * 如果手动
+     */
+    manualProcessingAbort?: boolean;
 
     /**
      * 是否为刷新token后的请求重试

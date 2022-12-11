@@ -2,8 +2,7 @@ import type { AxiosResponse, AxiosError, AxiosRequestConfig } from "axios";
 import { Message, Confirm } from "@/utils/message";
 import type { R } from "@/models/net";
 import { StatusCode } from "@/net/status-code";
-// import { handlLogout } from "@/store/composition/auth";
-// import { refreshToken } from "@/store/composition/auth";
+import { useAuthStore } from "@/stores/modules/auth";
 import Http from "@/net";
 
 /**
@@ -20,7 +19,7 @@ const UnknownResponse: R = {
 };
 
 const axiosResponseToR = (response?: AxiosResponse<R>): R => {
-  if (!response) {
+  if (!response || !response.data) {
     return UnknownResponse;
   }
   const result = Object.assign({}, response, {
@@ -40,63 +39,56 @@ const bizResponseFailureHandler = (
   config: AxiosRequestConfig,
   response = UnknownResponse
 ): Promise<R> => {
-  // 如果响应结构非{ code, message, data }结构，而是字符串，那么为网络异常，response复制unknown
-  if (typeof response.data === "string") {
-    console.debug("response.data结构异常", response);
-    response = UnknownResponse;
-  }
-  const data = response.data;
-  const notTriggerBizFailureHandler = config.notTriggerBizFailureHandler;
-  if (notTriggerBizFailureHandler) {
+  // 如果手动处理，则直接返回
+  if (config.manualProcessingFailure) {
     return Promise.reject(response);
   }
 
-  const code = data.code;
+  const code = response.code;
   switch (code) {
     case StatusCode.TokenInvalid:
-      console.log("StatusCode.TokenInvalid");
-      break;
-    // if (config.refreshTokenAndRetry) {
-    //   return Promise.reject(response);
-    // }
-    // return new Promise((resolve, reject) => {
-    //   refreshToken()
-    //     .then((userToken) => {
-    //       // 刷新成功重试刚才的请求，替换token重新请求
-    //       // 避免再次请求失败，刷新token后的重试不走失效逻辑
-    //       const newConfig = Object.assign({}, config);
-    //       newConfig.refreshTokenAndRetry = true;
-    //       newConfig.headers[
-    //         "Authorization"
-    //       ] = `Bearer ${userToken.accessToken}`;
-
-    //       return Http.rawRequest(newConfig);
-    //     })
-    //     .then((temp) => {
-    //       resolve(temp);
-    //     })
-    //     .catch(() => {
-    //       // 刷新失败退出登录
-    //       // handlLogout();
-    //       console.debug(data.message);
-    //       Message.warning("令牌失效", { showClose: true });
-    //       // reject(response);
-    //     });
-    // });
+      if (config.refreshTokenAndRetry) {
+        return Promise.reject(response);
+      }
+      return new Promise((resolve) => {
+        useAuthStore()
+          .refreshToken()
+          .then((userToken) => {
+            // 刷新成功重试刚才的请求，替换token重新请求
+            // 避免再次请求失败，刷新token后的重试不走失效逻辑
+            const newConfig = Object.assign({}, config);
+            newConfig.refreshTokenAndRetry = true;
+            newConfig.headers = newConfig.headers || {};
+            newConfig.headers[
+              "Authorization"
+            ] = `${userToken.tokenType} ${userToken.accessToken}`;
+            return Http.rawRequest(newConfig);
+          })
+          .then((temp) => {
+            resolve(temp);
+          })
+          .catch(() => {
+            // 刷新失败退出登录
+            useAuthStore()
+              .logout()
+              .then(() => location.reload());
+            Message.warning("令牌失效", { showClose: true });
+          });
+      });
     case StatusCode.TokenSignBack:
-      // Confirm.warning("您已被签退，可以取消继续留在该页面，或者重新登录", {
-      //   confirmButtonText: "重新登录",
-      //   cancelButtonText: "取消",
-      // }).then(() => {
-      //   handlLogout();
-      // });
-      console.log("StatusCode.TokenSignBack");
+      Confirm.warning("您已被签退，可以取消继续留在该页面，或者重新登录", {
+        confirmButtonText: "重新登录",
+        cancelButtonText: "取消",
+      }).then(() => {
+        useAuthStore()
+          .logout()
+          .then(() => location.reload());
+      });
       break;
     default:
-      Message.warning(data.message, { showClose: true });
+      Message.warning(response.message, { showClose: true });
       break;
   }
-
   return Promise.reject(response);
 };
 

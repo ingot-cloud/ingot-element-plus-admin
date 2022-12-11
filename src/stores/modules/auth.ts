@@ -57,12 +57,12 @@ export const useAuthStore = defineStore(
     /**
      * 刷新token
      */
-    const refreshToken = (): Promise<void> => {
+    const refreshToken = (): Promise<UserToken> => {
       return new Promise((resolve, reject) => {
         RefreshTokenAPI(getRefreshToken.value)
           .then((response) => {
             updateToken(response.data);
-            resolve();
+            resolve(response.data);
           })
           .catch((err) => {
             reject(err);
@@ -70,6 +70,9 @@ export const useAuthStore = defineStore(
       });
     };
 
+    /**
+     * 退出登录
+     */
     const logout = (): Promise<void> => {
       return new Promise((resolve) => {
         RevokeTokenAPI(getAccessToken.value);

@@ -16,8 +16,10 @@ export const onRequestFulfilled = (
     }
   }
 
-  const { getTenant } = storeToRefs(useAppStore());
-  config.headers["Tenant"] = getTenant.value;
+  if (!config.ignoreTenant) {
+    const { getTenant } = storeToRefs(useAppStore());
+    config.headers["Tenant"] = getTenant.value;
+  }
   return config;
 };
 

@@ -1,9 +1,17 @@
 <template>
   <in-container>
     首页
-    <div>user.username</div>
-    <div>roles</div>
+    <div>{{ getUsername }}</div>
+    <div>{{ getRoles }}</div>
+    <div>{{ getUserInfoWhetherExist }}</div>
   </in-container>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useUserInfoStore } from "@/stores/modules/auth";
+import { storeToRefs } from "pinia";
+
+const { getUsername, getRoles, getUserInfoWhetherExist } = storeToRefs(
+  useUserInfoStore()
+);
+</script>

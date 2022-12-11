@@ -36,7 +36,6 @@ import { useUserInfoStore, useAuthStore } from "@/stores/modules/auth";
 import { storeToRefs } from "pinia";
 
 const { getUsername } = storeToRefs(useUserInfoStore());
-
 const handleMenuCommand = (command: Command): void => {
   switch (command.action) {
     case "logout":

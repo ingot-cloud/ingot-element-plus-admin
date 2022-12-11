@@ -1,69 +1,50 @@
-import type { AxiosRequestConfig, Canceler } from "axios";
+import type { AxiosRequestConfig } from "axios";
 import qs from "qs";
-import axios from "axios";
-import { isFunction } from "@/utils";
 
 class CancelManager {
-  private pendingMap: Map<string, Canceler>;
+  private requestMap: Map<string, AbortController>;
   constructor() {
-    this.pendingMap = new Map<string, Canceler>();
+    this.requestMap = new Map<string, AbortController>();
   }
 
   /**
    * 添加请求
    */
-  addPending(config?: AxiosRequestConfig) {
+  addRequest(config?: AxiosRequestConfig) {
     if (!config) {
       return;
     }
-    // * 在请求开始前，对之前的请求做检查取消操作
-    this.removePending(config);
-    const url = this.getPendingUrl(config);
-    config.cancelToken =
-      config.cancelToken ||
-      new axios.CancelToken((cancel) => {
-        if (!this.pendingMap.has(url)) {
-          // 如果 pending 中不存在当前请求，则添加进去
-          this.pendingMap.set(url, cancel);
-        }
-      });
+    if (config.signal) {
+      return;
+    }
+    this.removeRequest(config);
+    const abort = new AbortController();
+    config.signal = abort.signal;
+    this.requestMap.set(this.getUrl(config), abort);
   }
 
   /**
    * 移除请求
    */
-  removePending(config?: AxiosRequestConfig) {
+  removeRequest(config?: AxiosRequestConfig) {
     if (!config) {
       return;
     }
-    const url = this.getPendingUrl(config);
-
-    if (this.pendingMap.has(url)) {
-      // 如果在 pending 中存在当前请求标识，需要取消当前请求，并且移除
-      const cancel = this.pendingMap.get(url);
-      cancel && cancel();
-      this.pendingMap.delete(url);
-    }
+    const url = this.getUrl(config);
+    this.requestMap.delete(url);
   }
 
   /**
-   * 清空所有pending
+   * 中断所有请求
    */
-  removeAllPending() {
-    this.pendingMap.forEach((cancel) => {
-      cancel && isFunction(cancel) && cancel();
+  abort() {
+    this.requestMap.forEach((abort) => {
+      abort && abort.abort();
     });
-    this.pendingMap.clear();
+    this.requestMap.clear();
   }
 
-  /**
-   * 重置
-   */
-  reset(): void {
-    this.pendingMap = new Map<string, Canceler>();
-  }
-
-  getPendingUrl(config: AxiosRequestConfig) {
+  getUrl(config: AxiosRequestConfig) {
     return [
       config.method,
       config.url,

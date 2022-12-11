@@ -23,7 +23,7 @@ class Http {
     this.instance.interceptors.request.use(
       (config: AxiosRequestConfig) => {
         NProgress.start();
-        CancelManager.addPending(config);
+        CancelManager.addRequest(config);
         return onRequestFulfilled(config);
       },
       (error: AxiosError) => {
@@ -33,15 +33,19 @@ class Http {
     this.instance.interceptors.response.use(
       (response: AxiosResponse<R>) => {
         NProgress.done();
-        CancelManager.removePending(response.config);
+        CancelManager.removeRequest(response.config);
         return onResponseFulfilled(response);
       },
       (error: AxiosError<R>) => {
         NProgress.done();
-        CancelManager.removePending(error.config);
+        CancelManager.removeRequest(error.config);
         return onResponseRejected(error);
       }
     );
+  }
+
+  rawRequest<T = any>(config: AxiosRequestConfig): Promise<R<T>> {
+    return this.instance.request(config);
   }
 
   get<T = any>(

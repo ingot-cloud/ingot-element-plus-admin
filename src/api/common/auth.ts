@@ -37,6 +37,7 @@ export function RefreshTokenAPI(refreshToken: string): Promise<R<UserToken>> {
     headers: {
       Authorization: storeToRefs(useAppStore()).getBasicToken.value,
     },
+    manualProcessingFailure: true,
   });
 }
 
