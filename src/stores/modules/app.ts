@@ -36,9 +36,9 @@ export const useAppMenuStore = defineStore(
     const getMenuOpened = computed(() => {
       return menuOpenStatus.value;
     });
-    function toggleMenu() {
+    const toggleMenu = () => {
       menuOpenStatus.value = !menuOpenStatus.value;
-    }
+    };
     return { menuOpenStatus, getMenuOpened, toggleMenu };
   },
   {
