@@ -6,6 +6,7 @@ import { default as routes } from "@/router/routes";
 interface BreadCrumbItem {
   path: string;
   title: string;
+  icon?: string;
   redirect?: string;
   children?: Array<BreadCrumbItem>;
 }
@@ -39,11 +40,13 @@ const loadPathBreadCrumbList = (
     out.push({
       path: menu.path,
       title: menu.meta?.title || "",
+      icon: menu.meta?.icon,
       redirect: menu.redirect?.toString(),
       children: menu.children?.map((item) => {
         return {
           path: item.path,
           title: item.meta?.title || "",
+          icon: menu.meta?.icon,
           redirect: item.redirect?.toString(),
         };
       }),
@@ -96,7 +99,13 @@ const filterMenus = (menu: Array<RouteRecordRaw>): Array<RouteRecordRaw> => {
 export const useRouterStore = defineStore("router", () => {
   const menus = ref<Array<RouteRecordRaw>>([]);
   const dynamicRoutes = ref<Array<RouteRecordRaw>>([]);
+
   const getMenus = computed(() => menus.value);
+  const getBreadcrumb = computed(() => {
+    const result: { [key: string]: Array<BreadCrumbItem> } = {};
+    menus.value.forEach((menu) => loadBreadCrumbKV(menu, menus.value, result));
+    return result;
+  });
 
   const fetchRoutes = async (forceRefresh?: boolean) => {
     if (forceRefresh || menus.value.length === 0) {
@@ -112,11 +121,5 @@ export const useRouterStore = defineStore("router", () => {
     };
   };
 
-  const breadcrumbKV = () => {
-    const result: { [key: string]: Array<BreadCrumbItem> } = {};
-    menus.value.forEach((menu) => loadBreadCrumbKV(menu, menus.value, result));
-    return result;
-  };
-
-  return { menus, getMenus, fetchRoutes, breadcrumbKV };
+  return { menus, getMenus, getBreadcrumb, fetchRoutes };
 });

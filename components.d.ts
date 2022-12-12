@@ -8,6 +8,8 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ElAside: typeof import('element-plus/es')['ElAside']
+    ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
+    ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElContainer: typeof import('element-plus/es')['ElContainer']
@@ -40,6 +42,7 @@ declare module '@vue/runtime-core' {
     InAppBar: typeof import('./src/components/layout/InAppBar.vue')['default']
     InAppLayout: typeof import('./src/components/layout/InAppLayout.vue')['default']
     InBaseContainer: typeof import("./src/components/InBaseContainer.vue")["default"]
+    InBreadcrumb: typeof import('./src/components/InBreadcrumb.vue')['default']
     InCmpSize: typeof import('./src/components/cmp-size/InCmpSize.vue')['default']
     InContainer: typeof import('./src/components/InContainer.vue')['default']
     InFilterContainer: typeof import('./src/components/InFilterContainer.vue')['default']
