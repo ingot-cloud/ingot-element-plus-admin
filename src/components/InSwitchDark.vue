@@ -13,6 +13,10 @@ const toggleDark = useToggle(isDark);
   <el-switch
     v-model="isDark"
     inline-prompt
+    style="
+      --el-switch-on-color: var(--in-color-primary);
+      --el-switch-off-color: var(--in-color-primary);
+    "
     :active-icon="IconDark"
     :inactive-icon="IconLight"
   />
