@@ -1,12 +1,22 @@
 import type { BaseNavigationGuard } from "@/router/types";
+import type { Router } from "vue-router";
 import { AuthGuard } from "./authRouter";
 import { UserInfoGuard } from "./userRouter";
 import { DynamicRouterGuard } from "./dynamicRouter";
 
 const guardList: Array<BaseNavigationGuard> = [
-  AuthGuard.get(),
-  UserInfoGuard.get(),
-  DynamicRouterGuard.get(),
+  new DynamicRouterGuard(),
+  new UserInfoGuard(),
+  new AuthGuard(),
 ];
 
-export default guardList;
+guardList.sort((l, r) => {
+  return l.order() - r.order();
+});
+
+export const setupGuard = (router: Router) => {
+  // 注册 guard
+  guardList.forEach(async (guard) => {
+    router.beforeEach(guard.proxy(router));
+  });
+};

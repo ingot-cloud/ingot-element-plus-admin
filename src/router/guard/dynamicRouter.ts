@@ -3,8 +3,8 @@ import { BaseNavigationGuard } from "@/router/types";
 import { useRouterStore } from "@/stores/modules/router";
 
 export class DynamicRouterGuard extends BaseNavigationGuard {
-  public static get(): DynamicRouterGuard {
-    return new DynamicRouterGuard();
+  public order(): number {
+    return 20;
   }
 
   public exec(router: Router): NavigationGuardWithThis<undefined> {

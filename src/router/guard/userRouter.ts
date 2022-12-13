@@ -4,8 +4,8 @@ import { useUserInfoStore } from "@/stores/modules/auth";
 import { storeToRefs } from "pinia";
 
 export class UserInfoGuard extends BaseNavigationGuard {
-  public static get(): UserInfoGuard {
-    return new UserInfoGuard();
+  public order(): number {
+    return 10;
   }
 
   public exec(): NavigationGuardWithThis<undefined> {

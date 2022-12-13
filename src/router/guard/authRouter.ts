@@ -4,8 +4,8 @@ import { useAuthStore } from "@/stores/modules/auth";
 import { storeToRefs } from "pinia";
 
 export class AuthGuard extends BaseNavigationGuard {
-  public static get(): AuthGuard {
-    return new AuthGuard();
+  public order(): number {
+    return 1;
   }
 
   public exec(): NavigationGuardWithThis<undefined> {
