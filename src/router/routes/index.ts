@@ -23,6 +23,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: "首页",
           icon: "home",
+          isAffix: true,
         },
         component: () => import("@/views/dashboard/DashboardPage.vue"),
       },

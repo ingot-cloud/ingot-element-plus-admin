@@ -19,6 +19,10 @@ declare module "vue-router" {
      * 是否放行，即忽略身份验证
      */
     permitAuth?: boolean;
+    /**
+     * 是否为固钉
+     */
+    isAffix?: boolean;
   }
 
   interface _RouteLocationBase {
