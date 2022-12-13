@@ -34,3 +34,12 @@ export interface AppStore {
    */
   basicToken: string;
 }
+
+/**
+ * Tab item
+ */
+export interface TabItem {
+  title: string;
+  path: string;
+  close: boolean;
+}
