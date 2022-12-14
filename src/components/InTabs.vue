@@ -29,7 +29,10 @@
             <el-dropdown-item @click="handleAction(Action.Refresh)">
               <el-icon><i-ion:reload-sharp /></el-icon>重新加载
             </el-dropdown-item>
-            <el-dropdown-item @click="handleAction(Action.CloseCurrent)">
+            <el-dropdown-item
+              :disabled="route.meta.isAffix"
+              @click="handleAction(Action.CloseCurrent)"
+            >
               <el-icon><i-clarity:close-line /></el-icon>关闭标签页
             </el-dropdown-item>
             <el-dropdown-item divided @click="handleAction(Action.CloseLeft)">
@@ -106,14 +109,17 @@ enum Action {
 const handleAction = (action: Action) => {
   switch (action) {
     case Action.Refresh:
+      tabsStore.refreshPage();
       break;
     case Action.CloseCurrent:
+      tabsStore.removeTab(route.path);
       break;
     case Action.CloseLeft:
       break;
     case Action.CloseRight:
       break;
     case Action.CloseOther:
+      tabsStore.closeOtherTabs(route.path);
       break;
     case Action.CloseAll:
       break;
