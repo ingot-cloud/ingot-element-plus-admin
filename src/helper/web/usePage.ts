@@ -1,4 +1,4 @@
-import type { Router, RouteParams } from "vue-router";
+import type { Router, RouteParams, RouteLocationRaw } from "vue-router";
 import { useRouter } from "vue-router";
 import { unref } from "vue";
 import { PageNameEnum, RedirectType, RedirectField } from "@/enums/pageEnums";
@@ -47,6 +47,17 @@ export const doRedirect = () => {
     }
   });
 };
+
+export function useGo(router?: Router) {
+  const { push, replace } = router || useRouter();
+  function go(opt: RouteLocationRaw, isReplace = false) {
+    if (!opt) {
+      return;
+    }
+    isReplace ? replace(opt) : push(opt);
+  }
+  return go;
+}
 
 export const useRefreshPage = (router?: Router) => {
   const { replace, currentRoute } = router || useRouter();

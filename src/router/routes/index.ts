@@ -1,7 +1,7 @@
 import type { RouteRecordRaw } from "vue-router";
 import InAppLayout from "@/components/layout/InAppLayout.vue";
 import BasicRoutes from "./basic";
-import { PageNameEnum } from "@/enums/pageEnums";
+import { PageNameEnum, PagePathEnum } from "@/enums/pageEnums";
 
 const common: Array<RouteRecordRaw> = [
   {
@@ -37,14 +37,14 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Root",
-    redirect: "/home",
+    redirect: PagePathEnum.HOME,
     component: InAppLayout,
     meta: {
       hidden: false,
     },
     children: [
       {
-        path: "/home",
+        path: PagePathEnum.HOME,
         meta: {
           title: "首页",
           icon: "home",
