@@ -35,16 +35,30 @@
             >
               <el-icon><i-clarity:close-line /></el-icon>关闭标签页
             </el-dropdown-item>
-            <el-dropdown-item divided @click="handleAction(Action.CloseLeft)">
+            <el-dropdown-item
+              divided
+              :disabled="!getCanCloseLeftTabs"
+              @click="handleAction(Action.CloseLeft)"
+            >
               <el-icon><i-line-md:arrow-close-left /></el-icon>关闭左侧标签页
             </el-dropdown-item>
-            <el-dropdown-item @click="handleAction(Action.CloseRight)">
+            <el-dropdown-item
+              :disabled="!getCanCloseRightTabs"
+              @click="handleAction(Action.CloseRight)"
+            >
               <el-icon><i-line-md:arrow-close-right /></el-icon>关闭右侧标签页
             </el-dropdown-item>
-            <el-dropdown-item divided @click="handleAction(Action.CloseOther)">
+            <el-dropdown-item
+              divided
+              :disabled="!getCanCloseOtherTabs"
+              @click="handleAction(Action.CloseOther)"
+            >
               <el-icon><i-dashicons:align-center /></el-icon>关闭其它标签页
             </el-dropdown-item>
-            <el-dropdown-item @click="handleAction(Action.CloseAll)">
+            <el-dropdown-item
+              :disabled="!getCanCloseAllTabs"
+              @click="handleAction(Action.CloseAll)"
+            >
               <el-icon><i-clarity:minus-line /></el-icon>关闭全部标签页
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -64,7 +78,13 @@ import { useTabsStore } from "@/stores/modules/tabs";
 const route = useRoute();
 const router = useRouter();
 const tabsStore = useTabsStore();
-const { tabs } = storeToRefs(tabsStore);
+const {
+  tabs,
+  getCanCloseLeftTabs,
+  getCanCloseRightTabs,
+  getCanCloseOtherTabs,
+  getCanCloseAllTabs,
+} = storeToRefs(tabsStore);
 const currentTab = ref(route.path);
 
 watch(
@@ -115,13 +135,16 @@ const handleAction = (action: Action) => {
       tabsStore.removeTab(route.path);
       break;
     case Action.CloseLeft:
+      tabsStore.closeToLeftTabs(route.path);
       break;
     case Action.CloseRight:
+      tabsStore.closeToRightTabs(route.path);
       break;
     case Action.CloseOther:
       tabsStore.closeOtherTabs(route.path);
       break;
     case Action.CloseAll:
+      tabsStore.closeAllTabs(route.path);
       break;
   }
 };

@@ -12,6 +12,28 @@ export const useTabsStore = defineStore(
     const tabs = ref<TabItem[]>([]);
     const cacheTabList = ref<Set<string>>(new Set());
 
+    const getCanCloseLeftTabs = computed(() => {
+      const route = useRoute();
+      let currentIdx = -1;
+      const size = tabs.value.filter((item, index) => {
+        if (item.path === route.path) {
+          currentIdx = index;
+        }
+        return item.close && currentIdx === -1;
+      }).length;
+      return size !== 0;
+    });
+    const getCanCloseRightTabs = computed(() => {
+      const route = useRoute();
+      let currentIdx = tabs.value.length;
+      const size = tabs.value.filter((item, index) => {
+        if (item.path === route.path) {
+          currentIdx = index;
+        }
+        return item.close && index > currentIdx;
+      }).length;
+      return size !== 0;
+    });
     const getCanCloseOtherTabs = computed(() => {
       const route = useRoute();
       const size = tabs.value.filter(
@@ -57,6 +79,43 @@ export const useTabsStore = defineStore(
       }
 
       tabs.value.splice(idx, 1);
+    };
+
+    /**
+     * 关闭左侧tabs
+     * @param path 当前path
+     */
+    const closeToLeftTabs = (path: string) => {
+      const size = tabs.value.length;
+      if (size === 1) {
+        return;
+      }
+
+      let currentIdx = -1;
+      tabs.value = tabs.value.filter((item, index) => {
+        if (item.path === path) {
+          currentIdx = index;
+        }
+        return !item.close || (currentIdx !== -1 && index >= currentIdx);
+      });
+    };
+
+    /**
+     * 关闭右侧tabs
+     * @param path 当前path
+     */
+    const closeToRightTabs = (path: string) => {
+      const size = tabs.value.length;
+      if (size === 1) {
+        return;
+      }
+      let currentIdx = size;
+      tabs.value = tabs.value.filter((item, index) => {
+        if (item.path === path) {
+          currentIdx = index;
+        }
+        return !item.close || currentIdx === size || index === currentIdx;
+      });
     };
 
     /**
@@ -108,10 +167,14 @@ export const useTabsStore = defineStore(
 
     return {
       tabs,
+      getCanCloseLeftTabs,
+      getCanCloseRightTabs,
       getCanCloseOtherTabs,
       getCanCloseAllTabs,
       addTab,
       removeTab,
+      closeToLeftTabs,
+      closeToRightTabs,
       closeOtherTabs,
       closeAllTabs,
       refreshPage,
