@@ -116,10 +116,38 @@
   dependencies:
     "@iconify/types" "*"
 
+"@iconify-json/clarity@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.npmmirror.com/@iconify-json/clarity/-/clarity-1.1.5.tgz#d3aac90786f4f257590f7de14f7055831fee7a85"
+  integrity sha512-cNRvkydp94MI3NiIY6JMg7D6lRRjDGTKCdfIBJxXf01U599Eze67zRe60VO3wN2vxE7VEzQVUz/SZn9KfXBWjQ==
+  dependencies:
+    "@iconify/types" "*"
+
+"@iconify-json/dashicons@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.npmmirror.com/@iconify-json/dashicons/-/dashicons-1.1.3.tgz#c6056b066505a4ff3188335db947b7d90d22ffc5"
+  integrity sha512-iz5HJXxDufiaQ2pxzP4cCgrCzFLNJXKV/OMJo6iwnYvaWPMi3vCyHaZYAFIUMckUlKnm7IdMBOsmNPVQkSoYHw==
+  dependencies:
+    "@iconify/types" "*"
+
 "@iconify-json/ep@^1.1.8":
   version "1.1.8"
   resolved "https://registry.npmmirror.com/@iconify-json/ep/-/ep-1.1.8.tgz#2b1d05e96ee3148f5dd62b030c4669b7c4069fb7"
   integrity sha512-pHCrsWU1R9/pTDU+Fps4+mjqOQFLtpGdXWegkhQ1P1DlgQAlCPyICtl6E1s8b7VwJMeZXaK84HA02UF6WD0o/Q==
+  dependencies:
+    "@iconify/types" "*"
+
+"@iconify-json/ion@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.npmmirror.com/@iconify-json/ion/-/ion-1.1.4.tgz#97d134dcc174ed9268e92a4bb69adaae105aea8e"
+  integrity sha512-30sOiE7OIboJXCFqIUfyAcskE49pEUjPyQs2Pl35o4lBXKZ46Jy3RzD+atkWBVz6ftlvTk9jE/qFi2mZ+gk78g==
+  dependencies:
+    "@iconify/types" "*"
+
+"@iconify-json/line-md@^1.1.20":
+  version "1.1.20"
+  resolved "https://registry.npmmirror.com/@iconify-json/line-md/-/line-md-1.1.20.tgz#7e62b76f211b841df0bbed667331ae36077246f0"
+  integrity sha512-ebO82ctZuLd4NILc3FI9apej9L3BkSigDbJjvkHS4BYfKkBoHsdO1/ycJq56LhRYyfcurj17zbcmN2a4oPkewg==
   dependencies:
     "@iconify/types" "*"
 

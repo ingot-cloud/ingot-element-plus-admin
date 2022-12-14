@@ -9,6 +9,8 @@
         <in-app-bar />
       </el-header>
 
+      <in-tabs />
+
       <el-main>
         <router-view v-slot="{ Component }">
           <keep-alive :include="cacheViews">
