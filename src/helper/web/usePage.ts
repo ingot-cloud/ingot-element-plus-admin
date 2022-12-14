@@ -1,4 +1,4 @@
-import type { Router } from "vue-router";
+import type { Router, RouteParams } from "vue-router";
 import { useRouter } from "vue-router";
 import { unref } from "vue";
 import { PageNameEnum, RedirectType, RedirectField } from "@/enums/pageEnums";
@@ -6,7 +6,7 @@ import { PageNameEnum, RedirectType, RedirectField } from "@/enums/pageEnums";
 export const getRedirectParams = (
   type: RedirectType,
   path: string,
-  routeParams = {}
+  routeParams: RouteParams = {}
 ) => {
   routeParams[RedirectField.TYPE] = type;
   routeParams["path"] = path;

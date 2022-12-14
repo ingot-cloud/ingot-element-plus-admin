@@ -1,7 +1,4 @@
-export enum StoreType {
-  Local = "local",
-  Session = "session",
-}
+import type { StoreType } from "@/enums/storageEnums";
 
 export interface StoreParams {
   key: string;

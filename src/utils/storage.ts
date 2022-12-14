@@ -1,4 +1,4 @@
-import { StoreType } from "@/models/storage";
+import { StoreType } from "@/enums/storageEnums";
 import type { StoreParams } from "@/models/storage";
 
 class IngotStore {
