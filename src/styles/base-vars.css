@@ -6,6 +6,8 @@
   --in-menu-hide: 56px;
   --in-menu-base-level-padding: 16px;
 
+  --in-breadcrumb-icon-size: 16px;
+
   --in-tabs-height: 26px;
   --in-tabs-font-size: 12px;
   --in-tabs-border-color: var(--el-border-color-light)

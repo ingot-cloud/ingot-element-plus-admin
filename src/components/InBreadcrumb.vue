@@ -9,7 +9,7 @@
         <in-icon
           v-if="item.icon"
           :name="item.icon"
-          class="w-[var(--in-menu-icon-size)] h-[var(--in-menu-icon-size)] mr-5px"
+          class="w-[var(--in-breadcrumb-icon-size)] h-[var(--in-breadcrumb-icon-size)] mr-5px"
         />
         <span>{{ item.title }}</span>
       </div>
