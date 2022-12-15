@@ -1,7 +1,7 @@
 import type { RouteRecordRaw } from "vue-router";
 import InAppLayout from "@/components/layout/InAppLayout.vue";
 import BasicRoutes from "./basic";
-import { PageNameEnum, PagePathEnum } from "@/enums/pageEnums";
+import { PageNameEnum, PagePathEnum, RedirectField } from "@/enums/pageEnums";
 
 const common: Array<RouteRecordRaw> = [
   {
@@ -20,7 +20,8 @@ const common: Array<RouteRecordRaw> = [
     },
     children: [
       {
-        path: "/redirect/:path(.*)",
+        props: true,
+        path: `/redirect/:${RedirectField.PATH}(.*):${RedirectField.TYPE}(.*)`,
         name: PageNameEnum.REDIRECT,
         component: () => import("@/views/common/redirect/RedirectPage.vue"),
         meta: {

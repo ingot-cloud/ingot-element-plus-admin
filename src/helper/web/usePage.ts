@@ -1,7 +1,12 @@
 import type { Router, RouteParams, RouteLocationRaw } from "vue-router";
 import { useRouter } from "vue-router";
 import { unref } from "vue";
-import { PageNameEnum, RedirectType, RedirectField } from "@/enums/pageEnums";
+import {
+  PageNameEnum,
+  PagePathEnum,
+  RedirectType,
+  RedirectField,
+} from "@/enums/pageEnums";
 
 export const getRedirectParams = (
   type: RedirectType,
@@ -9,19 +14,20 @@ export const getRedirectParams = (
   routeParams: RouteParams = {}
 ) => {
   routeParams[RedirectField.TYPE] = type;
-  routeParams["path"] = path;
+  routeParams[RedirectField.PATH] = path;
   return routeParams;
 };
 
-export const doRedirect = () => {
+export const doRedirect = (
+  path = String(PagePathEnum.HOME),
+  redirectType = String(RedirectType.PATH)
+) => {
   const { currentRoute, replace } = useRouter();
 
   const { params, query } = unref(currentRoute);
-  const path = params["path"];
-  const redirectType = params[RedirectField.TYPE] || RedirectType.PATH;
 
   Reflect.deleteProperty(params, RedirectField.TYPE);
-  Reflect.deleteProperty(params, "path");
+  Reflect.deleteProperty(params, RedirectField.PATH);
 
   return new Promise<void>((resolve, reject) => {
     const _path = Array.isArray(path) ? path.join("/") : path;
@@ -70,10 +76,10 @@ export const useRefreshPage = (router?: Router) => {
       }
       if (name && Object.keys(params).length > 0) {
         params[RedirectField.TYPE] = RedirectType.NAME;
-        params["path"] = String(name);
+        params[RedirectField.PATH] = String(name);
       } else {
         params[RedirectField.TYPE] = RedirectType.PATH;
-        params["path"] = fullPath;
+        params[RedirectField.PATH] = fullPath;
       }
       replace({ name: PageNameEnum.REDIRECT, params, query }).then(() =>
         resolve(true)

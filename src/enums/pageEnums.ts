@@ -13,5 +13,6 @@ export enum RedirectType {
 
 export enum RedirectField {
   // 重定向类型
-  TYPE = "__redirect_type__",
+  TYPE = "redirectType",
+  PATH = "redirectPath",
 }
