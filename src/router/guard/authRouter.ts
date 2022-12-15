@@ -5,7 +5,7 @@ import { storeToRefs } from "pinia";
 
 export class AuthGuard extends BaseNavigationGuard {
   public order(): number {
-    return 1;
+    return 10;
   }
 
   public exec(): NavigationGuardWithThis<undefined> {

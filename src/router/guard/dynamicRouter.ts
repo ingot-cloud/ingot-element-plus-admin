@@ -4,7 +4,7 @@ import { useRouterStore } from "@/stores/modules/router";
 
 export class DynamicRouterGuard extends BaseNavigationGuard {
   public order(): number {
-    return 20;
+    return 30;
   }
 
   public exec(router: Router): NavigationGuardWithThis<undefined> {
