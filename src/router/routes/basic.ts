@@ -1,8 +1,8 @@
 import type { RouteRecordRaw } from "vue-router";
 import InAppLayout from "@/components/layout/InAppLayout.vue";
 
-// 系统管理路由
-const managementRoutes: Array<RouteRecordRaw> = [
+// 基础管理路由
+export const basicRoutes: Array<RouteRecordRaw> = [
   {
     name: "Basic",
     path: "/basic",
@@ -172,5 +172,3 @@ const managementRoutes: Array<RouteRecordRaw> = [
     ],
   },
 ];
-
-export default managementRoutes;
