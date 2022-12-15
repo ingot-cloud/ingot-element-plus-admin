@@ -3,12 +3,15 @@ import InAppLayout from "@/components/layout/InAppLayout.vue";
 import BasicRoutes from "./basic";
 import { PageNameEnum, PagePathEnum, RedirectField } from "@/enums/pageEnums";
 
-const common: Array<RouteRecordRaw> = [
+/**
+ * 公共路由
+ */
+export const commonRoutes: Array<RouteRecordRaw> = [
   {
     path: "/:pathMatch(.*)",
     name: "NotFound",
     meta: { hidden: true },
-    component: () => import("@/views/NotFound.vue"),
+    component: () => import("@/views/common/errors/NotFound.vue"),
   },
   {
     path: "/redirect",
@@ -31,10 +34,6 @@ const common: Array<RouteRecordRaw> = [
       },
     ],
   },
-];
-
-const routes: Array<RouteRecordRaw> = [
-  ...common,
   {
     path: "/",
     name: "Root",
@@ -55,6 +54,12 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
+];
+
+/**
+ * 安全路由
+ */
+export const securityRoutes: Array<RouteRecordRaw> = [
   {
     path: "/login",
     name: "LoginPage",
@@ -64,7 +69,11 @@ const routes: Array<RouteRecordRaw> = [
     },
     component: () => import("@/views/security/login/LoginPage.vue"),
   },
+];
 
+const routes: Array<RouteRecordRaw> = [
+  ...commonRoutes,
+  ...securityRoutes,
   ...BasicRoutes,
 ];
 
