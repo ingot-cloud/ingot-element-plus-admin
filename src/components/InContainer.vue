@@ -1,6 +1,6 @@
 <template>
   <div class="in-container">
-    <el-backtop target=".in-container" :right="100" :bottom="100">
+    <el-backtop target=".in-container" :right="60" :bottom="60">
       <div flex items-center justify-center>
         <i-material-symbols:vertical-align-top-rounded />
       </div>
