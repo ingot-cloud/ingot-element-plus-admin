@@ -1,5 +1,19 @@
 <template>
   <in-container>
+    <div flex flex-row justify-end m-b-5px gap-4>
+      <el-input
+        v-model="tenantOps.condition.name"
+        class="item"
+        size="small"
+        clearable
+        style="width: 200px"
+        placeholder="租户名称"
+      ></el-input>
+      <el-button class="item" size="small" type="primary" @click="refreshData">
+        搜索
+      </el-button>
+    </div>
+
     <in-table
       :data="tenantOps.pageInfo.records"
       :page="tenantOps.pageInfo"
@@ -8,31 +22,16 @@
       @refresh="refreshData"
     >
       <template #title> 租户 </template>
-      <template #filter>
-        <el-input
-          v-model="tenantOps.condition.name"
-          class="item"
-          size="small"
-          clearable
-          style="width: 200px"
-          placeholder="租户名称"
-        ></el-input>
-        <el-button
-          class="item"
-          size="small"
-          type="primary"
-          @click="refreshData"
-        >
-          搜索
-        </el-button>
-        <el-button class="item" type="success" @click="handleCreate">
-          添加
-        </el-button>
+      <template #toolbar>
+        <in-button type="primary" @click="handleCreate">
+          <template #icon>
+            <i-material-symbols:add-box-outline />
+          </template>
+          新增
+        </in-button>
       </template>
       <template #status="{ item }">
-        <el-tag :type="getCommonStatusTag(item.status)">
-          {{ getCommonStatusDesc(item.status) }}
-        </el-tag>
+        <common-status-tag :status="item.status"></common-status-tag>
       </template>
       <template #actions="{ item }">
         <in-button type="primary" text link @click="handleEdit(item)">
@@ -66,11 +65,6 @@
 </template>
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
-import {
-  getCommonStatusDesc,
-  getCommonStatusTag,
-  getDisableButtonParams,
-} from "@/models";
 import type { SysTenant } from "@/models";
 import { tableHeaders } from "./table";
 import { useTenantOps } from "./composables/useTenantOps";
@@ -92,13 +86,6 @@ const handleCreate = (): void => {
 
 const handleEdit = (params: SysTenant): void => {
   editDialog.value?.show(params);
-};
-
-/**
- * 编辑表格显示列
- */
-const editTableColumn = () => {
-  tableRef.value?.editHeader();
 };
 
 onMounted(() => {

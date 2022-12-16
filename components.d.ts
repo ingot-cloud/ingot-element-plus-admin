@@ -75,6 +75,7 @@ declare module '@vue/runtime-core' {
     'ILineMd:arrowCloseLeft': typeof import('~icons/line-md/arrow-close-left')['default']
     'ILineMd:arrowCloseRight': typeof import('~icons/line-md/arrow-close-right')['default']
     ILineMdArrowCloseLeft: typeof import('~icons/line-md/arrow-close-left')['default']
+    'IMaterialSymbols:addBoxOutline': typeof import('~icons/material-symbols/add-box-outline')['default']
     'IMaterialSymbols:verticalAlignTopRounded': typeof import('~icons/material-symbols/vertical-align-top-rounded')['default']
     'IMdiLight:refresh': typeof import('~icons/mdi-light/refresh')['default']
     InAppBar: typeof import('./src/components/layout/InAppBar.vue')['default']
