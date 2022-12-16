@@ -5,7 +5,9 @@
       :page="tenantOps.pageInfo"
       ref="tableRef"
       :headers="tableHeaders"
+      @refresh="refreshData"
     >
+      <template #title> 租户 </template>
       <template #filter>
         <el-input
           v-model="tenantOps.condition.name"
@@ -23,16 +25,8 @@
         >
           搜索
         </el-button>
-        <el-button
-          class="item"
-          size="small"
-          type="success"
-          @click="handleCreate"
-        >
+        <el-button class="item" type="success" @click="handleCreate">
           添加
-        </el-button>
-        <el-button size="small" @click="editTableColumn" class="item">
-          自定义列
         </el-button>
       </template>
       <template #status="{ item }">
@@ -41,23 +35,29 @@
         </el-tag>
       </template>
       <template #actions="{ item }">
-        <el-button size="mini" type="primary" @click="handleEdit(item)">
+        <in-button type="primary" text link @click="handleEdit(item)">
+          <template #icon>
+            <i-ep:edit />
+          </template>
           编辑
-        </el-button>
-        <el-button
-          size="mini"
-          :type="getDisableButtonParams(item.status).type"
+        </in-button>
+        <common-status-button
+          :status="item.status"
+          text
+          link
           @click="tenantOps.handleDisable(item, refreshData)"
-        >
-          {{ getDisableButtonParams(item.status).title }}
-        </el-button>
-        <el-button
-          size="mini"
+        ></common-status-button>
+        <in-button
           type="danger"
+          text
+          link
           @click="tenantOps.handleDelete(item, refreshData)"
         >
+          <template #icon>
+            <i-ep:delete />
+          </template>
           删除
-        </el-button>
+        </in-button>
       </template>
     </in-table>
   </in-container>
