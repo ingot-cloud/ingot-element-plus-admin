@@ -1,4 +1,47 @@
 <template>
+  <div flex flex-row justify-between m-b-5px p-5px>
+    <div>
+      <slot name="title"> </slot>
+    </div>
+    <div flex justify-center items-center>
+      <div flex justify-center items-center gap-4 m-r-5px>
+        <slot name="toolbar"></slot>
+      </div>
+
+      <el-divider direction="vertical" />
+
+      <div flex justify-center items-center gap-1>
+        <el-tooltip content="刷新" effect="light" placement="top">
+          <i-ep:refresh-right @click="privateOnRefreshClick" />
+        </el-tooltip>
+        <el-tooltip content="设置" effect="light" placement="top">
+          <i-ep:setting
+            ref="settingButtonRef"
+            v-click-outside="privateOnSettingClickOutside"
+          />
+        </el-tooltip>
+        <el-popover
+          ref="settingPopoverRef"
+          trigger="click"
+          placement="bottom"
+          :width="600"
+          :virtual-ref="settingButtonRef"
+          virtual-triggering
+        >
+          <div flex flex-col items-center>
+            <el-transfer
+              v-model="headersEnableValue"
+              :data="headers"
+              :props="headerTransferProps"
+              :titles="headerTransferTitles"
+              @change="privateOnHeaderChanged"
+            />
+          </div>
+        </el-popover>
+      </div>
+    </div>
+  </div>
+
   <el-table
     size="small"
     :border="true"
@@ -11,7 +54,6 @@
     :expand-row-keys="expandRowKeys"
     :tree-props="treeProps"
     :row-key="rowKey"
-    :header-cell-style="headerCellStyle"
   >
     <el-table-column
       v-if="selection"
@@ -64,26 +106,10 @@
       @current-change="privateHandleCurrentChange"
     />
   </div>
-  <el-drawer
-    title="编辑列"
-    v-model="headerDrawer"
-    direction="rtl"
-    :modal="false"
-    :size="600"
-  >
-    <div flex flex-col items-center>
-      <el-transfer
-        v-model="headersEnableValue"
-        :data="headers"
-        :props="headerTransferProps"
-        :titles="headerTransferTitles"
-        @change="privateOnHeaderChanged"
-      />
-    </div>
-  </el-drawer>
 </template>
 <script lang="ts" setup>
 import { defineProps, defineEmits, defineExpose, ref, watch, unref } from "vue";
+import { ClickOutside as vClickOutside } from "element-plus";
 import type { PropType } from "vue";
 import type { HeaderItem, Page } from "./types";
 
@@ -184,15 +210,8 @@ const emits = defineEmits([
   "select",
   "selectAll",
   "selectionChange",
+  "refresh",
 ]);
-
-const headerDrawer = ref(false);
-const headersEnable = ref(
-  props.headers.filter((item: HeaderItem) => !item.hide) as Array<HeaderItem>
-);
-const headersEnableValue = ref(headersEnable.value.map((item) => item.prop));
-const headerTransferProps = { label: "label", key: "prop" };
-const headerTransferTitles = ["可选项", "显示项"];
 
 watch(
   () => props.page.size,
@@ -207,10 +226,18 @@ watch(
   }
 );
 
+const headersEnable = ref(
+  props.headers.filter((item: HeaderItem) => !item.hide) as Array<HeaderItem>
+);
+const headersEnableValue = ref(headersEnable.value.map((item) => item.prop));
+const headerTransferProps = { label: "label", key: "prop" };
+const headerTransferTitles = ["可选项", "显示项"];
+
+const settingPopoverRef = ref();
+const settingButtonRef = ref();
 const current = ref(props.page.current);
 const size = ref(props.page.size);
 const total = ref(props.page.total);
-
 const ingotTable = ref();
 
 const privateHandleSizeChange = (val: number) => {
@@ -235,6 +262,13 @@ const privateOnHeaderChanged = (value: any) => {
     value.includes(item.prop)
   );
 };
+const privateOnRefreshClick = () => {
+  emits("refresh");
+};
+const privateOnSettingClickOutside = () => {
+  unref(settingPopoverRef).popperRef?.delayHide?.();
+};
+
 /**
  * 用于多选表格，清空用户的选择
  */
@@ -242,12 +276,8 @@ const clearSelection = () => {
   const table = unref(ingotTable);
   table.clearSelection();
 };
-const editHeader = () => {
-  headerDrawer.value = true;
-};
 
 defineExpose({
   clearSelection,
-  editHeader,
 });
 </script>
