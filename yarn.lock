@@ -256,6 +256,20 @@
   dependencies:
     "@iconify/types" "*"
 
+"@iconify-json/material-symbols@^1.1.26":
+  version "1.1.26"
+  resolved "https://registry.npmmirror.com/@iconify-json/material-symbols/-/material-symbols-1.1.26.tgz#6904ccb4b398a764b8f49342beac0df86658a5ce"
+  integrity sha512-X46EImXvkchsBAKUxL4aBui/sTt/bv6Kwjzj8a0ClM6K5UGYuJh7MH6SUtA/N9joBnncZoZGLRWUJkjGohiJyw==
+  dependencies:
+    "@iconify/types" "*"
+
+"@iconify-json/mdi-light@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.npmmirror.com/@iconify-json/mdi-light/-/mdi-light-1.1.5.tgz#4f77e22290a0b4a632d5591510154abb27c72253"
+  integrity sha512-Mq3TN/R1KCad2XLlcbtaDHuaStoGdtGOLQPJcjRgUSlOiimNrlhmwC/QwRsCORSPMoZjPjDDxZd71L0ndJJiLw==
+  dependencies:
+    "@iconify/types" "*"
+
 "@iconify-json/mdi@^1.1.36":
   version "1.1.37"
   resolved "https://registry.npmmirror.com/@iconify-json/mdi/-/mdi-1.1.37.tgz#fd3184583c71f0014f2579eb4c7c8c24fa67b07b"

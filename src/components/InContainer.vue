@@ -1,5 +1,10 @@
 <template>
   <div class="in-container">
+    <el-backtop target=".in-container" :right="100" :bottom="100">
+      <div flex items-center justify-center>
+        <i-material-symbols:vertical-align-top-rounded />
+      </div>
+    </el-backtop>
     <slot />
   </div>
 </template>
