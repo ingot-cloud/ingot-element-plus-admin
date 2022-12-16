@@ -36,7 +36,7 @@
 import { defineProps, computed } from "vue";
 import type { PropType } from "vue";
 import type { RouteRecordRaw } from "vue-router";
-import { useAppMenuStore } from "@/stores/modules/app";
+import { useAppStateStore } from "@/stores/modules/app";
 import { storeToRefs } from "pinia";
 
 const props = defineProps({
@@ -46,7 +46,7 @@ const props = defineProps({
   },
 });
 
-const { getMenuOpened } = storeToRefs(useAppMenuStore());
+const { getMenuOpened } = storeToRefs(useAppStateStore());
 
 const isSingle = computed(() => {
   const children = props.route.children;

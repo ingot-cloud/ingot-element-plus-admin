@@ -5,10 +5,10 @@
 </template>
 <script lang="ts" setup>
 import { reactive } from "vue";
-import { useAppStore } from "@/stores/modules/app";
+import { useAppStateStore } from "@/stores/modules/app";
 import { storeToRefs } from "pinia";
 
-const { componentSize } = storeToRefs(useAppStore());
+const { componentSize } = storeToRefs(useAppStateStore());
 const buttonConfig = reactive({
   autoInsertSpace: false,
 });

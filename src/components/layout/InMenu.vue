@@ -43,12 +43,12 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useRouter } from "vue-router";
-import { useAppStore, useAppMenuStore } from "@/stores/modules/app";
+import { useAppStore, useAppStateStore } from "@/stores/modules/app";
 import { useRouterStore } from "@/stores/modules/router";
 import { storeToRefs } from "pinia";
 
 const router = useRouter();
-const { getMenuOpened } = storeToRefs(useAppMenuStore());
+const { getMenuOpened } = storeToRefs(useAppStateStore());
 const activePath = computed(() => router.currentRoute.value.path);
 const menus = useRouterStore().getMenus;
 const { app } = storeToRefs(useAppStore());
