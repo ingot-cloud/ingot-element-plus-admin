@@ -43,7 +43,6 @@
   </div>
 
   <el-table
-    size="small"
     :border="true"
     ref="ingotTable"
     :data="data"

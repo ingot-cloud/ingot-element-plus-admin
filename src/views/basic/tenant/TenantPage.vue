@@ -26,6 +26,10 @@
       <template #status="{ item }">
         <common-status-tag :status="item.status"></common-status-tag>
       </template>
+      <template #startAt="{ item }">
+        {{ item.startAt || "-" }}
+      </template>
+      <template #endAt="{ item }"> {{ item.endAt || "-" }}</template>
       <template #actions="{ item }">
         <in-button type="primary" text link @click="handleEdit(item)">
           <template #icon>
