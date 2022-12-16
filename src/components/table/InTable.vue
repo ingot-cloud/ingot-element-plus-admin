@@ -4,7 +4,7 @@
       <slot name="title"> </slot>
     </div>
     <div flex justify-center items-center>
-      <div flex justify-center items-center gap-4 m-r-5px>
+      <div flex justify-center items-center gap-1 m-r-5px>
         <slot name="toolbar"></slot>
       </div>
 

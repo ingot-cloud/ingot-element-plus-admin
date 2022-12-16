@@ -5,6 +5,7 @@
 import { defineProps } from "vue";
 import { doRedirect } from "@/helper/web/usePage";
 import { RedirectField } from "@/enums/pageEnums";
+import { Message } from "@/utils/message";
 
 const props = defineProps({
   [`${RedirectField.PATH}`]: String,
@@ -13,7 +14,7 @@ const props = defineProps({
 
 doRedirect(props[RedirectField.PATH], props[RedirectField.TYPE])
   .then(() => {
-    console.debug("刷新成功");
+    Message.success("刷新成功");
   })
   .catch(() => {
     console.debug("刷新失败");

@@ -1,5 +1,12 @@
 <template>
-  <el-dialog :title="title" v-model="visible" center>
+  <el-dialog
+    :title="title"
+    v-model="visible"
+    :close-on-click-modal="false"
+    :close-on-press-escape="false"
+    center
+    width="600"
+  >
     <div flex flex-col items-center>
       <el-form
         ref="editFormRef"

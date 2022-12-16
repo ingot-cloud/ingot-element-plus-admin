@@ -1,19 +1,5 @@
 <template>
   <in-container>
-    <div flex flex-row justify-end m-b-5px gap-4>
-      <el-input
-        v-model="tenantOps.condition.name"
-        class="item"
-        size="small"
-        clearable
-        style="width: 200px"
-        placeholder="租户名称"
-      ></el-input>
-      <el-button class="item" size="small" type="primary" @click="refreshData">
-        搜索
-      </el-button>
-    </div>
-
     <in-table
       :data="tenantOps.pageInfo.records"
       :page="tenantOps.pageInfo"
@@ -21,14 +7,21 @@
       :headers="tableHeaders"
       @refresh="refreshData"
     >
-      <template #title> 租户 </template>
+      <template #title>
+        <el-input
+          v-model="tenantOps.condition.name"
+          class="item"
+          clearable
+          style="width: 200px"
+          placeholder="租户名称"
+        ></el-input>
+      </template>
       <template #toolbar>
-        <in-button type="primary" @click="handleCreate">
-          <template #icon>
-            <i-material-symbols:add-box-outline />
-          </template>
-          新增
+        <in-button type="primary" @click="tenantOps.condition.name = undefined">
+          重置
         </in-button>
+        <in-button type="primary" @click="refreshData"> 搜索 </in-button>
+        <in-button type="primary" @click="handleCreate"> 新增 </in-button>
       </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status"></common-status-tag>
