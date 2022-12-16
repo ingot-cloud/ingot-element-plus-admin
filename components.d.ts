@@ -7,6 +7,8 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    CommonStatusButton: typeof import('./src/components/biz/CommonStatusButton.vue')['default']
+    CommonStatusTag: typeof import('./src/components/biz/CommonStatusTag.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
@@ -50,6 +52,11 @@ declare module '@vue/runtime-core' {
     IconDark: typeof import('./src/components/icons/IconDark.vue')['default']
     IconLight: typeof import('./src/components/icons/IconLight.vue')['default']
     'IDashicons:alignCenter': typeof import('~icons/dashicons/align-center')['default']
+    'IEp:addLocation': typeof import('~icons/ep/add-location')['default']
+    'IEp:apple': typeof import('~icons/ep/apple')['default']
+    'IEp:delete': typeof import('~icons/ep/delete')['default']
+    'IEp:edit': typeof import('~icons/ep/edit')['default']
+    'IEp:lock': typeof import('~icons/ep/lock')['default']
     'IEp:refreshRight': typeof import('~icons/ep/refresh-right')['default']
     'IEp:setting': typeof import('~icons/ep/setting')['default']
     IEpArrowDown: typeof import('~icons/ep/arrow-down')['default']
@@ -74,6 +81,7 @@ declare module '@vue/runtime-core' {
     InAppLayout: typeof import('./src/components/layout/InAppLayout.vue')['default']
     InBaseContainer: typeof import("./src/components/InBaseContainer.vue")["default"]
     InBreadcrumb: typeof import('./src/components/InBreadcrumb.vue')['default']
+    InButton: typeof import('./src/components/InButton.vue')['default']
     InCmpSize: typeof import('./src/components/cmp-size/InCmpSize.vue')['default']
     InContainer: typeof import('./src/components/InContainer.vue')['default']
     InFilter: typeof import('./src/components/filter-container/InFilter.vue')['default']

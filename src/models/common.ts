@@ -43,6 +43,7 @@ export interface SelectItemParams {
 export interface ButtonStatusParams {
   title: string;
   type: string;
+  icon: string;
 }
 
 export function getDisableButtonParams(
@@ -53,11 +54,13 @@ export function getDisableButtonParams(
       return {
         title: "锁定",
         type: "danger",
+        icon: "ep:lock",
       };
     case CommonStatus.Lock:
       return {
         title: "解锁",
         type: "success",
+        icon: "ep:unlock",
       };
   }
 }
