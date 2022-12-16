@@ -18,7 +18,7 @@
 
     <div class="tabs-action">
       <el-dropdown trigger="click">
-        <el-button class="btn" self-center size="small">
+        <el-button class="btn" self-center>
           <el-icon>
             <i-ep-arrow-down />
           </el-icon>

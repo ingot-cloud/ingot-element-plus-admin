@@ -99,7 +99,6 @@
       :total="total"
       :page-sizes="pageSize"
       background
-      size="small"
       :layout="pageLayout"
       @size-change="privateHandleSizeChange"
       @current-change="privateHandleCurrentChange"

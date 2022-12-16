@@ -50,12 +50,7 @@
       </el-form>
     </div>
     <template #footer>
-      <el-button
-        :loading="loading"
-        size="small"
-        type="primary"
-        @click="handleConfirmClick"
-      >
+      <el-button :loading="loading" type="primary" @click="handleConfirmClick">
         确定
       </el-button>
     </template>
