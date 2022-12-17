@@ -11,30 +11,27 @@
       <el-form
         ref="editFormRef"
         :inline="true"
-        inline-message
         label-width="80px"
         label-position="right"
         :model="editForm"
         :rules="rules"
       >
-        <div>
-          <el-form-item label="租户名称" prop="name">
-            <el-input
-              v-model="editForm.name"
-              clearable
-              placeholder="请输入租户名称"
-            ></el-input>
-          </el-form-item>
+        <el-form-item label="租户名称" prop="name">
+          <el-input
+            v-model="editForm.name"
+            clearable
+            placeholder="请输入租户名称"
+          ></el-input>
+        </el-form-item>
 
-          <el-form-item label="租户编码" prop="code">
-            <el-input
-              :disabled="edit"
-              v-model="editForm.code"
-              clearable
-              placeholder="请输入租户编码"
-            ></el-input>
-          </el-form-item>
-        </div>
+        <el-form-item label="租户编码" prop="code">
+          <el-input
+            :disabled="edit"
+            v-model="editForm.code"
+            clearable
+            placeholder="请输入租户编码"
+          ></el-input>
+        </el-form-item>
 
         <el-form-item label="周期" prop="daterange">
           <el-date-picker
