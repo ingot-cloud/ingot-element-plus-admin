@@ -13,20 +13,11 @@ export const useDeptStore = defineStore("dept", () => {
   const deptTree = ref<Array<DeptTreeNode>>([]);
   const needUpdate = ref(false);
 
-  const getDeptTreeListData = computed(() => {
-    return {
-      props: {
-        children: "children",
-        hasChildren: "hasChildren",
-      },
-      key: "id",
-      data: deptTree.value,
-    };
-  });
-
   const fetchDeptTree = () => {
+    console.log("fetchDeptTree", 1);
     return new Promise<Array<DeptTreeNode>>((resolve, reject) => {
       if (!needUpdate.value && deptTree.value.length !== 0) {
+        console.log("fetchDeptTree", "catch");
         resolve(deptTree.value);
         return;
       }
@@ -41,7 +32,8 @@ export const useDeptStore = defineStore("dept", () => {
           });
 
           needUpdate.value = false;
-          deptTree.value = data;
+          deptTree.value = data.slice();
+          console.log("update");
           resolve(data);
         })
         .catch(() => {
@@ -89,7 +81,6 @@ export const useDeptStore = defineStore("dept", () => {
   return {
     expandedKeys,
     deptTree,
-    getDeptTreeListData,
     fetchDeptTree,
     createDept,
     updateDept,

@@ -1,4 +1,4 @@
-import type { CommonStatus } from "./common";
+import type { CommonStatus } from "./enums";
 
 export interface SysTenant {
   id?: string;

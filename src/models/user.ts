@@ -1,4 +1,5 @@
-import type { CommonStatus, OptionIDEntity } from "./common";
+import type { OptionIDEntity } from "./common";
+import type { CommonStatus } from "./enums";
 
 /**
  * UserPageItemVO

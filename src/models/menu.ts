@@ -1,4 +1,4 @@
-import type { CommonStatus } from "./common";
+import type { CommonStatus } from "./enums";
 
 export interface MenuTreeNode extends SysMenu {
   children?: Array<MenuTreeNode>;

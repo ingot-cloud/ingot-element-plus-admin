@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from "vue-router";
-import { PageNameEnum, PagePathEnum, RedirectField } from "@/enums/pageEnums";
+import { PageNameEnum, PagePathEnum, RedirectField } from "@/models/enums/pageEnums";
 import InAppLayout from "@/components/layout/InAppLayout.vue";
 /**
  * 公共路由

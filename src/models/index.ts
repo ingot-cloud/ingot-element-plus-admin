@@ -9,3 +9,4 @@ export * from "./tenant";
 export * from "./menu";
 export * from "./authority";
 export * from "./client";
+export * from "./tree";

@@ -4,7 +4,7 @@
   </el-tag>
 </template>
 <script lang="ts" setup>
-import { getCommonStatusDesc, getCommonStatusTag } from "@/models";
+import { getCommonStatusDesc, getCommonStatusTag } from "@/models/enums";
 import { defineProps } from "vue";
 
 defineProps(["status"]);

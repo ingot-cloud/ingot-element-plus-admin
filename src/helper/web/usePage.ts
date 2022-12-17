@@ -6,7 +6,7 @@ import {
   PagePathEnum,
   RedirectType,
   RedirectField,
-} from "@/enums/pageEnums";
+} from "@/models/enums/pageEnums";
 
 export const getRedirectParams = (
   type: RedirectType,

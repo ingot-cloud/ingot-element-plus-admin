@@ -6,14 +6,13 @@
       :model="editForm"
       :rules="rules"
     >
-      <el-form-item label="上级菜单">
+      <el-form-item prop="pid" label="上级菜单">
         <el-tree-select
           v-model="editForm.pid"
           :data="data"
           :disabled="!canEditPid"
-          :props="treeSelectProps"
-          :highlight-current="true"
-          :expand-on-click-node="false"
+          :props="TreeSelectProps"
+          :check-strictly="true"
         />
       </el-form-item>
       <el-form-item prop="name" label="部门名称">
@@ -88,7 +87,8 @@ import {
   getDeptRoleScopeDesc,
   CommonStatus,
   getCommonStatusDesc,
-} from "@/models";
+} from "@/models/enums";
+import { TreeSelectProps } from "@/models";
 import type { SysDept } from "@/models";
 import { useDeptStore } from "@/stores/modules/dept";
 import { Message } from "@/utils/message";
@@ -104,13 +104,8 @@ const defaultEditForm: SysDept = {
 };
 
 const rules = {
+  pid: [{ required: true, message: "请选择上级菜单", trigger: "blur" }],
   name: [{ required: true, message: "请输入部门名称", trigger: "blur" }],
-};
-
-const treeSelectProps = {
-  children: "children",
-  label: "name",
-  value: "id",
 };
 
 const emits = defineEmits(["success"]);

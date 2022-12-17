@@ -1,4 +1,5 @@
-import type { CommonStatus, SelectItemParams } from "./common";
+import type { SelectItemParams } from "./common";
+import type { CommonStatus } from "./enums";
 
 export enum TokenAuthMethod {
   Unique = "1",

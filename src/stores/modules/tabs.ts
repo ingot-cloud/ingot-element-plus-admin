@@ -4,7 +4,7 @@ import type { TabItem } from "../types";
 import router from "@/router";
 import { useRoute } from "vue-router";
 import { useGo, useRefreshPage } from "@/helper/web/usePage";
-import { PagePathEnum } from "@/enums/pageEnums";
+import { PagePathEnum } from "@/models/enums/pageEnums";
 
 export const useTabsStore = defineStore(
   "tabs",

@@ -1,6 +1,6 @@
 import { ref, reactive, toRaw } from "vue";
 import { Confirm, Message } from "@/utils/message";
-import { CommonStatus, getCommonStatusActionDesc } from "@/models";
+import { CommonStatus, getCommonStatusActionDesc } from "@/models/enums";
 import type { SysTenant, Page, PageChangeParams } from "@/models";
 import { useTenant } from "@/stores/modules/tenant";
 

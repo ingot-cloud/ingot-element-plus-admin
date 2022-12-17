@@ -1,4 +1,4 @@
-import type { StoreType } from "@/enums/storageEnums";
+import type { StoreType } from "./enums";
 
 export interface StoreParams {
   key: string;
