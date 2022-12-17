@@ -65,8 +65,8 @@ import { onMounted, ref } from "vue";
 import type { SysTenant } from "@/models";
 import { tableHeaders } from "./table";
 import { useTenantOps } from "./composables/useTenantOps";
-import EditDialog from "./component/EditDialog.vue";
-import type { API as EditDialogAPI } from "./component/EditDialog.vue";
+import EditDialog from "./components/EditDialog.vue";
+import type { API as EditDialogAPI } from "./components/EditDialog.vue";
 import type { API as TableAPI } from "@/components/table/types";
 
 const editDialog = ref<EditDialogAPI>();

@@ -29,3 +29,10 @@ export function isFunction(val: unknown) {
 export function isObject(val: unknown) {
   return is(val, TYPE_OBJECT);
 }
+
+/**
+ * 是否为string
+ */
+export function isString(val: unknown) {
+  return is(val, TYPE_STRING);
+}

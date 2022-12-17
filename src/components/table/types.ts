@@ -1,6 +1,5 @@
 export interface API {
   clearSelection(): void;
-  editHeader(): void;
 }
 
 export interface HeaderItem {

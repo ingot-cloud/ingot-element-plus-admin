@@ -23,6 +23,7 @@ export const useTenant = defineStore("tenant", () => {
       TenantListAPI()
         .then((response) => {
           tenantList.value = response.data;
+          needUpdate.value = false;
           resolve(response.data);
         })
         .catch(() => {
