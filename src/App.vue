@@ -1,5 +1,9 @@
 <template>
-  <el-config-provider :button="buttonConfig" :size="componentSize">
+  <el-config-provider
+    :button="buttonConfig"
+    :size="componentSize"
+    :locale="zhCn"
+  >
     <router-view />
   </el-config-provider>
 </template>
@@ -7,6 +11,7 @@
 import { reactive } from "vue";
 import { useAppStateStore } from "@/stores/modules/app";
 import { storeToRefs } from "pinia";
+import zhCn from "element-plus/lib/locale/lang/zh-cn";
 
 const { componentSize } = storeToRefs(useAppStateStore());
 const buttonConfig = reactive({

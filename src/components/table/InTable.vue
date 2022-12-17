@@ -94,6 +94,7 @@
     items-start
   >
     <el-pagination
+      :small="componentSize === 'small'"
       :current-page="current"
       :page-size="size"
       :total="total"
@@ -110,6 +111,9 @@ import { defineProps, defineEmits, defineExpose, ref, watch, unref } from "vue";
 import { ClickOutside as vClickOutside } from "element-plus";
 import type { PropType } from "vue";
 import type { HeaderItem, Page } from "./types";
+import { useAppStateStore } from "@/stores/modules/app";
+import { storeToRefs } from "pinia";
+const { componentSize } = storeToRefs(useAppStateStore());
 
 const props = defineProps({
   data: {
