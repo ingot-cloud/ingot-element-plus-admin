@@ -5,52 +5,58 @@
     :close-on-click-modal="false"
     :close-on-press-escape="false"
     center
+    width="600"
   >
-    <div flex flex-col items-center>
-      <el-form
-        ref="roleEditFormRef"
-        class="form"
-        label-width="100px"
-        label-position="left"
-        :model="editForm"
-        :rules="rules"
-        size="small"
-      >
-        <el-form-item label="角色名称" prop="name">
-          <el-input
-            v-model="editForm.name"
-            clearable
-            placeholder="请输入角色名称"
-            class="form-item"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="角色编码" prop="code">
-          <el-input
-            :disabled="edit"
-            v-model="editForm.code"
-            clearable
-            placeholder="请输入角色编码"
-            class="form-item"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="角色类型" prop="type">
-          <el-input
-            v-model="editForm.type"
-            clearable
-            placeholder="请输入角色类型"
-            class="form-item"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="备注" prop="remark">
-          <el-input
-            v-model="editForm.remark"
-            clearable
-            placeholder="请输入备注"
-            class="form-item"
-          ></el-input>
-        </el-form-item>
-      </el-form>
-    </div>
+    <el-form
+      ref="roleEditFormRef"
+      class="form"
+      label-width="80px"
+      label-position="right"
+      :model="editForm"
+      :rules="rules"
+    >
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="角色名称" prop="name">
+            <el-input
+              v-model="editForm.name"
+              clearable
+              placeholder="请输入角色名称"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="角色编码" prop="code">
+            <el-input
+              :disabled="edit"
+              v-model="editForm.code"
+              clearable
+              placeholder="请输入角色编码"
+            ></el-input> </el-form-item
+        ></el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="角色类型" prop="type">
+            <el-input
+              v-model="editForm.type"
+              clearable
+              placeholder="请输入角色类型"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="备注" prop="remark">
+            <el-input
+              v-model="editForm.remark"
+              clearable
+              placeholder="请输入备注"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+    </el-form>
     <template #footer>
       <el-button
         :loading="loading"

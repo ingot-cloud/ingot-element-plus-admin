@@ -7,32 +7,35 @@
     center
     width="600"
   >
-    <div flex flex-col items-center>
-      <el-form
-        ref="editFormRef"
-        :inline="true"
-        label-width="80px"
-        label-position="right"
-        :model="editForm"
-        :rules="rules"
-      >
-        <el-form-item label="租户名称" prop="name">
-          <el-input
-            v-model="editForm.name"
-            clearable
-            placeholder="请输入租户名称"
-          ></el-input>
-        </el-form-item>
-
-        <el-form-item label="租户编码" prop="code">
-          <el-input
-            :disabled="edit"
-            v-model="editForm.code"
-            clearable
-            placeholder="请输入租户编码"
-          ></el-input>
-        </el-form-item>
-
+    <el-form
+      ref="editFormRef"
+      label-width="80px"
+      label-position="right"
+      :model="editForm"
+      :rules="rules"
+    >
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="租户名称" prop="name">
+            <el-input
+              v-model="editForm.name"
+              clearable
+              placeholder="请输入租户名称"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="租户编码" prop="code">
+            <el-input
+              :disabled="edit"
+              v-model="editForm.code"
+              clearable
+              placeholder="请输入租户编码"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-col :span="24">
         <el-form-item label="周期" prop="daterange">
           <el-date-picker
             v-model="editForm.daterange"
@@ -44,8 +47,8 @@
           >
           </el-date-picker>
         </el-form-item>
-      </el-form>
-    </div>
+      </el-col>
+    </el-form>
     <template #footer>
       <el-button :loading="loading" type="primary" @click="handleConfirmClick">
         确定
