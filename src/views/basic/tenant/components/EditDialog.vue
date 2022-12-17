@@ -72,7 +72,7 @@ import {
 } from "vue";
 import { Message } from "@/utils/message";
 import { copyParams } from "@/utils/object";
-import { useTenant } from "@/stores/modules/tenant";
+import { useTenantStore } from "@/stores/modules/tenant";
 
 const rules = {
   name: [{ required: true, message: "请输入租户名称", trigger: "blur" }],
@@ -97,7 +97,7 @@ const loading = ref(false);
 const title = ref("");
 const edit = ref(false);
 const visible = ref(false);
-const tenantStore = useTenant();
+const tenantStore = useTenantStore();
 
 const show = (data?: SysTenant) => {
   visible.value = true;

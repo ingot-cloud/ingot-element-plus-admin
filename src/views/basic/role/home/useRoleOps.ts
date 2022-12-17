@@ -1,14 +1,15 @@
-import { ref, reactive, toRaw } from "vue";
-import { Confirm, Message } from "@/utils/message";
+import { ref, toRaw, reactive } from "vue";
+import type { RolePageItemVO, SysRole, Page, PageChangeParams } from "@/models";
 import { CommonStatus, getCommonStatusActionDesc } from "@/models/enums";
-import type { SysTenant, Page, PageChangeParams } from "@/models";
-import { useTenantStore } from "@/stores/modules/tenant";
+import { Confirm, Message } from "@/utils/message";
+import router from "@/router";
+import { useRoleStore } from "@/stores/modules/role";
 
-export const useTenantOps = () => {
-  const tenantStore = useTenantStore();
+export const useRoleOps = () => {
+  const roleStore = useRoleStore();
   const loading = ref(false);
-  const condition = reactive<SysTenant>({});
-  const pageInfo = reactive<Page<SysTenant>>({
+  const condition = reactive<SysRole>({});
+  const pageInfo = reactive<Page<SysRole>>({
     current: 1,
     size: 20,
     total: 0,
@@ -22,17 +23,20 @@ export const useTenantOps = () => {
     const pageParams = toRaw(pageInfo);
     pageParams.total = undefined;
     pageParams.records = undefined;
-    tenantStore.fetchTenantPage(pageParams, condition).then((response) => {
+    roleStore.fetchRolePage(pageParams, condition).then((response) => {
       pageInfo.records = response.data.records;
       pageInfo.total = Number(response.data.total);
     });
   };
 
-  const handleDelete = (params: SysTenant, callback?: () => void): void => {
-    Confirm.warning(`是否删除租户(${params.name})`).then(() => {
+  const handleDelete = (
+    params: RolePageItemVO,
+    callback?: () => void
+  ): void => {
+    Confirm.warning(`是否删除角色(${params.name})`).then(() => {
       loading.value = true;
-      tenantStore
-        .removeTenant(params.id as string)
+      roleStore
+        .removeRole(params.id as string)
         .then(() => {
           loading.value = false;
           Message.success("操作成功");
@@ -46,18 +50,21 @@ export const useTenantOps = () => {
     });
   };
 
-  const handleDisable = (params: SysTenant, callback?: () => void): void => {
+  const handleDisable = (
+    params: RolePageItemVO,
+    callback?: () => void
+  ): void => {
     const status =
       params.status === CommonStatus.Enable
         ? CommonStatus.Lock
         : CommonStatus.Enable;
-    const message = `是否${getCommonStatusActionDesc(status)}租户(${
+    const message = `是否${getCommonStatusActionDesc(status)}角色(${
       params.name
     })`;
     Confirm.warning(message).then(() => {
       loading.value = true;
-      tenantStore
-        .updateTenant({ id: params.id, status })
+      roleStore
+        .updateRole({ id: params.id, status })
         .then(() => {
           loading.value = false;
           Message.success("操作成功");
@@ -68,6 +75,22 @@ export const useTenantOps = () => {
         .catch(() => {
           loading.value = false;
         });
+    });
+  };
+
+  const handleBindCommand = (params: {
+    type: string;
+    data: RolePageItemVO;
+  }): void => {
+    const type = params.type;
+    const data = params.data;
+    const roleId = data.id;
+
+    router.push({
+      path: `/authority/role/${type}/${roleId}`,
+      query: {
+        name: data.name,
+      },
     });
   };
 
@@ -78,5 +101,6 @@ export const useTenantOps = () => {
     fetchData,
     handleDelete,
     handleDisable,
+    handleBindCommand,
   };
 };

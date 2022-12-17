@@ -9,7 +9,7 @@ import {
   TenantRemoveAPI,
 } from "@/api/basic/tenant";
 
-export const useTenant = defineStore("tenant", () => {
+export const useTenantStore = defineStore("tenant", () => {
   const tenantList = ref<Array<SimpleTenantVO>>([]);
   const needUpdate = ref(false);
 

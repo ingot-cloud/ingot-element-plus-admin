@@ -5,6 +5,8 @@
       :page="tenantOps.pageInfo"
       ref="tableRef"
       :headers="tableHeaders"
+      @handleSizeChange="tenantOps.fetchData"
+      @handleCurrentChange="tenantOps.fetchData"
       @refresh="refreshData"
     >
       <template #title>

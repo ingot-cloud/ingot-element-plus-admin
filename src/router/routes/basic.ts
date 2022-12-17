@@ -44,7 +44,7 @@ export const basicRoutes: Array<RouteRecordRaw> = [
               title: "角色管理",
             },
             path: "/basic/role/list",
-            component: () => import("@/views/basic/role/RolePage.vue"),
+            component: () => import("@/views/basic/role/home/RolePage.vue"),
           },
           //   {
           //     name: "SysAuthorityRoleManagerBindUser",
