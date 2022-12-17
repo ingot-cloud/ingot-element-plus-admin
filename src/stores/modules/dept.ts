@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { defineStore } from "pinia";
 import type { DeptTreeNode, SysDept } from "@/models";
 import {
@@ -14,10 +14,8 @@ export const useDeptStore = defineStore("dept", () => {
   const needUpdate = ref(false);
 
   const fetchDeptTree = () => {
-    console.log("fetchDeptTree", 1);
     return new Promise<Array<DeptTreeNode>>((resolve, reject) => {
       if (!needUpdate.value && deptTree.value.length !== 0) {
-        console.log("fetchDeptTree", "catch");
         resolve(deptTree.value);
         return;
       }
@@ -33,7 +31,6 @@ export const useDeptStore = defineStore("dept", () => {
 
           needUpdate.value = false;
           deptTree.value = data.slice();
-          console.log("update");
           resolve(data);
         })
         .catch(() => {

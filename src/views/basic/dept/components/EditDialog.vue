@@ -1,39 +1,57 @@
 <template>
-  <el-dialog :title="title" v-model="visible">
+  <el-dialog
+    :title="title"
+    v-model="visible"
+    :close-on-click-modal="false"
+    :close-on-press-escape="false"
+    center
+    width="700"
+  >
     <el-form
       ref="editFormRef"
       label-width="80px"
       :model="editForm"
       :rules="rules"
     >
-      <el-form-item prop="pid" label="上级菜单">
-        <el-tree-select
-          v-model="editForm.pid"
-          :data="data"
-          :disabled="!canEditPid"
-          :props="TreeSelectProps"
-          :check-strictly="true"
-        />
-      </el-form-item>
-      <el-form-item prop="name" label="部门名称">
-        <el-input
-          v-model="editForm.name"
-          placeholder="请输入部门名称"
-          clearable
-        ></el-input>
-      </el-form-item>
-      <el-form-item prop="scope" label="权限范围">
-        <el-radio-group v-model="editForm.scope">
-          <el-radio-button :label="DeptRoleScope.Current">
-            {{ getDeptRoleScopeDesc(DeptRoleScope.Current) }}
-          </el-radio-button>
-          <el-radio-button :label="DeptRoleScope.CurrentChild">
-            {{ getDeptRoleScopeDesc(DeptRoleScope.CurrentChild) }}
-          </el-radio-button>
-        </el-radio-group>
-      </el-form-item>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item prop="pid" label="上级部门">
+            <el-tree-select
+              w-full
+              v-model="editForm.pid"
+              :data="selectData"
+              :disabled="!canEditPid"
+              :node-key="TreeKeyAndProps.nodeKey"
+              :value-key="TreeKeyAndProps.nodeKey"
+              :props="TreeKeyAndProps.props"
+              :check-strictly="true"
+            />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item prop="scope" label="权限范围">
+            <el-radio-group v-model="editForm.scope">
+              <el-radio-button :label="DeptRoleScope.Current">
+                {{ getDeptRoleScopeDesc(DeptRoleScope.Current) }}
+              </el-radio-button>
+              <el-radio-button :label="DeptRoleScope.CurrentChild">
+                {{ getDeptRoleScopeDesc(DeptRoleScope.CurrentChild) }}
+              </el-radio-button>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+      </el-row>
 
       <el-row>
+        <el-col :span="12">
+          <el-form-item prop="name" label="部门名称">
+            <el-input
+              v-model="editForm.name"
+              placeholder="请输入部门名称"
+              clearable
+            ></el-input>
+          </el-form-item>
+        </el-col>
         <el-col :span="12">
           <el-form-item prop="status" label="状态">
             <el-radio-group v-model="editForm.status">
@@ -46,17 +64,17 @@
             </el-radio-group>
           </el-form-item>
         </el-col>
-        <el-col :span="12">
-          <el-form-item prop="sort" label="排序">
-            <el-input
-              v-model="editForm.sort"
-              placeholder="请输入排序序号"
-              type="number"
-              clearable
-            ></el-input>
-          </el-form-item>
-        </el-col>
       </el-row>
+      <el-col :span="12">
+        <el-form-item prop="sort" label="排序">
+          <el-input
+            v-model="editForm.sort"
+            placeholder="请输入排序序号"
+            type="number"
+            clearable
+          ></el-input>
+        </el-form-item>
+      </el-col>
     </el-form>
     <template #footer>
       <el-button :loading="loading" type="primary" @click="handleConfirmClick">
@@ -88,7 +106,7 @@ import {
   CommonStatus,
   getCommonStatusDesc,
 } from "@/models/enums";
-import { TreeSelectProps } from "@/models";
+import { TreeKeyAndProps } from "@/models";
 import type { SysDept } from "@/models";
 import { useDeptStore } from "@/stores/modules/dept";
 import { Message } from "@/utils/message";
@@ -110,7 +128,7 @@ const rules = {
 
 const emits = defineEmits(["success"]);
 defineProps({
-  data: {
+  selectData: {
     type: Array,
   },
 });

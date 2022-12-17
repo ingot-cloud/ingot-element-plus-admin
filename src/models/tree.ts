@@ -1,9 +1,3 @@
-export const TreeSelectProps = {
-  children: "children",
-  label: "name",
-  value: "id",
-};
-
 export const TreeListKeyAndProps = {
   props: {
     children: "children",
