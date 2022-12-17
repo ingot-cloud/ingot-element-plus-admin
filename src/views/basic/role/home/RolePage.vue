@@ -24,6 +24,9 @@
         <el-button type="primary" @click="refreshData"> 搜索 </el-button>
         <el-button type="primary" @click="handleCreate"> 添加 </el-button>
       </template>
+      <template #type="{ item }">
+        {{ item.type || "-" }}
+      </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status"></common-status-tag>
       </template>
@@ -96,15 +99,14 @@
   </in-container>
 </template>
 <script lang="ts" setup>
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { tableHeaders } from "./table";
-import type { SysRole, RolePageItemVO } from "@/models";
+import type { RolePageItemVO } from "@/models";
 import { useRoleOps } from "./useRoleOps";
 import EditDialog from "./EditDialog.vue";
 import type { API as EditDialogAPI } from "./EditDialog.vue";
 import type { API as TableAPI } from "@/components/table/types";
 
-const condition = reactive({} as SysRole);
 const roleOps = useRoleOps();
 const editDialog = ref<EditDialogAPI>();
 const tableRef = ref<TableAPI>();
