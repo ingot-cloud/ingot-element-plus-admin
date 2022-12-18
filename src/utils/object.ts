@@ -25,7 +25,7 @@ export function getDiffWithIgnore<T extends object>(
   const keys = Object.entries(raw);
   keys.forEach(([k, v]) => {
     const editVal = Reflect.get(edit, k);
-    if ((ignore && ignore.includes(k)) || (editVal && editVal !== v)) {
+    if ((ignore && ignore.includes(k)) || editVal !== v) {
       Reflect.set(result, k, editVal);
     }
   });
@@ -40,7 +40,8 @@ export function getDiffWithIgnore<T extends object>(
 export function filterParams<T extends object>(params: T): void {
   const keys = Object.keys(params);
   keys.forEach((key) => {
-    if (!Reflect.get(params, key)) {
+    const tmpVal = Reflect.get(params, key);
+    if (typeof tmpVal !== "boolean" && !tmpVal) {
       Reflect.set(params, key, null);
     }
   });
