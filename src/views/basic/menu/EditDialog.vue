@@ -1,11 +1,5 @@
 <template>
-  <el-dialog
-    :title="title"
-    v-model="visible"
-    :close-on-click-modal="false"
-    :close-on-press-escape="false"
-    center
-  >
+  <in-dialog :title="title" v-model="visible" width="600">
     <el-form
       ref="editFormRef"
       class="form"
@@ -49,7 +43,7 @@
 
       <el-row>
         <el-col :span="12">
-          <el-form-item prop="icon" label="菜单icon" size="small">
+          <el-form-item prop="icon" label="菜单icon">
             <!-- <ingot-icon-select v-model="editForm.icon" /> -->
           </el-form-item>
         </el-col>
@@ -113,16 +107,11 @@
       </el-form-item>
     </el-form>
     <template #footer>
-      <el-button
-        :loading="loading"
-        size="small"
-        type="primary"
-        @click="handleConfirmClick"
-      >
+      <el-button :loading="loading" type="primary" @click="handleConfirmClick">
         确定
       </el-button>
     </template>
-  </el-dialog>
+  </in-dialog>
 </template>
 <script lang="ts">
 import type { SysMenu as P } from "@/models";

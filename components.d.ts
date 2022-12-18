@@ -93,6 +93,7 @@ declare module '@vue/runtime-core' {
     InButton: typeof import('./src/components/InButton.vue')['default']
     InCmpSize: typeof import('./src/components/cmp-size/InCmpSize.vue')['default']
     InContainer: typeof import('./src/components/InContainer.vue')['default']
+    InDialog: typeof import('./src/components/InDialog.vue')['default']
     InFilter: typeof import('./src/components/filter-container/InFilter.vue')['default']
     InFilterContainer: typeof import('./src/components/InFilterContainer.vue')['default']
     InFullscreen: typeof import('./src/components/InFullscreen.vue')['default']

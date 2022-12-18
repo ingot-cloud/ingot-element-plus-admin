@@ -1,12 +1,5 @@
 <template>
-  <el-dialog
-    :title="title"
-    v-model="visible"
-    :close-on-click-modal="false"
-    :close-on-press-escape="false"
-    center
-    width="700"
-  >
+  <in-dialog :title="title" v-model="visible" width="700">
     <el-form
       ref="editFormRef"
       label-width="80px"
@@ -81,7 +74,7 @@
         确定
       </el-button>
     </template>
-  </el-dialog>
+  </in-dialog>
 </template>
 <script lang="ts">
 import type { SysDept as P } from "@/models";
