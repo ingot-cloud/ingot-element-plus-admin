@@ -33,7 +33,7 @@ export const useClientOps = () => {
 
   const handleManager = (params: OAuth2RegisteredClient): void => {
     router.push({
-      path: `/authority/client/${params.id}`,
+      path: `/basic/client/${params.id}`,
     });
   };
 

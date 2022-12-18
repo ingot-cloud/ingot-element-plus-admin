@@ -16,6 +16,6 @@ export interface OAuth2RegisteredClient {
   reuseRefreshTokens?: boolean;
   refreshTokenTimeToLive?: string;
   idTokenSignatureAlgorithm?: string;
-  tokenAuthenticationMethod?: string;
+  tokenAuthType?: string;
   status?: CommonStatus;
 }

@@ -61,7 +61,7 @@ export const tableHeaders: Array<HeaderItem> = [
   },
   {
     label: "Token认证方式",
-    prop: "tokenAuthenticationMethod",
+    prop: "tokenAuthType",
   },
   {
     label: "状态",

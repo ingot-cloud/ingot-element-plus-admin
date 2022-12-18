@@ -1,50 +1,46 @@
 <template>
-  <in-dialog :title="title" v-model="visible" width="70%">
+  <in-container>
+    <div flex flex-row justify-between items-center m-b-10px>
+      <div>客户端编辑</div>
+      <div>
+        <in-button
+          v-if="!edit"
+          type="primary"
+          :disabled="edit"
+          @click="edit = true"
+        >
+          编辑
+        </in-button>
+        <div justify="center" v-else>
+          <in-button type="primary" @click="handleSaveEdit"> 保存 </in-button>
+          <in-button @click="handleCancelEdit">取消</in-button>
+        </div>
+      </div>
+    </div>
+
     <el-form
       ref="editFormRef"
-      class="form"
       label-width="150px"
       label-position="right"
       :model="editForm"
-      :rules="rules"
+      :disabled="!edit"
     >
       <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="客户端ID" prop="clientId">
             <el-input
+              disabled
               v-model="editForm.clientId"
-              clearable
               placeholder="请输入客户端ID"
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="秘钥" prop="clientSecret">
+          <el-form-item label="客户端秘钥" prop="clientSecret">
             <el-input
               v-model="editForm.clientSecret"
-              clearable
+              disabled
               placeholder="请输入客户端秘钥"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <el-form-item label="客户端名称" prop="clientName">
-            <el-input
-              v-model="editForm.clientName"
-              clearable
-              placeholder="请输入客户端名称"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="访问范围" prop="scopes">
-            <el-input
-              v-model="editForm.scopes"
-              clearable
-              placeholder="请输入客户端scope"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -52,29 +48,45 @@
 
       <el-row>
         <el-col :span="12">
-          <el-form-item label="Client认证方式">
-            <in-select
-              v-model="editForm.clientAuthenticationMethods"
-              :options="getClientAuthMethodList()"
-              placeholder="请选择Client认证方式"
-              split=","
-              multiple
-            />
+          <el-form-item label="客户端名称" prop="clientName">
+            <el-input
+              v-model="editForm.clientName"
+              disabled
+              placeholder="请输入客户端名称"
+            ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="Client授权类型">
-            <in-select
-              v-model="editForm.authorizationGrantTypes"
-              :options="grantTypeList()"
-              placeholder="请选择允许授权类型"
-              split=","
-              multiple
-            />
+          <el-form-item label="访问范围">
+            <el-input
+              v-model="editForm.scopes"
+              clearable
+              placeholder="请输入客户端scope"
+              class="form-item"
+            ></el-input>
           </el-form-item>
         </el-col>
       </el-row>
 
+      <el-form-item label="Client认证方式">
+        <in-select
+          v-model="editForm.clientAuthenticationMethods"
+          :options="getClientAuthMethodList()"
+          placeholder="请选择Client认证方式"
+          split=","
+          multiple
+        />
+      </el-form-item>
+
+      <el-form-item label="授权授予类型">
+        <in-select
+          v-model="editForm.authorizationGrantTypes"
+          :options="grantTypeList()"
+          placeholder="请选择允许授予类型"
+          split=","
+          multiple
+        />
+      </el-form-item>
       <el-form-item label="重定向URL">
         <el-input
           v-model="editForm.redirectUris"
@@ -83,7 +95,7 @@
         ></el-input>
       </el-form-item>
 
-      <el-row :gutter="20">
+      <el-row>
         <el-col :span="12">
           <el-form-item label="访问Token失效时间">
             <el-input
@@ -104,7 +116,7 @@
         </el-col>
       </el-row>
 
-      <el-row :gutter="20" v-if="grantRefreshToken">
+      <el-row v-if="grantRefreshToken">
         <el-col :span="12">
           <el-form-item label="刷新Token失效时间">
             <el-input
@@ -122,10 +134,10 @@
         </el-col>
       </el-row>
 
-      <el-row :gutter="20" v-if="grantCode">
+      <el-row v-if="grantCode">
         <el-col :span="12">
           <el-form-item label="需要提供验证密钥质询和验证器">
-            <el-switch v-model="editForm.requireProofKey" class="form-item" />
+            <el-switch v-model="editForm.requireProofKey" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -135,94 +147,44 @@
         </el-col>
       </el-row>
     </el-form>
-    <template #footer>
-      <in-button :loading="loading" type="primary" @click="handleConfirmClick">
-        确定
-      </in-button>
-    </template>
-  </in-dialog>
+  </in-container>
 </template>
-<script lang="ts">
-export interface API {
-  show(): void;
-}
-</script>
 <script lang="ts" setup>
+import { defineProps, reactive, ref, onMounted, computed } from "vue";
 import type { OAuth2RegisteredClient } from "@/models";
 import {
-  TokenAuthMethod,
-  AuthorizedGrantType,
-  grantTypeList,
   getTokenAuthMethodSelectList,
+  grantTypeList,
+  AuthorizedGrantType,
   getClientAuthMethodList,
 } from "@/models/enums";
-import { defineEmits, reactive, ref, defineExpose, toRaw, computed } from "vue";
-import { CreateClientAPI } from "@/api/basic/client";
+import { GetClientInfoAPI, UpdateClientAPI } from "@/api/basic/client";
+import { copyParams, getDiffWithIgnore } from "@/utils/object";
 import { Message } from "@/utils/message";
-import { copyParams } from "@/utils/object";
 
-const rules = {
-  clientId: [{ required: true, message: "请输入客户端ID", trigger: "blur" }],
-  clientSecret: [
-    { required: true, message: "请输入客户端秘钥", trigger: "blur" },
-  ],
-  clientName: [
-    { required: true, message: "请输入客户端名称", trigger: "blur" },
-  ],
-  scopes: [
-    { required: true, message: "请输入客户端访问范围", trigger: "blur" },
-  ],
-};
-
-const defaultEditForm: OAuth2RegisteredClient = {
-  id: undefined,
-  clientId: undefined,
-  clientSecret: undefined,
-  clientName: undefined,
-  clientAuthenticationMethods: undefined,
-  authorizationGrantTypes: undefined,
-  redirectUris: undefined,
-  scopes: undefined,
-  requireProofKey: false,
-  requireAuthorizationConsent: false,
-  accessTokenTimeToLive: undefined,
-  reuseRefreshTokens: false,
-  refreshTokenTimeToLive: undefined,
-  idTokenSignatureAlgorithm: undefined,
-  tokenAuthType: TokenAuthMethod.Standard,
-};
-
-const emits = defineEmits(["success"]);
-
+const edit = ref(false);
 const editFormRef = ref();
-const editForm = reactive(Object.assign({}, defaultEditForm));
-const loading = ref(false);
-const title = ref("创建客户端");
-const visible = ref(false);
+const editForm = reactive({} as OAuth2RegisteredClient);
+const rawForm = reactive({} as OAuth2RegisteredClient);
 
-const show = () => {
-  visible.value = true;
-  copyParams(editForm, defaultEditForm);
+const props = defineProps(["id"]);
+
+const handleSaveEdit = () => {
+  if (editForm.scopes === "") {
+    Message.warning("访问范围不能为空");
+    return;
+  }
+  const params = getDiffWithIgnore(rawForm, editForm, ["clientId"]);
+  UpdateClientAPI(params).then(() => {
+    Message.success("操作成功");
+    fetchData();
+    edit.value = false;
+  });
 };
 
-const handleConfirmClick = () => {
-  editFormRef.value.validate((valid: boolean) => {
-    if (valid) {
-      loading.value = true;
-      const params: OAuth2RegisteredClient = toRaw(editForm);
-
-      CreateClientAPI(params)
-        .then(() => {
-          loading.value = false;
-          Message.success("操作成功");
-          visible.value = false;
-          emits("success");
-        })
-        .catch(() => {
-          loading.value = false;
-        });
-    }
-  });
+const handleCancelEdit = () => {
+  edit.value = false;
+  copyParams(editForm, rawForm);
 };
 
 const grantRefreshToken = computed(() => {
@@ -243,7 +205,14 @@ const grantCode = computed(() => {
   );
 });
 
-defineExpose({
-  show,
+const fetchData = () => {
+  GetClientInfoAPI(props.id).then((response) => {
+    copyParams(editForm, response.data);
+    copyParams(rawForm, response.data);
+  });
+};
+
+onMounted(() => {
+  fetchData();
 });
 </script>

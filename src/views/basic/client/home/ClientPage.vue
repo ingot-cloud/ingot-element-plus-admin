@@ -41,9 +41,9 @@
           {{ scope }}
         </el-tag>
       </template>
-      <template #tokenAuthenticationMethod="{ item }">
-        <el-tag :type="getTokenAuthMethodTag(item.status)">
-          {{ getTokenAuthMethodLabel(item.status) }}
+      <template #tokenAuthType="{ item }">
+        <el-tag :type="getTokenAuthMethodTag(item.tokenAuthType)">
+          {{ getTokenAuthMethodLabel(item.tokenAuthType) }}
         </el-tag>
       </template>
       <template #status="{ item }">

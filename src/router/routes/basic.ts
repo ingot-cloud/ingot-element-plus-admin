@@ -156,17 +156,17 @@ export const basicRoutes: Array<RouteRecordRaw> = [
             path: "/basic/client/list",
             component: () => import("@/views/basic/client/home/ClientPage.vue"),
           },
-          //   {
-          //     name: "SysAuthorityClientManagerDetail",
-          //     meta: {
-          //       title: "客户端管理",
-          //       hidden: true,
-          //     },
-          //     path: "/basic/client/:id",
-          //     component: () =>
-          //       import("@/views/authority/client/manager/index.vue"),
-          //     props: true,
-          //   },
+          {
+            name: "BasicClientManager",
+            meta: {
+              title: "客户端管理",
+              hidden: true,
+            },
+            path: "/basic/client/:id",
+            component: () =>
+              import("@/views/basic/client/manager/ManagerPage.vue"),
+            props: true,
+          },
         ],
       },
     ],
