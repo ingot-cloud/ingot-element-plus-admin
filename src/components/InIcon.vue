@@ -12,9 +12,11 @@ const props = defineProps<{
   name: String;
 }>();
 
-const isIngotIcon = computed(() => props.name.startsWith("ingot:"));
+const isIngotIcon = computed(
+  () => props.name && props.name.startsWith("ingot:")
+);
 const icon = computed(() => {
-  if (props.name.startsWith("ingot:")) {
+  if (props.name && props.name.startsWith("ingot:")) {
     return props.name.split(":")[1];
   }
   return props.name;
