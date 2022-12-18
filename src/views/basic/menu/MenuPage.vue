@@ -73,7 +73,7 @@ const fetchData = () => {
       menuData.data = data;
       selectData.value = [
         {
-          id: undefined,
+          id: "0",
           name: "根菜单",
           children: data,
         },
