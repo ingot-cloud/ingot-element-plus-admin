@@ -5,5 +5,10 @@
     center
   >
     <slot />
+    <template #footer>
+      <div flex flex-row justify-end items-center gap-4>
+        <slot name="footer"> </slot>
+      </div>
+    </template>
   </el-dialog>
 </template>
