@@ -39,13 +39,11 @@ export const tableHeaders: Array<HeaderItem> = [
     label: "是否隐藏",
     prop: "hidden",
     width: "80",
-    transform: (value: boolean) => (value ? "是" : "否"),
   },
   {
     label: "是否缓存",
     prop: "isCache",
     width: "80",
-    transform: (value: boolean) => (value ? "是" : "否"),
   },
   {
     label: "状态",

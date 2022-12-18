@@ -21,6 +21,16 @@
         />
         <span v-else>-</span>
       </template>
+      <template #hidden="{ item }">
+        <el-tag :type="item.hidden ? 'danger' : 'success'">
+          {{ item.hidden ? "是" : "否" }}
+        </el-tag>
+      </template>
+      <template #isCache="{ item }">
+        <el-tag :type="item.isCache ? 'danger' : 'success'">
+          {{ item.isCache ? "是" : "否" }}
+        </el-tag>
+      </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status" />
       </template>
