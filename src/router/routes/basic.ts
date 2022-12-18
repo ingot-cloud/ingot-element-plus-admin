@@ -10,7 +10,7 @@ export const basicRoutes: Array<RouteRecordRaw> = [
     redirect: "/basic/user",
     meta: {
       title: "基础管理",
-      icon: "basic",
+      icon: "ingot:basic",
     },
     children: [
       {

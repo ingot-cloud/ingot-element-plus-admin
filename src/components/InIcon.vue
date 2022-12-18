@@ -1,10 +1,22 @@
 <template>
-  <svg aria-hidden="true">
-    <use :xlink:href="`#ingot-${name}`" />
+  <svg aria-hidden="true" v-if="isIngotIcon">
+    <use :xlink:href="`#ingot-${icon}`" />
   </svg>
+  <Icon v-else :icon="icon" />
 </template>
 <script lang="ts" setup>
-defineProps<{
+import { computed } from "vue";
+import { Icon } from "@iconify/vue";
+
+const props = defineProps<{
   name: String;
 }>();
+
+const isIngotIcon = computed(() => props.name.startsWith("ingot:"));
+const icon = computed(() => {
+  if (props.name.startsWith("ingot:")) {
+    return props.name.split(":")[1];
+  }
+  return props.name;
+});
 </script>
