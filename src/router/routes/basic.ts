@@ -154,7 +154,7 @@ export const basicRoutes: Array<RouteRecordRaw> = [
               title: "客户端管理",
             },
             path: "/basic/client/list",
-            component: () => import("@/views/basic/client/ClientPage.vue"),
+            component: () => import("@/views/basic/client/home/ClientPage.vue"),
           },
           //   {
           //     name: "SysAuthorityClientManagerDetail",
