@@ -1,10 +1,11 @@
 <template>
   <in-container>
     <in-table
-      :data="menuData.data"
+      :data="menuData"
       :headers="tableHeaders"
-      :row-key="menuData.key"
-      :tree-props="menuData.props"
+      :row-key="TreeListKeyAndProps.key"
+      :tree-props="TreeListKeyAndProps.props"
+      :expandRowKeys="expandRowKeys"
       ref="tableRef"
       @refresh="fetchData"
     >
@@ -18,22 +19,23 @@
           :name="item.icon"
           class="w-[var(--in-menu-icon-size)] h-[var(--in-menu-icon-size)]"
         />
+        <span v-else>-</span>
       </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status" />
       </template>
       <template #actions="{ item }">
-        <in-button type="success" @click="showEditDialog(item.id)">
+        <in-button type="success" text link @click="showEditDialog(item.id)">
           <template #icon>
             <i-carbon:parent-child />
           </template>
           添加子菜单
         </in-button>
-        <in-button type="primary" @click="showEditDialog(item)">
+        <in-button type="primary" text link @click="showEditDialog(item)">
           <template #icon> <i-ep:edit /> </template>
           编辑
         </in-button>
-        <in-button type="danger" @click="handleDelete(item)">
+        <in-button type="danger" text link @click="handleDelete(item)">
           <template #icon>
             <i-ep:delete />
           </template>
@@ -42,12 +44,17 @@
       </template>
     </in-table>
   </in-container>
-  <EditDialog ref="editDialogRef" :data="selectData" @success="fetchData" />
+  <EditDialog
+    ref="editDialogRef"
+    :selectData="selectData"
+    @success="fetchData"
+  />
 </template>
 <script lang="ts" setup>
-import { onMounted, ref, reactive } from "vue";
+import { onMounted, ref } from "vue";
 import { tableHeaders } from "./table";
 import type { MenuTreeNode, SysMenu } from "@/models";
+import { TreeListKeyAndProps } from "@/models";
 import { GetMenuTreeAPI, RemoveMenuAPI } from "@/api/basic/menu";
 import { Confirm, Message } from "@/utils/message";
 import EditDialog from "./EditDialog.vue";
@@ -56,11 +63,8 @@ import type { API as TableAPI } from "@/components/table/types";
 
 const editDialogRef = ref<EditDialogAPI>();
 const loading = ref(false);
-const menuData = reactive({
-  props: { children: "children", hasChildren: "hasChildren" },
-  key: "id",
-  data: [] as Array<MenuTreeNode>,
-});
+const menuData = ref<Array<MenuTreeNode>>([]);
+const expandRowKeys = ref<Array<string>>([]);
 const selectData = ref([] as Array<MenuTreeNode>);
 const tableRef = ref<TableAPI>();
 
@@ -70,7 +74,10 @@ const fetchData = () => {
     .then((response) => {
       loading.value = false;
       const data = response.data;
-      menuData.data = data;
+      menuData.value = data;
+      menuData.value.forEach((item) => {
+        expandRowKeys.value.push(String(item.id));
+      });
       selectData.value = [
         {
           id: "0",
@@ -101,4 +108,3 @@ onMounted(() => {
   fetchData();
 });
 </script>
-<style lang="stylus" scoped></style>

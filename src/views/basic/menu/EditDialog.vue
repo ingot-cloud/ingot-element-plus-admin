@@ -26,6 +26,13 @@
           clearable
         ></el-input>
       </el-form-item>
+      <el-form-item prop="code" label="菜单编码">
+        <el-input
+          v-model="editForm.code"
+          placeholder="请输入菜单编码"
+          clearable
+        ></el-input>
+      </el-form-item>
       <el-form-item prop="path" label="菜单路径">
         <el-input
           v-model="editForm.path"
@@ -40,7 +47,13 @@
           clearable
         ></el-input>
       </el-form-item>
-
+      <el-form-item label="重定向路径">
+        <el-input
+          v-model="editForm.redirect"
+          placeholder="请输入重定向路径"
+          clearable
+        ></el-input>
+      </el-form-item>
       <el-row>
         <el-col :span="16">
           <el-form-item prop="icon" label="菜单icon">
@@ -183,6 +196,7 @@ import { copyParams, getDiff } from "@/utils/object";
 
 const rules = {
   name: [{ required: true, message: "请输入菜单名称", trigger: "blur" }],
+  code: [{ required: true, message: "请输入菜单编码", trigger: "blur" }],
   path: [{ required: true, message: "请输入菜单url", trigger: "blur" }],
   viewPath: [{ required: true, message: "请输入视图路径", trigger: "blur" }],
 };
@@ -191,8 +205,10 @@ const defaultEditForm: SysMenu = {
   id: undefined,
   pid: undefined,
   name: undefined,
+  code: undefined,
   path: undefined,
   viewPath: undefined,
+  redirect: undefined,
   icon: undefined,
   sort: 999,
   isCache: false,

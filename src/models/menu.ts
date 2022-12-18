@@ -8,8 +8,10 @@ export interface SysMenu {
   id?: string;
   pid?: string;
   name?: string;
+  code?: string;
   path?: string;
   viewPath?: string;
+  redirect?: string;
   icon?: string;
   sort?: number;
   isCache?: boolean;
