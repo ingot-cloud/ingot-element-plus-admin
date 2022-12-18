@@ -42,12 +42,55 @@
       </el-form-item>
 
       <el-row>
-        <el-col :span="12">
+        <el-col :span="16">
           <el-form-item prop="icon" label="菜单icon">
-            <!-- <ingot-icon-select v-model="editForm.icon" /> -->
+            <el-input
+              v-model="editForm.icon"
+              placeholder="请输入icon名称"
+              clearable
+            >
+              <template #append>
+                <div
+                  ref="iconButtonRef"
+                  v-click-outside="privateOnSettingClickOutside"
+                  w-full
+                  h-full
+                  flex
+                  items-center
+                  justify-center
+                >
+                  <in-icon
+                    :name="editForm.icon"
+                    class="w-[var(--in-menu-icon-size)] h-[var(--in-menu-icon-size)]"
+                  />
+                </div>
+              </template>
+            </el-input>
+            <el-popover
+              ref="iconPopoverRef"
+              trigger="click"
+              placement="bottom"
+              :width="300"
+              :virtual-ref="iconButtonRef"
+              virtual-triggering
+            >
+              <div flex flex-col items-center>
+                <in-icon-collection @onItemClick="privateOnIconClick" />
+              </div>
+            </el-popover>
+            <div>
+              可以通过
+              <a
+                href="https://icon-sets.iconify.design/?query="
+                target="_blank"
+              >
+                iconify
+              </a>
+              搜索icon
+            </div>
           </el-form-item>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="8">
           <el-form-item prop="sort" label="排序">
             <el-input
               v-model="editForm.sort"
@@ -130,6 +173,7 @@ import {
   unref,
   toRaw,
 } from "vue";
+import { ClickOutside as vClickOutside } from "element-plus";
 import type { SysMenu } from "@/models";
 import { TreeKeyAndProps } from "@/models";
 import { CommonStatus, getCommonStatusDesc } from "@/models/enums";
@@ -165,6 +209,8 @@ defineProps({
   },
 });
 
+const iconButtonRef = ref();
+const iconPopoverRef = ref();
 const editFormRef = ref();
 const editForm = reactive(Object.assign({}, defaultEditForm));
 const rawForm: SysMenu = {};
@@ -235,6 +281,14 @@ const handleConfirmClick = () => {
         });
     }
   });
+};
+
+const privateOnIconClick = (name: string) => {
+  editForm.icon = name;
+  privateOnSettingClickOutside();
+};
+const privateOnSettingClickOutside = () => {
+  unref(iconPopoverRef).popperRef?.delayHide?.();
 };
 
 defineExpose({
