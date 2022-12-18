@@ -7,6 +7,7 @@
       ref="tableRef"
       @handleSizeChange="clientOps.fetchData"
       @handleCurrentChange="clientOps.fetchData"
+      @refresh="clientOps.fetchData"
     >
       <template #title>
         <el-input

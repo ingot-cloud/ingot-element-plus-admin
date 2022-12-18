@@ -50,25 +50,31 @@
         </el-col>
       </el-row>
 
-      <el-form-item label="Client认证方式">
-        <in-select
-          v-model="editForm.clientAuthenticationMethods"
-          :options="getClientAuthMethodList()"
-          placeholder="请选择Client认证方式"
-          split=","
-          multiple
-        />
-      </el-form-item>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="Client认证方式">
+            <in-select
+              v-model="editForm.clientAuthenticationMethods"
+              :options="getClientAuthMethodList()"
+              placeholder="请选择Client认证方式"
+              split=","
+              multiple
+            />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Client授权类型">
+            <in-select
+              v-model="editForm.authorizationGrantTypes"
+              :options="grantTypeList()"
+              placeholder="请选择允许授权类型"
+              split=","
+              multiple
+            />
+          </el-form-item>
+        </el-col>
+      </el-row>
 
-      <el-form-item label="Client授权类型">
-        <in-select
-          v-model="editForm.authorizationGrantTypes"
-          :options="grantTypeList()"
-          placeholder="请选择允许授权类型"
-          split=","
-          multiple
-        />
-      </el-form-item>
       <el-form-item label="重定向URL">
         <el-input
           v-model="editForm.redirectUris"
