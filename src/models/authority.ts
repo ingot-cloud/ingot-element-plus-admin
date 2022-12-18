@@ -9,8 +9,6 @@ export interface SysAuthority {
   pid?: string;
   name?: string;
   code?: string;
-  path?: string;
-  method?: string;
   status?: CommonStatus;
   remark?: string;
   createdAt?: string;

@@ -135,7 +135,7 @@ export const basicRoutes: Array<RouteRecordRaw> = [
             },
             path: "/basic/authority/list",
             component: () =>
-              import("@/views/basic/authority/AuthorityPage.vue"),
+              import("@/views/basic/authority/home/AuthorityPage.vue"),
           },
         ],
       },
