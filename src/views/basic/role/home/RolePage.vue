@@ -24,9 +24,6 @@
         <el-button type="primary" @click="refreshData"> 搜索 </el-button>
         <el-button type="primary" @click="handleCreate"> 添加 </el-button>
       </template>
-      <template #type="{ item }">
-        {{ item.type || "-" }}
-      </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status"></common-status-tag>
       </template>

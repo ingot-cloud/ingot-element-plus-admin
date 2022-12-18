@@ -1,4 +1,6 @@
-export const tableHeaders = [
+import type { HeaderItem } from "@/components/table/types";
+
+export const tableHeaders: Array<HeaderItem> = [
   {
     label: "菜单名称",
     prop: "name",
@@ -37,11 +39,13 @@ export const tableHeaders = [
     label: "是否隐藏",
     prop: "hidden",
     width: "80",
+    transform: (value: boolean) => (value ? "是" : "否"),
   },
   {
     label: "是否缓存",
-    prop: "cache",
+    prop: "isCache",
     width: "80",
+    transform: (value: boolean) => (value ? "是" : "否"),
   },
   {
     label: "状态",

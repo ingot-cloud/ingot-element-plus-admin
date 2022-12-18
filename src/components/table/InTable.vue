@@ -80,7 +80,11 @@
     >
       <template v-slot="scope" v-if="!item.type">
         <slot :name="item.prop" :item="scope.row" :index="scope.$index">
-          {{ scope.row[String(item.prop)] }}
+          {{
+            item.transform
+              ? item.transform(scope.row[String(item.prop)])
+              : scope.row[String(item.prop)]
+          }}
         </slot>
       </template>
     </el-table-column>

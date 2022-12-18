@@ -1,4 +1,5 @@
-export const tableHeaders = [
+import type { HeaderItem } from "@/components/table/types";
+export const tableHeaders: Array<HeaderItem> = [
   {
     label: "序号",
     type: "index",
@@ -16,6 +17,7 @@ export const tableHeaders = [
   {
     label: "角色类型",
     prop: "type",
+    transform: (value: string) => value || "-",
   },
   {
     label: "状态",

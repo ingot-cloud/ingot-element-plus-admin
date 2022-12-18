@@ -20,10 +20,12 @@ export const tableHeaders = [
   {
     label: "开始时间",
     prop: "startAt",
+    transform: (value: string) => value || "-",
   },
   {
     label: "结束时间",
     prop: "endAt",
+    transform: (value: string) => value || "-",
   },
   {
     label: "创建时间",
