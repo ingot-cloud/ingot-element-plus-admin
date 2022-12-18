@@ -51,14 +51,14 @@
       </el-row>
     </el-form>
     <template #footer>
-      <el-button
+      <in-button
         :loading="loading"
         size="small"
         type="primary"
         @click="handleConfirmClick"
       >
         确定
-      </el-button>
+      </in-button>
     </template>
   </in-dialog>
 </template>

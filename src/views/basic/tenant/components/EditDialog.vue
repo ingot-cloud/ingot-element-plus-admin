@@ -43,9 +43,9 @@
       </el-col>
     </el-form>
     <template #footer>
-      <el-button :loading="loading" type="primary" @click="handleConfirmClick">
+      <in-button :loading="loading" type="primary" @click="handleConfirmClick">
         确定
-      </el-button>
+      </in-button>
     </template>
   </in-dialog>
 </template>

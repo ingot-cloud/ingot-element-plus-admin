@@ -7,9 +7,9 @@ const toggleDark = useToggle(isDark);
 </script>
 
 <template>
-  <!-- <el-button @click="toggleDark()">
+  <!-- <in-button @click="toggleDark()">
     <span class="ml-2">{{ isDark ? "Dark" : "Light" }}</span>
-  </el-button> -->
+  </in-button> -->
   <el-switch
     v-model="isDark"
     inline-prompt

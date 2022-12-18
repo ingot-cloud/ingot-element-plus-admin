@@ -21,8 +21,8 @@
         <in-button type="primary" @click="roleOps.condition.name = undefined">
           重置
         </in-button>
-        <el-button type="primary" @click="refreshData"> 搜索 </el-button>
-        <el-button type="primary" @click="handleCreate"> 添加 </el-button>
+        <in-button type="primary" @click="refreshData"> 搜索 </in-button>
+        <in-button type="primary" @click="handleCreate"> 添加 </in-button>
       </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status"></common-status-tag>

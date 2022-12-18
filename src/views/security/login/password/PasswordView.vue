@@ -20,14 +20,14 @@
       ></el-input>
     </el-form-item>
     <el-form-item class="form-item">
-      <el-button
+      <in-button
         type="primary"
         class="login-btn"
         @click="handleLogin"
         :loading="loading"
       >
         {{ loading ? "登录中..." : "登录" }}
-      </el-button>
+      </in-button>
     </el-form-item>
   </el-form>
 </template>

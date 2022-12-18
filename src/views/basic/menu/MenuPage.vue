@@ -10,8 +10,8 @@
       @refresh="fetchData"
     >
       <template #toolbar>
-        <el-button type="primary" @click="fetchData"> 搜索 </el-button>
-        <el-button type="primary" @click="showEditDialog()"> 添加 </el-button>
+        <in-button type="primary" @click="fetchData"> 搜索 </in-button>
+        <in-button type="primary" @click="showEditDialog()"> 添加 </in-button>
       </template>
       <template #icon="{ item }">
         <in-icon

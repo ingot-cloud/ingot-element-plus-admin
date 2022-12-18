@@ -9,9 +9,9 @@
       @refresh="fetchData"
     >
       <template #toolbar>
-        <el-button type="primary" @click="showEditDialog()">
+        <in-button type="primary" @click="showEditDialog()">
           创建部门
-        </el-button>
+        </in-button>
       </template>
       <template #scope="{ item }">
         {{ getDeptRoleScopeDesc(item.scope) }}
