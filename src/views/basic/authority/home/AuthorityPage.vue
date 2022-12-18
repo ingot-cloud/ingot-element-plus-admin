@@ -5,6 +5,7 @@
       :headers="tableHeaders"
       :row-key="TreeListKeyAndProps.key"
       :tree-props="TreeListKeyAndProps.props"
+      :expandRowKeys="expandRowKeys"
       @refresh="fetchData"
       ref="tableRef"
     >
@@ -16,21 +17,36 @@
         <common-status-tag :status="item.status" />
       </template>
       <template #actions="{ item }">
-        <in-button type="success" @click="handleEdit(item.id)">
-          新增
+        <in-button type="success" text link @click="handleEdit(item.id)">
+          <template #icon>
+            <i-carbon:parent-child />
+          </template>
+          添加子权限
         </in-button>
-        <in-button type="primary" @click="handleEdit(item)"> 编辑 </in-button>
+        <in-button type="primary" text link @click="handleEdit(item)">
+          <template #icon> <i-ep:edit /> </template>
+          编辑
+        </in-button>
         <common-status-button
+          text
+          link
           :status="item.status"
           @click="handleDisable(item)"
         />
-        <in-button size="mini" type="danger" @click="handleDelete(item)">
+        <in-button type="danger" text link @click="handleDelete(item)">
+          <template #icon>
+            <i-ep:delete />
+          </template>
           删除
         </in-button>
       </template>
     </in-table>
   </in-container>
-  <EditDialog ref="editDialogRef" :data="selectData" @success="fetchData" />
+  <EditDialog
+    ref="editDialogRef"
+    :selectData="selectData"
+    @success="fetchData"
+  />
 </template>
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
@@ -65,13 +81,7 @@ const fetchData = (): void => {
     treeData.value.forEach((item) => {
       expandRowKeys.value.push(String(item.id));
     });
-    selectData.value = [
-      {
-        id: "0",
-        name: "根菜单",
-        children: data,
-      },
-    ];
+    selectData.value = data;
   });
 };
 
