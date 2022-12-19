@@ -34,7 +34,11 @@
         router
         @select="onNavMenuSelect"
       >
-        <in-submenu v-for="route in menus" :key="route.path" :route="route" />
+        <in-submenu
+          v-for="route in getMenus"
+          :key="route.path"
+          :route="route"
+        />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -50,7 +54,7 @@ import { storeToRefs } from "pinia";
 const router = useRouter();
 const { getMenuOpened } = storeToRefs(useAppStateStore());
 const activePath = computed(() => router.currentRoute.value.path);
-const menus = useRouterStore().getMenus;
+const { getMenus } = storeToRefs(useRouterStore());
 const { app } = storeToRefs(useAppStore());
 
 const onNavMenuSelect = () => {
