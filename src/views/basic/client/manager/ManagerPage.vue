@@ -1,152 +1,165 @@
 <template>
   <in-container>
-    <div flex flex-row justify-between items-center m-b-10px>
-      <div>客户端编辑</div>
-      <div>
-        <in-button
-          v-if="!edit"
-          type="primary"
-          :disabled="edit"
-          @click="edit = true"
-        >
-          编辑
-        </in-button>
-        <div justify="center" v-else>
-          <in-button type="primary" @click="handleSaveEdit"> 保存 </in-button>
-          <in-button @click="handleCancelEdit">取消</in-button>
+    <el-page-header @back="$router.back()">
+      <template #content>
+        <div>客户端编辑</div>
+      </template>
+      <template #extra>
+        <div>
+          <in-button
+            v-if="!edit"
+            type="primary"
+            :disabled="edit"
+            @click="edit = true"
+          >
+            编辑
+          </in-button>
+          <div justify="center" v-else>
+            <in-button type="primary" @click="handleSaveEdit"> 保存 </in-button>
+            <in-button @click="handleCancelEdit">取消</in-button>
+          </div>
         </div>
-      </div>
-    </div>
+      </template>
 
-    <el-form
-      ref="editFormRef"
-      label-width="150px"
-      label-position="right"
-      :model="editForm"
-      :disabled="!edit"
-    >
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <el-form-item label="客户端ID" prop="clientId">
-            <el-input
-              disabled
-              v-model="editForm.clientId"
-              placeholder="请输入客户端ID"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="客户端秘钥" prop="clientSecret">
-            <el-input
-              v-model="editForm.clientSecret"
-              disabled
-              placeholder="请输入客户端秘钥"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
+      <el-form
+        m-t-20px
+        p-20px
+        ref="editFormRef"
+        label-width="200px"
+        label-position="right"
+        :model="editForm"
+        :disabled="!edit"
+      >
+        <el-row>
+          <el-col :span="8">
+            <el-form-item label="客户端ID" prop="clientId">
+              <el-input
+                disabled
+                v-model="editForm.clientId"
+                placeholder="请输入客户端ID"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="客户端秘钥" prop="clientSecret">
+              <el-input
+                v-model="editForm.clientSecret"
+                disabled
+                placeholder="请输入客户端秘钥"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="客户端名称" prop="clientName">
+              <el-input
+                v-model="editForm.clientName"
+                disabled
+                placeholder="请输入客户端名称"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
 
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="客户端名称" prop="clientName">
-            <el-input
-              v-model="editForm.clientName"
-              disabled
-              placeholder="请输入客户端名称"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="访问范围">
-            <el-input
-              v-model="editForm.scopes"
-              clearable
-              placeholder="请输入客户端scope"
-              class="form-item"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="访问范围">
+              <el-input
+                v-model="editForm.scopes"
+                clearable
+                placeholder="请输入客户端scope"
+                class="form-item"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="重定向URL">
+              <el-input
+                v-model="editForm.redirectUris"
+                clearable
+                placeholder="请输入重定向URL"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
 
-      <el-form-item label="Client认证方式">
-        <in-select
-          v-model="editForm.clientAuthenticationMethods"
-          :options="getClientAuthMethodList()"
-          placeholder="请选择Client认证方式"
-          split=","
-          multiple
-        />
-      </el-form-item>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="Client认证方式">
+              <in-select
+                w-full
+                v-model="editForm.clientAuthenticationMethods"
+                :options="getClientAuthMethodList()"
+                placeholder="请选择Client认证方式"
+                split=","
+                multiple
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="授权授予类型">
+              <in-select
+                w-full
+                v-model="editForm.authorizationGrantTypes"
+                :options="grantTypeList()"
+                placeholder="请选择允许授予类型"
+                split=","
+                multiple
+              />
+            </el-form-item>
+          </el-col>
+        </el-row>
 
-      <el-form-item label="授权授予类型">
-        <in-select
-          v-model="editForm.authorizationGrantTypes"
-          :options="grantTypeList()"
-          placeholder="请选择允许授予类型"
-          split=","
-          multiple
-        />
-      </el-form-item>
-      <el-form-item label="重定向URL">
-        <el-input
-          v-model="editForm.redirectUris"
-          clearable
-          placeholder="请输入重定向URL"
-        ></el-input>
-      </el-form-item>
+        <el-row>
+          <el-col :span="6">
+            <el-form-item label="访问Token失效时间">
+              <el-input
+                v-model="editForm.accessTokenTimeToLive"
+                clearable
+                type="number"
+                placeholder="请输入访问Token失效时间"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Token授权类型">
+              <in-select
+                v-model="editForm.tokenAuthType"
+                :options="getTokenAuthMethodSelectList()"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="6" v-if="grantRefreshToken">
+            <el-form-item label="刷新Token失效时间">
+              <el-input
+                v-model="editForm.refreshTokenTimeToLive"
+                clearable
+                type="number"
+                placeholder="请输入刷新Token失效时间"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6" v-if="grantRefreshToken">
+            <el-form-item label="重复使用刷新Token">
+              <el-switch v-model="editForm.reuseRefreshTokens" />
+            </el-form-item>
+          </el-col>
+        </el-row>
 
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="访问Token失效时间">
-            <el-input
-              v-model="editForm.accessTokenTimeToLive"
-              clearable
-              type="number"
-              placeholder="请输入访问Token失效时间"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="Token授权类型">
-            <in-select
-              v-model="editForm.tokenAuthType"
-              :options="getTokenAuthMethodSelectList()"
-            />
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row v-if="grantRefreshToken">
-        <el-col :span="12">
-          <el-form-item label="刷新Token失效时间">
-            <el-input
-              v-model="editForm.refreshTokenTimeToLive"
-              clearable
-              type="number"
-              placeholder="请输入刷新Token失效时间"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="重复使用刷新Token">
-            <el-switch v-model="editForm.reuseRefreshTokens" />
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row v-if="grantCode">
-        <el-col :span="12">
-          <el-form-item label="需要提供验证密钥质询和验证器">
-            <el-switch v-model="editForm.requireProofKey" />
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="需要授权同意">
-            <el-switch v-model="editForm.requireAuthorizationConsent" />
-          </el-form-item>
-        </el-col>
-      </el-row>
-    </el-form>
+        <el-row>
+          <el-col :span="12"></el-col>
+          <el-col :span="6" v-if="grantCode">
+            <el-form-item label="需要提供验证密钥质询和验证器">
+              <el-switch v-model="editForm.requireProofKey" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="6" v-if="grantCode">
+            <el-form-item label="需要授权同意">
+              <el-switch v-model="editForm.requireAuthorizationConsent" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+    </el-page-header>
   </in-container>
 </template>
 <script lang="ts" setup>
