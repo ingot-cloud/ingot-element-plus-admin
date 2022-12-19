@@ -45,11 +45,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
-import { useRouter } from "vue-router";
 import { useAppStore, useAppStateStore } from "@/stores/modules/app";
 import { useRouterStore } from "@/stores/modules/router";
-import { storeToRefs } from "pinia";
 
 const router = useRouter();
 const { getMenuOpened } = storeToRefs(useAppStateStore());

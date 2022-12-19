@@ -33,11 +33,9 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, computed } from "vue";
 import type { PropType } from "vue";
 import type { RouteRecordRaw } from "vue-router";
 import { useAppStateStore } from "@/stores/modules/app";
-import { storeToRefs } from "pinia";
 
 const props = defineProps({
   route: {

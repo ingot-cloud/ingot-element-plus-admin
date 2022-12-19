@@ -1,6 +1,4 @@
-import { defineStore } from "pinia";
 import type { SimpleTenantVO, Page, SysTenant, R } from "@/models";
-import { ref } from "vue";
 import {
   TenantListAPI,
   TenantPageAPI,

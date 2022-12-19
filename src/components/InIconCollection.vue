@@ -11,10 +11,10 @@
 </template>
 <script lang="ts" setup>
 import { defineEmits } from "vue";
-import { useIcons } from "@/helper/web/useIcons";
+import { useIconsCollection } from "@/helper/web/useIcons";
 
 const emits = defineEmits(["onItemClick"]);
-const icons = useIcons();
+const icons = useIconsCollection();
 const onItemClick = (item: string) => {
   emits("onItemClick", item);
 };

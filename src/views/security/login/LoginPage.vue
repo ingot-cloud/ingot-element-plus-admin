@@ -27,7 +27,6 @@
 import { useAppStore } from "@/stores/modules/app";
 import PasswordView from "./password/PasswordView.vue";
 import SmsView from "./sms/SmsView.vue";
-import { storeToRefs } from "pinia";
 
 enum LoginType {
   Password = "password",

@@ -1,3 +1,5 @@
+import type { TransferKey } from "element-plus";
+
 export interface TableAPI {
   clearSelection(): void;
 }
@@ -6,7 +8,7 @@ export type TransformItem<In, Out> = (value: In) => Out;
 
 export interface TableHeaderItem<In = any, Out = any> {
   label?: string;
-  prop?: string;
+  prop?: TransferKey;
   hide?: boolean;
   type?: string;
   width?: string;
@@ -16,7 +18,7 @@ export interface TableHeaderItem<In = any, Out = any> {
 }
 
 export interface TablePage {
-  current: number;
-  size: number;
-  total: number;
+  current?: number;
+  size?: number;
+  total?: number;
 }

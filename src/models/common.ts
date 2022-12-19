@@ -1,5 +1,7 @@
 import { CommonStatus } from "./enums";
 
+export type ElTagType = "" | "success" | "warning" | "info" | "danger";
+
 export interface SelectItemParams {
   label: string;
   value: string;

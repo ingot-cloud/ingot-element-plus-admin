@@ -6,7 +6,7 @@
       <el-dropdown-menu>
         <el-dropdown-item
           v-for="item in ComponentSizeList"
-          :key="item"
+          :key="item.value"
           :disabled="componentSize === item.value"
           @click="appStateStore.changeComponentSize(item.value)"
         >

@@ -48,14 +48,12 @@
   />
 </template>
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
 import { tableHeaders } from "./table";
 import { getDeptRoleScopeDesc } from "@/models/enums";
 import { RootDept, TreeListKeyAndProps } from "@/models";
 import type { SysDept, DeptTreeNode } from "@/models";
 import { Confirm, Message } from "@/utils/message";
 import { useDeptStore } from "@/stores/modules/dept";
-import { storeToRefs } from "pinia";
 import EditDialog from "./components/EditDialog.vue";
 import type { API as EditDialogAPI } from "./components/EditDialog.vue";
 import type { TableAPI } from "@/models/components";

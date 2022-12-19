@@ -1,5 +1,3 @@
-import { ref, reactive, computed } from "vue";
-import { defineStore } from "pinia";
 import type { AppStore } from "../types";
 import type { ComponentSize } from "@/components/cmp-size/types";
 

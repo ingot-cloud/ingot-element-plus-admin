@@ -1,7 +1,6 @@
 import type { AxiosRequestConfig, AxiosError } from "axios";
 import { useAuthStore } from "@/stores/modules/auth";
 import { useAppStore } from "@/stores/modules/app";
-import { storeToRefs } from "pinia";
 
 export const onRequestFulfilled = (
   config: AxiosRequestConfig

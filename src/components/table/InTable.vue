@@ -89,14 +89,7 @@
       </template>
     </el-table-column>
   </el-table>
-  <div
-    v-if="page && page.total > 0"
-    m-t-20px
-    flex
-    flex-row
-    justify-end
-    items-start
-  >
+  <div v-if="page && page.total" m-t-20px flex flex-row justify-end items-start>
     <el-pagination
       :small="componentSize === 'small'"
       :current-page="current"
@@ -111,12 +104,12 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { defineProps, defineEmits, defineExpose, ref, watch, unref } from "vue";
 import { ClickOutside as vClickOutside } from "element-plus";
+import type { TransferKey } from "element-plus";
 import type { PropType } from "vue";
 import type { TableHeaderItem, TablePage } from "@/models/components";
 import { useAppStateStore } from "@/stores/modules/app";
-import { storeToRefs } from "pinia";
+
 const { componentSize } = storeToRefs(useAppStateStore());
 
 const props = defineProps({
@@ -139,7 +132,7 @@ const props = defineProps({
     },
   },
   pageSize: {
-    type: Array,
+    type: Object as PropType<Array<number>>,
     default() {
       return [20, 30, 40, 50];
     },
@@ -237,9 +230,11 @@ const headersEnable = ref(
     (item: TableHeaderItem) => !item.hide
   ) as Array<TableHeaderItem>
 );
-const headersEnableValue = ref(headersEnable.value.map((item) => item.prop));
+const headersEnableValue = ref<Array<TransferKey>>(
+  headersEnable.value.map((item) => item.prop) as Array<TransferKey>
+);
 const headerTransferProps = { label: "label", key: "prop" };
-const headerTransferTitles = ["可选项", "显示项"];
+const headerTransferTitles: [string, string] = ["可选项", "显示项"];
 
 const settingPopoverRef = ref();
 const settingButtonRef = ref();

@@ -27,7 +27,7 @@ const props = defineProps({
     type: String,
     default: "",
   },
-  size: String,
+  size: String as PropType<"" | "default" | "small" | "large" | undefined>,
   placeholder: String,
   clearable: Boolean,
   multiple: {

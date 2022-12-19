@@ -176,16 +176,6 @@ export interface API {
 }
 </script>
 <script lang="ts" setup>
-import {
-  defineProps,
-  defineExpose,
-  defineEmits,
-  reactive,
-  ref,
-  nextTick,
-  unref,
-  toRaw,
-} from "vue";
 import { ClickOutside as vClickOutside } from "element-plus";
 import type { SysMenu } from "@/models";
 import { TreeKeyAndProps } from "@/models";

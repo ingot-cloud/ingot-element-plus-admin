@@ -1,5 +1,3 @@
-import { ref } from "vue";
-import { defineStore } from "pinia";
 import type { DeptTreeNode, SysDept } from "@/models";
 import {
   DeptTreeAPI,

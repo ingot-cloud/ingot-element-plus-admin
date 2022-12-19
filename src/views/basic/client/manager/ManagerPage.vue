@@ -163,7 +163,6 @@
   </in-container>
 </template>
 <script lang="ts" setup>
-import { defineProps, reactive, ref, onMounted, computed } from "vue";
 import type { OAuth2RegisteredClient } from "@/models";
 import {
   getTokenAuthMethodSelectList,

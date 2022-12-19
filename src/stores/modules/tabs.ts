@@ -1,8 +1,5 @@
-import { ref, unref, computed } from "vue";
-import { defineStore } from "pinia";
 import type { TabItem } from "../types";
 import router from "@/router";
-import { useRoute } from "vue-router";
 import { useGo, useRefreshPage } from "@/helper/web/usePage";
 import { PagePathEnum } from "@/models/enums/pageEnums";
 

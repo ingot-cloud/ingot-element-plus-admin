@@ -32,8 +32,6 @@
   </el-form>
 </template>
 <script lang="ts" setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
 import sms from "./sms";
 
 const { formModel, rules, loading } = sms;

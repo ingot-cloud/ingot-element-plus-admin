@@ -84,7 +84,6 @@
   <CreateDialog ref="createDialogRef" @success="clientOps.fetchData" />
 </template>
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
 import { tableHeaders } from "./table";
 import { getTokenAuthMethodTag, getTokenAuthMethodLabel } from "@/models/enums";
 import { useClientOps } from "./useClientOps";

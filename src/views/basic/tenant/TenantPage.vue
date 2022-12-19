@@ -59,7 +59,6 @@
   <EditDialog ref="editDialog" @success="refreshData" />
 </template>
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
 import type { SysTenant } from "@/models";
 import { tableHeaders } from "./table";
 import { useTenantOps } from "./composables/useTenantOps";

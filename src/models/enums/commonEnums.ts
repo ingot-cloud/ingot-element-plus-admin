@@ -1,3 +1,5 @@
+import type { ElTagType } from "../common";
+
 /**
  * 公共状态
  */
@@ -26,7 +28,7 @@ export function getCommonStatusActionDesc(status: CommonStatus): string {
   }
 }
 
-export function getCommonStatusTag(status: CommonStatus): string {
+export function getCommonStatusTag(status: CommonStatus): ElTagType {
   switch (status) {
     case CommonStatus.Enable:
       return "success";

@@ -63,15 +63,6 @@ export interface API {
 <script lang="ts" setup>
 import type { SysAuthority } from "@/models";
 import { TreeKeyAndProps } from "@/models";
-import {
-  reactive,
-  ref,
-  nextTick,
-  unref,
-  toRaw,
-  defineEmits,
-  defineExpose,
-} from "vue";
 import { CreateAuthorityAPI, UpdateAuthorityAPI } from "@/api/basic/authority";
 import { Message } from "@/utils/message";
 import {

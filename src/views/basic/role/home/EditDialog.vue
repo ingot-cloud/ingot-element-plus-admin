@@ -70,15 +70,6 @@ export interface API {
 </script>
 <script lang="ts" setup>
 import type { RolePageItemVO, SysRole } from "@/models";
-import {
-  defineEmits,
-  defineExpose,
-  reactive,
-  ref,
-  nextTick,
-  unref,
-  toRaw,
-} from "vue";
 import { Message } from "@/utils/message";
 import { copyParams, copyParamsWithKeys } from "@/utils/object";
 import { useRoleStore } from "@/stores/modules/role";

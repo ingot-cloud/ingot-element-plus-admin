@@ -1,8 +1,5 @@
-import { ref, computed } from "vue";
-import { defineStore } from "pinia";
 import type { RouteRecordRaw } from "vue-router";
 import { default as routes } from "@/router/routes";
-import { copyParams } from "@/utils/object";
 
 interface BreadCrumbItem {
   path: string;

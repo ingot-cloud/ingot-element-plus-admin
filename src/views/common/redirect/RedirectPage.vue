@@ -2,7 +2,6 @@
   <div></div>
 </template>
 <script lang="ts" setup>
-import { defineProps } from "vue";
 import { doRedirect } from "@/helper/web/usePage";
 import { RedirectField } from "@/models/enums/pageEnums";
 import { Message } from "@/utils/message";

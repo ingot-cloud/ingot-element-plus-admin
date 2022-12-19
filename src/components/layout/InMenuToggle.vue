@@ -8,7 +8,6 @@
 </template>
 <script lang="ts" setup>
 import { useAppStateStore } from "@/stores/modules/app";
-import { storeToRefs } from "pinia";
 
 const store = useAppStateStore();
 

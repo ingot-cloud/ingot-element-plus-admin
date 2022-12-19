@@ -5,11 +5,10 @@
   <Icon v-else :icon="icon" />
 </template>
 <script lang="ts" setup>
-import { computed } from "vue";
 import { Icon } from "@iconify/vue";
 
 const props = defineProps<{
-  name: String;
+  name: String | undefined;
 }>();
 
 const isIngotIcon = computed(

@@ -9,6 +9,5 @@
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue";
 import { getDisableButtonParams } from "@/models";
-import { defineProps } from "vue";
 defineProps(["status"]);
 </script>

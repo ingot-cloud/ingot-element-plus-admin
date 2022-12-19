@@ -49,7 +49,6 @@
   />
 </template>
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
 import { tableHeaders } from "./table";
 import type { SysAuthority, AuthorityTreeNode } from "@/models";
 import { TreeListKeyAndProps } from "@/models";

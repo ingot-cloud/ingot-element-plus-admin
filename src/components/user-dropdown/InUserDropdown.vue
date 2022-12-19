@@ -33,7 +33,6 @@ import { Icon } from "@iconify/vue";
 import type { Command } from "./data";
 import { menuList } from "./data";
 import { useUserInfoStore } from "@/stores/modules/auth";
-import { storeToRefs } from "pinia";
 import { logoutAndReload } from "@/utils/security";
 
 const { getUsername } = storeToRefs(useUserInfoStore());

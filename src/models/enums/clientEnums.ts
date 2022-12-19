@@ -1,4 +1,4 @@
-import type { SelectItemParams } from "../common";
+import type { SelectItemParams, ElTagType } from "../common";
 
 export enum TokenAuthMethod {
   Unique = "1",
@@ -14,7 +14,7 @@ export function getTokenAuthMethodLabel(method: TokenAuthMethod): string {
   }
 }
 
-export function getTokenAuthMethodTag(method: TokenAuthMethod): string {
+export function getTokenAuthMethodTag(method: TokenAuthMethod): ElTagType {
   switch (method) {
     case TokenAuthMethod.Unique:
       return "warning";

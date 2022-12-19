@@ -69,10 +69,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { TabsPaneContext } from "element-plus";
-import { ref, watch } from "vue";
-import { storeToRefs } from "pinia";
-import { useRouter, useRoute } from "vue-router";
+import type { TabsPaneContext, TabPaneName } from "element-plus";
 import { useTabsStore } from "@/stores/modules/tabs";
 
 const route = useRoute();
@@ -113,8 +110,8 @@ const handleTabClick = (tabItem: TabsPaneContext) => {
   router.push(path);
 };
 
-const handleRemove = (tabPath: string) => {
-  tabsStore.removeTab(tabPath, tabPath === route.path);
+const handleRemove = (tabPath: TabPaneName) => {
+  tabsStore.removeTab(tabPath as string, tabPath === route.path);
 };
 
 enum Action {

@@ -18,8 +18,6 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
-import { useRoute } from "vue-router";
 import { useRouterStore } from "@/stores/modules/router";
 
 const route = useRoute();

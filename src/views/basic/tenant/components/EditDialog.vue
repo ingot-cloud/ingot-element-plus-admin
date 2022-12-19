@@ -57,15 +57,6 @@ export interface API {
 </script>
 <script lang="ts" setup>
 import type { SysTenant } from "@/models";
-import {
-  defineEmits,
-  defineExpose,
-  reactive,
-  ref,
-  nextTick,
-  unref,
-  toRaw,
-} from "vue";
 import { Message } from "@/utils/message";
 import { copyParams } from "@/utils/object";
 import { useTenantStore } from "@/stores/modules/tenant";
@@ -76,12 +67,19 @@ const rules = {
   daterange: [{ required: false }],
 };
 
-const defaultEditForm = {
-  id: null,
-  name: null,
-  code: null,
-  startAt: null,
-  endAt: null,
+const defaultEditForm: {
+  id?: string;
+  name?: string;
+  code?: string;
+  startAt?: string;
+  endAt?: string;
+  daterange?: [string, string];
+} = {
+  id: undefined,
+  name: undefined,
+  code: undefined,
+  startAt: undefined,
+  endAt: undefined,
   daterange: ["", ""],
 };
 

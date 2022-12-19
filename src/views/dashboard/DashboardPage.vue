@@ -9,7 +9,6 @@
 
 <script lang="ts" setup>
 import { useUserInfoStore } from "@/stores/modules/auth";
-import { storeToRefs } from "pinia";
 
 const { getUsername, getRoles, getUserInfoWhetherExist } = storeToRefs(
   useUserInfoStore()

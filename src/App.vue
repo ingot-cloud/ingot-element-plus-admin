@@ -8,9 +8,7 @@
   </el-config-provider>
 </template>
 <script lang="ts" setup>
-import { reactive } from "vue";
 import { useAppStateStore } from "@/stores/modules/app";
-import { storeToRefs } from "pinia";
 import zhCn from "element-plus/lib/locale/lang/zh-cn";
 
 const { componentSize } = storeToRefs(useAppStateStore());
