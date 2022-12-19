@@ -71,9 +71,9 @@ export function hasConditionParams(condition?: object): boolean {
 /**
  * 拷贝参数
  */
-export function copyParams(
-  to: object,
-  from: object,
+export function copyParams<T extends object>(
+  to: T,
+  from: T,
   filterNull?: boolean
 ): void {
   const keys = Object.keys(from);
@@ -83,9 +83,9 @@ export function copyParams(
 /**
  * 拷贝参数
  */
-export function copyParamsWithKeys(
-  to: object,
-  from: object,
+export function copyParamsWithKeys<T extends object>(
+  to: T,
+  from: T,
   keys: Array<string>,
   filterNull?: boolean
 ): void {

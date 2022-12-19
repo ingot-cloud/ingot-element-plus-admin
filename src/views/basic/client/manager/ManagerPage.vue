@@ -1,10 +1,10 @@
 <template>
   <in-container>
-    <el-page-header @back="$router.back()">
-      <template #content>
+    <in-page-header @back="$router.back()">
+      <template #title>
         <div>客户端编辑</div>
       </template>
-      <template #extra>
+      <template #action>
         <div>
           <in-button
             v-if="!edit"
@@ -159,7 +159,7 @@
           </el-col>
         </el-row>
       </el-form>
-    </el-page-header>
+    </in-page-header>
   </in-container>
 </template>
 <script lang="ts" setup>

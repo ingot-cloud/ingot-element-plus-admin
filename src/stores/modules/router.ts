@@ -2,6 +2,7 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import type { RouteRecordRaw } from "vue-router";
 import { default as routes } from "@/router/routes";
+import { copyParams } from "@/utils/object";
 
 interface BreadCrumbItem {
   path: string;
@@ -112,7 +113,8 @@ export const useRouterStore = defineStore("router", () => {
       // todo 发送请求获取菜单列表，并且和固定的routes合并
       dynamicRoutes.value = [];
 
-      menus.value = filterMenus(routes.concat(dynamicRoutes.value));
+      const all = routes.concat(dynamicRoutes.value);
+      menus.value = filterMenus(all.slice());
     }
 
     return {
