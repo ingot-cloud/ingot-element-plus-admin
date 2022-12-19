@@ -90,7 +90,7 @@ import { getTokenAuthMethodTag, getTokenAuthMethodLabel } from "@/models/enums";
 import { useClientOps } from "./useClientOps";
 import CreateDialog from "./CreateDialog.vue";
 import type { API as CreateDialogAPI } from "./CreateDialog.vue";
-import type { API as TableAPI } from "@/components/table/types";
+import type { TableAPI } from "@/models/components";
 
 onMounted(() => {
   clientOps.fetchData();

@@ -58,7 +58,7 @@ import { useDeptStore } from "@/stores/modules/dept";
 import { storeToRefs } from "pinia";
 import EditDialog from "./components/EditDialog.vue";
 import type { API as EditDialogAPI } from "./components/EditDialog.vue";
-import type { API as TableAPI } from "@/components/table/types";
+import type { TableAPI } from "@/models/components";
 
 const editDialogRef = ref<EditDialogAPI>();
 const loading = ref(false);

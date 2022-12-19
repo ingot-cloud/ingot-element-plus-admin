@@ -56,7 +56,7 @@ import { TreeListKeyAndProps } from "@/models";
 import { CommonStatus, getCommonStatusActionDesc } from "@/models/enums";
 import EditDialog from "./EditDialog.vue";
 import type { API as EditDialogAPI } from "./EditDialog.vue";
-import type { API as TableAPI } from "@/components/table/types";
+import type { TableAPI } from "@/models/components";
 import {
   GetAuthorityTreeAPI,
   UpdateAuthorityAPI,

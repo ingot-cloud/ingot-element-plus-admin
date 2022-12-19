@@ -102,7 +102,7 @@ import type { RolePageItemVO } from "@/models";
 import { useRoleOps } from "./useRoleOps";
 import EditDialog from "./EditDialog.vue";
 import type { API as EditDialogAPI } from "./EditDialog.vue";
-import type { API as TableAPI } from "@/components/table/types";
+import type { TableAPI } from "@/models/components";
 
 const roleOps = useRoleOps();
 const editDialog = ref<EditDialogAPI>();

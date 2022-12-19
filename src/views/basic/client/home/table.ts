@@ -1,5 +1,6 @@
-import type { HeaderItem } from "@/components/table/types";
-export const tableHeaders: Array<HeaderItem> = [
+import type { TableHeaderItem } from "@/models/components";
+
+export const tableHeaders: Array<TableHeaderItem> = [
   {
     label: "序号",
     type: "index",

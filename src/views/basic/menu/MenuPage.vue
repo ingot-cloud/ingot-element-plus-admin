@@ -69,7 +69,7 @@ import { GetMenuTreeAPI, RemoveMenuAPI } from "@/api/basic/menu";
 import { Confirm, Message } from "@/utils/message";
 import EditDialog from "./EditDialog.vue";
 import type { API as EditDialogAPI } from "./EditDialog.vue";
-import type { API as TableAPI } from "@/components/table/types";
+import type { TableAPI } from "@/models/components";
 
 const editDialogRef = ref<EditDialogAPI>();
 const loading = ref(false);

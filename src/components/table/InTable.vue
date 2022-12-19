@@ -114,7 +114,7 @@
 import { defineProps, defineEmits, defineExpose, ref, watch, unref } from "vue";
 import { ClickOutside as vClickOutside } from "element-plus";
 import type { PropType } from "vue";
-import type { HeaderItem, Page } from "./types";
+import type { TableHeaderItem, TablePage } from "@/models/components";
 import { useAppStateStore } from "@/stores/modules/app";
 import { storeToRefs } from "pinia";
 const { componentSize } = storeToRefs(useAppStateStore());
@@ -125,11 +125,11 @@ const props = defineProps({
     default: () => [],
   },
   headers: {
-    type: Object as PropType<Array<HeaderItem>>,
+    type: Object as PropType<Array<TableHeaderItem>>,
     default: () => null,
   },
   page: {
-    type: Object as PropType<Page>,
+    type: Object as PropType<TablePage>,
     default() {
       return {
         current: 1,
@@ -155,7 +155,7 @@ const props = defineProps({
     default: false,
   },
   selectionProps: {
-    type: Object as PropType<HeaderItem>,
+    type: Object as PropType<TableHeaderItem>,
     default() {
       return {
         align: "center",
@@ -171,7 +171,7 @@ const props = defineProps({
     default: false,
   },
   indexProps: {
-    type: Object as PropType<HeaderItem>,
+    type: Object as PropType<TableHeaderItem>,
     default() {
       return {
         label: "序号",
@@ -233,7 +233,9 @@ watch(
 );
 
 const headersEnable = ref(
-  props.headers.filter((item: HeaderItem) => !item.hide) as Array<HeaderItem>
+  props.headers.filter(
+    (item: TableHeaderItem) => !item.hide
+  ) as Array<TableHeaderItem>
 );
 const headersEnableValue = ref(headersEnable.value.map((item) => item.prop));
 const headerTransferProps = { label: "label", key: "prop" };
@@ -264,7 +266,7 @@ const privateOnTableSelectionChange = (selection: any) => {
   emits("selectionChange", selection);
 };
 const privateOnHeaderChanged = (value: any) => {
-  headersEnable.value = props.headers.filter((item: HeaderItem) =>
+  headersEnable.value = props.headers.filter((item: TableHeaderItem) =>
     value.includes(item.prop)
   );
 };
