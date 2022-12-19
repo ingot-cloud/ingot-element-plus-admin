@@ -156,6 +156,7 @@ const handleAction = (action: Action) => {
     }
   }
   & .el-tabs {
+    --el-tabs-header-height: var(--in-tabs-height);
     @apply p-b-5px p-t-5px flex-1;
     & .el-tabs__header {
       @apply box-border m-b-0 b-none;

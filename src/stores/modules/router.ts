@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from "vue-router";
+import type { MenuRouteRecord } from "@/models/components";
 import { default as routes } from "@/router/routes";
 
 interface BreadCrumbItem {
@@ -78,30 +79,40 @@ const loadPathBreadCrumbList = (
 };
 
 /**
- * 清洗路由列表，过滤所有不需要显示的menu信息
- * @param menu 需要清洗的路由列表
+ * 生成菜单
+ * @param routes 路由表
  */
-const filterMenus = (menu: Array<RouteRecordRaw>): Array<RouteRecordRaw> => {
-  return menu
-    .map((item) => {
-      if (item.children) {
-        item.children = filterMenus(item.children);
-      }
-      return item;
-    })
+const generateMenus = (
+  routes: Array<RouteRecordRaw>
+): Array<MenuRouteRecord> => {
+  return routes
     .filter((item) => {
       return item.meta && !item.meta.hidden;
+    })
+    .map((item) => {
+      const menu: MenuRouteRecord = {
+        path: item.path,
+        title: item.meta?.title,
+        icon: item.meta?.icon,
+      };
+      if (item.children) {
+        menu.children = generateMenus(item.children);
+      }
+      return menu;
     });
 };
 
 export const useRouterStore = defineStore("router", () => {
-  const menus = ref<Array<RouteRecordRaw>>([]);
+  const allRoutes = ref<Array<RouteRecordRaw>>([]);
   const dynamicRoutes = ref<Array<RouteRecordRaw>>([]);
+  const menus = ref<Array<MenuRouteRecord>>([]);
 
   const getMenus = computed(() => menus.value);
   const getBreadcrumb = computed(() => {
     const result: { [key: string]: Array<BreadCrumbItem> } = {};
-    menus.value.forEach((menu) => loadBreadCrumbKV(menu, menus.value, result));
+    allRoutes.value.forEach((menu) =>
+      loadBreadCrumbKV(menu, allRoutes.value, result)
+    );
     return result;
   });
 
@@ -110,8 +121,8 @@ export const useRouterStore = defineStore("router", () => {
       // todo 发送请求获取菜单列表，并且和固定的routes合并
       dynamicRoutes.value = [];
 
-      const all = routes.concat(dynamicRoutes.value);
-      menus.value = filterMenus(all.slice());
+      allRoutes.value = routes.concat(dynamicRoutes.value);
+      menus.value = generateMenus(allRoutes.value);
     }
 
     return {
