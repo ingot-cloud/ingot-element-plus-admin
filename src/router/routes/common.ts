@@ -12,7 +12,7 @@ export const commonRoutes: Array<RouteRecordRaw> = [
   {
     path: "/:pathMatch(.*)",
     name: "NotFound",
-    meta: { hidden: true },
+    meta: { hidden: true, breadcrumbHidden: true },
     component: () => import("@/views/common/errors/NotFound.vue"),
   },
   {
@@ -22,6 +22,7 @@ export const commonRoutes: Array<RouteRecordRaw> = [
     meta: {
       title: PageNameEnum.REDIRECT,
       hidden: true,
+      breadcrumbHidden: true,
     },
     children: [
       {
@@ -32,6 +33,7 @@ export const commonRoutes: Array<RouteRecordRaw> = [
         meta: {
           title: PageNameEnum.REDIRECT,
           hidden: true,
+          breadcrumbHidden: true,
         },
       },
     ],

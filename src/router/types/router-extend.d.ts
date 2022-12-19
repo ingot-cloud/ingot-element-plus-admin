@@ -12,13 +12,17 @@ declare module "vue-router" {
      */
     icon?: string;
     /**
+     * 是否放行，即忽略身份验证
+     */
+    permitAuth?: boolean;
+    /**
      * 是否在菜单中隐藏
      */
     hidden?: boolean;
     /**
-     * 是否放行，即忽略身份验证
+     * 面包屑隐藏
      */
-    permitAuth?: boolean;
+    breadcrumbHidden?: boolean;
     /**
      * 是否为固钉
      */

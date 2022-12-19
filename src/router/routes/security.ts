@@ -10,6 +10,7 @@ export const securityRoutes: Array<RouteRecordRaw> = [
     meta: {
       permitAuth: true,
       hidden: true,
+      breadcrumbHidden: true,
     },
     component: () => import("@/views/security/login/LoginPage.vue"),
   },
