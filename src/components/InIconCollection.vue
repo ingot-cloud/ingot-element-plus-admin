@@ -11,7 +11,6 @@
 </template>
 <script lang="ts" setup>
 import { defineEmits } from "vue";
-import { useIconsCollection } from "@/helper/web/useIcons";
 
 const emits = defineEmits(["onItemClick"]);
 const icons = useIconsCollection();

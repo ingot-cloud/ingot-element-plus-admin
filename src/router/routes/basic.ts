@@ -1,12 +1,11 @@
 import type { RouteRecordRaw } from "vue-router";
-import InAppLayout from "@/components/layout/InAppLayout.vue";
 
 // 基础管理路由
 export const basicRoutes: Array<RouteRecordRaw> = [
   {
     name: "Basic",
     path: "/basic",
-    component: InAppLayout,
+    component: () => import("@/components/layout/InAppLayout.vue"),
     redirect: "/basic/user",
     meta: {
       title: "基础管理",

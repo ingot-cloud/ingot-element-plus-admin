@@ -1,6 +1,5 @@
 import type { TabItem } from "../types";
 import router from "@/router";
-import { useGo, useRefreshPage } from "@/helper/web/usePage";
 import { PagePathEnum } from "@/models/enums/pageEnums";
 
 export const useTabsStore = defineStore(

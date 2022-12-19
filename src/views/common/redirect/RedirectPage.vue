@@ -2,7 +2,6 @@
   <div></div>
 </template>
 <script lang="ts" setup>
-import { doRedirect } from "@/helper/web/usePage";
 import { RedirectField } from "@/models/enums/pageEnums";
 import { Message } from "@/utils/message";
 
@@ -11,7 +10,7 @@ const props = defineProps({
   [`${RedirectField.TYPE}`]: String,
 });
 
-doRedirect(props[RedirectField.PATH], props[RedirectField.TYPE])
+useDoRedirect(props[RedirectField.PATH], props[RedirectField.TYPE])
   .then(() => {
     Message.success("刷新成功");
   })

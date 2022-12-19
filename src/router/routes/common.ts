@@ -4,7 +4,7 @@ import {
   PagePathEnum,
   RedirectField,
 } from "@/models/enums/pageEnums";
-import InAppLayout from "@/components/layout/InAppLayout.vue";
+
 /**
  * 公共路由
  */
@@ -17,7 +17,7 @@ export const commonRoutes: Array<RouteRecordRaw> = [
   },
   {
     path: "/redirect",
-    component: InAppLayout,
+    component: () => import("@/components/layout/InAppLayout.vue"),
     name: "RedirectTo",
     meta: {
       title: PageNameEnum.REDIRECT,
@@ -40,7 +40,7 @@ export const commonRoutes: Array<RouteRecordRaw> = [
     path: "/",
     name: "Root",
     redirect: PagePathEnum.HOME,
-    component: InAppLayout,
+    component: () => import("@/components/layout/InAppLayout.vue"),
     meta: {
       hidden: false,
     },
