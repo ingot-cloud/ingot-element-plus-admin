@@ -9,7 +9,7 @@ export const securityRoutes: Array<RouteRecordRaw> = [
     name: "LoginPage",
     meta: {
       permitAuth: true,
-      hidden: true,
+      hideMenu: true,
       breadcrumbHidden: true,
     },
     component: () => import("@/views/security/login/LoginPage.vue"),

@@ -49,7 +49,7 @@ export const basicRoutes: Array<RouteRecordRaw> = [
           //     name: "SysAuthorityRoleManagerBindUser",
           //     meta: {
           //       title: "绑定用户",
-          //       hidden: true,
+          //       hideMenu: true,
           //     },
           //     path: "/basic/role/binduser/:id",
           //     component: () =>
@@ -60,7 +60,7 @@ export const basicRoutes: Array<RouteRecordRaw> = [
           //     name: "SysAuthorityRoleManagerBindDept",
           //     meta: {
           //       title: "绑定部门",
-          //       hidden: true,
+          //       hideMenu: true,
           //     },
           //     path: "/basic/role/binddept/:id",
           //     component: () =>
@@ -71,7 +71,7 @@ export const basicRoutes: Array<RouteRecordRaw> = [
           //     name: "SysAuthorityRoleManagerBindMenu",
           //     meta: {
           //       title: "绑定菜单",
-          //       hidden: true,
+          //       hideMenu: true,
           //     },
           //     path: "/basic/role/bindmenu/:id",
           //     component: () =>
@@ -82,7 +82,7 @@ export const basicRoutes: Array<RouteRecordRaw> = [
           //     name: "SysAuthorityRoleManagerBindAuthority",
           //     meta: {
           //       title: "绑定权限",
-          //       hidden: true,
+          //       hideMenu: true,
           //     },
           //     path: "/basic/role/bindauthority/:id",
           //     component: () =>
@@ -93,7 +93,7 @@ export const basicRoutes: Array<RouteRecordRaw> = [
           //     name: "SysAuthorityRoleManagerBindClient",
           //     meta: {
           //       title: "绑定客户端",
-          //       hidden: true,
+          //       hideMenu: true,
           //     },
           //     path: "/basic/role/bindclient/:id",
           //     component: () =>
@@ -159,7 +159,7 @@ export const basicRoutes: Array<RouteRecordRaw> = [
             name: "BasicClientManager",
             meta: {
               title: "客户端管理",
-              hidden: true,
+              hideMenu: true,
             },
             path: "/basic/client/:id",
             component: () =>

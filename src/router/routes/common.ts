@@ -12,7 +12,7 @@ export const commonRoutes: Array<RouteRecordRaw> = [
   {
     path: "/:pathMatch(.*)",
     name: "NotFound",
-    meta: { hidden: true, breadcrumbHidden: true },
+    meta: { hideMenu: true, breadcrumbHidden: true },
     component: () => import("@/views/common/errors/NotFound.vue"),
   },
   {
@@ -21,8 +21,8 @@ export const commonRoutes: Array<RouteRecordRaw> = [
     name: "RedirectTo",
     meta: {
       title: PageNameEnum.REDIRECT,
-      hidden: true,
-      breadcrumbHidden: true,
+      hideMenu: true,
+      hideBreadcrumb: true,
     },
     children: [
       {
@@ -32,8 +32,8 @@ export const commonRoutes: Array<RouteRecordRaw> = [
         component: () => import("@/views/common/redirect/RedirectPage.vue"),
         meta: {
           title: PageNameEnum.REDIRECT,
-          hidden: true,
-          breadcrumbHidden: true,
+          hideMenu: true,
+          hideBreadcrumb: true,
         },
       },
     ],
@@ -43,9 +43,6 @@ export const commonRoutes: Array<RouteRecordRaw> = [
     name: "Root",
     redirect: PagePathEnum.HOME,
     component: () => import("@/components/layout/InAppLayout.vue"),
-    meta: {
-      hidden: false,
-    },
     children: [
       {
         path: PagePathEnum.HOME,

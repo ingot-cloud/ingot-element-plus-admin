@@ -87,7 +87,7 @@ const generateMenus = (
 ): Array<MenuRouteRecord> => {
   return routes
     .filter((item) => {
-      return item.meta && !item.meta.hidden;
+      return !item.meta?.hideMenu;
     })
     .map((item) => {
       const menu: MenuRouteRecord = {
@@ -110,9 +110,11 @@ export const useRouterStore = defineStore("router", () => {
   const getMenus = computed(() => menus.value);
   const getBreadcrumb = computed(() => {
     const result: { [key: string]: Array<BreadCrumbItem> } = {};
-    allRoutes.value.forEach((menu) =>
-      loadBreadCrumbKV(menu, allRoutes.value, result)
-    );
+    allRoutes.value.forEach((menu) => {
+      if (!menu.meta || !menu.meta.breadcrumbHidden) {
+        loadBreadCrumbKV(menu, allRoutes.value, result);
+      }
+    });
     return result;
   });
 

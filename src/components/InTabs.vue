@@ -89,7 +89,7 @@ watch(
   () => {
     currentTab.value = route.path;
     // 隐藏的不添加
-    if (route.meta.hidden) {
+    if (route.meta.hideMenu) {
       return;
     }
     const tabItem = {

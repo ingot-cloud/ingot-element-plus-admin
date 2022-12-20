@@ -21,6 +21,9 @@
 import { useRouterStore } from "@/stores/modules/router";
 
 const route = useRoute();
+// watch(route, (v) => {
+//   console.log(v.matched);
+// });
 const { getBreadcrumb } = useRouterStore();
 const breadcrumbList = computed(() => {
   return getBreadcrumb[route.path];

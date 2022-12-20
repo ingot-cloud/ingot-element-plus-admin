@@ -16,13 +16,13 @@ declare module "vue-router" {
      */
     permitAuth?: boolean;
     /**
-     * 是否在菜单中隐藏
+     * 是否隐藏菜单
      */
-    hidden?: boolean;
+    hideMenu?: boolean;
     /**
-     * 面包屑隐藏
+     * 隐藏面包屑
      */
-    breadcrumbHidden?: boolean;
+    hideBreadcrumb?: boolean;
     /**
      * 是否为固钉
      */
