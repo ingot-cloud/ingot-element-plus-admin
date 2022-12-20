@@ -2,12 +2,14 @@
   <in-filter-container>
     <template #top>
       <div flex flex-row justify-between>
-        <el-input
-          v-model="clientOps.condition.clientId"
-          clearable
-          style="width: 180px"
-          placeholder="客户端ID"
-        ></el-input>
+        <in-with-label title="客户端ID">
+          <el-input
+            v-model="clientOps.condition.clientId"
+            clearable
+            style="width: 180px"
+            placeholder="请输入客户端ID"
+          ></el-input>
+        </in-with-label>
         <div>
           <in-button @click="clientOps.condition.clientId = undefined">
             重置
