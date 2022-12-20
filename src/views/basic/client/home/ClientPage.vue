@@ -14,13 +14,18 @@
           <in-button @click="clientOps.condition.clientId = undefined">
             重置
           </in-button>
-          <in-button type="primary" @click="clientOps.fetchData">
+          <in-button
+            type="primary"
+            :loading="clientOps.loading.value"
+            @click="clientOps.fetchData"
+          >
             搜索
           </in-button>
         </div>
       </div>
     </template>
     <in-table
+      :loading="clientOps.loading.value"
       :data="clientOps.pageInfo.records"
       :headers="tableHeaders"
       :page="clientOps.pageInfo"

@@ -9,6 +9,7 @@ import { Confirm, Message } from "@/utils/message";
 import router from "@/router";
 
 export const useClientOps = () => {
+  const loading = ref<boolean>(false);
   const condition = reactive({} as OAuth2RegisteredClient);
   const pageInfo = reactive({
     current: 1,
@@ -24,10 +25,14 @@ export const useClientOps = () => {
     const pageParams = toRaw(pageInfo);
     pageParams.total = undefined;
     pageParams.records = undefined;
-    ClientPageAPI(pageParams, condition).then((response) => {
-      pageInfo.records = response.data.records;
-      pageInfo.total = Number(response.data.total);
-    });
+    loading.value = true;
+    ClientPageAPI(pageParams, condition)
+      .then((response) => {
+        loading.value = false;
+        pageInfo.records = response.data.records;
+        pageInfo.total = Number(response.data.total);
+      })
+      .catch(() => (loading.value = false));
   };
 
   const handleManager = (params: OAuth2RegisteredClient): void => {
@@ -72,6 +77,7 @@ export const useClientOps = () => {
   };
 
   return {
+    loading,
     condition,
     pageInfo,
     fetchData,

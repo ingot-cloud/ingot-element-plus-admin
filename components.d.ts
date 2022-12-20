@@ -127,6 +127,7 @@ declare module '@vue/runtime-core' {
     Table: typeof import("./src/components/table/index.vue")["default"]
   }
   export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
     vPopover: typeof import("element-plus/es")["ElPopoverDirective"]
   }
 }
