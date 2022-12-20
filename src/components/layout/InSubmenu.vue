@@ -52,6 +52,9 @@ const isSingle = computed(() => {
 });
 
 const singleRoute = computed(() => {
+  if (props.route.title) {
+    return props.route;
+  }
   const children = props.route.children;
   if (children && children.length !== 0) {
     return children[0];
