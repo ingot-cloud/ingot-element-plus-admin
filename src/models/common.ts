@@ -2,6 +2,11 @@ import { CommonStatus } from "./enums";
 
 export type ElTagType = "" | "success" | "warning" | "info" | "danger";
 
+export interface Option<T = string> {
+  value: T;
+  label: string;
+}
+
 export interface ButtonStatusParams {
   title: string;
   type: string;

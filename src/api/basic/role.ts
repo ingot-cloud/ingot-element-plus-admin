@@ -13,8 +13,13 @@ import type {
   DeptTreeNode,
   MenuTreeNode,
   AuthorityTreeNode,
+  Option,
 } from "@/models";
 import { filterParams } from "@/utils/object";
+
+export function RoleOptionsAPI() {
+  return request.get<Array<Option<string>>>("/api/pms/v1/role/options");
+}
 
 export function RolePageAPI(
   page: Page,

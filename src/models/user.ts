@@ -27,7 +27,7 @@ export interface SysUser extends OptionIDEntity {
   status?: CommonStatus;
 }
 
-export interface UserDto extends SysUser {
+export interface UserDTO extends SysUser {
   roleIds?: Array<string>;
   clientIds?: Array<string>;
   newPassword?: string;

@@ -18,7 +18,18 @@ export const basicRoutes: Array<RouteRecordRaw> = [
           title: "用户管理",
         },
         path: "/basic/user",
-        component: () => import("@/views/basic/user/UserPage.vue"),
+        redirect: "/basic/user/list",
+        component: () => import("@/views/basic/user/UserLayout.vue"),
+        children: [
+          {
+            name: "BasicUserList",
+            meta: {
+              title: "用户列表",
+            },
+            path: "/basic/user/list",
+            component: () => import("@/views/basic/user/home/UserPage.vue"),
+          },
+        ],
       },
       {
         name: "BasicDept",

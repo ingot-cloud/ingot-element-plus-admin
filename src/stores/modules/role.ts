@@ -1,5 +1,6 @@
-import type { SysRole, Page, R } from "@/models";
+import type { SysRole, Page, R, Option } from "@/models";
 import {
+  RoleOptionsAPI,
   RolePageAPI,
   CreateRoleAPI,
   UpdateRoleAPI,
@@ -7,7 +8,26 @@ import {
 } from "@/api/basic/role";
 
 export const useRoleStore = defineStore("role", () => {
+  const roleOptions = ref<Array<Option<string>>>([]);
   const needUpdate = ref(false);
+
+  const fetchRoleOptions = () => {
+    return new Promise<Array<Option<string>>>((resolve, reject) => {
+      if (!needUpdate.value && roleOptions.value.length !== 0) {
+        resolve(roleOptions.value);
+        return;
+      }
+
+      RoleOptionsAPI()
+        .then((resposne) => {
+          needUpdate.value = false;
+          resolve(resposne.data);
+        })
+        .then((e) => {
+          reject(e);
+        });
+    });
+  };
 
   const fetchRolePage = (page: Page, condition?: SysRole) => {
     return new Promise<R<Page<SysRole>>>((resolve, reject) => {
@@ -61,6 +81,8 @@ export const useRoleStore = defineStore("role", () => {
   };
 
   return {
+    roleOptions,
+    fetchRoleOptions,
     fetchRolePage,
     createRole,
     updateRole,
