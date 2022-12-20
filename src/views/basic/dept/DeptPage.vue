@@ -56,7 +56,7 @@ import { Confirm, Message } from "@/utils/message";
 import { useDeptStore } from "@/stores/modules/dept";
 import EditDialog from "./components/EditDialog.vue";
 import type { API as EditDialogAPI } from "./components/EditDialog.vue";
-import type { TableAPI } from "@/models/components";
+import type { TableAPI } from "@/components/table";
 
 const editDialogRef = ref<EditDialogAPI>();
 const loading = ref(false);

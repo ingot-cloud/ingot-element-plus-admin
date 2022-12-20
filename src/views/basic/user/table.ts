@@ -1,4 +1,4 @@
-import type { TableHeaderItem } from "@/models/components";
+import type { TableHeaderItem } from "@/components/table";
 export const tableHeaders: Array<TableHeaderItem> = [
   {
     label: "序号",

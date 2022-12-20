@@ -64,7 +64,7 @@ import { tableHeaders } from "./table";
 import { useTenantOps } from "./composables/useTenantOps";
 import EditDialog from "./components/EditDialog.vue";
 import type { API as EditDialogAPI } from "./components/EditDialog.vue";
-import type { TableAPI } from "@/models/components";
+import type { TableAPI } from "@/components/table";
 
 const editDialog = ref<EditDialogAPI>();
 const tableRef = ref<TableAPI>();

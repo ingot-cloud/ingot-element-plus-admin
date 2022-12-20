@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from "vue-router";
-import type { MenuRouteRecord } from "@/models/components";
+import type { MenuRouteRecord } from "@/components/layout";
 import { default as routes } from "@/router/routes";
 
 interface BreadCrumbItem {
