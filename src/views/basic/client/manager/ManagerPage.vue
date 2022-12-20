@@ -60,6 +60,8 @@
           </el-col>
         </el-row>
 
+        <el-divider />
+
         <el-row>
           <el-col :span="12">
             <el-form-item label="访问范围">
@@ -121,8 +123,9 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="Token授权类型">
+            <el-form-item label="Token认证类型">
               <in-select
+                w-full
                 v-model="editForm.tokenAuthType"
                 :options="getTokenAuthMethodSelectList()"
               />
@@ -146,7 +149,6 @@
         </el-row>
 
         <el-row>
-          <el-col :span="12"></el-col>
           <el-col :span="6" v-if="grantCode">
             <el-form-item label="需要提供验证密钥质询和验证器">
               <el-switch v-model="editForm.requireProofKey" />

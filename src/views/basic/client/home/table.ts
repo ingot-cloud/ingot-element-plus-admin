@@ -61,7 +61,7 @@ export const tableHeaders: Array<TableHeaderItem> = [
     prop: "refreshTokenTimeToLive",
   },
   {
-    label: "Token认证方式",
+    label: "Token认证类型",
     prop: "tokenAuthType",
   },
   {
