@@ -1,26 +1,52 @@
 <template>
-  <div class="filter-container">
-    <div class="filter-title">
-      <slot name="title"> </slot>
+  <div class="in-filter-container">
+    <div class="left-filter" v-if="slot.left">
+      <slot name="left"> </slot>
     </div>
-    <slot />
+    <el-container class="right-container">
+      <div class="top-filter" v-if="slot.top">
+        <slot name="top"> </slot>
+      </div>
+      <div class="inner-container">
+        <el-backtop
+          v-if="showBacktop"
+          target=".inner-container"
+          :right="60"
+          :bottom="60"
+        >
+          <div flex items-center justify-center>
+            <i-material-symbols:vertical-align-top-rounded />
+          </div>
+        </el-backtop>
+        <slot />
+      </div>
+    </el-container>
   </div>
 </template>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+defineProps({
+  showBacktop: {
+    type: Boolean,
+    default: true,
+  },
+});
+
+const slot = useSlots();
+</script>
 <style lang="postcss" scoped>
-.filter-container {
-  padding: 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  & .filter-title {
-    flex: 1;
+.in-filter-container {
+  @apply w-full h-full flex flex-row;
+  & .left-filter {
+    @apply m-r-[var(--in-common-margin)] p-[var(--in-common-padding)] bg-[var(--in-bg-color)];
   }
-  & .item {
-    margin-left: 10px;
-  }
-  & .item:first-child {
-    margin-left: 0px;
+  & .right-container {
+    @apply flex flex-col;
+    & .top-filter {
+      @apply m-b-[var(--in-common-margin)] p-[var(--in-common-padding)] bg-[var(--in-bg-color)];
+    }
+    & .inner-container {
+      @apply flex-1 box-border overflow-x-hidden p-[var(--in-common-padding)] bg-[var(--in-bg-color)];
+    }
   }
 }
 </style>

@@ -1,6 +1,11 @@
 <template>
   <div class="in-container">
-    <el-backtop target=".in-container" :right="60" :bottom="60">
+    <el-backtop
+      v-if="showBacktop"
+      target=".in-container"
+      :right="60"
+      :bottom="60"
+    >
       <div flex items-center justify-center>
         <i-material-symbols:vertical-align-top-rounded />
       </div>
@@ -9,11 +14,17 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+defineProps({
+  showBacktop: {
+    type: Boolean,
+    default: true,
+  },
+});
+</script>
 
 <style lang="postcss" scoped>
 .in-container {
-  @apply w-full h-full box-border overflow-x-hidden p-12px shadow-sm
-   dark:b dark:rd dark:b-[var(--in-border-color)] bg-[var(--in-bg-color)];
+  @apply w-full h-full box-border overflow-x-hidden p-[var(--in-common-padding)] shadow-sm bg-[var(--in-bg-color)];
 }
 </style>

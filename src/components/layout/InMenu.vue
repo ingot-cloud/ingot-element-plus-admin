@@ -72,6 +72,13 @@ const onNavMenuSelect = () => {
 <style lang="postcss" scoped>
 .ingot-menu {
   @apply flex flex-col h-full transition-width transition-ease transition-duration-300;
+  & .el-menu {
+    --el-menu-bg-color: var(--in-menu-bg-color);
+    --el-menu-hover-bg-color: var(--in-menu-bg-hover-color);
+    --el-menu-text-color: var(--in-menu-text-color);
+    --el-menu-active-color: var(--in-menu-text-active-color);
+    --el-menu-base-level-padding: var(--in-menu-base-level-padding);
+  }
   & .el-scrollbar {
     height: calc(100% - var(--in-app-bar-height));
   }
