@@ -1,27 +1,35 @@
 <template>
-  <in-container>
+  <in-filter-container>
+    <template #top>
+      <div flex flex-row justify-between>
+        <el-input
+          v-model="clientOps.condition.clientId"
+          clearable
+          style="width: 180px"
+          placeholder="客户端ID"
+        ></el-input>
+        <div>
+          <in-button @click="clientOps.condition.clientId = undefined">
+            重置
+          </in-button>
+          <in-button type="primary" @click="clientOps.fetchData">
+            搜索
+          </in-button>
+        </div>
+      </div>
+    </template>
     <in-table
       :data="clientOps.pageInfo.records"
       :headers="tableHeaders"
       :page="clientOps.pageInfo"
       ref="tableRef"
+      stripe
       @handleSizeChange="clientOps.fetchData"
       @handleCurrentChange="clientOps.fetchData"
       @refresh="clientOps.fetchData"
     >
-      <template #title>
-        <el-input
-          v-model="clientOps.condition.clientId"
-          clearable
-          style="width: 200px"
-          placeholder="客户端ID"
-        ></el-input>
-      </template>
       <template #toolbar>
-        <el-button type="primary" @click="clientOps.fetchData">
-          搜索
-        </el-button>
-        <el-button type="primary" @click="handleCreate()"> 添加 </el-button>
+        <in-button type="primary" @click="handleCreate()"> 添加 </in-button>
       </template>
       <template #authorizationGrantTypes="{ item }">
         <el-tag
@@ -80,7 +88,7 @@
         </in-button>
       </template>
     </in-table>
-  </in-container>
+  </in-filter-container>
   <CreateDialog ref="createDialogRef" @success="clientOps.fetchData" />
 </template>
 <script lang="ts" setup>
