@@ -95,7 +95,7 @@ declare module '@vue/runtime-core' {
     InAppBar: typeof import('./src/components/layout/InAppBar.vue')['default']
     InAppLayout: typeof import('./src/components/layout/InAppLayout.vue')['default']
     InBaseContainer: typeof import("./src/components/InBaseContainer.vue")["default"]
-    InBreadcrumb: typeof import('./src/components/InBreadcrumb.vue')['default']
+    InBreadcrumb: typeof import('./src/components/breadcrumb/InBreadcrumb.vue')['default']
     InButton: typeof import('./src/components/InButton.vue')['default']
     InCmpSize: typeof import('./src/components/cmp-size/InCmpSize.vue')['default']
     InContainer: typeof import('./src/components/InContainer.vue')['default']

@@ -150,7 +150,7 @@ export const basicRoutes: Array<RouteRecordRaw> = [
           {
             name: "BasicClientList",
             meta: {
-              title: "客户端管理",
+              title: "客户端列表",
             },
             path: "/basic/client/list",
             component: () => import("@/views/basic/client/home/ClientPage.vue"),
@@ -158,7 +158,7 @@ export const basicRoutes: Array<RouteRecordRaw> = [
           {
             name: "BasicClientManager",
             meta: {
-              title: "客户端管理",
+              title: "编辑客户端",
               hideMenu: true,
             },
             path: "/basic/client/:id",

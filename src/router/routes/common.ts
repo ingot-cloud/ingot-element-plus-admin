@@ -1,9 +1,5 @@
 import type { RouteRecordRaw } from "vue-router";
-import {
-  PageNameEnum,
-  PagePathEnum,
-  RedirectField,
-} from "@/models/enums/pageEnums";
+import { PageNameEnum, PagePathEnum, RedirectField } from "@/models/enums";
 
 /**
  * 公共路由

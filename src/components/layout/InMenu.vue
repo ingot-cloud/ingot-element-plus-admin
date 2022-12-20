@@ -50,7 +50,17 @@ import { useRouterStore } from "@/stores/modules/router";
 
 const router = useRouter();
 const { getMenuOpened } = storeToRefs(useAppStateStore());
-const activePath = computed(() => router.currentRoute.value.path);
+let lastActivePath = "/";
+const activePath = computed(() => {
+  const route = router.currentRoute.value;
+
+  // 如果当前路由需要隐藏菜单，那么展示上一个激活的路由
+  if (route.meta.hideMenu) {
+    return lastActivePath;
+  }
+  lastActivePath = route.path;
+  return route.path;
+});
 const { getMenus } = storeToRefs(useRouterStore());
 const { app } = storeToRefs(useAppStore());
 
