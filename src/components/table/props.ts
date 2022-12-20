@@ -20,6 +20,10 @@ export const tableProps = {
       };
     },
   },
+  stripe: {
+    type: Boolean,
+    default: false,
+  },
   pageSize: {
     type: Object as PropType<Array<number>>,
     default() {

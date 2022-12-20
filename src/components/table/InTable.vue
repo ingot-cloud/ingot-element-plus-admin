@@ -46,6 +46,7 @@
     :border="true"
     ref="ingotTable"
     :data="data"
+    :stripe="stripe"
     @select-all="privateOnTableSelectAll"
     @select="privateOnTableSelect"
     @selection-change="privateOnTableSelectionChange"
