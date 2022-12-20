@@ -1,4 +1,5 @@
-import type { SelectItemParams, ElTagType } from "../common";
+import type { ElTagType } from "../common";
+import type { SelectRecord } from "@/components/select";
 
 export enum TokenAuthMethod {
   Unique = "1",
@@ -23,7 +24,7 @@ export function getTokenAuthMethodTag(method: TokenAuthMethod): ElTagType {
   }
 }
 
-export function getTokenAuthMethodSelectList(): Array<SelectItemParams> {
+export function getTokenAuthMethodSelectList(): Array<SelectRecord> {
   return [
     {
       label: "标准",
@@ -43,7 +44,7 @@ export enum AuthorizedGrantType {
   Code = "authorization_code",
 }
 
-export function grantTypeList(): Array<SelectItemParams> {
+export function grantTypeList(): Array<SelectRecord> {
   return [
     {
       label: "授权码模式",
@@ -72,7 +73,7 @@ export enum ClientAuthMethod {
   NONE = "none",
 }
 
-export function getClientAuthMethodList(): Array<SelectItemParams> {
+export function getClientAuthMethodList(): Array<SelectRecord> {
   return [
     {
       label: "Client Secret Basic",

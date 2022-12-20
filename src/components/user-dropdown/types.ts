@@ -1,16 +1,16 @@
-export interface Command {
+export interface UserDropdownCommand {
   action: "router" | "logout" | "user";
   params: string;
 }
 
-export interface MenuItem {
+export interface UserDropdownMenuItem {
   divided: boolean;
-  command: Command;
+  command: UserDropdownCommand;
   icon: string;
   title: string;
 }
 
-export const menuList: Array<MenuItem> = [
+export const menuList: Array<UserDropdownMenuItem> = [
   {
     divided: false,
     command: { action: "user", params: "" },

@@ -109,7 +109,7 @@ declare module '@vue/runtime-core' {
     InMenu: typeof import('./src/components/layout/InMenu.vue')['default']
     InMenuToggle: typeof import('./src/components/layout/InMenuToggle.vue')['default']
     InPageHeader: typeof import('./src/components/InPageHeader.vue')['default']
-    InSelect: typeof import('./src/components/InSelect.vue')['default']
+    InSelect: typeof import('./src/components/select/InSelect.vue')['default']
     InSidebarItem: typeof import("./src/components/layout/InSidebarItem.vue")["default"]
     InSidebarMenu: typeof import("./src/components/layout/InSidebarMenu.vue")["default"]
     InSpacer: typeof import('./src/components/InSpacer.vue')['default']

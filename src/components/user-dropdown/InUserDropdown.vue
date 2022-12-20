@@ -30,13 +30,13 @@
 </template>
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue";
-import type { Command } from "./data";
-import { menuList } from "./data";
+import type { UserDropdownCommand } from "./types";
+import { menuList } from "./types";
 import { useUserInfoStore } from "@/stores/modules/auth";
 import { logoutAndReload } from "@/utils/security";
 
 const { getUsername } = storeToRefs(useUserInfoStore());
-const handleMenuCommand = (command: Command): void => {
+const handleMenuCommand = (command: UserDropdownCommand): void => {
   switch (command.action) {
     case "logout":
       logoutAndReload();
