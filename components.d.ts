@@ -121,6 +121,7 @@ declare module '@vue/runtime-core' {
     InTabs: typeof import('./src/components/InTabs.vue')['default']
     InTreeSelect: typeof import("./src/components/InTreeSelect.vue")["default"]
     InUserDropdown: typeof import('./src/components/user-dropdown/InUserDropdown.vue')['default']
+    InWithLabel: typeof import('./src/components/InWithLabel.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Table: typeof import("./src/components/table/index.vue")["default"]
