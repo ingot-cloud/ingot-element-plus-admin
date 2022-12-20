@@ -106,7 +106,7 @@
 <script lang="ts" setup>
 import { ClickOutside as vClickOutside } from "element-plus";
 import type { TransferKey } from "element-plus";
-import type { TableHeaderItem, TablePage } from "./types";
+import type { TableHeaderItem } from "./types";
 import { tableProps } from "./props";
 import { useAppStateStore } from "@/stores/modules/app";
 

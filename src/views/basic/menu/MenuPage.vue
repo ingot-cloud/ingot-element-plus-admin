@@ -26,9 +26,19 @@
           {{ item.hidden ? "是" : "否" }}
         </el-tag>
       </template>
+      <template #hideBreadcrumb="{ item }">
+        <el-tag :type="item.hideBreadcrumb ? 'danger' : 'success'">
+          {{ item.hideBreadcrumb ? "是" : "否" }}
+        </el-tag>
+      </template>
       <template #isCache="{ item }">
         <el-tag :type="item.isCache ? 'danger' : 'success'">
           {{ item.isCache ? "是" : "否" }}
+        </el-tag>
+      </template>
+      <template #props="{ item }">
+        <el-tag :type="item.props ? 'danger' : 'success'">
+          {{ item.props ? "是" : "否" }}
         </el-tag>
       </template>
       <template #status="{ item }">
