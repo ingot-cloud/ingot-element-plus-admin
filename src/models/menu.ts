@@ -16,6 +16,8 @@ export interface SysMenu {
   sort?: number;
   isCache?: boolean;
   hidden?: boolean;
+  hideBreadcrumb?: boolean;
+  props?: boolean;
   params?: string;
   status?: CommonStatus;
   remark?: string;

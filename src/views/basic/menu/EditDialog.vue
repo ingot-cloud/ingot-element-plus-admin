@@ -137,8 +137,27 @@
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item prop="hidden" label="是否隐藏">
+          <el-form-item prop="hidden" label="隐藏菜单">
             <el-radio-group v-model="editForm.hidden">
+              <el-radio-button :label="true"> 是 </el-radio-button>
+              <el-radio-button :label="false"> 否 </el-radio-button>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="8">
+          <el-form-item prop="hideBreadcrumb" label="隐藏面包屑">
+            <el-radio-group v-model="editForm.hideBreadcrumb">
+              <el-radio-button :label="true"> 是 </el-radio-button>
+              <el-radio-button :label="false"> 否 </el-radio-button>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item prop="props" label="匹配props">
+            <el-radio-group v-model="editForm.props">
               <el-radio-button :label="true"> 是 </el-radio-button>
               <el-radio-button :label="false"> 否 </el-radio-button>
             </el-radio-group>
@@ -203,6 +222,8 @@ const defaultEditForm: SysMenu = {
   sort: 999,
   isCache: false,
   hidden: false,
+  hideBreadcrumb: false,
+  props: false,
   params: undefined,
   status: CommonStatus.Enable,
   remark: undefined,
