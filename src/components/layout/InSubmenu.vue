@@ -52,12 +52,12 @@ const isSingle = computed(() => {
 });
 
 const singleRoute = computed(() => {
-  if (props.route.title) {
-    return props.route;
-  }
+  // 如果只有一个child，那么标题使用父标题如果存在的话
   const children = props.route.children;
   if (children && children.length !== 0) {
-    return children[0];
+    const route = children[0];
+    route.title = props.route.title || route.title;
+    return route;
   }
   return props.route;
 });
