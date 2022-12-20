@@ -44,6 +44,7 @@
 
   <el-table
     :border="true"
+    v-loading="loading"
     ref="ingotTable"
     :data="data"
     :stripe="stripe"

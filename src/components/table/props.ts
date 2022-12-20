@@ -20,6 +20,10 @@ export const tableProps = {
       };
     },
   },
+  loading: {
+    type: Boolean,
+    default: false,
+  },
   stripe: {
     type: Boolean,
     default: false,
