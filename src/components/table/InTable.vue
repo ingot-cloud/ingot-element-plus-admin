@@ -12,13 +12,15 @@
 
       <div flex justify-center items-center gap-1>
         <el-tooltip content="刷新" effect="light" placement="top">
-          <i-ep:refresh-right @click="privateOnRefreshClick" />
+          <in-refresh-icon size="22" @refresh="privateOnRefreshClick" />
         </el-tooltip>
         <el-tooltip content="设置" effect="light" placement="top">
-          <i-ep:setting
-            ref="settingButtonRef"
-            v-click-outside="privateOnSettingClickOutside"
-          />
+          <el-icon size="22">
+            <i-ep:setting
+              ref="settingButtonRef"
+              v-click-outside="privateOnSettingClickOutside"
+            />
+          </el-icon>
         </el-tooltip>
         <el-popover
           ref="settingPopoverRef"
