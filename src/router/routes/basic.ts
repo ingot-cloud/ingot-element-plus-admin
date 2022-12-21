@@ -29,6 +29,17 @@ export const basicRoutes: Array<RouteRecordRaw> = [
             path: "/basic/user/list",
             component: () => import("@/views/basic/user/home/UserPage.vue"),
           },
+          {
+            name: "BasicUserDetails",
+            meta: {
+              title: "用户详情",
+              hideMenu: true,
+            },
+            path: "/basic/user/detail/:id",
+            component: () =>
+              import("@/views/basic/user/details/DetailsPage.vue"),
+            props: true,
+          },
         ],
       },
       {
