@@ -20,10 +20,9 @@ export const useDeptStore = defineStore("dept", () => {
       DeptTreeAPI()
         .then((response) => {
           const data = response.data;
-          const expandedKeys: Array<string> = [];
           data.forEach((root) => {
             if (root.id) {
-              expandedKeys.push(root.id);
+              expandedKeys.value.push(root.id);
             }
           });
 

@@ -27,6 +27,15 @@ export const useUserOps = () => {
   });
 
   /**
+   * 重置过滤条件
+   */
+  const resetFilter = () => {
+    condition.deptId = undefined;
+    condition.username = undefined;
+    fetchUserData();
+  };
+
+  /**
    * 获取用户数据
    */
   const fetchUserData = (params?: PageChangeParams): void => {
@@ -37,10 +46,16 @@ export const useUserOps = () => {
     page.total = undefined;
     page.records = undefined;
     const conditionParams = Object.assign({}, condition);
-    UserPageAPI(page, conditionParams).then((response) => {
-      pageInfo.records = response.data.records;
-      pageInfo.total = Number(response.data.total);
-    });
+    loading.value = true;
+    UserPageAPI(page, conditionParams)
+      .then((response) => {
+        loading.value = false;
+        pageInfo.records = response.data.records;
+        pageInfo.total = Number(response.data.total);
+      })
+      .catch(() => {
+        loading.value = false;
+      });
   };
 
   /**
@@ -110,6 +125,7 @@ export const useUserOps = () => {
     condition,
     currentDeptNode,
     pageInfo,
+    resetFilter,
     fetchUserData,
     handleTreeNodeClick,
     handleDetailUser,
