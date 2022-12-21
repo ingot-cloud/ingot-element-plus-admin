@@ -1,3 +1,53 @@
+import {
+  isNull,
+  getType,
+  isArray,
+  isBoolean,
+  isNumber,
+  isString,
+} from "./index";
+
+/**
+ * 判断两个对象是否相等
+ */
+export function equals(o1: any, o2: any) {
+  const o1IsNull = isNull(o1);
+  const o2IsNull = isNull(o2);
+  if (o1IsNull && o2IsNull) {
+    return true;
+  }
+
+  if (o1IsNull || o2IsNull) {
+    return false;
+  }
+
+  const o1Type = getType(o1);
+  const o2Type = getType(o2);
+  if (o1Type !== o2Type) {
+    return false;
+  }
+
+  if (isBoolean(o1) || isNumber(o1) || isString(o1)) {
+    return o1 === o2;
+  }
+
+  if (isArray(o1)) {
+    return String(o1) === String(o2);
+  }
+
+  const keys = Object.keys(o1);
+  const len = keys.length;
+  for (let i = 0; i < len; i++) {
+    const v1 = Reflect.get(o1, keys[i]);
+    const v2 = Reflect.get(o2, keys[i]);
+    if (!equals(v1, v2)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 /**
  * 对比 raw 和 edit 对象，获取改后的对象
  * @param raw 原始对象
@@ -21,15 +71,13 @@ export function getDiffWithIgnore<T extends object>(
   ignore?: Array<string>
 ): T {
   const result = {};
-
   const keys = Object.entries(raw);
   keys.forEach(([k, v]) => {
     const editVal = Reflect.get(edit, k);
-    if ((ignore && ignore.includes(k)) || editVal !== v) {
+    if ((ignore && ignore.includes(k)) || !equals(editVal, v)) {
       Reflect.set(result, k, editVal);
     }
   });
-
   return result as T;
 }
 
