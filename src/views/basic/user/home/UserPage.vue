@@ -19,7 +19,11 @@
 
         <template #rightActions>
           <in-button @click="userOps.resetFilter"> 重置 </in-button>
-          <in-button type="primary" @click="userOps.fetchUserData">
+          <in-button
+            type="primary"
+            :loading="userOps.loading.value"
+            @click="userOps.fetchUserData"
+          >
             搜索
           </in-button>
         </template>
@@ -27,6 +31,7 @@
     </template>
 
     <in-table
+      :loading="userOps.loading.value"
       :data="userOps.pageInfo.records"
       :headers="tableHeaders"
       :page="userOps.pageInfo"
@@ -92,6 +97,7 @@ import DeptFilter from "./DeptFilter.vue";
 import CreateDialog from "./CreateDialog.vue";
 import type { API as CreateDialogAPI } from "./CreateDialog.vue";
 import type { TableAPI } from "@/components/table";
+import { Message } from "@/utils/message";
 
 const userOps = useUserOps();
 const roleStore = useRoleStore();
@@ -101,6 +107,10 @@ const createDialog = ref<CreateDialogAPI>();
 const tableRef = ref<TableAPI>();
 
 const handleCreateUser = (): void => {
+  if (!userOps.currentDeptNode.id) {
+    Message.warning("请选择部门");
+    return;
+  }
   createDialog.value?.show();
 };
 

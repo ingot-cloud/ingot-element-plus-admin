@@ -32,6 +32,7 @@ export const useUserOps = () => {
   const resetFilter = () => {
     condition.deptId = undefined;
     condition.username = undefined;
+    copyParams(currentDeptNode, { name: undefined, id: undefined });
     fetchUserData();
   };
 
