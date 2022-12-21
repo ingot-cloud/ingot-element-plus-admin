@@ -8,7 +8,9 @@ export const tableProps = {
   },
   headers: {
     type: Object as PropType<Array<TableHeaderItem>>,
-    default: () => null,
+    default() {
+      return [];
+    },
   },
   page: {
     type: Object as PropType<TablePage>,

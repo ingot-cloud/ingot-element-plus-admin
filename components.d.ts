@@ -99,6 +99,7 @@ declare module '@vue/runtime-core' {
     InBreadcrumb: typeof import('./src/components/breadcrumb/InBreadcrumb.vue')['default']
     InButton: typeof import('./src/components/InButton.vue')['default']
     InCmpSize: typeof import('./src/components/cmp-size/InCmpSize.vue')['default']
+    InColumnSetting: typeof import('./src/components/table/InColumnSetting.vue')['default']
     InContainer: typeof import('./src/components/InContainer.vue')['default']
     InDialog: typeof import('./src/components/InDialog.vue')['default']
     InFilter: typeof import("./src/components/filter-container/InFilter.vue")["default"]

@@ -15,31 +15,12 @@
           <in-refresh-icon size="22" @refresh="privateOnRefreshClick" />
         </el-tooltip>
         <el-tooltip content="设置" effect="light" placement="top">
-          <el-icon size="22">
-            <i-ep:setting
-              ref="settingButtonRef"
-              v-click-outside="privateOnSettingClickOutside"
-            />
-          </el-icon>
+          <in-column-setting
+            size="22"
+            :data="props.headers"
+            @onSelectionChange="privateOnHeaderChanged"
+          />
         </el-tooltip>
-        <el-popover
-          ref="settingPopoverRef"
-          trigger="click"
-          placement="bottom"
-          :width="600"
-          :virtual-ref="settingButtonRef"
-          virtual-triggering
-        >
-          <div flex flex-col items-center>
-            <el-transfer
-              v-model="headersEnableValue"
-              :data="headers"
-              :props="headerTransferProps"
-              :titles="headerTransferTitles"
-              @change="privateOnHeaderChanged"
-            />
-          </div>
-        </el-popover>
       </div>
     </div>
   </div>
@@ -108,8 +89,6 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ClickOutside as vClickOutside } from "element-plus";
-import type { TransferKey } from "element-plus";
 import type { TableHeaderItem } from "./types";
 import { tableProps } from "./props";
 import { useAppStateStore } from "@/stores/modules/app";
@@ -143,14 +122,7 @@ const headersEnable = ref(
     (item: TableHeaderItem) => !item.hide
   ) as Array<TableHeaderItem>
 );
-const headersEnableValue = ref<Array<TransferKey>>(
-  headersEnable.value.map((item) => item.prop) as Array<TransferKey>
-);
-const headerTransferProps = { label: "label", key: "prop" };
-const headerTransferTitles: [string, string] = ["可选项", "显示项"];
 
-const settingPopoverRef = ref();
-const settingButtonRef = ref();
 const current = ref(props.page.current);
 const size = ref(props.page.size);
 const total = ref(props.page.total);
@@ -173,16 +145,13 @@ const privateOnTableSelectAll = (selection: any, row: any) => {
 const privateOnTableSelectionChange = (selection: any) => {
   emits("selectionChange", selection);
 };
-const privateOnHeaderChanged = (value: any) => {
+const privateOnHeaderChanged = (value: Array<String>) => {
   headersEnable.value = props.headers.filter((item: TableHeaderItem) =>
-    value.includes(item.prop)
+    value.includes(item.prop as string)
   );
 };
 const privateOnRefreshClick = () => {
   emits("refresh");
-};
-const privateOnSettingClickOutside = () => {
-  unref(settingPopoverRef).popperRef?.delayHide?.();
 };
 
 /**
