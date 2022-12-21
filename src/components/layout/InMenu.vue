@@ -32,7 +32,6 @@
         :collapse-transition="false"
         :unique-opened="true"
         router
-        @select="onNavMenuSelect"
       >
         <in-submenu
           v-for="route in getMenus"
@@ -54,19 +53,32 @@ let lastActivePath = "/";
 const activePath = computed(() => {
   const route = router.currentRoute.value;
 
-  // 如果当前路由需要隐藏菜单，那么展示上一个激活的路由
+  // 如果当前路由需要隐藏菜单
+  // 1.展示其父path
+  // 2.如果不存在父path，那么展示上一个激活的路由
   if (route.meta.hideMenu) {
+    const matched = route.matched;
+    if (matched.length > 1) {
+      const parent = matched[matched.length - 2];
+      return parent.children.find((item) => item.path === parent.redirect)
+        ?.path;
+    }
     return lastActivePath;
   }
   lastActivePath = route.path;
   return route.path;
 });
+
+watch(
+  activePath,
+  (p) => {
+    console.log(p);
+  },
+  { immediate: true }
+);
+
 const { getMenus } = storeToRefs(useRouterStore());
 const { app } = storeToRefs(useAppStore());
-
-const onNavMenuSelect = () => {
-  // todo toggleMenu()
-};
 </script>
 
 <style lang="postcss" scoped>
