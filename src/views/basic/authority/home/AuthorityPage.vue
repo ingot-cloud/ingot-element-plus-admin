@@ -1,6 +1,7 @@
 <template>
   <in-container>
     <in-table
+      :loading="loading"
       :data="treeData"
       :headers="tableHeaders"
       :row-key="TreeListKeyAndProps.key"
@@ -10,7 +11,6 @@
       ref="tableRef"
     >
       <template #toolbar>
-        <in-button type="primary" @click="fetchData"> 搜索 </in-button>
         <in-button type="primary" @click="handleCreate"> 添加 </in-button>
       </template>
       <template #status="{ item }">
@@ -67,6 +67,7 @@ onMounted(() => {
   fetchData();
 });
 
+const loading = ref(false);
 const editDialogRef = ref<EditDialogAPI>();
 const tableRef = ref<TableAPI>();
 const treeData = ref<Array<AuthorityTreeNode>>([]);
@@ -74,14 +75,18 @@ const expandRowKeys = ref<Array<string>>([]);
 const selectData = ref([] as Array<AuthorityTreeNode>);
 
 const fetchData = (): void => {
-  GetAuthorityTreeAPI().then((response) => {
-    const data = response.data;
-    treeData.value = data;
-    treeData.value.forEach((item) => {
-      expandRowKeys.value.push(String(item.id));
-    });
-    selectData.value = data;
-  });
+  loading.value = true;
+  GetAuthorityTreeAPI()
+    .then((response) => {
+      loading.value = false;
+      const data = response.data;
+      treeData.value = data;
+      treeData.value.forEach((item) => {
+        expandRowKeys.value.push(String(item.id));
+      });
+      selectData.value = data;
+    })
+    .catch(() => (loading.value = false));
 };
 
 const handleDelete = (params: SysAuthority): void => {

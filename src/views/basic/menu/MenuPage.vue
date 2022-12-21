@@ -1,6 +1,7 @@
 <template>
   <in-container>
     <in-table
+      :loading="loading"
       :data="menuData"
       :headers="tableHeaders"
       :row-key="TreeListKeyAndProps.key"
@@ -10,7 +11,6 @@
       @refresh="fetchData"
     >
       <template #toolbar>
-        <in-button type="primary" @click="fetchData"> 搜索 </in-button>
         <in-button type="primary" @click="showEditDialog()"> 添加 </in-button>
       </template>
       <template #icon="{ item }">

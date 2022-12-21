@@ -21,10 +21,17 @@ export const useTenantOps = () => {
     const pageParams = toRaw(pageInfo);
     pageParams.total = undefined;
     pageParams.records = undefined;
-    tenantStore.fetchTenantPage(pageParams, condition).then((response) => {
-      pageInfo.records = response.data.records;
-      pageInfo.total = Number(response.data.total);
-    });
+    loading.value = true;
+    tenantStore
+      .fetchTenantPage(pageParams, condition)
+      .then((response) => {
+        loading.value = false;
+        pageInfo.records = response.data.records;
+        pageInfo.total = Number(response.data.total);
+      })
+      .catch(() => {
+        loading.value = false;
+      });
   };
 
   const handleDelete = (params: SysTenant, callback?: () => void): void => {

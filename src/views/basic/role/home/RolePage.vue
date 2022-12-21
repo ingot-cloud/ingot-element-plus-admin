@@ -1,6 +1,31 @@
 <template>
-  <in-container>
+  <in-filter-container>
+    <template #top>
+      <in-filter-item>
+        <in-with-label title="角色名">
+          <el-input
+            v-model="roleOps.condition.name"
+            clearable
+            style="width: 200px"
+            placeholder="请输入角色名"
+          ></el-input>
+        </in-with-label>
+        <template #rightActions>
+          <in-button @click="roleOps.condition.name = undefined">
+            重置
+          </in-button>
+          <in-button
+            type="primary"
+            @in-click="refreshData"
+            :loading="roleOps.loading.value"
+          >
+            搜索
+          </in-button>
+        </template>
+      </in-filter-item>
+    </template>
     <in-table
+      :loading="roleOps.loading.value"
       :data="roleOps.pageInfo.records"
       :page="roleOps.pageInfo"
       ref="tableRef"
@@ -9,19 +34,8 @@
       @handleCurrentChange="roleOps.fetchData"
       @refresh="refreshData"
     >
-      <template #title>
-        <el-input
-          v-model="roleOps.condition.name"
-          clearable
-          style="width: 200px"
-          placeholder="角色名"
-        ></el-input>
-      </template>
+      <template #title> </template>
       <template #toolbar>
-        <in-button type="primary" @click="roleOps.condition.name = undefined">
-          重置
-        </in-button>
-        <in-button type="primary" @click="refreshData"> 搜索 </in-button>
         <in-button type="primary" @click="handleCreate"> 添加 </in-button>
       </template>
       <template #status="{ item }">
@@ -93,7 +107,7 @@
     </in-table>
 
     <EditDialog ref="editDialog" @success="refreshData" />
-  </in-container>
+  </in-filter-container>
 </template>
 <script lang="ts" setup>
 import { tableHeaders } from "./table";
