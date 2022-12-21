@@ -35,6 +35,7 @@
       </el-form-item>
       <el-form-item label="角色" prop="roleIds">
         <in-select
+          w-full
           v-model="editForm.roleIds"
           placeholder="请选择角色"
           :options="roleList"

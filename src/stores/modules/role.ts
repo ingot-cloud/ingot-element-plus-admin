@@ -21,6 +21,7 @@ export const useRoleStore = defineStore("role", () => {
       RoleOptionsAPI()
         .then((resposne) => {
           needUpdate.value = false;
+          roleOptions.value = resposne.data;
           resolve(resposne.data);
         })
         .then((e) => {
