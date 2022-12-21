@@ -9,7 +9,7 @@ const slots = useSlots();
 const emits = defineEmits(["in-click"]);
 const triggerClick = useThrottleFn((e: MouseEvent) => {
   emits("in-click", e);
-}, 1500);
+}, 1200);
 const privateOnClick = (e: MouseEvent) => {
   triggerClick(e);
 };

@@ -17,7 +17,7 @@
           <in-button
             type="primary"
             :loading="clientOps.loading.value"
-            @click="clientOps.fetchData"
+            @in-click="clientOps.fetchData"
           >
             搜索
           </in-button>
