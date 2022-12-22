@@ -1,8 +1,8 @@
-import type { TableHeaderItem } from "@/components/table";
+import type { TableHeaderRecord } from "@/components/table";
 import { getRoleTypeText } from "@/models/enums/roleEnums";
 import type { RoleType } from "@/models/enums/roleEnums";
 
-export const tableHeaders: Array<TableHeaderItem> = [
+export const tableHeaders: Array<TableHeaderRecord> = [
   {
     label: "序号",
     type: "index",

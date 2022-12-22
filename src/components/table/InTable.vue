@@ -89,7 +89,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import type { TableHeaderItem } from "./types";
+import type { TableHeaderRecord } from "./types";
 import { tableProps } from "./props";
 import { useAppStateStore } from "@/stores/modules/app";
 
@@ -119,8 +119,8 @@ watch(
 
 const headersEnable = ref(
   props.headers.filter(
-    (item: TableHeaderItem) => !item.hide
-  ) as Array<TableHeaderItem>
+    (item: TableHeaderRecord) => !item.hide
+  ) as Array<TableHeaderRecord>
 );
 
 const current = ref(props.page.current);
@@ -146,7 +146,7 @@ const privateOnTableSelectionChange = (selection: any) => {
   emits("selectionChange", selection);
 };
 const privateOnHeaderChanged = (value: Array<String>) => {
-  headersEnable.value = props.headers.filter((item: TableHeaderItem) =>
+  headersEnable.value = props.headers.filter((item: TableHeaderRecord) =>
     value.includes(item.prop as string)
   );
 };

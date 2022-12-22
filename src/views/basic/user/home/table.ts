@@ -1,5 +1,5 @@
-import type { TableHeaderItem } from "@/components/table";
-export const tableHeaders: Array<TableHeaderItem> = [
+import type { TableHeaderRecord } from "@/components/table";
+export const tableHeaders: Array<TableHeaderRecord> = [
   {
     label: "序号",
     type: "index",

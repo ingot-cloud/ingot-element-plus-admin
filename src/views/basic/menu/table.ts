@@ -1,6 +1,6 @@
-import type { TableHeaderItem } from "@/components/table";
+import type { TableHeaderRecord } from "@/components/table";
 
-export const tableHeaders: Array<TableHeaderItem> = [
+export const tableHeaders: Array<TableHeaderRecord> = [
   {
     label: "菜单名称",
     prop: "name",

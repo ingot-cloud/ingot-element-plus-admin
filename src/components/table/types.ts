@@ -4,7 +4,7 @@ export interface TableAPI {
 
 export type TransformItem<In, Out> = (value: In) => Out;
 
-export interface TableHeaderItem<In = any, Out = any> {
+export interface TableHeaderRecord<In = any, Out = any> {
   label?: string;
   prop?: string;
   hide?: boolean;

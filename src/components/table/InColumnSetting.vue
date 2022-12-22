@@ -35,13 +35,13 @@
 </template>
 <script lang="ts" setup>
 import type { PropType } from "vue";
-import type { TableHeaderItem } from "./types";
+import type { TableHeaderRecord } from "./types";
 import type { ElTable } from "element-plus";
 import { ClickOutside as vClickOutside } from "element-plus";
 
 const props = defineProps({
   data: {
-    type: Object as PropType<Array<TableHeaderItem>>,
+    type: Object as PropType<Array<TableHeaderRecord>>,
     default() {
       return [];
     },
@@ -65,7 +65,9 @@ nextTick(() => {
   inited.value = true;
 });
 
-const privateOnTableSelectionChange = (selectArray: Array<TableHeaderItem>) => {
+const privateOnTableSelectionChange = (
+  selectArray: Array<TableHeaderRecord>
+) => {
   if (!inited.value) {
     return;
   }

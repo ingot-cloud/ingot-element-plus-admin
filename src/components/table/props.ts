@@ -1,5 +1,5 @@
 import type { PropType } from "vue";
-import type { TableHeaderItem, TablePage } from "./types";
+import type { TableHeaderRecord, TablePage } from "./types";
 
 export const tableProps = {
   data: {
@@ -7,7 +7,7 @@ export const tableProps = {
     default: () => [],
   },
   headers: {
-    type: Object as PropType<Array<TableHeaderItem>>,
+    type: Object as PropType<Array<TableHeaderRecord>>,
     default() {
       return [];
     },
@@ -47,7 +47,7 @@ export const tableProps = {
     default: false,
   },
   selectionProps: {
-    type: Object as PropType<TableHeaderItem>,
+    type: Object as PropType<TableHeaderRecord>,
     default() {
       return {
         align: "center",
@@ -63,7 +63,7 @@ export const tableProps = {
     default: false,
   },
   indexProps: {
-    type: Object as PropType<TableHeaderItem>,
+    type: Object as PropType<TableHeaderRecord>,
     default() {
       return {
         label: "序号",
