@@ -1,4 +1,6 @@
 import type { TableHeaderItem } from "@/components/table";
+import { getRoleTypeText } from "@/models/enums/roleEnums";
+import type { RoleType } from "@/models/enums/roleEnums";
 
 export const tableHeaders: Array<TableHeaderItem> = [
   {
@@ -18,7 +20,7 @@ export const tableHeaders: Array<TableHeaderItem> = [
   {
     label: "角色类型",
     prop: "type",
-    transform: (value: string) => value || "-",
+    transform: (value: string) => getRoleTypeText(value as RoleType),
   },
   {
     label: "状态",

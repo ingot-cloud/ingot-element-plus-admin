@@ -32,11 +32,13 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="角色类型" prop="type">
-            <el-input
+            <in-select
+              w-full
               v-model="editForm.type"
+              placeholder="请选择角色类型"
+              :options="RoleTypeOptions"
               clearable
-              placeholder="请输入角色类型"
-            ></el-input>
+            />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -73,11 +75,12 @@ import type { RolePageItemVO, SysRole } from "@/models";
 import { Message } from "@/utils/message";
 import { copyParams, copyParamsWithKeys } from "@/utils/object";
 import { useRoleStore } from "@/stores/modules/role";
+import { RoleTypeOptions } from "@/models/enums/roleEnums";
 
 const rules = {
   name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
   code: [{ required: true, message: "请输入角色编码", trigger: "blur" }],
-  type: [{ required: false }],
+  type: [{ required: true, message: "请选择角色类型", trigger: "blur" }],
   remark: [{ required: false }],
 };
 
