@@ -2,6 +2,7 @@
   <UnbindView
     :id="id"
     :title="`${$route.query.name}`"
+    :bind-title="`${$route.query.name} - 关联更多权限`"
     :table-headers="tableHeaders"
     :filter-record="filterRecord"
     :bind-single-confirm-message="bindSingleConfirmMessage"

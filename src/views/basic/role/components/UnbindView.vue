@@ -7,12 +7,12 @@
       <template #top>
         <in-filter-item>
           <el-input
-            clearable
-            style="width: 200px"
             v-model="queryCondition[`${filterRecord.key}`]"
             :placeholder="filterRecord.placeholder"
+            clearable
           ></el-input>
           <in-button type="primary" @click="fetchData"> 搜索 </in-button>
+
           <template #rightActions>
             <in-button @click="showBindMoreView"> 绑定更多 </in-button>
             <div v-if="!editBatch">
@@ -61,7 +61,7 @@
   <BindViewDrawer
     ref="bindView"
     :id="id"
-    :title="`${$route.query.name} - 关联更多权限`"
+    :title="bindTitle"
     :table-headers="tableHeaders"
     :filter-record="filterRecord"
     :single-confirm-message="bindSingleConfirmMessage"
@@ -89,6 +89,10 @@ const props = defineProps({
     required: true,
   },
   title: {
+    type: String,
+    required: true,
+  },
+  bindTitle: {
     type: String,
     required: true,
   },
