@@ -101,7 +101,7 @@ const props = defineProps({
     required: true,
   },
   bindSingleConfirmMessage: {
-    type: Object as PropType<ConfirmMessageFn<any>>,
+    type: Function as PropType<ConfirmMessageFn<any>>,
     required: true,
   },
   bindBatchConfirmMessage: {
@@ -109,7 +109,7 @@ const props = defineProps({
     required: true,
   },
   unbindSingleConfirmMessage: {
-    type: Object as PropType<ConfirmMessageFn<any>>,
+    type: Function as PropType<ConfirmMessageFn<any>>,
     required: true,
   },
   unbindBatchConfirmMessage: {
@@ -117,11 +117,11 @@ const props = defineProps({
     required: true,
   },
   fetchDataFn: {
-    type: Object as PropType<FetchDataFn<any>>,
+    type: Function as PropType<FetchDataFn<any>>,
     required: true,
   },
   bindFn: {
-    type: Object as PropType<BindFn>,
+    type: Function as PropType<BindFn>,
     required: true,
   },
 });

@@ -23,6 +23,7 @@ import type {
   AuthorityTreeNode,
 } from "@/models";
 import UnbindView from "../components/UnbindView.vue";
+import type { ConfirmMessageFn } from "../types";
 
 defineProps(["id"]);
 const filterRecord = {
@@ -32,7 +33,9 @@ const filterRecord = {
 const unbindSingleConfirmMessage = (item: SysAuthority) => {
   return `是否解绑权限:${item.name}`;
 };
-const bindSingleConfirmMessage = (item: SysAuthority) => {
+const bindSingleConfirmMessage: ConfirmMessageFn<SysAuthority> = (
+  item: SysAuthority
+) => {
   return `是否绑定权限:${item.name}`;
 };
 const unbindBatchConfirmMessage = "是否解绑所选权限?";
