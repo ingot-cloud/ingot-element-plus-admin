@@ -69,14 +69,6 @@ const activePath = computed(() => {
   return route.path;
 });
 
-watch(
-  activePath,
-  (p) => {
-    console.log(p);
-  },
-  { immediate: true }
-);
-
 const { getMenus } = storeToRefs(useRouterStore());
 const { app } = storeToRefs(useAppStore());
 </script>

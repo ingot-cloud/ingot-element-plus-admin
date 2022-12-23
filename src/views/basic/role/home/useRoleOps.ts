@@ -93,7 +93,7 @@ export const useRoleOps = () => {
     const roleId = data.id;
 
     router.push({
-      path: `/authority/role/${type}/${roleId}`,
+      path: `/basic/role/${type}/${roleId}`,
       query: {
         name: data.name,
       },

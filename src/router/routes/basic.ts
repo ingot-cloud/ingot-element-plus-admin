@@ -67,61 +67,50 @@ export const basicRoutes: Array<RouteRecordRaw> = [
             path: "/basic/role/list",
             component: () => import("@/views/basic/role/home/RolePage.vue"),
           },
-          //   {
-          //     name: "SysAuthorityRoleManagerBindUser",
-          //     meta: {
-          //       title: "绑定用户",
-          //       hideMenu: true,
-          //     },
-          //     path: "/basic/role/binduser/:id",
-          //     component: () =>
-          //       import("@/views/authority/role/binduser/index.vue"),
-          //     props: true,
-          //   },
-          //   {
-          //     name: "SysAuthorityRoleManagerBindDept",
-          //     meta: {
-          //       title: "绑定部门",
-          //       hideMenu: true,
-          //     },
-          //     path: "/basic/role/binddept/:id",
-          //     component: () =>
-          //       import("@/views/authority/role/binddept/index.vue"),
-          //     props: true,
-          //   },
-          //   {
-          //     name: "SysAuthorityRoleManagerBindMenu",
-          //     meta: {
-          //       title: "绑定菜单",
-          //       hideMenu: true,
-          //     },
-          //     path: "/basic/role/bindmenu/:id",
-          //     component: () =>
-          //       import("@/views/authority/role/bindmenu/index.vue"),
-          //     props: true,
-          //   },
-          //   {
-          //     name: "SysAuthorityRoleManagerBindAuthority",
-          //     meta: {
-          //       title: "绑定权限",
-          //       hideMenu: true,
-          //     },
-          //     path: "/basic/role/bindauthority/:id",
-          //     component: () =>
-          //       import("@/views/authority/role/bindauthority/index.vue"),
-          //     props: true,
-          //   },
-          //   {
-          //     name: "SysAuthorityRoleManagerBindClient",
-          //     meta: {
-          //       title: "绑定客户端",
-          //       hideMenu: true,
-          //     },
-          //     path: "/basic/role/bindclient/:id",
-          //     component: () =>
-          //       import("@/views/authority/role/bindclient/index.vue"),
-          //     props: true,
-          //   },
+          {
+            name: "BasicRoleBindDept",
+            meta: {
+              title: "绑定部门",
+              hideMenu: true,
+            },
+            path: "/basic/role/binddept/:id",
+            component: () =>
+              import("@/views/basic/role/binddept/IndexPage.vue"),
+            props: true,
+          },
+          {
+            name: "BasicRoleBindMenu",
+            meta: {
+              title: "绑定菜单",
+              hideMenu: true,
+            },
+            path: "/basic/role/bindmenu/:id",
+            component: () =>
+              import("@/views/basic/role/bindmenu/IndexPage.vue"),
+            props: true,
+          },
+          {
+            name: "BasicRoleBindAuthority",
+            meta: {
+              title: "绑定权限",
+              hideMenu: true,
+            },
+            path: "/basic/role/bindauthority/:id",
+            component: () =>
+              import("@/views/basic/role/bindauthority/IndexPage.vue"),
+            props: true,
+          },
+          {
+            name: "BasicRoleBindClient",
+            meta: {
+              title: "绑定客户端",
+              hideMenu: true,
+            },
+            path: "/basic/role/bindclient/:id",
+            component: () =>
+              import("@/views/basic/role/bindclient/IndexPage.vue"),
+            props: true,
+          },
         ],
       },
       {
