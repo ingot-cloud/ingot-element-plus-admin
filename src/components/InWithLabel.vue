@@ -1,7 +1,9 @@
 <template>
-  <div flex flex-row items-center>
+  <div flex flex-row justify-start items-center>
     <div class="in-with-label">{{ title }}</div>
-    <slot />
+    <div flex-1>
+      <slot />
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
