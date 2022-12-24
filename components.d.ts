@@ -95,6 +95,7 @@ declare module '@vue/runtime-core' {
     'IMaterialSymbols:vpnKeyOutlineRounded': typeof import('~icons/material-symbols/vpn-key-outline-rounded')['default']
     'IMdi:arrowVerticalCollapse': typeof import('~icons/mdi/arrow-vertical-collapse')['default']
     'IMdi:cardAccountDetailsOutline': typeof import('~icons/mdi/card-account-details-outline')['default']
+    'IMdi:relativeScale': typeof import('~icons/mdi/relative-scale')['default']
     'IMdiLight:refresh': typeof import("~icons/mdi-light/refresh")["default"]
     InAppBar: typeof import('./src/components/layout/InAppBar.vue')['default']
     InAppLayout: typeof import('./src/components/layout/InAppLayout.vue')['default']

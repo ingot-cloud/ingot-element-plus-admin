@@ -1,5 +1,6 @@
 import type { PropType } from "vue";
 import type { TableHeaderRecord, TablePage } from "./types";
+import { TreeListKeyAndProps } from "@/models";
 
 export const tableProps = {
   data: {
@@ -74,6 +75,9 @@ export const tableProps = {
   },
   rowKey: {
     type: [String, Function] as PropType<string | ((row: any) => string)>,
+    default() {
+      return TreeListKeyAndProps.key;
+    },
   },
   defaultExpandAll: {
     type: Boolean,
@@ -88,7 +92,7 @@ export const tableProps = {
   treeProps: {
     type: Object,
     default() {
-      return { hasChildren: "hasChildren", children: "children" };
+      return TreeListKeyAndProps.props;
     },
   },
   headerCellStyle: {

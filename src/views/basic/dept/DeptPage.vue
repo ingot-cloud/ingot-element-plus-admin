@@ -4,8 +4,6 @@
       :data="deptTree"
       :headers="tableHeaders"
       ref="tableRef"
-      :row-key="TreeListKeyAndProps.key"
-      :tree-props="TreeListKeyAndProps.props"
       @refresh="fetchData"
     >
       <template #toolbar>
@@ -50,7 +48,7 @@
 <script lang="ts" setup>
 import { tableHeaders } from "./table";
 import { getDeptRoleScopeDesc } from "@/models/enums";
-import { RootDept, TreeListKeyAndProps } from "@/models";
+import { RootDept } from "@/models";
 import type { SysDept, DeptTreeNode } from "@/models";
 import { Confirm, Message } from "@/utils/message";
 import { useDeptStore } from "@/stores/modules/dept";

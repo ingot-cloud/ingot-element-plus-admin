@@ -4,8 +4,6 @@
       :loading="loading"
       :data="menuData"
       :headers="tableHeaders"
-      :row-key="TreeListKeyAndProps.key"
-      :tree-props="TreeListKeyAndProps.props"
       :expandRowKeys="expandRowKeys"
       ref="tableRef"
       @refresh="fetchData"
@@ -73,7 +71,6 @@
 <script lang="ts" setup>
 import { tableHeaders } from "./table";
 import type { MenuTreeNode, SysMenu } from "@/models";
-import { TreeListKeyAndProps } from "@/models";
 import { GetMenuTreeAPI, RemoveMenuAPI } from "@/api/basic/menu";
 import { Confirm, Message } from "@/utils/message";
 import EditDialog from "./EditDialog.vue";

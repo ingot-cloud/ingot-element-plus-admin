@@ -4,8 +4,6 @@
       :loading="loading"
       :data="treeData"
       :headers="tableHeaders"
-      :row-key="TreeListKeyAndProps.key"
-      :tree-props="TreeListKeyAndProps.props"
       :expandRowKeys="expandRowKeys"
       @refresh="fetchData"
       ref="tableRef"
@@ -51,7 +49,6 @@
 <script lang="ts" setup>
 import { tableHeaders } from "./table";
 import type { SysAuthority, AuthorityTreeNode } from "@/models";
-import { TreeListKeyAndProps } from "@/models";
 import { CommonStatus, getCommonStatusActionDesc } from "@/models/enums";
 import EditDialog from "./EditDialog.vue";
 import type { API as EditDialogAPI } from "./EditDialog.vue";
