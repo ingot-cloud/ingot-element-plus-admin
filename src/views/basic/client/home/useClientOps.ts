@@ -46,7 +46,7 @@ export const useClientOps = () => {
     callback?: (params?: PageChangeParams) => void
   ): void => {
     Confirm.warning(`是否删除客户端(${params.clientId})`).then(() => {
-      RemoveClientAPI(params.clientId as string).then(() => {
+      RemoveClientAPI(params.id as string).then(() => {
         Message.success("操作成功");
         if (callback) {
           callback();
@@ -67,7 +67,7 @@ export const useClientOps = () => {
       params.clientId
     })`;
     Confirm.warning(message).then(() => {
-      UpdateClientAPI({ clientId: params.clientId, status }).then(() => {
+      UpdateClientAPI({ clientId: params.id, status }).then(() => {
         Message.success("操作成功");
         if (callback) {
           callback();

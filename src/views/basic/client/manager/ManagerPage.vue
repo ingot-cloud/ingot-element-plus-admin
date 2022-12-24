@@ -188,7 +188,7 @@ const handleSaveEdit = () => {
     Message.warning("访问范围不能为空");
     return;
   }
-  const params = getDiffWithIgnore(rawForm, editForm, ["clientId"]);
+  const params = getDiffWithIgnore(rawForm, editForm, ["id"]);
   UpdateClientAPI(params).then(() => {
     Message.success("操作成功");
     fetchData();
