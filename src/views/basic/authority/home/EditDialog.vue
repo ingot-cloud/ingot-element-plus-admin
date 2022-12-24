@@ -63,13 +63,15 @@ export interface API {
 <script lang="ts" setup>
 import type { SysAuthority } from "@/models";
 import { TreeKeyAndProps } from "@/models";
-import { CreateAuthorityAPI, UpdateAuthorityAPI } from "@/api/basic/authority";
+import { useAuthorityStore } from "@/stores/modules/authority";
 import { Message } from "@/utils/message";
 import {
   copyParams,
   copyParamsWithKeys,
   getDiffWithIgnore,
 } from "@/utils/object";
+
+const authorityStore = useAuthorityStore();
 
 const rules = {
   name: [{ required: true, message: "请输入权限名称", trigger: "blur" }],
@@ -146,10 +148,10 @@ const handleConfirmClick = () => {
           return;
         }
         params.id = rawEditForm.id;
-        request = UpdateAuthorityAPI(params);
+        request = authorityStore.updateAuthority(params);
       } else {
         copyParamsWithKeys(params, toRaw(editForm), keys);
-        request = CreateAuthorityAPI(params);
+        request = authorityStore.createAuthority(params);
       }
       request
         .then(() => {

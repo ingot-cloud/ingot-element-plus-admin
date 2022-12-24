@@ -4,7 +4,7 @@
       :loading="loading"
       :data="treeData"
       :headers="tableHeaders"
-      :expandRowKeys="expandRowKeys"
+      :expandRowKeys="expandedKeys"
       @refresh="fetchData"
       ref="tableRef"
     >
@@ -53,11 +53,7 @@ import { CommonStatus, getCommonStatusActionDesc } from "@/models/enums";
 import EditDialog from "./EditDialog.vue";
 import type { API as EditDialogAPI } from "./EditDialog.vue";
 import type { TableAPI } from "@/components/table";
-import {
-  GetAuthorityTreeAPI,
-  UpdateAuthorityAPI,
-  RemoveAuthorityAPI,
-} from "@/api/basic/authority";
+import { useAuthorityStore } from "@/stores/modules/authority";
 import { Confirm, Message } from "@/utils/message";
 
 onMounted(() => {
@@ -68,19 +64,19 @@ const loading = ref(false);
 const editDialogRef = ref<EditDialogAPI>();
 const tableRef = ref<TableAPI>();
 const treeData = ref<Array<AuthorityTreeNode>>([]);
-const expandRowKeys = ref<Array<string>>([]);
 const selectData = ref([] as Array<AuthorityTreeNode>);
 
+const authorityStore = useAuthorityStore();
+const { expandedKeys } = storeToRefs(authorityStore);
+
 const fetchData = (): void => {
+  console.log("a");
   loading.value = true;
-  GetAuthorityTreeAPI()
-    .then((response) => {
+  authorityStore
+    .fetchAuthorityTree()
+    .then((data) => {
       loading.value = false;
-      const data = response.data;
       treeData.value = data;
-      treeData.value.forEach((item) => {
-        expandRowKeys.value.push(String(item.id));
-      });
       selectData.value = data;
     })
     .catch(() => (loading.value = false));
@@ -88,7 +84,7 @@ const fetchData = (): void => {
 
 const handleDelete = (params: SysAuthority): void => {
   Confirm.warning(`是否删除权限(${params.name})`).then(() => {
-    RemoveAuthorityAPI(params.id as string).then(() => {
+    authorityStore.removeAuthority(params.id as string).then(() => {
       Message.success("操作成功");
       fetchData();
     });
@@ -104,7 +100,7 @@ const handleDisable = (params: SysAuthority): void => {
     params.name
   })`;
   Confirm.warning(message).then(() => {
-    UpdateAuthorityAPI({ id: params.id, status }).then(() => {
+    authorityStore.updateAuthority({ id: params.id, status }).then(() => {
       Message.success("操作成功");
       fetchData();
     });
