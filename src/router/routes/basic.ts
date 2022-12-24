@@ -71,16 +71,6 @@ export const basicRoutes: Array<RouteRecordRaw> = [
             props: true,
           },
           {
-            path: "/basic/role/bindmenu/:id",
-            meta: {
-              title: "绑定菜单",
-              hideMenu: true,
-            },
-            component: () =>
-              import("@/views/basic/role/bindmenu/IndexPage.vue"),
-            props: true,
-          },
-          {
             path: "/basic/role/bindauthority/:id",
             meta: {
               title: "绑定权限",

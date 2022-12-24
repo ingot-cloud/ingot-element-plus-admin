@@ -80,9 +80,6 @@
               <el-dropdown-item :command="{ data: item, type: 'binddept' }">
                 关联部门
               </el-dropdown-item>
-              <el-dropdown-item :command="{ data: item, type: 'bindmenu' }">
-                关联菜单
-              </el-dropdown-item>
               <el-dropdown-item
                 :command="{ data: item, type: 'bindauthority' }"
               >

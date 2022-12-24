@@ -8,10 +8,8 @@ import type {
   RoleBindParams,
   SysAuthority,
   SysDept,
-  SysMenu,
   OAuth2RegisteredClient,
   DeptTreeNode,
-  MenuTreeNode,
   AuthorityTreeNode,
   Option,
 } from "@/models";
@@ -82,24 +80,6 @@ export function GetBindDeptsAPI(
     filterParams(condition);
   }
   return request.get<Array<DeptTreeNode>>(`/api/pms/v1/role/bindDept/${id}`, {
-    isBind,
-    ...condition,
-  });
-}
-
-export function BindMenuAPI(params: RoleBindParams): Promise<R<void>> {
-  return request.put<void>("/api/pms/v1/role/bindMenu", params);
-}
-
-export function GetBindMenusAPI(
-  id: string,
-  isBind: boolean,
-  condition?: SysMenu
-): Promise<R<Array<MenuTreeNode>>> {
-  if (condition) {
-    filterParams(condition);
-  }
-  return request.get<Array<MenuTreeNode>>(`/api/pms/v1/role/bindMenu/${id}`, {
     isBind,
     ...condition,
   });
