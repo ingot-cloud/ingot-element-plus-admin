@@ -2,16 +2,22 @@ import type { TableHeaderRecord } from "@/components/table";
 
 export const tableHeaders: Array<TableHeaderRecord> = [
   {
-    label: "客户端ID",
-    prop: "clientId",
+    label: "菜单名称",
+    prop: "name",
   },
   {
-    label: "客户端名称",
-    prop: "clientName",
+    label: "路径",
+    prop: "path",
   },
   {
-    label: "注册时间",
-    prop: "clientIdIssuedAt",
+    label: "状态",
+    prop: "status",
+    hide: true,
+  },
+  {
+    label: "备注",
+    prop: "remark",
+    hide: true,
   },
   {
     label: "操作",

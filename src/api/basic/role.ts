@@ -110,18 +110,16 @@ export function BindClientAPI(params: RoleBindParams): Promise<R<void>> {
 }
 
 export function GetBindClientsAPI(
-  page: Page,
   id: string,
   isBind: boolean,
   condition?: OAuth2RegisteredClient
-): Promise<R<Page<OAuth2RegisteredClient>>> {
+): Promise<R<Array<OAuth2RegisteredClient>>> {
   if (condition) {
     filterParams(condition);
   }
-  return request.get<Page<OAuth2RegisteredClient>>(
+  return request.get<Array<OAuth2RegisteredClient>>(
     `/api/pms/v1/role/bindClient/${id}`,
     {
-      ...page,
       isBind,
       ...condition,
     }
