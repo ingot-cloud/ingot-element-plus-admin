@@ -11,9 +11,6 @@
           创建部门
         </in-button>
       </template>
-      <template #scope="{ item }">
-        {{ getDeptRoleScopeDesc(item.scope) }}
-      </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status" />
       </template>
@@ -47,7 +44,6 @@
 </template>
 <script lang="ts" setup>
 import { tableHeaders } from "./table";
-import { getDeptRoleScopeDesc } from "@/models/enums";
 import { RootDept } from "@/models";
 import type { SysDept, DeptTreeNode } from "@/models";
 import { Confirm, Message } from "@/utils/message";

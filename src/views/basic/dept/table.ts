@@ -1,4 +1,5 @@
 import type { TableHeaderRecord } from "@/components/table";
+import { getDeptRoleScopeDesc } from "@/models/enums";
 
 export const tableHeaders: Array<TableHeaderRecord> = [
   {
@@ -8,6 +9,7 @@ export const tableHeaders: Array<TableHeaderRecord> = [
   {
     label: "权限范围",
     prop: "scope",
+    transform: (v) => getDeptRoleScopeDesc(v),
   },
   {
     label: "排序",
