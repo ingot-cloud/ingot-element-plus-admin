@@ -19,17 +19,18 @@
           :check-strictly="true"
         />
       </el-form-item>
+      <el-form-item label="菜单类型" prop="menuType">
+        <in-select
+          w-full
+          v-model="editForm.menuType"
+          :options="MenuTypeOptions"
+          clearable
+        />
+      </el-form-item>
       <el-form-item prop="name" label="菜单名称">
         <el-input
           v-model="editForm.name"
           placeholder="请输入菜单名称"
-          clearable
-        ></el-input>
-      </el-form-item>
-      <el-form-item prop="code" label="菜单编码">
-        <el-input
-          v-model="editForm.code"
-          placeholder="请输入菜单编码"
           clearable
         ></el-input>
       </el-form-item>
@@ -40,21 +41,40 @@
           clearable
         ></el-input>
       </el-form-item>
-      <el-form-item prop="viewPath" label="视图路径">
+      <el-form-item label="视图路径" v-if="!isButton()">
         <el-input
           v-model="editForm.viewPath"
           placeholder="请输入视图路径"
           clearable
         ></el-input>
       </el-form-item>
-      <el-form-item label="重定向路径">
+      <el-form-item label="路由名称" v-if="!isButton()">
+        <el-input
+          v-model="editForm.routeName"
+          placeholder="请输入路由名称"
+          clearable
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="权限编码">
+        <el-tree-select
+          w-full
+          clearable
+          v-model="editForm.authorityId"
+          :data="authorityData"
+          :node-key="TreeKeyAndProps.nodeKey"
+          :value-key="TreeKeyAndProps.nodeKey"
+          :props="TreeKeyAndProps.props"
+          :check-strictly="true"
+        />
+      </el-form-item>
+      <el-form-item label="重定向路径" v-if="isDirectory()">
         <el-input
           v-model="editForm.redirect"
           placeholder="请输入重定向路径"
           clearable
         ></el-input>
       </el-form-item>
-      <el-row>
+      <el-row v-if="!isButton()">
         <el-col :span="16">
           <el-form-item prop="icon" label="菜单icon">
             <el-input
@@ -129,7 +149,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item prop="cache" label="是否缓存">
+          <el-form-item prop="cache" label="是否缓存" v-if="!isButton()">
             <el-radio-group v-model="editForm.isCache">
               <el-radio-button :label="true"> 是 </el-radio-button>
               <el-radio-button :label="false"> 否 </el-radio-button>
@@ -137,7 +157,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item prop="hidden" label="隐藏菜单">
+          <el-form-item prop="hidden" label="隐藏菜单" v-if="!isButton()">
             <el-radio-group v-model="editForm.hidden">
               <el-radio-button :label="true"> 是 </el-radio-button>
               <el-radio-button :label="false"> 否 </el-radio-button>
@@ -146,7 +166,7 @@
         </el-col>
       </el-row>
 
-      <el-row>
+      <el-row v-if="!isButton()">
         <el-col :span="8">
           <el-form-item prop="hideBreadcrumb" label="隐藏面包屑">
             <el-radio-group v-model="editForm.hideBreadcrumb">
@@ -164,22 +184,6 @@
           </el-form-item>
         </el-col>
       </el-row>
-
-      <el-form-item prop="params" label="参数">
-        <el-input
-          v-model="editForm.params"
-          placeholder="请输入菜单参数"
-          clearable
-        ></el-input>
-      </el-form-item>
-
-      <el-form-item prop="remark" label="备注">
-        <el-input
-          v-model="editForm.remark"
-          placeholder="请输入备注信息"
-          clearable
-        ></el-input>
-      </el-form-item>
     </el-form>
     <template #footer>
       <in-button :loading="loading" type="primary" @click="handleConfirmClick">
@@ -198,14 +202,19 @@ export interface API {
 import { ClickOutside as vClickOutside } from "element-plus";
 import type { SysMenu } from "@/models";
 import { TreeKeyAndProps } from "@/models";
-import { CommonStatus, getCommonStatusDesc } from "@/models/enums";
+import {
+  CommonStatus,
+  getCommonStatusDesc,
+  MenuType,
+  MenuTypeOptions,
+} from "@/models/enums";
 import { CreateMenuAPI, UpdateMenuAPI } from "@/api/basic/menu";
 import { Message } from "@/utils/message";
 import { copyParams, getDiff } from "@/utils/object";
 
 const rules = {
   name: [{ required: true, message: "请输入菜单名称", trigger: "blur" }],
-  code: [{ required: true, message: "请输入菜单编码", trigger: "blur" }],
+  menuType: [{ required: true, message: "请选择菜单类型", trigger: "blur" }],
   path: [{ required: true, message: "请输入菜单url", trigger: "blur" }],
   viewPath: [{ required: true, message: "请输入视图路径", trigger: "blur" }],
 };
@@ -214,8 +223,11 @@ const defaultEditForm: SysMenu = {
   id: undefined,
   pid: undefined,
   name: undefined,
-  code: undefined,
+  menuType: MenuType.Directory,
   path: undefined,
+  authorityId: undefined,
+  authorityCode: undefined,
+  routeName: undefined,
   viewPath: undefined,
   redirect: undefined,
   icon: undefined,
@@ -224,14 +236,15 @@ const defaultEditForm: SysMenu = {
   hidden: false,
   hideBreadcrumb: false,
   props: false,
-  params: undefined,
   status: CommonStatus.Enable,
-  remark: undefined,
 };
 
 const emits = defineEmits(["success"]);
 defineProps({
   selectData: {
+    type: Array,
+  },
+  authorityData: {
     type: Array,
   },
 });
@@ -246,6 +259,16 @@ const title = ref("");
 const edit = ref(false);
 const canEditPid = ref(false);
 const visible = ref(false);
+
+const isDirectory = () => {
+  return editForm.menuType == MenuType.Directory;
+};
+const isMenu = () => {
+  return editForm.menuType == MenuType.Menu;
+};
+const isButton = () => {
+  return editForm.menuType == MenuType.Button;
+};
 
 const show = (data?: SysMenu | string) => {
   visible.value = true;

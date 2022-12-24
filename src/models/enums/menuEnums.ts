@@ -1,10 +1,16 @@
-import type { ElTagType } from "../common";
+import type { ElTagType, Option } from "../common";
 
 export enum MenuType {
   Directory = "0",
   Menu = "1",
   Button = "9",
 }
+
+export const MenuTypeOptions: Array<Option<string>> = [
+  { label: getMenuTypeDesc(MenuType.Directory), value: MenuType.Directory },
+  { label: getMenuTypeDesc(MenuType.Menu), value: MenuType.Menu },
+  { label: getMenuTypeDesc(MenuType.Button), value: MenuType.Button },
+];
 
 export function getMenuTypeIcon(type: MenuType): string {
   switch (type) {

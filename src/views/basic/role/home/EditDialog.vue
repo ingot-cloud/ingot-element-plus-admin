@@ -88,7 +88,7 @@ const defaultEditForm = {
   id: null,
   name: null,
   code: null,
-  type: null,
+  type: "",
   remark: null,
 };
 

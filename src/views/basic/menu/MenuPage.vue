@@ -69,6 +69,7 @@
   <EditDialog
     ref="editDialogRef"
     :selectData="selectData"
+    :authorityData="authorityData"
     @success="fetchData"
   />
 </template>
@@ -76,19 +77,22 @@
 import { Icon } from "@iconify/vue";
 import { getMenuTypeIcon, getMenuTypeDesc } from "@/models/enums/menuEnums";
 import { tableHeaders } from "./table";
-import type { MenuTreeNode, SysMenu } from "@/models";
+import type { MenuTreeNode, SysMenu, AuthorityTreeNode } from "@/models";
 import { GetMenuTreeAPI, RemoveMenuAPI } from "@/api/basic/menu";
 import { Confirm, Message } from "@/utils/message";
 import EditDialog from "./EditDialog.vue";
 import type { API as EditDialogAPI } from "./EditDialog.vue";
 import type { TableAPI } from "@/components/table";
+import { useAuthorityStore } from "@/stores/modules/authority";
 
 const editDialogRef = ref<EditDialogAPI>();
+const tableRef = ref<TableAPI>();
 const loading = ref(false);
 const menuData = ref<Array<MenuTreeNode>>([]);
 const expandRowKeys = ref<Array<string>>([]);
-const selectData = ref([] as Array<MenuTreeNode>);
-const tableRef = ref<TableAPI>();
+const selectData = ref<Array<MenuTreeNode>>([]);
+const authorityStore = useAuthorityStore();
+const authorityData = ref<Array<AuthorityTreeNode>>();
 
 const fetchData = () => {
   loading.value = true;
@@ -128,5 +132,8 @@ const handleDelete = (params: SysMenu): void => {
 
 onMounted(() => {
   fetchData();
+  authorityStore.fetchAuthorityTree().then((data) => {
+    authorityData.value = data;
+  });
 });
 </script>
