@@ -1,4 +1,4 @@
-import type { Page, PageChangeParams, OptionIDEntity } from "@/models";
+import type { OptionIDEntity } from "@/models";
 import { Message, Confirm } from "@/utils/message";
 import type { BindSetupParams, UnbindSetupReturn } from "../types";
 
@@ -12,39 +12,15 @@ export const useUnbind = <T extends OptionIDEntity>(
   const headers = ref(Object.assign([], params.tableHeaders));
   const editBatch = ref(false);
   const bindTable = ref();
-  const selectData = ref([] as Array<T>);
-  const raw: Page<T> = {
-    current: 1,
-    size: 20,
-    total: 0,
-    records: [],
-  };
-  const bindPageInfo = reactive(raw);
+  const selectData = ref<Array<T>>([]);
   const queryCondition = reactive({});
+  const records = ref<Array<any>>([]);
 
-  const fetchData = (changeParams?: PageChangeParams | boolean) => {
-    if (changeParams) {
-      if (changeParams instanceof Boolean) {
-        bindPageInfo.current = 0;
-        bindPageInfo.size = 20;
-      } else {
-        changeParams = changeParams as PageChangeParams;
-        bindPageInfo[changeParams.type] = changeParams.value;
-      }
-    }
-
+  const fetchData = () => {
     params
-      .fetchData(
-        { current: bindPageInfo.current, size: bindPageInfo.size },
-        params.id,
-        false,
-        toRaw(queryCondition) as T
-      )
+      .fetchData(params.id, false, toRaw(queryCondition) as T)
       .then((response) => {
-        Object.assign(bindPageInfo, {
-          records: response.data.records,
-          total: Number(response.data.total),
-        });
+        records.value = response.data;
       });
   };
 
@@ -88,9 +64,7 @@ export const useUnbind = <T extends OptionIDEntity>(
   };
 
   onMounted(() => {
-    if (bindPageInfo.records?.length === 0) {
-      fetchData();
-    }
+    fetchData();
   });
 
   return {
@@ -98,7 +72,7 @@ export const useUnbind = <T extends OptionIDEntity>(
     bindTable,
     editBatch,
     headers,
-    bindPageInfo,
+    records,
     selectData,
     queryCondition,
     fetchData,

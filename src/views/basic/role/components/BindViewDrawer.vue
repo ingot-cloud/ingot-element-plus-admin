@@ -9,15 +9,14 @@
     <in-filter-container :showBacktop="false">
       <template #top>
         <in-filter-item>
-          <in-with-label title="aaa">
+          <in-with-label :title="filterRecord.title">
             <el-input
               clearable
               v-model="queryCondition[`${filterRecord.key}`]"
               :placeholder="filterRecord.placeholder"
             ></el-input>
-            <in-button type="primary" @click="fetchData"> 搜索 </in-button>
           </in-with-label>
-
+          <in-button type="primary" @click="fetchData"> 搜索 </in-button>
           <template #rightActions>
             <div v-if="!editBatch">
               <in-button @click="editBatch = true"> 批量绑定 </in-button>
@@ -38,14 +37,14 @@
         </in-filter-item>
       </template>
       <in-table
+        ref="bindTable"
         :headers="headers"
-        :data="bindPageInfo.records"
-        :page="bindPageInfo"
+        :data="records"
         :selection="editBatch"
-        :index="!editBatch"
         :row-key="TreeListKeyAndProps.key"
         :tree-props="TreeListKeyAndProps.props"
-        ref="bindTable"
+        :selectable="selectable"
+        @refresh="fetchData"
         @handleSizeChange="fetchData"
         @handleCurrentChange="fetchData"
         @selectionChange="onSelectChanged"
@@ -54,7 +53,16 @@
           <common-status-tag :status="item.status" />
         </template>
         <template #actions="{ item }">
-          <in-button link text type="success" @click="handleBind(item)">
+          <in-button
+            link
+            text
+            type="primary"
+            @click="handleBind(item)"
+            :disabled="!selectable(item)"
+          >
+            <template #icon>
+              <i-mdi:relative-scale />
+            </template>
             绑定
           </in-button>
         </template>
@@ -79,6 +87,10 @@ const emits = defineEmits(["dataChanged"]);
 const props = defineProps({
   id: {
     type: String,
+    required: true,
+  },
+  bindIds: {
+    type: Array as PropType<Array<string>>,
     required: true,
   },
   title: {
@@ -111,12 +123,16 @@ const props = defineProps({
   },
 });
 
+const selectable = (row: any) => {
+  return !props.bindIds.includes(row.id as string);
+};
+
 const {
   isShow,
   bindTable,
   editBatch,
   headers,
-  bindPageInfo,
+  records,
   selectData,
   queryCondition,
   fetchData,

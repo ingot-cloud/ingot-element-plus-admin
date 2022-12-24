@@ -1,25 +1,30 @@
 import type { Ref } from "vue";
 import type { TableHeaderRecord } from "@/components/table";
-import type { Page, PageChangeParams, RoleBindParams, R } from "@/models";
+import type {
+  PageChangeParams,
+  RoleBindParams,
+  R,
+  OptionIDEntity,
+} from "@/models";
 
 export type Apply<T, R> = (t: T) => R;
 export type Consumer<T> = Apply<T, void>;
 export type Runnable = () => void;
 export interface FilterRecord {
   key: string;
+  title: string;
   placeholder: string;
 }
 export type ConfirmMessageFn<T> = Apply<T, string>;
 export type FetchDataFn<T> = (
-  page: Page,
   id: string,
   isBind: boolean,
   condition?: T
-) => Promise<R<Page<T>>>;
+) => Promise<R<Array<T>>>;
 export type BindFn = Apply<RoleBindParams, Promise<R<void>>>;
 export type DoFetchData = Apply<PageChangeParams | boolean, void>;
 
-export interface BindSetupParams<T> {
+export interface BindSetupParams<T extends OptionIDEntity> {
   id: string;
   tableHeaders: Array<TableHeaderRecord>;
   singleConfirmMessage: ConfirmMessageFn<T>;
@@ -34,7 +39,7 @@ export interface BindSetupReturn<T> {
   bindView: Ref;
   editBatch: Ref<boolean>;
   headers: Ref;
-  bindPageInfo: any;
+  records: any;
   selectData: Ref;
   queryCondition: any;
   fetchData: DoFetchData;
@@ -50,7 +55,7 @@ export interface UnbindSetupReturn<T> {
   bindTable: Ref;
   editBatch: Ref<boolean>;
   headers: Ref;
-  bindPageInfo: any;
+  records: any;
   selectData: Ref;
   queryCondition: any;
   fetchData: DoFetchData;

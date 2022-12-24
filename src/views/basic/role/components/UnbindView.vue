@@ -3,44 +3,49 @@
     <template #title>
       {{ title }}
     </template>
-    <in-filter-container>
+    <in-filter-container :show-backtop="false">
       <template #top>
         <in-filter-item>
-          <el-input
-            v-model="queryCondition[`${filterRecord.key}`]"
-            :placeholder="filterRecord.placeholder"
-            clearable
-          ></el-input>
+          <in-with-label :title="filterRecord.title">
+            <el-input
+              v-model="queryCondition[`${filterRecord.key}`]"
+              :placeholder="filterRecord.placeholder"
+              clearable
+            ></el-input>
+          </in-with-label>
           <in-button type="primary" @click="fetchData"> 搜索 </in-button>
 
           <template #rightActions>
-            <in-button @click="showBindMoreView"> 绑定更多 </in-button>
-            <div v-if="!editBatch">
-              <in-button @click="editBatch = true"> 批量解绑 </in-button>
-            </div>
-            <div v-else>
-              <in-button
-                type="danger"
-                :disabled="selectData.length === 0"
-                @click="handleBatchUnbind"
-              >
-                解绑
-              </in-button>
-              <in-button type="warning" @click="cancelEditBatch">
-                取消
-              </in-button>
-            </div>
+            <in-button type="primary" @click="showBindMoreView">
+              绑定更多
+            </in-button>
+            <in-button
+              type="primary"
+              v-if="!editBatch"
+              @click="editBatch = true"
+            >
+              批量解绑
+            </in-button>
+            <in-button
+              v-if="editBatch"
+              type="danger"
+              :disabled="selectData.length === 0"
+              @click="handleBatchUnbind"
+            >
+              解绑
+            </in-button>
+            <in-button v-if="editBatch" type="warning" @click="cancelEditBatch">
+              取消
+            </in-button>
           </template>
         </in-filter-item>
       </template>
 
       <in-table
-        :headers="headers"
-        :data="bindPageInfo.records"
-        :page="bindPageInfo"
-        :selection="editBatch"
-        :index="!editBatch"
         ref="bindTable"
+        :headers="headers"
+        :data="records"
+        :selection="editBatch"
         @refresh="fetchData"
         @handleSizeChange="fetchData"
         @handleCurrentChange="fetchData"
@@ -61,6 +66,7 @@
   <BindViewDrawer
     ref="bindView"
     :id="id"
+    :bindIds="stretch(records)"
     :title="bindTitle"
     :table-headers="tableHeaders"
     :filter-record="filterRecord"
@@ -82,6 +88,19 @@ import type {
 } from "../types";
 import { useBind } from "../composables/useBind";
 import BindViewDrawer from "./BindViewDrawer.vue";
+
+const stretch = (tree: Array<any>): Array<string> => {
+  let ids: Array<string> = [];
+
+  tree.forEach((item) => {
+    ids.push(item.id as string);
+    if (item.children) {
+      ids = ids.concat(stretch(item.children));
+    }
+  });
+
+  return ids;
+};
 
 const props = defineProps({
   id: {
@@ -134,7 +153,7 @@ const {
   bindView,
   editBatch,
   headers,
-  bindPageInfo,
+  records,
   selectData,
   queryCondition,
   fetchData,

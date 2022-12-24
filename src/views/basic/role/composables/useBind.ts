@@ -1,4 +1,4 @@
-import type { Page, PageChangeParams, OptionIDEntity } from "@/models";
+import type { OptionIDEntity } from "@/models";
 import { Message, Confirm } from "@/utils/message";
 import type { BindSetupParams, BindSetupReturn } from "../types";
 
@@ -14,42 +14,18 @@ export const useBind = <T extends OptionIDEntity>(
   const editBatch = ref(false);
   const bindTable = ref();
   const bindView = ref();
-  const selectData = ref([] as Array<T>);
-  const raw: Page<T> = {
-    current: 1,
-    size: 20,
-    total: 0,
-    records: [],
-  };
-  const bindPageInfo = reactive(raw);
+  const selectData = ref<Array<T>>([]);
   const queryCondition = reactive({});
+  const records = ref<Array<any>>([]);
 
   /**
    * 获取已绑定数据
    */
-  const fetchData = (changeParams?: PageChangeParams | boolean) => {
-    if (changeParams) {
-      if (changeParams instanceof Boolean) {
-        bindPageInfo.current = 1;
-        bindPageInfo.size = 20;
-      } else {
-        changeParams = changeParams as PageChangeParams;
-        bindPageInfo[changeParams.type] = changeParams.value;
-      }
-    }
-
+  const fetchData = () => {
     params
-      .fetchData(
-        { current: bindPageInfo.current, size: bindPageInfo.size },
-        params.id,
-        true,
-        toRaw(queryCondition) as T
-      )
+      .fetchData(params.id, true, toRaw(queryCondition) as T)
       .then((response) => {
-        Object.assign(bindPageInfo, {
-          records: response.data.records,
-          total: Number(response.data.total),
-        });
+        records.value = response.data;
       });
   };
 
@@ -110,7 +86,7 @@ export const useBind = <T extends OptionIDEntity>(
   };
 
   onMounted(() => {
-    fetchData(true);
+    fetchData();
   });
 
   return {
@@ -118,7 +94,7 @@ export const useBind = <T extends OptionIDEntity>(
     bindView,
     editBatch,
     headers,
-    bindPageInfo,
+    records,
     selectData,
     queryCondition,
     fetchData,
