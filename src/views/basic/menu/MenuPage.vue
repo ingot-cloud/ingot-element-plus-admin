@@ -11,6 +11,10 @@
       <template #toolbar>
         <in-button type="primary" @click="showEditDialog()"> 添加 </in-button>
       </template>
+      <template #menuType="{ item }">
+        <Icon mr-2 :icon="getMenuTypeIcon(item.menuType)" />
+        {{ getMenuTypeDesc(item.menuType) }}
+      </template>
       <template #icon="{ item }">
         <in-icon
           v-if="item.icon"
@@ -69,6 +73,8 @@
   />
 </template>
 <script lang="ts" setup>
+import { Icon } from "@iconify/vue";
+import { getMenuTypeIcon, getMenuTypeDesc } from "@/models/enums/menuEnums";
 import { tableHeaders } from "./table";
 import type { MenuTreeNode, SysMenu } from "@/models";
 import { GetMenuTreeAPI, RemoveMenuAPI } from "@/api/basic/menu";

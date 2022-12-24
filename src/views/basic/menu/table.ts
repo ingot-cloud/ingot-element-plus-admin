@@ -6,9 +6,10 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     prop: "name",
   },
   {
-    label: "菜单编码",
-    prop: "code",
-    width: "150",
+    label: "菜单类型",
+    prop: "menuType",
+    width: "80",
+    align: "center",
   },
   {
     label: "图标",
@@ -17,9 +18,19 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     align: "center",
   },
   {
+    label: "权限编码",
+    prop: "authorityCode",
+    transform: (v) => v || "-",
+  },
+  {
     label: "路径",
     prop: "path",
     width: "300",
+  },
+  {
+    label: "路由名称",
+    prop: "routeName",
+    hide: true,
   },
   {
     label: "视图路径",
@@ -66,11 +77,6 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     prop: "status",
     width: "60",
     align: "center",
-  },
-  {
-    label: "备注",
-    prop: "remark",
-    hide: true,
   },
   {
     label: "操作",

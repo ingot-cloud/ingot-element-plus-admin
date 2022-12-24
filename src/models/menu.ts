@@ -8,8 +8,11 @@ export interface SysMenu {
   id?: string;
   pid?: string;
   name?: string;
-  code?: string;
+  menuType?: string;
   path?: string;
+  authorityId?: string;
+  authorityCode?: string;
+  routeName?: string;
   viewPath?: string;
   redirect?: string;
   icon?: string;
@@ -18,7 +21,5 @@ export interface SysMenu {
   hidden?: boolean;
   hideBreadcrumb?: boolean;
   props?: boolean;
-  params?: string;
   status?: CommonStatus;
-  remark?: string;
 }
