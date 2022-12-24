@@ -7,14 +7,12 @@ import { PageNameEnum, PagePathEnum, RedirectField } from "@/models/enums";
 export const commonRoutes: Array<RouteRecordRaw> = [
   {
     path: "/:pathMatch(.*)",
-    name: "NotFound",
     meta: { hideMenu: true, breadcrumbHidden: true },
     component: () => import("@/views/common/errors/NotFound.vue"),
   },
   {
     path: "/redirect",
     component: () => import("@/components/layout/InAppLayout.vue"),
-    name: "RedirectTo",
     meta: {
       title: PageNameEnum.REDIRECT,
       hideMenu: true,
@@ -36,7 +34,6 @@ export const commonRoutes: Array<RouteRecordRaw> = [
   },
   {
     path: "/",
-    name: "Root",
     redirect: PagePathEnum.HOME,
     component: () => import("@/components/layout/InAppLayout.vue"),
     children: [

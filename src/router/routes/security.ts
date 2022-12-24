@@ -6,7 +6,6 @@ import type { RouteRecordRaw } from "vue-router";
 export const securityRoutes: Array<RouteRecordRaw> = [
   {
     path: "/login",
-    name: "LoginPage",
     meta: {
       permitAuth: true,
       hideMenu: true,
