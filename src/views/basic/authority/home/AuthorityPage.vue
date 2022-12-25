@@ -70,7 +70,6 @@ const authorityStore = useAuthorityStore();
 const { expandedKeys } = storeToRefs(authorityStore);
 
 const fetchData = (): void => {
-  console.log("a");
   loading.value = true;
   authorityStore
     .fetchAuthorityTree()

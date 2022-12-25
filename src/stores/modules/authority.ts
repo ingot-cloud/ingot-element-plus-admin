@@ -6,7 +6,7 @@ import {
   RemoveAuthorityAPI,
 } from "@/api/basic/authority";
 
-export const useAuthorityStore = defineStore("dept", () => {
+export const useAuthorityStore = defineStore("authority", () => {
   const expandedKeys = ref<Array<string>>([]);
   const authorityTree = ref<Array<AuthorityTreeNode>>([]);
   const needUpdate = ref(false);
