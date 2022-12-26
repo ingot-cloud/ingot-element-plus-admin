@@ -44,6 +44,7 @@
         :row-key="TreeListKeyAndProps.key"
         :tree-props="TreeListKeyAndProps.props"
         :selectable="selectable"
+        defaultExpandAll
         @refresh="fetchData"
         @handleSizeChange="fetchData"
         @handleCurrentChange="fetchData"
