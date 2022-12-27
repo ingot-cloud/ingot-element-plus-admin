@@ -52,7 +52,10 @@
 
       <el-row>
         <el-col :span="12">
-          <el-form-item label="Client认证方式">
+          <el-form-item
+            label="Client认证方式"
+            prop="clientAuthenticationMethods"
+          >
             <in-select
               v-model="editForm.clientAuthenticationMethods"
               :options="getClientAuthMethodList()"
@@ -63,7 +66,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="Client授权类型">
+          <el-form-item label="Client授权类型" prop="authorizationGrantTypes">
             <in-select
               v-model="editForm.authorizationGrantTypes"
               :options="grantTypeList()"
@@ -170,6 +173,12 @@ const rules = {
   ],
   scopes: [
     { required: true, message: "请输入客户端访问范围", trigger: "blur" },
+  ],
+  clientAuthenticationMethods: [
+    { required: true, message: "请选择客户端认证方式", trigger: "blur" },
+  ],
+  authorizationGrantTypes: [
+    { required: true, message: "请选择客户端授权类型", trigger: "blur" },
   ],
 };
 
