@@ -288,6 +288,9 @@ const show = (data?: SysMenu | string) => {
       canEditPid.value = false;
       editForm.pid = data;
     } else {
+      if (data.authorityId === "0") {
+        data.authorityId = undefined;
+      }
       copyParams(editForm, data);
       copyParams(rawForm, data);
       title.value = "编辑";
