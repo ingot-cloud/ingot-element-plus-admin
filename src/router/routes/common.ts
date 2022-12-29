@@ -1,18 +1,14 @@
 import type { RouteRecordRaw } from "vue-router";
 import { PageNameEnum, PagePathEnum, RedirectField } from "@/models/enums";
+import { LAYOUT } from "@/router/constants";
 
 /**
  * 公共路由
  */
 export const commonRoutes: Array<RouteRecordRaw> = [
   {
-    path: "/:pathMatch(.*)",
-    meta: { hideMenu: true, breadcrumbHidden: true },
-    component: () => import("@/views/common/errors/NotFound.vue"),
-  },
-  {
     path: "/redirect",
-    component: () => import("@/components/layout/InAppLayout.vue"),
+    component: LAYOUT,
     meta: {
       title: PageNameEnum.REDIRECT,
       hideMenu: true,
@@ -35,7 +31,7 @@ export const commonRoutes: Array<RouteRecordRaw> = [
   {
     path: "/",
     redirect: PagePathEnum.HOME,
-    component: () => import("@/components/layout/InAppLayout.vue"),
+    component: LAYOUT,
     children: [
       {
         path: PagePathEnum.HOME,

@@ -1,30 +1,8 @@
 import type { RouteRecordRaw } from "vue-router";
 import type { MenuRouteRecord } from "@/components/layout";
 import { default as routes } from "@/router/routes";
-
-/**
- * 生成菜单
- * @param routes 路由表
- */
-const generateMenus = (
-  routes: Array<RouteRecordRaw>
-): Array<MenuRouteRecord> => {
-  return routes
-    .filter((item) => {
-      return !item.meta?.hideMenu;
-    })
-    .map((item) => {
-      const menu: MenuRouteRecord = {
-        path: item.path,
-        title: item.meta?.title,
-        icon: item.meta?.icon,
-      };
-      if (item.children) {
-        menu.children = generateMenus(item.children);
-      }
-      return menu;
-    });
-};
+import { GetUserMenuAPI } from "@/api/basic/menu";
+import { generateMenus, transformMenu } from "@/router/helper/route";
 
 export const useRouterStore = defineStore("router", () => {
   const allRoutes = ref<Array<RouteRecordRaw>>([]);
@@ -34,18 +12,35 @@ export const useRouterStore = defineStore("router", () => {
   const getMenus = computed(() => menus.value);
 
   const fetchRoutes = async (forceRefresh?: boolean) => {
-    if (forceRefresh || menus.value.length === 0) {
-      // todo 发送请求获取菜单列表，并且和固定的routes合并
-      dynamicRoutes.value = [];
+    return new Promise<{
+      menus: Array<MenuRouteRecord>;
+      dynamicRoutes: Array<RouteRecordRaw>;
+    }>((resolve) => {
+      if (forceRefresh || menus.value.length === 0) {
+        GetUserMenuAPI()
+          .then((response) => {
+            dynamicRoutes.value = transformMenu(response.data);
+            allRoutes.value = routes.concat(dynamicRoutes.value);
+            menus.value = generateMenus(allRoutes.value);
+            resolve({
+              menus: menus.value,
+              dynamicRoutes: dynamicRoutes.value,
+            });
+          })
+          .catch(() => {
+            resolve({
+              menus: menus.value,
+              dynamicRoutes: dynamicRoutes.value,
+            });
+          });
+        return;
+      }
 
-      allRoutes.value = routes.concat(dynamicRoutes.value);
-      menus.value = generateMenus(allRoutes.value);
-    }
-
-    return {
-      menus: menus.value,
-      dynamicRoutes: dynamicRoutes.value,
-    };
+      resolve({
+        menus: menus.value,
+        dynamicRoutes: dynamicRoutes.value,
+      });
+    });
   };
 
   return { menus, getMenus, fetchRoutes };

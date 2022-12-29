@@ -3,6 +3,14 @@ import type { R, MenuTreeNode, SysMenu } from "@/models";
 import { filterParams } from "@/utils/object";
 
 /**
+ * 获取用户菜单API
+ * @returns
+ */
+export function GetUserMenuAPI(): Promise<R<Array<MenuTreeNode>>> {
+  return request.get<Array<MenuTreeNode>>("/api/pms/v1/menu/userMenu");
+}
+
+/**
  * 获取Menu tree
  * @returns
  */
