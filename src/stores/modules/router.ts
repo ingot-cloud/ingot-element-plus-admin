@@ -2,12 +2,17 @@ import type { RouteRecordRaw } from "vue-router";
 import type { MenuRouteRecord } from "@/components/layout";
 import { default as routes } from "@/router/routes";
 import { GetUserMenuAPI } from "@/api/basic/menu";
-import { generateMenus, transformMenu } from "@/router/helper/route";
+import {
+  generateMenus,
+  transformMenu,
+  cacheRoutes,
+} from "@/router/helper/route";
 
 export const useRouterStore = defineStore("router", () => {
   const allRoutes = ref<Array<RouteRecordRaw>>([]);
   const dynamicRoutes = ref<Array<RouteRecordRaw>>([]);
   const menus = ref<Array<MenuRouteRecord>>([]);
+  const cacheNames = ref<Array<string>>([]);
 
   const getMenus = computed(() => menus.value);
 
@@ -22,6 +27,7 @@ export const useRouterStore = defineStore("router", () => {
             dynamicRoutes.value = transformMenu(response.data);
             allRoutes.value = routes.concat(dynamicRoutes.value);
             menus.value = generateMenus(allRoutes.value);
+            cacheNames.value = cacheRoutes;
             resolve({
               menus: menus.value,
               dynamicRoutes: dynamicRoutes.value,
@@ -43,5 +49,5 @@ export const useRouterStore = defineStore("router", () => {
     });
   };
 
-  return { menus, getMenus, fetchRoutes };
+  return { menus, cacheNames, getMenus, fetchRoutes };
 });

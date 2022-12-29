@@ -27,6 +27,8 @@ export const generateMenus = (
     });
 };
 
+export const cacheRoutes: Array<string> = [];
+
 export const transformMenu = (
   menus: Array<MenuTreeNode>
 ): Array<RouteRecordRaw> => {
@@ -35,6 +37,9 @@ export const transformMenu = (
     const route: RouteRecordRaw = menuToRoute(menu);
     if (menu.children?.length) {
       transformMenuItem(route, menu);
+    }
+    if (menu.isCache && menu.routeName) {
+      cacheRoutes.push(menu.routeName);
     }
     result.push(route);
   });

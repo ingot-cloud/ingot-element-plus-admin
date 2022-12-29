@@ -13,7 +13,7 @@
 
       <el-main>
         <router-view v-slot="{ Component }">
-          <keep-alive :include="cacheViews">
+          <keep-alive :include="cacheNames">
             <component :is="Component" />
           </keep-alive>
         </router-view>
@@ -22,7 +22,8 @@
   </el-container>
 </template>
 <script lang="ts" setup>
-const cacheViews: string[] = [];
+import { useRouterStore } from "@/stores/modules/router";
+const { cacheNames } = storeToRefs(useRouterStore());
 </script>
 <style lang="postcss" scoped>
 .el-aside {
