@@ -1,4 +1,3 @@
-import Qs from "qs";
 import Http from "@/net";
 import type { UserToken, R } from "@/models";
 import { useAppStore } from "@/stores/modules/app";
