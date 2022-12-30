@@ -1,11 +1,13 @@
 <template>
   <el-menu-item v-if="isSingle" :index="singleRoute.path">
-    <in-icon
-      v-if="singleRoute.icon"
-      :name="singleRoute.icon"
-      class="w-[var(--in-menu-icon-size)] h-[var(--in-menu-icon-size)]"
-      :class="{ 'mr-2': getMenuOpened }"
-    />
+    <el-icon>
+      <in-icon
+        v-if="singleRoute.icon"
+        :name="singleRoute.icon"
+        class="w-[var(--in-menu-icon-size)] h-[var(--in-menu-icon-size)]"
+        :class="{ 'mr-2': getMenuOpened }"
+      />
+    </el-icon>
     <template #title>
       <span v-if="singleRoute.title">
         {{ singleRoute.title }}
@@ -14,12 +16,14 @@
   </el-menu-item>
   <el-sub-menu v-else :index="route.path">
     <template #title>
-      <in-icon
-        v-if="route.icon"
-        :name="route.icon"
-        class="w-[var(--in-menu-icon-size)] h-[var(--in-menu-icon-size)]"
-        :class="{ 'mr-2': getMenuOpened }"
-      />
+      <el-icon>
+        <in-icon
+          v-if="route.icon"
+          :name="route.icon"
+          class="w-[var(--in-menu-icon-size)] h-[var(--in-menu-icon-size)]"
+          :class="{ 'mr-2': getMenuOpened }"
+        />
+      </el-icon>
       <span v-if="route.title">
         {{ route.title }}
       </span>
