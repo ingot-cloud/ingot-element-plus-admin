@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-version=0.4.0
+version=0.1.0
 serviceName=ingot-admin-${version}
 imageName=docker-registry.wangchao.im/ingot/ingot-admin:${version}
 

@@ -83,7 +83,7 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
       port: 5173,
       proxy: {
         "/api": {
-          target: "http://localhost:8200",
+          target: "http://localhost:7980",
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, "/"),
         },
