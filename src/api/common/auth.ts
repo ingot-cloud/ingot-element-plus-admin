@@ -1,3 +1,4 @@
+import Qs from "qs";
 import Http from "@/net";
 import type { UserToken, R } from "@/models";
 import { useAppStore } from "@/stores/modules/app";
@@ -13,12 +14,13 @@ export function PasswordTokenAPI({
   username: string;
   password: string;
 }): Promise<R<UserToken>> {
-  const data = {
+  // application/x-www-form-urlencoded
+  const data = new URLSearchParams({
     username,
     password,
     grant_type: "password",
-  };
-  return Http.postForm<UserToken>("/api/auth/oauth2/token", data, {
+  });
+  return Http.post<UserToken>("/api/auth/oauth2/token", data, {
     headers: {
       Authorization: storeToRefs(useAppStore()).getBasicToken.value,
     },
@@ -29,11 +31,11 @@ export function PasswordTokenAPI({
  * 刷新Token
  */
 export function RefreshTokenAPI(refreshToken: string): Promise<R<UserToken>> {
-  const data = {
+  const data = new URLSearchParams({
     refresh_token: refreshToken,
     grant_type: "refresh_token",
-  };
-  return Http.postForm<UserToken>("/api/auth/oauth2/token", data, {
+  });
+  return Http.post<UserToken>("/api/auth/oauth2/token", data, {
     headers: {
       Authorization: storeToRefs(useAppStore()).getBasicToken.value,
     },
