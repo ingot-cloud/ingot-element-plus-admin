@@ -61,6 +61,7 @@ const singleRoute = computed(() => {
   if (children && children.length !== 0) {
     const route = children[0];
     route.title = props.route.title || route.title;
+    route.icon = props.route.icon || route.icon;
     return route;
   }
   return props.route;
