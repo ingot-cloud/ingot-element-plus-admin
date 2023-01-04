@@ -7,7 +7,10 @@ export interface UserToken {
 }
 
 export interface User {
-  username: string;
+  email?: string;
+  phone?: string;
+  realName?: string;
+  nonInitPwd?: boolean;
 }
 
 export interface UserInfo {
