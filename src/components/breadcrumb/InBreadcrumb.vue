@@ -63,6 +63,8 @@ const getBreadcrumbList = (
     list[cLen - 2].redirect === path &&
     list[cLen - 2].children?.length === 1
   ) {
+    // 避免删除后icon丢失，赋值父级cion
+    list[cLen - 1].icon = list[cLen - 2].icon;
     list.splice(cLen - 2, 1);
   }
 
