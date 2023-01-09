@@ -1,10 +1,11 @@
 import type { RouteRecordRaw } from "vue-router";
 import type { MenuRouteRecord } from "@/components/layout";
 import type { MenuTreeNode } from "@/models";
+import { MenuType } from "@/models/enums";
 import { importComponent, NotFound } from "@/router/constants";
 
 /**
- * 生成菜单
+ * 生成侧栏菜单
  * @param routes 路由表
  */
 export const generateMenus = (
@@ -29,20 +30,28 @@ export const generateMenus = (
 
 export const cacheRoutes: Array<string> = [];
 
+/**
+ * 菜单转换为路由信息
+ * @param menus 菜单
+ */
 export const transformMenu = (
   menus: Array<MenuTreeNode>
 ): Array<RouteRecordRaw> => {
   const result: Array<RouteRecordRaw> = [];
-  menus.forEach((menu) => {
-    const route: RouteRecordRaw = menuToRoute(menu);
-    if (menu.children?.length) {
-      transformMenuItem(route, menu);
-    }
-    if (menu.isCache && menu.routeName) {
-      cacheRoutes.push(menu.routeName);
-    }
-    result.push(route);
-  });
+  menus
+    .filter((item) => {
+      return item.menuType !== MenuType.Button;
+    })
+    .forEach((menu) => {
+      const route: RouteRecordRaw = menuToRoute(menu);
+      if (menu.children?.length) {
+        transformMenuItem(route, menu);
+      }
+      if (menu.isCache && menu.routeName) {
+        cacheRoutes.push(menu.routeName);
+      }
+      result.push(route);
+    });
 
   // 最后加入404视图
   result.push(NotFound);
@@ -50,13 +59,17 @@ export const transformMenu = (
 };
 
 const transformMenuItem = (route: RouteRecordRaw, menu: MenuTreeNode) => {
-  menu.children?.forEach((item) => {
-    const child = menuToRoute(item);
-    if (item.children?.length) {
-      transformMenuItem(child, item);
-    }
-    route.children?.push(child);
-  });
+  menu.children
+    ?.filter((item) => {
+      return item.menuType !== MenuType.Button;
+    })
+    .forEach((item) => {
+      const child = menuToRoute(item);
+      if (item.children?.length) {
+        transformMenuItem(child, item);
+      }
+      route.children?.push(child);
+    });
 };
 
 const menuToRoute = (menu: MenuTreeNode) => {

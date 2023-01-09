@@ -7,6 +7,7 @@ import {
   transformMenu,
   cacheRoutes,
 } from "@/router/helper/route";
+import { usePermissions } from "./auth";
 
 export const useRouterStore = defineStore("router", () => {
   const allRoutes = ref<Array<RouteRecordRaw>>([]);
@@ -24,6 +25,7 @@ export const useRouterStore = defineStore("router", () => {
       if (forceRefresh || menus.value.length === 0) {
         GetUserMenuAPI()
           .then((response) => {
+            usePermissions().updateAuthorities(response.data);
             dynamicRoutes.value = transformMenu(response.data);
             allRoutes.value = routes.concat(dynamicRoutes.value);
             menus.value = generateMenus(allRoutes.value);
