@@ -176,10 +176,30 @@ import { GetClientInfoAPI, UpdateClientAPI } from "@/api/basic/client";
 import { copyParams, getDiffWithIgnore } from "@/utils/object";
 import { Message } from "@/utils/message";
 
+const defaultEditForm: OAuth2RegisteredClient = {
+  id: undefined,
+  clientId: undefined,
+  clientIdIssuedAt: undefined,
+  clientSecret: undefined,
+  clientName: undefined,
+  clientAuthenticationMethods: undefined,
+  authorizationGrantTypes: undefined,
+  redirectUris: undefined,
+  scopes: undefined,
+  requireProofKey: undefined,
+  requireAuthorizationConsent: undefined,
+  accessTokenTimeToLive: undefined,
+  reuseRefreshTokens: undefined,
+  refreshTokenTimeToLive: undefined,
+  idTokenSignatureAlgorithm: undefined,
+  tokenAuthType: undefined,
+  status: undefined,
+};
+
 const edit = ref(false);
 const editFormRef = ref();
-const editForm = reactive({} as OAuth2RegisteredClient);
-const rawForm = reactive({} as OAuth2RegisteredClient);
+const editForm = reactive(Object.assign({}, defaultEditForm));
+const rawForm = reactive(Object.assign({}, defaultEditForm));
 
 const props = defineProps(["id"]);
 
@@ -188,7 +208,10 @@ const handleSaveEdit = () => {
     Message.warning("访问范围不能为空");
     return;
   }
+  console.log(rawForm);
+  console.log(editForm);
   const params = getDiffWithIgnore(rawForm, editForm, ["id"]);
+
   UpdateClientAPI(params).then(() => {
     Message.success("操作成功");
     fetchData();

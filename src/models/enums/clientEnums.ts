@@ -39,6 +39,7 @@ export function getTokenAuthMethodSelectList(): Array<SelectRecord> {
 
 export enum AuthorizedGrantType {
   Password = "password",
+  Social = "social",
   RefreshToken = "refresh_token",
   Client = "client_credentials",
   Code = "authorization_code",
@@ -53,6 +54,10 @@ export function grantTypeList(): Array<SelectRecord> {
     {
       label: "密码模式",
       value: AuthorizedGrantType.Password,
+    },
+    {
+      label: "社交模式",
+      value: AuthorizedGrantType.Social,
     },
     {
       label: "客户端模式",
