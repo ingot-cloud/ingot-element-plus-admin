@@ -88,11 +88,11 @@
         <el-row>
           <el-col :span="6"></el-col>
           <el-col :span="6">
-            <el-form-item label="姓名" prop="realName">
+            <el-form-item label="昵称" prop="nickname">
               <el-input
-                v-model="editForm.realName"
+                v-model="editForm.nickname"
                 clearable
-                placeholder="请输入姓名"
+                placeholder="请输入昵称"
               ></el-input>
             </el-form-item>
           </el-col>
@@ -149,7 +149,7 @@ const rawForm = {
   roleIds: [],
   username: undefined,
   newPassword: undefined,
-  realName: undefined,
+  nickname: undefined,
   phone: undefined,
   email: undefined,
   status: undefined,
@@ -161,7 +161,7 @@ const keys = [
   "roleIds",
   "username",
   "newPassword",
-  "realName",
+  "nickname",
   "phone",
   "email",
   "status",

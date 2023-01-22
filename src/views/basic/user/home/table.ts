@@ -11,8 +11,8 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     prop: "username",
   },
   {
-    label: "真实姓名",
-    prop: "realName",
+    label: "昵称",
+    prop: "nickname",
     hide: true,
   },
   {

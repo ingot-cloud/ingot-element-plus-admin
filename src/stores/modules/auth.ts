@@ -116,7 +116,7 @@ export const useUserInfoStore = defineStore("security.user", () => {
   const userInfo = reactive<UserInfo>(defaultUser);
 
   const getUsername = computed(() => {
-    return userInfo.user ? userInfo.user.realName : "欢迎登录";
+    return userInfo.user ? userInfo.user.nickname : "欢迎登录";
   });
   const getRoles = computed(() => userInfo.roles);
   const getUserInfoWhetherExist = computed(

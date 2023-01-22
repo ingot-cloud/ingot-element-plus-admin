@@ -10,7 +10,7 @@ export interface UserPageItemVO {
   tenantName: string;
   deptName: string;
   username: string;
-  realName?: string;
+  nickname?: string;
   phone?: string;
   email?: string;
   status?: CommonStatus;
@@ -21,7 +21,7 @@ export interface SysUser extends OptionIDEntity {
   id?: string;
   deptId?: string;
   username?: string;
-  realName?: string;
+  nickname?: string;
   phone?: string;
   email?: string;
   status?: CommonStatus;
@@ -37,7 +37,7 @@ export interface UserProfileVO {
   deptId: string;
   roleIds?: Array<string>;
   username: string;
-  realName?: string;
+  nickname?: string;
   phone?: string;
   email?: string;
   status?: CommonStatus;

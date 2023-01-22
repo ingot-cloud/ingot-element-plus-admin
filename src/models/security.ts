@@ -9,7 +9,7 @@ export interface UserToken {
 export interface User {
   email?: string;
   phone?: string;
-  realName?: string;
+  nickname?: string;
   nonInitPwd?: boolean;
 }
 

@@ -43,11 +43,11 @@
           clearable
         />
       </el-form-item>
-      <el-form-item label="姓名" prop="realName">
+      <el-form-item label="昵称" prop="nickname">
         <el-input
-          v-model="editForm.realName"
+          v-model="editForm.nickname"
           clearable
-          placeholder="请输入姓名"
+          placeholder="请输入昵称"
         ></el-input>
       </el-form-item>
       <el-form-item label="手机号" prop="phone">
@@ -84,7 +84,7 @@ import { Message } from "@/utils/message";
 import { copyParamsWithKeys, copyParams } from "@/utils/object";
 import { CreateUserAPI } from "@/api/basic/user";
 
-const keys = ["username", "roleIds", "phone", "realName", "email"];
+const keys = ["username", "roleIds", "phone", "nickname", "email"];
 
 interface CreateUser {
   username?: string;
@@ -92,7 +92,7 @@ interface CreateUser {
   confirmPassword?: string;
   roleIds?: Array<string>;
   phone?: string;
-  realName?: string;
+  nickname?: string;
   email?: string;
 }
 
@@ -102,7 +102,7 @@ const defaultEditForm: CreateUser = {
   confirmPassword: undefined,
   roleIds: [],
   phone: undefined,
-  realName: undefined,
+  nickname: undefined,
   email: undefined,
 };
 
