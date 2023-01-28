@@ -50,5 +50,6 @@ export function RevokeTokenAPI(token: string): Promise<R> {
     headers: {
       Authorization: token,
     },
+    manualProcessingFailure: true,
   });
 }

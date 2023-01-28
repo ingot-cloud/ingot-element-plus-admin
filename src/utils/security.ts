@@ -3,8 +3,8 @@ import { useAuthStore } from "@/stores/modules/auth";
 /**
  * 退出登录，并且刷新页面
  */
-export function logoutAndReload() {
+export function logoutAndReload(ignoreRevokeAPI?: boolean) {
   useAuthStore()
-    .logout()
+    .logout(ignoreRevokeAPI)
     .then(() => location.reload());
 }

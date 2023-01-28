@@ -106,6 +106,9 @@ export const onResponseFulfilled = (response: AxiosResponse<R>): Promise<R> => {
  * @param error
  */
 export const onResponseRejected = (error: AxiosError<R>): Promise<R> => {
+  if (error.code === "ERR_BAD_RESPONSE") {
+    logoutAndReload(true);
+  }
   return bizResponseFailureHandler(
     error.config || {},
     axiosResponseToR(error.response)

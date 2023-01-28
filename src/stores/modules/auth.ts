@@ -72,9 +72,11 @@ export const useAuthStore = defineStore(
     /**
      * 退出登录
      */
-    const logout = (): Promise<void> => {
+    const logout = (ignoreRevokeAPI?: boolean): Promise<void> => {
       return new Promise((resolve) => {
-        RevokeTokenAPI(getAccessToken.value);
+        if (!ignoreRevokeAPI) {
+          RevokeTokenAPI(getAccessToken.value);
+        }
         updateToken({
           accessToken: undefined,
           tokenType: undefined,
