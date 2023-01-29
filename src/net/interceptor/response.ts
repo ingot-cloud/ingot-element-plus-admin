@@ -5,6 +5,7 @@ import { StatusCode } from "@/net/status-code";
 import { useAuthStore } from "@/stores/modules/auth";
 import Http from "@/net";
 import { logoutAndReload } from "@/utils/security";
+import { isString } from "@/utils";
 
 /**
  * 未知响应实体
@@ -106,7 +107,12 @@ export const onResponseFulfilled = (response: AxiosResponse<R>): Promise<R> => {
  * @param error
  */
 export const onResponseRejected = (error: AxiosError<R>): Promise<R> => {
-  if (error.code === "ERR_BAD_RESPONSE") {
+  // 异常响应，并且响应结果为String那么退出登录
+  if (
+    error.code === "ERR_BAD_RESPONSE" &&
+    error.response &&
+    isString(error.response.data)
+  ) {
     logoutAndReload(true);
   }
   return bizResponseFailureHandler(
