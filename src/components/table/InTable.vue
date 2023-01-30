@@ -168,6 +168,12 @@ watch(
   }
 );
 watch(
+  () => props.page.current,
+  (value) => {
+    current.value = value;
+  }
+);
+watch(
   () => props.page.total,
   (value) => {
     total.value = value;
