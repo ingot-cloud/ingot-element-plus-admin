@@ -79,6 +79,10 @@ export const tableProps = {
       return TreeListKeyAndProps.key;
     },
   },
+  highlightCurrentRow: {
+    type: Boolean,
+    default: false,
+  },
   defaultExpandAll: {
     type: Boolean,
     default: false,
@@ -103,5 +107,8 @@ export const tableProps = {
         color: "black",
       };
     },
+  },
+  radioKey: {
+    type: String,
   },
 };

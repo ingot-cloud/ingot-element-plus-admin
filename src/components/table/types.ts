@@ -1,5 +1,6 @@
 export interface TableAPI {
   clearSelection(): void;
+  toggleRowSelection(row: any): void;
 }
 
 export type TransformItem<In, Out> = (value: In) => Out;
