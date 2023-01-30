@@ -206,13 +206,12 @@ const privateHandleSizeChange = (val: number) => {
 const privateHandleCurrentChange = (val: number) => {
   emits("handleCurrentChange", { value: val, type: "current" });
 };
-const privateOnTableSelect = (selection: any) => {
-  emits("select", selection);
+const privateOnTableSelect = (selection: any, row: any) => {
+  emits("select", selection, row);
 };
-const privateOnTableSelectAll = (selection: any, row: any) => {
-  emits("selectAll", selection, row);
+const privateOnTableSelectAll = (selection: any) => {
+  emits("selectAll", selection);
 };
-
 const privateOnTableSelectionChange = (selection: any) => {
   emits("selectionChange", selection);
 };
