@@ -232,9 +232,9 @@ defineExpose({
     const table = unref(ingotTable);
     table.clearSelection();
   },
-  toggleRowSelection: (row: any) => {
+  toggleRowSelection: (row: any, selected?: boolean) => {
     const table = unref(ingotTable);
-    table.toggleRowSelection(row, undefined);
+    table.toggleRowSelection(row, selected);
   },
 });
 </script>
