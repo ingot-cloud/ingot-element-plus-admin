@@ -4,6 +4,7 @@
     :headers="headers"
     :limit="limit"
     :data="uploadData"
+    :accept="accept"
     :on-exceed="handleExceed"
     :disabled="disabled"
     :file-list="modelValue"
@@ -15,7 +16,11 @@
     <el-icon><Plus /></el-icon>
     <template #file="{ file }">
       <div>
-        <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
+        <img
+          class="el-upload-list__item-thumbnail"
+          :src="`${imageUrlPrefix}${file.url}`"
+          alt=""
+        />
         <span class="el-upload-list__item-actions">
           <span
             class="el-upload-list__item-preview"
@@ -78,8 +83,16 @@ const props = defineProps({
     type: Number,
     default: 1,
   },
+  accept: {
+    type: String,
+    default: ".jpg, .png, .jpeg",
+  },
   tip: {
     type: String,
+  },
+  imageUrlPrefix: {
+    type: String,
+    default: "/api",
   },
   action: {
     type: String,
@@ -117,7 +130,7 @@ const beforeUpload = (file: UploadRawFile) => {
 const handleUploadSuccess = (res: any) => {
   const tmp = props.modelValue.slice();
   tmp.push({
-    url: `/api/pms/common/file/${res.data.fileName}`,
+    url: `/pms/common/file/${res.data.fileName}`,
     name: "",
     status: "ready",
     uid: 0,
