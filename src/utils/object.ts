@@ -5,6 +5,7 @@ import {
   isBoolean,
   isNumber,
   isString,
+  isObject,
 } from "./index";
 
 /**
@@ -89,7 +90,7 @@ export function filterParams<T extends object>(params: T): void {
   const keys = Object.keys(params);
   keys.forEach((key) => {
     const tmpVal = Reflect.get(params, key);
-    if (typeof tmpVal !== "boolean" && !tmpVal) {
+    if (typeof tmpVal !== "boolean" && typeof tmpVal !== "number" && !tmpVal) {
       Reflect.set(params, key, null);
     }
   });
@@ -141,7 +142,13 @@ export function copyParamsWithKeys<To extends object, From extends object>(
   keys.forEach((key) => {
     tmpValue = Reflect.get(from, key);
     if (!filterNull || typeof tmpValue === "boolean" || tmpValue) {
-      Reflect.set(to, key, tmpValue);
+      if (isArray(tmpValue)) {
+        Reflect.set(to, key, (tmpValue as Array<any>).slice());
+      } else if (isObject(tmpValue)) {
+        Reflect.set(to, key, Object.assign({}, tmpValue));
+      } else {
+        Reflect.set(to, key, tmpValue);
+      }
     }
   });
 }
