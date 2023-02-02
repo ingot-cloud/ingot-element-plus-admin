@@ -18,7 +18,7 @@
       <div>
         <img
           class="el-upload-list__item-thumbnail"
-          :src="`${imageUrlPrefix}${file.url}`"
+          :src="handleImageSrc(file)"
           alt=""
         />
         <span class="el-upload-list__item-actions">
@@ -105,6 +105,11 @@ const dialogVisible = ref(false);
 const disabled = ref(false);
 
 const uploadData = ref({});
+
+const handleImageSrc = (file: UploadUserFile) => {
+  const url = file.url;
+  return url?.startsWith("blob:http") ? url : `${props.imageUrlPrefix}${url}`;
+};
 
 const handleRemove = (file: UploadFile) => {
   if (props.disabled) {
