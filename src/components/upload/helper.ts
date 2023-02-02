@@ -31,7 +31,7 @@ export function extract(
     return;
   }
   if (isString) {
-    Reflect.set(raw, targetKey, value[0].url);
+    Reflect.set(raw, targetKey, value.length === 0 ? undefined : value[0].url);
   } else {
     Reflect.set(
       raw,
