@@ -9,8 +9,3 @@ export interface SysTenant {
   endAt?: string;
   createdAt?: string;
 }
-
-export interface SimpleTenantVO {
-  id: string;
-  name: string;
-}

@@ -1,12 +1,12 @@
 import Http from "@/net";
-import type { SysTenant, SimpleTenantVO, Page, R } from "@/models";
+import type { SysTenant, Option, Page, R } from "@/models";
 import { filterParams } from "@/utils/object";
 
 /**
  * 列表
  */
-export function TenantListAPI(): Promise<R<Array<SimpleTenantVO>>> {
-  return Http.get<Array<SimpleTenantVO>>("/api/pms/v1/tenant/list", null, {
+export function TenantOptionsAPI(): Promise<R<Array<Option>>> {
+  return Http.get<Array<Option>>("/api/pms/v1/tenant/list", null, {
     permit: true,
   });
 }

@@ -1,6 +1,6 @@
-import type { SimpleTenantVO, Page, SysTenant, R } from "@/models";
+import type { Option, Page, SysTenant, R } from "@/models";
 import {
-  TenantListAPI,
+  TenantOptionsAPI,
   TenantPageAPI,
   TenantCreateAPI,
   TenantUpdateAPI,
@@ -8,17 +8,17 @@ import {
 } from "@/api/basic/tenant";
 
 export const useTenantStore = defineStore("tenant", () => {
-  const tenantList = ref<Array<SimpleTenantVO>>([]);
+  const tenantList = ref<Array<Option>>([]);
   const needUpdate = ref(false);
 
   const fetchTenantList = () => {
-    return new Promise<Array<SimpleTenantVO>>((resolve, reject) => {
+    return new Promise<Array<Option>>((resolve, reject) => {
       if (!needUpdate.value && tenantList.value.length !== 0) {
         resolve(tenantList.value);
         return;
       }
 
-      TenantListAPI()
+      TenantOptionsAPI()
         .then((response) => {
           tenantList.value = response.data;
           needUpdate.value = false;
