@@ -6,21 +6,50 @@ import {
   TenantUpdateAPI,
   TenantRemoveAPI,
 } from "@/api/basic/tenant";
+import { useAppStore } from "@/stores/modules/app";
 
 export const useTenantStore = defineStore("tenant", () => {
-  const tenantList = ref<Array<Option>>([]);
+  const appStore = useAppStore();
+  const tenantOptions = ref<Array<Option>>([]);
   const needUpdate = ref(false);
 
-  const fetchTenantList = () => {
+  const globalTenant = ref<string>(appStore.getTenant);
+  const getGlobalTenant = computed(() => globalTenant.value);
+
+  /**
+   * 修改全局tenant
+   */
+  const changeGlobalTenant = (tenant?: string) => {
+    if (!tenant) {
+      tenant = appStore.getTenant;
+    }
+    globalTenant.value = tenant;
+  };
+
+  /**
+   * 重置为默认值
+   */
+  const resetGlobalTenant = () => {
+    globalTenant.value = appStore.getTenant;
+  };
+
+  /**
+   * 修改更新标识
+   */
+  const changeUpdateFlag = (flag: boolean) => {
+    needUpdate.value = flag;
+  };
+
+  const fetchOptions = () => {
     return new Promise<Array<Option>>((resolve, reject) => {
-      if (!needUpdate.value && tenantList.value.length !== 0) {
-        resolve(tenantList.value);
+      if (!needUpdate.value && tenantOptions.value.length !== 0) {
+        resolve(tenantOptions.value);
         return;
       }
 
       TenantOptionsAPI()
         .then((response) => {
-          tenantList.value = response.data;
+          tenantOptions.value = response.data;
           needUpdate.value = false;
           resolve(response.data);
         })
@@ -82,8 +111,13 @@ export const useTenantStore = defineStore("tenant", () => {
   };
 
   return {
-    tenantList,
-    fetchTenantList,
+    tenantOptions,
+    getGlobalTenant,
+    needUpdate,
+    changeGlobalTenant,
+    resetGlobalTenant,
+    changeUpdateFlag,
+    fetchOptions,
     fetchTenantPage,
     createTenant,
     updateTenant,
