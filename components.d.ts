@@ -104,6 +104,7 @@ declare module '@vue/runtime-core' {
     InWithLabel: typeof import('./src/components/InWithLabel.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TenantOptions: typeof import('./src/components/biz/tenant-options/TenantOptions.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']
