@@ -83,6 +83,7 @@ declare module '@vue/runtime-core' {
     InColumnSetting: typeof import('./src/components/table/InColumnSetting.vue')['default']
     InContainer: typeof import('./src/components/container/InContainer.vue')['default']
     InDialog: typeof import('./src/components/InDialog.vue')['default']
+    InEditor: typeof import('./src/components/editor/InEditor.vue')['default']
     InFilterContainer: typeof import('./src/components/container/InFilterContainer.vue')['default']
     InFilterItem: typeof import('./src/components/container/InFilterItem.vue')['default']
     InFullscreen: typeof import('./src/components/InFullscreen.vue')['default']
