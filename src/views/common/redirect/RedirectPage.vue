@@ -10,7 +10,7 @@ const props = defineProps({
   [`${RedirectField.TYPE}`]: String,
 });
 
-useDoRedirect(props[RedirectField.PATH], props[RedirectField.TYPE])
+useRedirect(props[RedirectField.PATH], props[RedirectField.TYPE])
   .then(() => {
     Message.success("刷新成功");
   })

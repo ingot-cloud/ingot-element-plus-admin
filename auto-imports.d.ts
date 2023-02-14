@@ -156,7 +156,6 @@ declare global {
   const useDevicePixelRatio: typeof import('@vueuse/core')['useDevicePixelRatio']
   const useDevicesList: typeof import('@vueuse/core')['useDevicesList']
   const useDisplayMedia: typeof import('@vueuse/core')['useDisplayMedia']
-  const useDoRedirect: typeof import('./src/composables/web/usePage')['useDoRedirect']
   const useDocumentVisibility: typeof import('@vueuse/core')['useDocumentVisibility']
   const useDraggable: typeof import('@vueuse/core')['useDraggable']
   const useDropZone: typeof import('@vueuse/core')['useDropZone']
@@ -219,6 +218,7 @@ declare global {
   const usePreferredLanguages: typeof import('@vueuse/core')['usePreferredLanguages']
   const usePreferredReducedMotion: typeof import('@vueuse/core')['usePreferredReducedMotion']
   const useRafFn: typeof import('@vueuse/core')['useRafFn']
+  const useRedirect: typeof import('./src/composables/web/usePage')['useRedirect']
   const useRefHistory: typeof import('@vueuse/core')['useRefHistory']
   const useRefreshPage: typeof import('./src/composables/web/usePage')['useRefreshPage']
   const useResizeObserver: typeof import('@vueuse/core')['useResizeObserver']
@@ -446,7 +446,6 @@ declare module 'vue' {
     readonly useDevicePixelRatio: UnwrapRef<typeof import('@vueuse/core')['useDevicePixelRatio']>
     readonly useDevicesList: UnwrapRef<typeof import('@vueuse/core')['useDevicesList']>
     readonly useDisplayMedia: UnwrapRef<typeof import('@vueuse/core')['useDisplayMedia']>
-    readonly useDoRedirect: UnwrapRef<typeof import('./src/composables/web/usePage')['useDoRedirect']>
     readonly useDocumentVisibility: UnwrapRef<typeof import('@vueuse/core')['useDocumentVisibility']>
     readonly useDraggable: UnwrapRef<typeof import('@vueuse/core')['useDraggable']>
     readonly useDropZone: UnwrapRef<typeof import('@vueuse/core')['useDropZone']>
@@ -509,6 +508,7 @@ declare module 'vue' {
     readonly usePreferredLanguages: UnwrapRef<typeof import('@vueuse/core')['usePreferredLanguages']>
     readonly usePreferredReducedMotion: UnwrapRef<typeof import('@vueuse/core')['usePreferredReducedMotion']>
     readonly useRafFn: UnwrapRef<typeof import('@vueuse/core')['useRafFn']>
+    readonly useRedirect: UnwrapRef<typeof import('./src/composables/web/usePage')['useRedirect']>
     readonly useRefHistory: UnwrapRef<typeof import('@vueuse/core')['useRefHistory']>
     readonly useRefreshPage: UnwrapRef<typeof import('./src/composables/web/usePage')['useRefreshPage']>
     readonly useResizeObserver: UnwrapRef<typeof import('@vueuse/core')['useResizeObserver']>
