@@ -4,20 +4,20 @@
       <div flex flex-row justify-between>
         <in-with-label title="客户端ID">
           <el-input
-            v-model="clientOps.condition.clientId"
+            v-model="paging.condition.clientId"
             clearable
             style="width: 180px"
             placeholder="请输入客户端ID"
           ></el-input>
         </in-with-label>
         <div>
-          <in-button @click="clientOps.condition.clientId = undefined">
+          <in-button @click="paging.condition.clientId = undefined">
             重置
           </in-button>
           <in-button
             type="primary"
-            :loading="clientOps.loading.value"
-            @in-click="clientOps.fetchData"
+            :loading="paging.loading.value"
+            @in-click="paging.fetchData"
           >
             搜索
           </in-button>
@@ -25,15 +25,14 @@
       </div>
     </template>
     <in-table
-      :loading="clientOps.loading.value"
-      :data="clientOps.pageInfo.records"
-      :headers="tableHeaders"
-      :page="clientOps.pageInfo"
-      ref="tableRef"
       stripe
-      @handleSizeChange="clientOps.fetchData"
-      @handleCurrentChange="clientOps.fetchData"
-      @refresh="clientOps.fetchData"
+      :loading="paging.loading.value"
+      :data="paging.pageInfo.records"
+      :headers="tableHeaders"
+      :page="paging.pageInfo"
+      @handleSizeChange="paging.fetchData"
+      @handleCurrentChange="paging.fetchData"
+      @refresh="paging.fetchData"
     >
       <template #toolbar>
         <in-button type="primary" @click="handleCreate()"> 添加 </in-button>
@@ -65,12 +64,7 @@
         <common-status-tag :status="item.status" />
       </template>
       <template #actions="{ item }">
-        <in-button
-          type="primary"
-          text
-          link
-          @click="clientOps.handleManager(item)"
-        >
+        <in-button type="primary" text link @click="handleManager(item)">
           <template #icon>
             <i-material-symbols:vpn-key-outline-rounded />
           </template>
@@ -80,13 +74,25 @@
           text
           link
           :status="item.status"
-          @click="clientOps.handleDisable(item, clientOps.fetchData)"
+          @click="
+            confirmUpdate.handleUpdate(
+              { id: item.id, status: getCommonStatusToggle(item.status) },
+              `是否${getCommonStatusActionDesc(
+                getCommonStatusToggle(item.status)
+              )}客户端(${item.clientId})`
+            )
+          "
         />
         <in-button
           text
           link
           type="danger"
-          @click="clientOps.handleDelete(item, clientOps.fetchData)"
+          @click="
+            confirmDelete.handleDelete(
+              item.id,
+              `是否删除客户端(${item.clientId})`
+            )
+          "
         >
           <template #icon>
             <i-ep:delete />
@@ -96,26 +102,48 @@
       </template>
     </in-table>
   </in-filter-container>
-  <CreateDialog ref="createDialogRef" @success="clientOps.fetchData" />
+  <CreateDialog ref="CreateDialogRef" @success="paging.fetchData" />
 </template>
 <script lang="ts" setup>
 import { tableHeaders } from "./table";
-import { getTokenAuthMethodTag, getTokenAuthMethodLabel } from "@/models/enums";
-import { useClientOps } from "./useClientOps";
+import type { OAuth2RegisteredClient } from "@/models";
+import {
+  getTokenAuthMethodTag,
+  getTokenAuthMethodLabel,
+  getCommonStatusActionDesc,
+  getCommonStatusToggle,
+} from "@/models/enums";
+import {
+  ClientPageAPI,
+  UpdateClientAPI,
+  RemoveClientAPI,
+} from "@/api/basic/client";
+import {
+  usePaging,
+  useConfirmDelete,
+  useConfirmUpdate,
+} from "@/composables/biz/usePaging";
 import CreateDialog from "./CreateDialog.vue";
 import type { API as CreateDialogAPI } from "./CreateDialog.vue";
-import type { TableAPI } from "@/components/table";
+import router from "@/router";
 
 onMounted(() => {
-  clientOps.fetchData();
+  paging.fetchData();
 });
 
-const clientOps = useClientOps();
-const createDialogRef = ref<CreateDialogAPI>();
-const tableRef = ref<TableAPI>();
+const CreateDialogRef = ref<CreateDialogAPI>();
+const paging = usePaging(ClientPageAPI);
+const confirmUpdate = useConfirmUpdate(UpdateClientAPI, paging.fetchData);
+const confirmDelete = useConfirmDelete(RemoveClientAPI, paging.fetchData);
 
 const handleCreate = (): void => {
-  createDialogRef.value?.show();
+  CreateDialogRef.value?.show();
+};
+
+const handleManager = (params: OAuth2RegisteredClient): void => {
+  router.push({
+    path: `/basic/client/${params.id}`,
+  });
 };
 
 const stringToArray = (target: string, split = ",") => {

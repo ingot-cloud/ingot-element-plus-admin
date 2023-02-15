@@ -19,6 +19,12 @@ export function getCommonStatusDesc(status: CommonStatus): string {
   }
 }
 
+export function getCommonStatusToggle(status: CommonStatus): CommonStatus {
+  return status === CommonStatus.Enable
+    ? CommonStatus.Lock
+    : CommonStatus.Enable;
+}
+
 export function getCommonStatusActionDesc(status: CommonStatus): string {
   switch (status) {
     case CommonStatus.Enable:
