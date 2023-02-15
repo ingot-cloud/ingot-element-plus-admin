@@ -10,13 +10,59 @@ export type DeleteRecordAPI = (id: string) => Promise<R<void>>;
 
 export type UpdateRecordAPI<T> = (record: T) => Promise<R<void>>;
 
+export type FetchPage<T, C> = (page: Page, condition?: C) => Promise<Page<T>>;
+
+export type DeleteRecord = (id: string) => Promise<void>;
+
+export type UpdateRecord<T> = (record: T) => Promise<void>;
+
 export type ActionCallback = (params?: PageChangeParams) => void;
+
+export const transformPage = <T, C>(
+  api: FetchPageAPI<T, C>
+): FetchPage<T, C> => {
+  return (page: Page, condition?: C) => {
+    return new Promise((resolve, reject) => {
+      api(page, condition)
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((reason) => reject(reason));
+    });
+  };
+};
+
+export const transformDelete = (api: DeleteRecordAPI): DeleteRecord => {
+  return (id: string) => {
+    return new Promise((resolve, reject) => {
+      api(id)
+        .then(() => {
+          resolve();
+        })
+        .catch((reason) => reject(reason));
+    });
+  };
+};
+
+export const transformUpdate = <T>(
+  api: UpdateRecordAPI<T>
+): UpdateRecord<T> => {
+  return (record: T) => {
+    return new Promise((resolve, reject) => {
+      api(record)
+        .then(() => {
+          resolve();
+        })
+        .catch((reason) => reject(reason));
+    });
+  };
+};
 
 /**
  * 分页
  */
 export const usePaging = <Record, Condition>(
-  fetchPageAPI: FetchPageAPI<Record, Condition>
+  fetchPageAPI: FetchPage<Record, Condition>
 ) => {
   const loading = ref<boolean>(false);
   const condition = reactive({}) as Condition;
@@ -38,8 +84,8 @@ export const usePaging = <Record, Condition>(
     fetchPageAPI(pageParams, condition)
       .then((result) => {
         loading.value = false;
-        pageInfo.records = result.data.records;
-        pageInfo.total = Number(result.data.total);
+        pageInfo.records = result.records;
+        pageInfo.total = Number(result.total);
       })
       .catch(() => (loading.value = false));
   };
@@ -53,12 +99,12 @@ export const usePaging = <Record, Condition>(
 };
 
 export const useConfirmDelete = (
-  deleteRecordAPI: DeleteRecordAPI,
+  deleteRecord: DeleteRecord,
   callback?: ActionCallback
 ) => {
   const handleDelete = (id: string, message: string) => {
     Confirm.warning(message).then(() => {
-      deleteRecordAPI(id).then(() => {
+      deleteRecord(id).then(() => {
         Message.success("操作成功");
         if (callback) {
           callback();
@@ -73,12 +119,12 @@ export const useConfirmDelete = (
 };
 
 export const useConfirmUpdate = <Record>(
-  updateRecordAPI: UpdateRecordAPI<Record>,
+  updateRecord: UpdateRecord<Record>,
   callback?: ActionCallback
 ) => {
   const handleUpdate = (params: Record, message: string) => {
     Confirm.warning(message).then(() => {
-      updateRecordAPI(params).then(() => {
+      updateRecord(params).then(() => {
         Message.success("操作成功");
         if (callback) {
           callback();
