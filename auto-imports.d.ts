@@ -108,6 +108,9 @@ declare global {
   const toReactive: typeof import('@vueuse/core')['toReactive']
   const toRef: typeof import('vue')['toRef']
   const toRefs: typeof import('vue')['toRefs']
+  const transformDelete: typeof import('./src/composables/biz/usePaging')['transformDelete']
+  const transformPage: typeof import('./src/composables/biz/usePaging')['transformPage']
+  const transformUpdate: typeof import('./src/composables/biz/usePaging')['transformUpdate']
   const triggerRef: typeof import('vue')['triggerRef']
   const tryOnBeforeMount: typeof import('@vueuse/core')['tryOnBeforeMount']
   const tryOnBeforeUnmount: typeof import('@vueuse/core')['tryOnBeforeUnmount']
@@ -139,7 +142,9 @@ declare global {
   const useClipboard: typeof import('@vueuse/core')['useClipboard']
   const useCloned: typeof import('@vueuse/core')['useCloned']
   const useColorMode: typeof import('@vueuse/core')['useColorMode']
+  const useConfirmDelete: typeof import('./src/composables/biz/usePaging')['useConfirmDelete']
   const useConfirmDialog: typeof import('@vueuse/core')['useConfirmDialog']
+  const useConfirmUpdate: typeof import('./src/composables/biz/usePaging')['useConfirmUpdate']
   const useCounter: typeof import('@vueuse/core')['useCounter']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVar: typeof import('@vueuse/core')['useCssVar']
@@ -208,6 +213,7 @@ declare global {
   const useOffsetPagination: typeof import('@vueuse/core')['useOffsetPagination']
   const useOnline: typeof import('@vueuse/core')['useOnline']
   const usePageLeave: typeof import('@vueuse/core')['usePageLeave']
+  const usePaging: typeof import('./src/composables/biz/usePaging')['usePaging']
   const useParallax: typeof import('@vueuse/core')['useParallax']
   const usePermission: typeof import('@vueuse/core')['usePermission']
   const usePointer: typeof import('@vueuse/core')['usePointer']
@@ -398,6 +404,9 @@ declare module 'vue' {
     readonly toReactive: UnwrapRef<typeof import('@vueuse/core')['toReactive']>
     readonly toRef: UnwrapRef<typeof import('vue')['toRef']>
     readonly toRefs: UnwrapRef<typeof import('vue')['toRefs']>
+    readonly transformDelete: UnwrapRef<typeof import('./src/composables/biz/usePaging')['transformDelete']>
+    readonly transformPage: UnwrapRef<typeof import('./src/composables/biz/usePaging')['transformPage']>
+    readonly transformUpdate: UnwrapRef<typeof import('./src/composables/biz/usePaging')['transformUpdate']>
     readonly triggerRef: UnwrapRef<typeof import('vue')['triggerRef']>
     readonly tryOnBeforeMount: UnwrapRef<typeof import('@vueuse/core')['tryOnBeforeMount']>
     readonly tryOnBeforeUnmount: UnwrapRef<typeof import('@vueuse/core')['tryOnBeforeUnmount']>
@@ -429,7 +438,9 @@ declare module 'vue' {
     readonly useClipboard: UnwrapRef<typeof import('@vueuse/core')['useClipboard']>
     readonly useCloned: UnwrapRef<typeof import('@vueuse/core')['useCloned']>
     readonly useColorMode: UnwrapRef<typeof import('@vueuse/core')['useColorMode']>
+    readonly useConfirmDelete: UnwrapRef<typeof import('./src/composables/biz/usePaging')['useConfirmDelete']>
     readonly useConfirmDialog: UnwrapRef<typeof import('@vueuse/core')['useConfirmDialog']>
+    readonly useConfirmUpdate: UnwrapRef<typeof import('./src/composables/biz/usePaging')['useConfirmUpdate']>
     readonly useCounter: UnwrapRef<typeof import('@vueuse/core')['useCounter']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVar: UnwrapRef<typeof import('@vueuse/core')['useCssVar']>
@@ -498,6 +509,7 @@ declare module 'vue' {
     readonly useOffsetPagination: UnwrapRef<typeof import('@vueuse/core')['useOffsetPagination']>
     readonly useOnline: UnwrapRef<typeof import('@vueuse/core')['useOnline']>
     readonly usePageLeave: UnwrapRef<typeof import('@vueuse/core')['usePageLeave']>
+    readonly usePaging: UnwrapRef<typeof import('./src/composables/biz/usePaging')['usePaging']>
     readonly useParallax: UnwrapRef<typeof import('@vueuse/core')['useParallax']>
     readonly usePermission: UnwrapRef<typeof import('@vueuse/core')['usePermission']>
     readonly usePointer: UnwrapRef<typeof import('@vueuse/core')['usePointer']>

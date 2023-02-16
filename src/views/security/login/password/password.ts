@@ -1,6 +1,7 @@
 import type { Ref } from "vue";
 import type { Router } from "vue-router";
 import { useAuthStore } from "@/stores/modules/auth";
+import { useTabsStore } from "@/stores/modules/tabs";
 import { AES } from "@/utils/encrypt";
 
 const formModel = reactive({
@@ -31,9 +32,9 @@ const handleLogin = (formRef: Ref, router: Router): void => {
       useAuthStore()
         .login(loginParams)
         .then(() => {
-          const params = router.currentRoute.value.query;
+          useTabsStore().closeAllTabs("/");
           router.replace({
-            path: params.redirect ? String(params.redirect) : "/",
+            path: "/",
           });
 
           loading.value = false;
