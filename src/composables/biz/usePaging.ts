@@ -6,21 +6,42 @@ import {
 } from "@/models/enums";
 import { Confirm, Message } from "@/utils/message";
 
+/**
+ * 分页接口
+ */
 export type FetchPageAPI<T, C> = (
   page: Page,
   condition?: C
 ) => Promise<R<Page<T>>>;
 
+/**
+ * 删除记录接口
+ */
 export type DeleteRecordAPI = (id: string) => Promise<R<void>>;
 
+/**
+ * 更新记录接口
+ */
 export type UpdateRecordAPI<T> = (record: T) => Promise<R<void>>;
 
+/**
+ * 获取分页数据方法
+ */
 export type FetchPage<T, C> = (page: Page, condition?: C) => Promise<Page<T>>;
 
+/**
+ * 删除记录方法
+ */
 export type DeleteRecord = (id: string) => Promise<void>;
 
+/**
+ * 更新记录方法
+ */
 export type UpdateRecord<T> = (record: T) => Promise<void>;
 
+/**
+ * 操作回调
+ */
 export type ActionCallback = (params?: PageChangeParams) => void;
 
 export const transformPage = <T, C>(
@@ -103,6 +124,9 @@ export const usePaging = <Record, Condition>(
   };
 };
 
+/**
+ * 确认删除
+ */
 export const useConfirmDelete = (
   deleteRecord: DeleteRecord,
   callback?: ActionCallback
@@ -123,6 +147,9 @@ export const useConfirmDelete = (
   };
 };
 
+/**
+ * 确认更新
+ */
 export const useConfirmUpdate = <Record>(
   updateRecord: UpdateRecord<Record>,
   callback?: ActionCallback
@@ -148,6 +175,9 @@ export interface StatusRecord {
   status: CommonStatus;
 }
 
+/**
+ * 确认修改状态
+ */
 export const useConfirmStatus = (
   updateRecord: UpdateRecord<StatusRecord>,
   callback?: ActionCallback

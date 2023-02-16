@@ -29,9 +29,16 @@
           text
           link
           :status="item.status"
-          @click="handleDisable(item)"
+          @click="
+            confirmStatus.exec(item.id, item.status, `权限(${item.name})`)
+          "
         />
-        <in-button type="danger" text link @click="handleDelete(item)">
+        <in-button
+          type="danger"
+          text
+          link
+          @click="confirmDelete.exec(item.id, `是否删除权限(${item.name})`)"
+        >
           <template #icon>
             <i-ep:delete />
           </template>
@@ -49,12 +56,14 @@
 <script lang="ts" setup>
 import { tableHeaders } from "./table";
 import type { SysAuthority, AuthorityTreeNode } from "@/models";
-import { CommonStatus, getCommonStatusActionDesc } from "@/models/enums";
 import EditDialog from "./EditDialog.vue";
 import type { API as EditDialogAPI } from "./EditDialog.vue";
 import type { TableAPI } from "@/components/table";
 import { useAuthorityStore } from "@/stores/modules/authority";
-import { Confirm, Message } from "@/utils/message";
+import {
+  useConfirmDelete,
+  useConfirmStatus,
+} from "@/composables/biz/usePaging";
 
 onMounted(() => {
   fetchData();
@@ -81,30 +90,14 @@ const fetchData = (): void => {
     .catch(() => (loading.value = false));
 };
 
-const handleDelete = (params: SysAuthority): void => {
-  Confirm.warning(`是否删除权限(${params.name})`).then(() => {
-    authorityStore.removeAuthority(params.id as string).then(() => {
-      Message.success("操作成功");
-      fetchData();
-    });
-  });
-};
-
-const handleDisable = (params: SysAuthority): void => {
-  const status =
-    params.status === CommonStatus.Enable
-      ? CommonStatus.Lock
-      : CommonStatus.Enable;
-  const message = `是否${getCommonStatusActionDesc(status)}权限(${
-    params.name
-  })`;
-  Confirm.warning(message).then(() => {
-    authorityStore.updateAuthority({ id: params.id, status }).then(() => {
-      Message.success("操作成功");
-      fetchData();
-    });
-  });
-};
+const confirmStatus = useConfirmStatus(
+  authorityStore.updateAuthority,
+  fetchData
+);
+const confirmDelete = useConfirmDelete(
+  authorityStore.removeAuthority,
+  fetchData
+);
 
 const handleCreate = (): void => {
   editDialogRef.value?.show();
