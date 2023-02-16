@@ -1,4 +1,9 @@
 import type { R, Page, PageChangeParams } from "@/models";
+import type { CommonStatus } from "@/models/enums";
+import {
+  getCommonStatusActionDesc,
+  getCommonStatusToggle,
+} from "@/models/enums";
 import { Confirm, Message } from "@/utils/message";
 
 export type FetchPageAPI<T, C> = (
@@ -73,7 +78,7 @@ export const usePaging = <Record, Condition>(
     records: [],
   }) as Page<Record>;
 
-  const fetchData = (params?: PageChangeParams): void => {
+  const exec = (params?: PageChangeParams): void => {
     if (params) {
       pageInfo[params.type] = params.value;
     }
@@ -94,7 +99,7 @@ export const usePaging = <Record, Condition>(
     loading,
     condition,
     pageInfo,
-    fetchData,
+    exec,
   };
 };
 
@@ -102,7 +107,7 @@ export const useConfirmDelete = (
   deleteRecord: DeleteRecord,
   callback?: ActionCallback
 ) => {
-  const handleDelete = (id: string, message: string) => {
+  const exec = (id: string, message: string) => {
     Confirm.warning(message).then(() => {
       deleteRecord(id).then(() => {
         Message.success("操作成功");
@@ -114,7 +119,7 @@ export const useConfirmDelete = (
   };
 
   return {
-    handleDelete,
+    exec,
   };
 };
 
@@ -122,7 +127,7 @@ export const useConfirmUpdate = <Record>(
   updateRecord: UpdateRecord<Record>,
   callback?: ActionCallback
 ) => {
-  const handleUpdate = (params: Record, message: string) => {
+  const exec = (params: Record, message: string) => {
     Confirm.warning(message).then(() => {
       updateRecord(params).then(() => {
         Message.success("操作成功");
@@ -134,6 +139,35 @@ export const useConfirmUpdate = <Record>(
   };
 
   return {
-    handleUpdate,
+    exec,
+  };
+};
+
+export interface StatusRecord {
+  id: string;
+  status: CommonStatus;
+}
+
+export const useConfirmStatus = (
+  updateRecord: UpdateRecord<StatusRecord>,
+  callback?: ActionCallback
+) => {
+  const exec = (id: string, status: CommonStatus, opsTragetText: string) => {
+    Confirm.warning(
+      `是否${getCommonStatusActionDesc(
+        getCommonStatusToggle(status)
+      )}${opsTragetText}`
+    ).then(() => {
+      updateRecord({ id, status: getCommonStatusToggle(status) }).then(() => {
+        Message.success("操作成功");
+        if (callback) {
+          callback();
+        }
+      });
+    });
+  };
+
+  return {
+    exec,
   };
 };

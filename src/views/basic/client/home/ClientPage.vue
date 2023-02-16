@@ -17,7 +17,7 @@
           <in-button
             type="primary"
             :loading="paging.loading.value"
-            @in-click="paging.fetchData"
+            @in-click="paging.exec"
           >
             搜索
           </in-button>
@@ -30,9 +30,9 @@
       :data="paging.pageInfo.records"
       :headers="tableHeaders"
       :page="paging.pageInfo"
-      @handleSizeChange="paging.fetchData"
-      @handleCurrentChange="paging.fetchData"
-      @refresh="paging.fetchData"
+      @handleSizeChange="paging.exec"
+      @handleCurrentChange="paging.exec"
+      @refresh="paging.exec"
     >
       <template #toolbar>
         <in-button type="primary" @click="handleCreate()"> 添加 </in-button>
@@ -75,12 +75,7 @@
           link
           :status="item.status"
           @click="
-            confirmUpdate.handleUpdate(
-              { id: item.id, status: getCommonStatusToggle(item.status) },
-              `是否${getCommonStatusActionDesc(
-                getCommonStatusToggle(item.status)
-              )}客户端(${item.clientId})`
-            )
+            confirmStatus.exec(item.id, item.status, `客户端(${item.clientId})`)
           "
         />
         <in-button
@@ -88,10 +83,7 @@
           link
           type="danger"
           @click="
-            confirmDelete.handleDelete(
-              item.id,
-              `是否删除客户端(${item.clientId})`
-            )
+            confirmDelete.exec(item.id, `是否删除客户端(${item.clientId})`)
           "
         >
           <template #icon>
@@ -102,17 +94,12 @@
       </template>
     </in-table>
   </in-filter-container>
-  <CreateDialog ref="CreateDialogRef" @success="paging.fetchData" />
+  <CreateDialog ref="CreateDialogRef" @success="paging.exec" />
 </template>
 <script lang="ts" setup>
 import { tableHeaders } from "./table";
 import type { OAuth2RegisteredClient } from "@/models";
-import {
-  getTokenAuthMethodTag,
-  getTokenAuthMethodLabel,
-  getCommonStatusActionDesc,
-  getCommonStatusToggle,
-} from "@/models/enums";
+import { getTokenAuthMethodTag, getTokenAuthMethodLabel } from "@/models/enums";
 import {
   ClientPageAPI,
   UpdateClientAPI,
@@ -121,7 +108,7 @@ import {
 import {
   usePaging,
   useConfirmDelete,
-  useConfirmUpdate,
+  useConfirmStatus,
   transformPage,
   transformDelete,
   transformUpdate,
@@ -131,18 +118,18 @@ import type { API as CreateDialogAPI } from "./CreateDialog.vue";
 import router from "@/router";
 
 onMounted(() => {
-  paging.fetchData();
+  paging.exec();
 });
 
 const CreateDialogRef = ref<CreateDialogAPI>();
 const paging = usePaging(transformPage(ClientPageAPI));
-const confirmUpdate = useConfirmUpdate(
+const confirmStatus = useConfirmStatus(
   transformUpdate(UpdateClientAPI),
-  paging.fetchData
+  paging.exec
 );
 const confirmDelete = useConfirmDelete(
   transformDelete(RemoveClientAPI),
-  paging.fetchData
+  paging.exec
 );
 
 const handleCreate = (): void => {
