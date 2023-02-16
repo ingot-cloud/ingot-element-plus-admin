@@ -60,10 +60,6 @@ import EditDialog from "./EditDialog.vue";
 import type { API as EditDialogAPI } from "./EditDialog.vue";
 import type { TableAPI } from "@/components/table";
 import { useAuthorityStore } from "@/stores/modules/authority";
-import {
-  useConfirmDelete,
-  useConfirmStatus,
-} from "@/composables/biz/usePaging";
 
 onMounted(() => {
   fetchData();

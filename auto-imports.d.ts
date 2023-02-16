@@ -108,9 +108,9 @@ declare global {
   const toReactive: typeof import('@vueuse/core')['toReactive']
   const toRef: typeof import('vue')['toRef']
   const toRefs: typeof import('vue')['toRefs']
-  const transformDelete: typeof import('./src/composables/biz/usePaging')['transformDelete']
-  const transformPage: typeof import('./src/composables/biz/usePaging')['transformPage']
-  const transformUpdate: typeof import('./src/composables/biz/usePaging')['transformUpdate']
+  const transformDeleteAPI: typeof import('./src/composables/biz/usePaging')['transformDeleteAPI']
+  const transformPageAPI: typeof import('./src/composables/biz/usePaging')['transformPageAPI']
+  const transformUpdateAPI: typeof import('./src/composables/biz/usePaging')['transformUpdateAPI']
   const triggerRef: typeof import('vue')['triggerRef']
   const tryOnBeforeMount: typeof import('@vueuse/core')['tryOnBeforeMount']
   const tryOnBeforeUnmount: typeof import('@vueuse/core')['tryOnBeforeUnmount']
@@ -144,6 +144,7 @@ declare global {
   const useColorMode: typeof import('@vueuse/core')['useColorMode']
   const useConfirmDelete: typeof import('./src/composables/biz/usePaging')['useConfirmDelete']
   const useConfirmDialog: typeof import('@vueuse/core')['useConfirmDialog']
+  const useConfirmStatus: typeof import('./src/composables/biz/usePaging')['useConfirmStatus']
   const useConfirmUpdate: typeof import('./src/composables/biz/usePaging')['useConfirmUpdate']
   const useCounter: typeof import('@vueuse/core')['useCounter']
   const useCssModule: typeof import('vue')['useCssModule']
@@ -404,9 +405,9 @@ declare module 'vue' {
     readonly toReactive: UnwrapRef<typeof import('@vueuse/core')['toReactive']>
     readonly toRef: UnwrapRef<typeof import('vue')['toRef']>
     readonly toRefs: UnwrapRef<typeof import('vue')['toRefs']>
-    readonly transformDelete: UnwrapRef<typeof import('./src/composables/biz/usePaging')['transformDelete']>
-    readonly transformPage: UnwrapRef<typeof import('./src/composables/biz/usePaging')['transformPage']>
-    readonly transformUpdate: UnwrapRef<typeof import('./src/composables/biz/usePaging')['transformUpdate']>
+    readonly transformDeleteAPI: UnwrapRef<typeof import('./src/composables/biz/usePaging')['transformDeleteAPI']>
+    readonly transformPageAPI: UnwrapRef<typeof import('./src/composables/biz/usePaging')['transformPageAPI']>
+    readonly transformUpdateAPI: UnwrapRef<typeof import('./src/composables/biz/usePaging')['transformUpdateAPI']>
     readonly triggerRef: UnwrapRef<typeof import('vue')['triggerRef']>
     readonly tryOnBeforeMount: UnwrapRef<typeof import('@vueuse/core')['tryOnBeforeMount']>
     readonly tryOnBeforeUnmount: UnwrapRef<typeof import('@vueuse/core')['tryOnBeforeUnmount']>
@@ -440,6 +441,7 @@ declare module 'vue' {
     readonly useColorMode: UnwrapRef<typeof import('@vueuse/core')['useColorMode']>
     readonly useConfirmDelete: UnwrapRef<typeof import('./src/composables/biz/usePaging')['useConfirmDelete']>
     readonly useConfirmDialog: UnwrapRef<typeof import('@vueuse/core')['useConfirmDialog']>
+    readonly useConfirmStatus: UnwrapRef<typeof import('./src/composables/biz/usePaging')['useConfirmStatus']>
     readonly useConfirmUpdate: UnwrapRef<typeof import('./src/composables/biz/usePaging')['useConfirmUpdate']>
     readonly useCounter: UnwrapRef<typeof import('@vueuse/core')['useCounter']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>

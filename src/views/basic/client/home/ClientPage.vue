@@ -105,14 +105,7 @@ import {
   UpdateClientAPI,
   RemoveClientAPI,
 } from "@/api/basic/client";
-import {
-  usePaging,
-  useConfirmDelete,
-  useConfirmStatus,
-  transformPage,
-  transformDelete,
-  transformUpdate,
-} from "@/composables/biz/usePaging";
+
 import CreateDialog from "./CreateDialog.vue";
 import type { API as CreateDialogAPI } from "./CreateDialog.vue";
 import router from "@/router";
@@ -122,13 +115,13 @@ onMounted(() => {
 });
 
 const CreateDialogRef = ref<CreateDialogAPI>();
-const paging = usePaging(transformPage(ClientPageAPI));
+const paging = usePaging(transformPageAPI(ClientPageAPI));
 const confirmStatus = useConfirmStatus(
-  transformUpdate(UpdateClientAPI),
+  transformUpdateAPI(UpdateClientAPI),
   paging.exec
 );
 const confirmDelete = useConfirmDelete(
-  transformDelete(RemoveClientAPI),
+  transformDeleteAPI(RemoveClientAPI),
   paging.exec
 );
 
