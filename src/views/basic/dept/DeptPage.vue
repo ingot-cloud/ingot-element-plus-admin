@@ -27,7 +27,13 @@
           </template>
           编辑
         </in-button>
-        <in-button type="danger" text link @click="handleDelete(item)">
+        <in-button
+          type="danger"
+          text
+          link
+          @click="confirmDelete.exec(item.id, `是否删除部门(${item.name})`)"
+          :disabled="!item.canAction"
+        >
           <template #icon>
             <i-ep:delete />
           </template>
@@ -46,7 +52,6 @@
 import { tableHeaders } from "./table";
 import { RootDept } from "@/models";
 import type { SysDept, DeptTreeNode } from "@/models";
-import { Confirm, Message } from "@/utils/message";
 import { useDeptStore } from "@/stores/modules/dept";
 import EditDialog from "./components/EditDialog.vue";
 import type { API as EditDialogAPI } from "./components/EditDialog.vue";
@@ -80,13 +85,6 @@ const showEditDialog = (params?: SysDept | string) => {
   editDialogRef.value?.show(params);
 };
 
-const handleDelete = (params: SysDept) => {
-  Confirm.warning(`是否删除部门${params.name}`).then(() => {
-    deptStore.removeDept(params.id as string).then(() => {
-      Message.success("操作成功");
-      fetchData();
-    });
-  });
-};
+const confirmDelete = useConfirmDelete(deptStore.removeDept, fetchData);
 </script>
 <style lang="stylus" scoped></style>

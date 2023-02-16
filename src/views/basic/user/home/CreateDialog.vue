@@ -8,7 +8,16 @@
       :rules="rules"
     >
       <el-form-item label="部门名称">
-        {{ deptName }}
+        <el-tree-select
+          w-full
+          v-model="editForm.deptId"
+          :data="deptTree"
+          :node-key="TreeKeyAndProps.nodeKey"
+          :value-key="TreeKeyAndProps.nodeKey"
+          :props="TreeKeyAndProps.props"
+          :check-strictly="true"
+          clearable
+        />
       </el-form-item>
       <el-form-item label="用户名" prop="username">
         <el-input
@@ -80,9 +89,11 @@ export interface API {
 <script lang="ts" setup>
 import type { PropType } from "vue";
 import type { Option } from "@/models";
+import { TreeKeyAndProps } from "@/models";
 import { Message } from "@/utils/message";
 import { copyParamsWithKeys, copyParams } from "@/utils/object";
 import { CreateUserAPI } from "@/api/basic/user";
+import { useDeptStore } from "@/stores/modules/dept";
 
 const keys = ["username", "roleIds", "phone", "nickname", "email"];
 
@@ -94,6 +105,7 @@ interface CreateUser {
   phone?: string;
   nickname?: string;
   email?: string;
+  deptId?: string;
 }
 
 const defaultEditForm: CreateUser = {
@@ -104,10 +116,11 @@ const defaultEditForm: CreateUser = {
   phone: undefined,
   nickname: undefined,
   email: undefined,
+  deptId: undefined,
 };
 
 const emits = defineEmits(["success"]);
-const props = defineProps({
+defineProps({
   deptName: {
     type: String,
     default: "",
@@ -126,6 +139,8 @@ const visible = ref(false);
 const loading = ref(false);
 const editForm = reactive(Object.assign({}, defaultEditForm));
 const createForm = ref();
+const deptStore = useDeptStore();
+const { deptTree } = storeToRefs(deptStore);
 
 const rules = {
   username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
@@ -155,7 +170,6 @@ const handleConfirmClick = () => {
       }
       loading.value = true;
       const params = {
-        deptId: props.deptId,
         newPassword: editForm.password,
       };
       copyParamsWithKeys(params, editForm, keys);
