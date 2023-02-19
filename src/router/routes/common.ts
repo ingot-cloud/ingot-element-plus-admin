@@ -44,4 +44,19 @@ export const commonRoutes: Array<RouteRecordRaw> = [
       },
     ],
   },
+  {
+    path: "/500",
+    meta: { hideMenu: true, breadcrumbHidden: true, permitAuth: true },
+    component: () => import("@/views/common/errors/500Page.vue"),
+  },
+  {
+    path: "/403",
+    meta: { hideMenu: true, breadcrumbHidden: true, permitAuth: true },
+    component: () => import("@/views/common/errors/403Page.vue"),
+  },
+  {
+    path: "/404",
+    meta: { hideMenu: true, breadcrumbHidden: true, permitAuth: true },
+    component: () => import("@/views/common/errors/404Page.vue"),
+  },
 ];

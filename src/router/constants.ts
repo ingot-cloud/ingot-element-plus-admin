@@ -1,7 +1,7 @@
 export const NotFound = {
   path: "/:pathMatch(.*)",
   meta: { hideMenu: true, breadcrumbHidden: true },
-  component: () => import("@/views/common/errors/NotFound.vue"),
+  redirect: "/404",
 };
 
 /**
