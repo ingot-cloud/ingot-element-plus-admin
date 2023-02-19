@@ -1,5 +1,5 @@
 export interface UserDropdownCommand {
-  action: "router" | "logout" | "user";
+  action: "fixPwd" | "logout" | "user";
   params: string;
 }
 
@@ -11,15 +11,15 @@ export interface UserDropdownMenuItem {
 }
 
 export const menuList: Array<UserDropdownMenuItem> = [
+  // {
+  //   divided: false,
+  //   command: { action: "user", params: "" },
+  //   icon: "ep-user",
+  //   title: "个人信息",
+  // },
   {
     divided: false,
-    command: { action: "user", params: "" },
-    icon: "ep-user",
-    title: "个人信息",
-  },
-  {
-    divided: false,
-    command: { action: "router", params: "" },
+    command: { action: "fixPwd", params: "" },
     icon: "ep-edit",
     title: "修改密码",
   },

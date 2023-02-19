@@ -27,6 +27,8 @@
       </template>
     </el-dropdown>
   </div>
+
+  <FixPwdDialog ref="pwdDialogRef" />
 </template>
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue";
@@ -34,10 +36,15 @@ import type { UserDropdownCommand } from "./types";
 import { menuList } from "./types";
 import { useUserInfoStore } from "@/stores/modules/auth";
 import { logoutAndReload } from "@/utils/security";
+import FixPwdDialog from "./FixPwdDialog.vue";
 
+const pwdDialogRef = ref();
 const { getUsername } = storeToRefs(useUserInfoStore());
 const handleMenuCommand = (command: UserDropdownCommand): void => {
   switch (command.action) {
+    case "fixPwd":
+      pwdDialogRef.value.show();
+      break;
     case "logout":
       logoutAndReload();
       break;

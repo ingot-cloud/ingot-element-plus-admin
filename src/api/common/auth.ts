@@ -1,5 +1,5 @@
 import Http from "@/net";
-import type { UserToken, R } from "@/models";
+import type { UserToken, R, UserPasswordDTO } from "@/models";
 import { useAppStore } from "@/stores/modules/app";
 import { storeToRefs } from "pinia";
 
@@ -52,4 +52,8 @@ export function RevokeTokenAPI(token: string): Promise<R> {
     },
     manualProcessingFailure: true,
   });
+}
+
+export function FixPasswordAPI(params: UserPasswordDTO): Promise<R> {
+  return Http.put<void>("/api/pms/common/pwd/fix", params);
 }

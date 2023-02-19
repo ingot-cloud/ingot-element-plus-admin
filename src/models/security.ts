@@ -17,3 +17,8 @@ export interface UserInfo {
   user?: User;
   roles: Array<string>;
 }
+
+export interface UserPasswordDTO {
+  password?: string;
+  newPassword?: string;
+}
