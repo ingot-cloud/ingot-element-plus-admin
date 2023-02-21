@@ -25,4 +25,4 @@
   * [ ] Form封装
   
 ### Doc
-  1. 创建菜单，如果没有设置视图路径，默认使用`@/views/``菜单路径``IndexPage.vue`
+  1. 创建菜单，如果没有设置视图路径，默认使用`@/views/菜单路径/IndexPage.vue`
