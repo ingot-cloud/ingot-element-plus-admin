@@ -51,6 +51,7 @@ declare module '@vue/runtime-core' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElTree: typeof import('element-plus/es')['ElTree']
     ElTreeSelect: typeof import('element-plus/es')['ElTreeSelect']
+    FixPwdDialog: typeof import('./src/components/user-dropdown/FixPwdDialog.vue')['default']
     'ICarbon:parentChild': typeof import('~icons/carbon/parent-child')['default']
     'IClarity:closeLine': typeof import('~icons/clarity/close-line')['default']
     'IClarity:minusLine': typeof import('~icons/clarity/minus-line')['default']

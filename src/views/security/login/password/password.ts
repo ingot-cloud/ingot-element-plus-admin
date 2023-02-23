@@ -43,7 +43,6 @@ const handleLogin = (formRef: Ref, router: Router): void => {
         .catch(() => {
           loading.value = false;
         });
-      loading.value = false;
     }
   });
 };
