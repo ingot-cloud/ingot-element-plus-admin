@@ -102,6 +102,7 @@ declare module '@vue/runtime-core' {
     InSwitchDark: typeof import('./src/components/InSwitchDark.vue')['default']
     InTable: typeof import('./src/components/table/InTable.vue')['default']
     InTabs: typeof import('./src/components/InTabs.vue')['default']
+    InTag: typeof import('./src/components/biz/InTag.vue')['default']
     InUpload: typeof import('./src/components/upload/InUpload.vue')['default']
     InUserDropdown: typeof import('./src/components/user-dropdown/InUserDropdown.vue')['default']
     InWithLabel: typeof import('./src/components/InWithLabel.vue')['default']
