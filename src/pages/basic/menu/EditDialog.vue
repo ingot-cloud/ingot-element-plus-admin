@@ -263,9 +263,9 @@ const visible = ref(false);
 const isDirectory = () => {
   return editForm.menuType == MenuType.Directory;
 };
-const isMenu = () => {
-  return editForm.menuType == MenuType.Menu;
-};
+// const isMenu = () => {
+//   return editForm.menuType == MenuType.Menu;
+// };
 const isButton = () => {
   return editForm.menuType == MenuType.Button;
 };

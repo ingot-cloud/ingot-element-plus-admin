@@ -11,6 +11,6 @@ export const securityRoutes: Array<RouteRecordRaw> = [
       hideMenu: true,
       breadcrumbHidden: true,
     },
-    component: () => import("@/views/security/login/LoginPage.vue"),
+    component: () => import("@/pages/security/login/IndexPage.vue"),
   },
 ];

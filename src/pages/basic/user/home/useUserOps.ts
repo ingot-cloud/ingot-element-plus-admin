@@ -47,7 +47,7 @@ export const useUserOps = () => {
    */
   const handleDetailUser = (params: UserPageItemVO): void => {
     router.push({
-      path: `/basic/user/detail/${params.userId}`,
+      path: `/basic/user/details/${params.userId}`,
     });
   };
 

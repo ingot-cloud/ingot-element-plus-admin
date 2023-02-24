@@ -48,7 +48,7 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
       // https://github.com/antfu/vite-plugin-components
       Components({
         dts: "./components.d.ts",
-        dirs: ["./src/components"],
+        dirs: ["./src/components", "./src/layouts"],
         resolvers: [
           ElementPlusResolver(),
           IconsResolver({

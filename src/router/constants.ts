@@ -3,19 +3,25 @@ export const NotFound = {
   meta: { hideMenu: true, breadcrumbHidden: true },
   redirect: "/404",
 };
+export enum PageLayoutViewPath {
+  MAIN = "@/layouts/InAppLayout.vue",
+  SIMPLE = "@/layouts/InSimpleLayout.vue",
+}
 
 /**
  * 布局视图
  */
-export const LAYOUT = () => import("@/components/layout/InAppLayout.vue");
+export const LAYOUT_MAIN = () => import(PageLayoutViewPath.MAIN);
+export const LAYOUT_SIMPLE = () => import(PageLayoutViewPath.SIMPLE);
 
-const dynamicViewsModules = import.meta.glob("@/views/**/*.vue");
+const dynamicViewsModules = import.meta.glob("@/pages/**/*.vue");
 Object.keys(dynamicViewsModules).forEach((key) => {
   dynamicViewsModules[`@${key.substring("/src".length)}`] =
     dynamicViewsModules[key];
   delete dynamicViewsModules[key];
 });
-dynamicViewsModules["@/components/layout/InAppLayout.vue"] = LAYOUT;
+dynamicViewsModules[PageLayoutViewPath.MAIN] = LAYOUT_MAIN;
+dynamicViewsModules[PageLayoutViewPath.SIMPLE] = LAYOUT_SIMPLE;
 
 export const importComponent = (viewPath: string) => {
   return dynamicViewsModules[viewPath];

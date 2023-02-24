@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from "vue-router";
 import { PageNameEnum, PagePathEnum, RedirectField } from "@/models/enums";
-import { LAYOUT } from "@/router/constants";
+import { LAYOUT_MAIN } from "@/router/constants";
 
 /**
  * 公共路由
@@ -8,7 +8,7 @@ import { LAYOUT } from "@/router/constants";
 export const commonRoutes: Array<RouteRecordRaw> = [
   {
     path: "/redirect",
-    component: LAYOUT,
+    component: LAYOUT_MAIN,
     meta: {
       title: PageNameEnum.REDIRECT,
       hideMenu: true,
@@ -19,7 +19,7 @@ export const commonRoutes: Array<RouteRecordRaw> = [
         props: true,
         path: `/redirect/:${RedirectField.PATH}(.*):${RedirectField.TYPE}(.*)`,
         name: PageNameEnum.REDIRECT,
-        component: () => import("@/views/common/redirect/RedirectPage.vue"),
+        component: () => import("@/pages/common/redirect/IndexPage.vue"),
         meta: {
           title: PageNameEnum.REDIRECT,
           hideMenu: true,
@@ -31,7 +31,7 @@ export const commonRoutes: Array<RouteRecordRaw> = [
   {
     path: "/",
     redirect: PagePathEnum.HOME,
-    component: LAYOUT,
+    component: LAYOUT_MAIN,
     children: [
       {
         path: PagePathEnum.HOME,
@@ -40,23 +40,23 @@ export const commonRoutes: Array<RouteRecordRaw> = [
           icon: "ingot:home",
           isAffix: true,
         },
-        component: () => import("@/views/dashboard/DashboardPage.vue"),
+        component: () => import("@/pages/dashboard/IndexPage.vue"),
       },
     ],
   },
   {
     path: "/500",
     meta: { hideMenu: true, breadcrumbHidden: true, permitAuth: true },
-    component: () => import("@/views/common/errors/500Page.vue"),
+    component: () => import("@/pages/common/errors/500Page.vue"),
   },
   {
     path: "/403",
     meta: { hideMenu: true, breadcrumbHidden: true, permitAuth: true },
-    component: () => import("@/views/common/errors/403Page.vue"),
+    component: () => import("@/pages/common/errors/403Page.vue"),
   },
   {
     path: "/404",
     meta: { hideMenu: true, breadcrumbHidden: true, permitAuth: true },
-    component: () => import("@/views/common/errors/404Page.vue"),
+    component: () => import("@/pages/common/errors/404Page.vue"),
   },
 ];

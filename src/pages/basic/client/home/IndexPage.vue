@@ -131,7 +131,7 @@ const handleCreate = (): void => {
 
 const handleManager = (params: OAuth2RegisteredClient): void => {
   router.push({
-    path: `/basic/client/${params.id}`,
+    path: `/basic/client/details/${params.id}`,
   });
 };
 
