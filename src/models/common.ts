@@ -2,6 +2,22 @@ import { CommonStatus } from "./enums";
 
 export type ElTagType = "" | "success" | "warning" | "info" | "danger";
 
+export interface EnumExt<T = string> extends TagText {
+  value: T;
+}
+
+export const newEnumExt = <T>(
+  value: T,
+  text: string,
+  tag?: ElTagType
+): EnumExt<T> => {
+  return {
+    value,
+    text,
+    tag: tag || "",
+  };
+};
+
 export interface TagText {
   tag: ElTagType;
   text: string;

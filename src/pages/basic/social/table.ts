@@ -1,5 +1,5 @@
 import type { TableHeaderRecord } from "@/components/table";
-import { getSocialTypeText } from "@/models/enums";
+import { useSocialTypeEnumsEnum } from "@/models/enums";
 
 export const tableHeaders: Array<TableHeaderRecord> = [
   {
@@ -23,7 +23,7 @@ export const tableHeaders: Array<TableHeaderRecord> = [
   {
     label: "类型",
     prop: "type",
-    transform: (v) => getSocialTypeText(v),
+    transform: (v) => useSocialTypeEnumsEnum.getTagText(v).text,
   },
   {
     label: "重定向地址",

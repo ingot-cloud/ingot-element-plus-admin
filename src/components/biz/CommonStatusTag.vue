@@ -1,9 +1,8 @@
 <template>
-  <el-tag :type="getCommonStatusTag(status)">
-    {{ getCommonStatusDesc(status) }}
-  </el-tag>
+  <in-tag :value="statusEnum.getTagText(status)" />
 </template>
 <script lang="ts" setup>
-import { getCommonStatusDesc, getCommonStatusTag } from "@/models/enums";
+import { CommonStatusEnumExtArray } from "@/models/enums";
 defineProps(["status"]);
+const statusEnum = useEnum(CommonStatusEnumExtArray);
 </script>

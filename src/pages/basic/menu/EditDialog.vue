@@ -23,7 +23,7 @@
         <in-select
           w-full
           v-model="editForm.menuType"
-          :options="MenuTypeOptions"
+          :options="useMenuTypeEnum.getOptions()"
           clearable
         />
       </el-form-item>
@@ -140,10 +140,10 @@
           <el-form-item prop="status" label="状态">
             <el-radio-group v-model="editForm.status">
               <el-radio-button :label="CommonStatus.Enable">
-                {{ getCommonStatusDesc(CommonStatus.Enable) }}
+                {{ statusEnum.getTagText(CommonStatus.Enable).text }}
               </el-radio-button>
               <el-radio-button :label="CommonStatus.Lock">
-                {{ getCommonStatusDesc(CommonStatus.Lock) }}
+                {{ statusEnum.getTagText(CommonStatus.Lock).text }}
               </el-radio-button>
             </el-radio-group>
           </el-form-item>
@@ -204,9 +204,9 @@ import type { SysMenu } from "@/models";
 import { TreeKeyAndProps } from "@/models";
 import {
   CommonStatus,
-  getCommonStatusDesc,
+  CommonStatusEnumExtArray,
   MenuType,
-  MenuTypeOptions,
+  useMenuTypeEnum,
 } from "@/models/enums";
 import { CreateMenuAPI, UpdateMenuAPI } from "@/api/basic/menu";
 import { Message } from "@/utils/message";
@@ -249,6 +249,7 @@ defineProps({
   },
 });
 
+const statusEnum = useEnum(CommonStatusEnumExtArray);
 const iconButtonRef = ref();
 const iconPopoverRef = ref();
 const editFormRef = ref();

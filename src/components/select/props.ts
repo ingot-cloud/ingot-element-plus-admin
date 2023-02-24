@@ -1,5 +1,5 @@
 import type { PropType } from "vue";
-import type { SelectRecord } from "./types";
+import type { Option } from "@/models";
 
 export const selectProps = {
   modelValue: {
@@ -17,7 +17,7 @@ export const selectProps = {
     default: false,
   },
   options: {
-    type: Array as PropType<Array<SelectRecord>>,
+    type: Array as PropType<Array<Option>>,
     default() {
       return [];
     },

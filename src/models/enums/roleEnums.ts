@@ -1,20 +1,11 @@
-import type { Option } from "../common";
+import { newEnumExt } from "../common";
 
 export enum RoleType {
   System = "0",
   Custom = "9",
 }
-
-export const getRoleTypeText = (type: RoleType): string => {
-  switch (type) {
-    case RoleType.System:
-      return "系统默认";
-    case RoleType.Custom:
-      return "自定义";
-  }
-};
-
-export const RoleTypeOptions: Array<Option<string>> = [
-  { label: getRoleTypeText(RoleType.System), value: RoleType.System },
-  { label: getRoleTypeText(RoleType.Custom), value: RoleType.Custom },
+export const RoleTypeEnumExtArray = [
+  newEnumExt(RoleType.System, "系统默认", "success"),
+  newEnumExt(RoleType.Custom, "自定义", "warning"),
 ];
+export const useRoleTypeEnum = useEnum(RoleTypeEnumExtArray);

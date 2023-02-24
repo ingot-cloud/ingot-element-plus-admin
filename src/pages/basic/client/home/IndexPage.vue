@@ -56,9 +56,9 @@
         </el-tag>
       </template>
       <template #tokenAuthType="{ item }">
-        <el-tag :type="getTokenAuthMethodTag(item.tokenAuthType)">
-          {{ getTokenAuthMethodLabel(item.tokenAuthType) }}
-        </el-tag>
+        <in-tag
+          :value="useTokenAuthMethodEnum.getTagText(item.tokenAuthType)"
+        />
       </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status" />
@@ -99,7 +99,7 @@
 <script lang="ts" setup>
 import { tableHeaders } from "./table";
 import type { OAuth2RegisteredClient } from "@/models";
-import { getTokenAuthMethodTag, getTokenAuthMethodLabel } from "@/models/enums";
+import { useTokenAuthMethodEnum } from "@/models/enums";
 import {
   ClientPageAPI,
   UpdateClientAPI,

@@ -36,7 +36,7 @@
               w-full
               v-model="editForm.type"
               placeholder="请选择角色类型"
-              :options="RoleTypeOptions"
+              :options="useRoleTypeEnum.getOptions()"
               clearable
             />
           </el-form-item>
@@ -75,7 +75,7 @@ import type { RolePageItemVO, SysRole } from "@/models";
 import { Message } from "@/utils/message";
 import { copyParams, copyParamsWithKeys } from "@/utils/object";
 import { useRoleStore } from "@/stores/modules/role";
-import { RoleTypeOptions } from "@/models/enums/roleEnums";
+import { useRoleTypeEnum } from "@/models/enums/roleEnums";
 
 const rules = {
   name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],

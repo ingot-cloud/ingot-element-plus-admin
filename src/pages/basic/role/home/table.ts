@@ -1,5 +1,5 @@
 import type { TableHeaderRecord } from "@/components/table";
-import { getRoleTypeText } from "@/models/enums/roleEnums";
+import { useRoleTypeEnum } from "@/models/enums/roleEnums";
 import type { RoleType } from "@/models/enums/roleEnums";
 
 export const tableHeaders: Array<TableHeaderRecord> = [
@@ -20,7 +20,8 @@ export const tableHeaders: Array<TableHeaderRecord> = [
   {
     label: "角色类型",
     prop: "type",
-    transform: (value: string) => getRoleTypeText(value as RoleType),
+    transform: (value: string) =>
+      useRoleTypeEnum.getTagText(value as RoleType).text,
   },
   {
     label: "状态",

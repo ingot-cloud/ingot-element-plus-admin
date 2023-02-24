@@ -25,10 +25,15 @@
           <el-form-item prop="scope" label="权限范围">
             <el-radio-group v-model="editForm.scope">
               <el-radio-button :label="DeptRoleScope.Current">
-                {{ getDeptRoleScopeDesc(DeptRoleScope.Current) }}
+                {{
+                  useDeptRoleScopeEnum.getTagText(DeptRoleScope.Current).text
+                }}
               </el-radio-button>
               <el-radio-button :label="DeptRoleScope.CurrentChild">
-                {{ getDeptRoleScopeDesc(DeptRoleScope.CurrentChild) }}
+                {{
+                  useDeptRoleScopeEnum.getTagText(DeptRoleScope.CurrentChild)
+                    .text
+                }}
               </el-radio-button>
             </el-radio-group>
           </el-form-item>
@@ -49,10 +54,10 @@
           <el-form-item prop="status" label="状态">
             <el-radio-group v-model="editForm.status">
               <el-radio-button :label="CommonStatus.Enable">
-                {{ getCommonStatusDesc(CommonStatus.Enable) }}
+                {{ statusEnum.getTagText(CommonStatus.Enable).text }}
               </el-radio-button>
               <el-radio-button :label="CommonStatus.Lock">
-                {{ getCommonStatusDesc(CommonStatus.Lock) }}
+                {{ statusEnum.getTagText(CommonStatus.Lock).text }}
               </el-radio-button>
             </el-radio-group>
           </el-form-item>
@@ -85,9 +90,9 @@ export interface API {
 <script lang="ts" setup>
 import {
   DeptRoleScope,
-  getDeptRoleScopeDesc,
+  useDeptRoleScopeEnum,
   CommonStatus,
-  getCommonStatusDesc,
+  CommonStatusEnumExtArray,
 } from "@/models/enums";
 import { TreeKeyAndProps } from "@/models";
 import type { SysDept } from "@/models";
@@ -116,6 +121,7 @@ defineProps({
   },
 });
 
+const statusEnum = useEnum(CommonStatusEnumExtArray);
 const deptStore = useDeptStore();
 const editFormRef = ref();
 const editForm = reactive(Object.assign({}, defaultEditForm));

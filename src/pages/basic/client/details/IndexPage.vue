@@ -90,7 +90,7 @@
               <in-select
                 w-full
                 v-model="editForm.clientAuthenticationMethods"
-                :options="getClientAuthMethodList()"
+                :options="useClientAuthMethodEnum.getOptions()"
                 placeholder="请选择Client认证方式"
                 split=","
                 multiple
@@ -102,7 +102,7 @@
               <in-select
                 w-full
                 v-model="editForm.authorizationGrantTypes"
-                :options="grantTypeList()"
+                :options="useAuthorizedGrantTypeEnum.getOptions()"
                 placeholder="请选择允许授予类型"
                 split=","
                 multiple
@@ -127,7 +127,7 @@
               <in-select
                 w-full
                 v-model="editForm.tokenAuthType"
-                :options="getTokenAuthMethodSelectList()"
+                :options="useTokenAuthMethodEnum.getOptions()"
               />
             </el-form-item>
           </el-col>
@@ -167,10 +167,10 @@
 <script lang="ts" setup>
 import type { OAuth2RegisteredClient } from "@/models";
 import {
-  getTokenAuthMethodSelectList,
-  grantTypeList,
+  useTokenAuthMethodEnum,
+  useAuthorizedGrantTypeEnum,
   AuthorizedGrantType,
-  getClientAuthMethodList,
+  useClientAuthMethodEnum,
 } from "@/models/enums";
 import { GetClientInfoAPI, UpdateClientAPI } from "@/api/basic/client";
 import { copyParams, getDiffWithIgnore } from "@/utils/object";

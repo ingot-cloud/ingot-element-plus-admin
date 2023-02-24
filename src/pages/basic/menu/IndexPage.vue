@@ -13,7 +13,7 @@
       </template>
       <template #menuType="{ item }">
         <Icon mr-2 :icon="getMenuTypeIcon(item.menuType)" />
-        {{ getMenuTypeDesc(item.menuType) }}
+        {{ useMenuTypeEnum.getTagText(item.menuType).text }}
       </template>
       <template #icon="{ item }">
         <in-icon
@@ -80,7 +80,7 @@
 </template>
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue";
-import { getMenuTypeIcon, getMenuTypeDesc } from "@/models/enums/menuEnums";
+import { getMenuTypeIcon, useMenuTypeEnum } from "@/models/enums/menuEnums";
 import { tableHeaders } from "./table";
 import type { MenuTreeNode, SysMenu, AuthorityTreeNode } from "@/models";
 import { GetMenuTreeAPI, RemoveMenuAPI } from "@/api/basic/menu";

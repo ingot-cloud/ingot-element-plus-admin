@@ -58,7 +58,7 @@
           >
             <in-select
               v-model="editForm.clientAuthenticationMethods"
-              :options="getClientAuthMethodList()"
+              :options="useClientAuthMethodEnum.getOptions()"
               placeholder="请选择Client认证方式"
               split=","
               multiple
@@ -69,7 +69,7 @@
           <el-form-item label="Client授权类型" prop="authorizationGrantTypes">
             <in-select
               v-model="editForm.authorizationGrantTypes"
-              :options="grantTypeList()"
+              :options="useAuthorizedGrantTypeEnum.getOptions()"
               placeholder="请选择允许授权类型"
               split=","
               multiple
@@ -101,7 +101,7 @@
           <el-form-item label="Token授权类型">
             <in-select
               v-model="editForm.tokenAuthType"
-              :options="getTokenAuthMethodSelectList()"
+              :options="useTokenAuthMethodEnum.getOptions()"
             />
           </el-form-item>
         </el-col>
@@ -155,9 +155,9 @@ import type { OAuth2RegisteredClient } from "@/models";
 import {
   TokenAuthMethod,
   AuthorizedGrantType,
-  grantTypeList,
-  getTokenAuthMethodSelectList,
-  getClientAuthMethodList,
+  useAuthorizedGrantTypeEnum,
+  useTokenAuthMethodEnum,
+  useClientAuthMethodEnum,
 } from "@/models/enums";
 import { CreateClientAPI } from "@/api/basic/client";
 import { Message } from "@/utils/message";
