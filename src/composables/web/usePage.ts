@@ -1,26 +1,26 @@
 import type { Router, RouteLocationRaw } from "vue-router";
 import {
-  PageNameEnum,
-  PagePathEnum,
-  RedirectType,
-  RedirectField,
-} from "@/models/enums/pageEnums";
+  PageName,
+  PagePath,
+  RedirectPageType,
+  RedirectPageField,
+} from "@/router";
 
 export const useRedirect = (
-  path = String(PagePathEnum.HOME),
-  redirectType = String(RedirectType.PATH)
+  path = String(PagePath.HOME),
+  redirectType = String(RedirectPageType.PATH)
 ) => {
   const { currentRoute, replace } = useRouter();
 
   const { params, query } = unref(currentRoute);
 
-  Reflect.deleteProperty(params, RedirectField.TYPE);
-  Reflect.deleteProperty(params, RedirectField.PATH);
+  Reflect.deleteProperty(params, RedirectPageField.TYPE);
+  Reflect.deleteProperty(params, RedirectPageField.PATH);
 
   return new Promise<void>((resolve, reject) => {
     const _path = Array.isArray(path) ? path.join("/") : path;
     switch (redirectType) {
-      case RedirectType.NAME:
+      case RedirectPageType.NAME:
         replace({
           name: _path,
           query,
@@ -28,7 +28,7 @@ export const useRedirect = (
         });
         resolve();
         break;
-      case RedirectType.PATH:
+      case RedirectPageType.PATH:
         replace({
           path: _path.startsWith("/") ? _path : "/" + _path,
           query,
@@ -57,18 +57,18 @@ export const useRefreshPage = (router?: Router) => {
   const { query, params = {}, name, fullPath } = unref(currentRoute.value);
   return (): Promise<boolean> => {
     return new Promise((resolve) => {
-      if (name === PageNameEnum.REDIRECT) {
+      if (name === PageName.REDIRECT) {
         resolve(false);
         return;
       }
       if (name && Object.keys(params).length > 0) {
-        params[RedirectField.TYPE] = RedirectType.NAME;
-        params[RedirectField.PATH] = String(name);
+        params[RedirectPageField.TYPE] = RedirectPageType.NAME;
+        params[RedirectPageField.PATH] = String(name);
       } else {
-        params[RedirectField.TYPE] = RedirectType.PATH;
-        params[RedirectField.PATH] = fullPath;
+        params[RedirectPageField.TYPE] = RedirectPageType.PATH;
+        params[RedirectPageField.PATH] = fullPath;
       }
-      replace({ name: PageNameEnum.REDIRECT, params, query }).then(() =>
+      replace({ name: PageName.REDIRECT, params, query }).then(() =>
         resolve(true)
       );
     });

@@ -7,6 +7,21 @@ export enum PageLayoutViewPath {
   MAIN = "@/layouts/InAppLayout.vue",
   SIMPLE = "@/layouts/InSimpleLayout.vue",
 }
+export enum PageName {
+  REDIRECT = "Redirect",
+}
+export enum PagePath {
+  HOME = "/home",
+}
+export enum RedirectPageType {
+  NAME = "name",
+  PATH = "path",
+}
+export enum RedirectPageField {
+  // 重定向类型
+  TYPE = "redirectType",
+  PATH = "redirectPath",
+}
 
 /**
  * 布局视图

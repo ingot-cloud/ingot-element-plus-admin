@@ -1,6 +1,6 @@
 import type { TabItem } from "../types";
 import router from "@/router";
-import { PagePathEnum } from "@/models/enums/pageEnums";
+import { PagePath } from "@/router";
 
 export const useTabsStore = defineStore(
   "tabs",
@@ -133,7 +133,7 @@ export const useTabsStore = defineStore(
       const go = useGo(router);
       // 所有都关闭后，重定向到home
       if (tabs.value.length === 0) {
-        go(PagePathEnum.HOME, true);
+        go(PagePath.HOME, true);
       } else {
         const idx = tabs.value.findIndex((item) => item.path === path);
         if (idx > -1) {

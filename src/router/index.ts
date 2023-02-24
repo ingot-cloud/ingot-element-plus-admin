@@ -11,3 +11,4 @@ const router = createRouter({
 setupGuard(router);
 
 export default router;
+export * from "./constants";

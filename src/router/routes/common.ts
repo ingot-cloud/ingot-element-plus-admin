@@ -1,6 +1,10 @@
 import type { RouteRecordRaw } from "vue-router";
-import { PageNameEnum, PagePathEnum, RedirectField } from "@/models/enums";
-import { LAYOUT_MAIN } from "@/router/constants";
+import {
+  LAYOUT_MAIN,
+  PageName,
+  PagePath,
+  RedirectPageField,
+} from "@/router/constants";
 
 /**
  * 公共路由
@@ -10,18 +14,18 @@ export const commonRoutes: Array<RouteRecordRaw> = [
     path: "/redirect",
     component: LAYOUT_MAIN,
     meta: {
-      title: PageNameEnum.REDIRECT,
+      title: PageName.REDIRECT,
       hideMenu: true,
       hideBreadcrumb: true,
     },
     children: [
       {
         props: true,
-        path: `/redirect/:${RedirectField.PATH}(.*):${RedirectField.TYPE}(.*)`,
-        name: PageNameEnum.REDIRECT,
+        path: `/redirect/:${RedirectPageField.PATH}(.*):${RedirectPageField.TYPE}(.*)`,
+        name: PageName.REDIRECT,
         component: () => import("@/pages/common/redirect/IndexPage.vue"),
         meta: {
-          title: PageNameEnum.REDIRECT,
+          title: PageName.REDIRECT,
           hideMenu: true,
           hideBreadcrumb: true,
         },
@@ -30,11 +34,11 @@ export const commonRoutes: Array<RouteRecordRaw> = [
   },
   {
     path: "/",
-    redirect: PagePathEnum.HOME,
+    redirect: PagePath.HOME,
     component: LAYOUT_MAIN,
     children: [
       {
-        path: PagePathEnum.HOME,
+        path: PagePath.HOME,
         meta: {
           title: "首页",
           icon: "ingot:home",

@@ -2,15 +2,15 @@
   <div></div>
 </template>
 <script lang="ts" setup>
-import { RedirectField } from "@/models/enums/pageEnums";
+import { RedirectPageField } from "@/router";
 import { Message } from "@/utils/message";
 
 const props = defineProps({
-  [`${RedirectField.PATH}`]: String,
-  [`${RedirectField.TYPE}`]: String,
+  [`${RedirectPageField.PATH}`]: String,
+  [`${RedirectPageField.TYPE}`]: String,
 });
 
-useRedirect(props[RedirectField.PATH], props[RedirectField.TYPE])
+useRedirect(props[RedirectPageField.PATH], props[RedirectPageField.TYPE])
   .then(() => {
     Message.success("刷新成功");
   })
