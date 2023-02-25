@@ -1,5 +1,18 @@
 import type { EnumExt, TagText, Option } from "@/models";
 
+export const toEnumExtArray = (
+  enumType: object,
+  tagTextArray: Array<TagText>
+) => {
+  return Object.values(enumType).map((item, index) => {
+    return {
+      value: item,
+      text: tagTextArray[index].text,
+      tag: tagTextArray[index].tag,
+    };
+  });
+};
+
 /**
  * useEnum
  */
@@ -8,7 +21,7 @@ export const useEnum = <T>(arr: Array<EnumExt<T>>) => {
     value: T,
     defaultValue: TagText = { text: "无", tag: "" }
   ): TagText => {
-    return arr.find((item) => (item.value = value)) || defaultValue;
+    return arr.find((item) => item.value == value) || defaultValue;
   };
 
   const getOptions = (): Array<Option<T>> => {

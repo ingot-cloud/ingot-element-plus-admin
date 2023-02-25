@@ -1,15 +1,15 @@
-import { newEnumExt } from "../common";
+import { newTagText } from "../common";
 
 export enum MenuType {
   Directory = "0",
   Menu = "1",
   Button = "9",
 }
-export const MenuTypeEnumExtArray = [
-  newEnumExt(MenuType.Directory, "目录", "success"),
-  newEnumExt(MenuType.Menu, "菜单", "warning"),
-  newEnumExt(MenuType.Button, "按钮", "danger"),
-];
+export const MenuTypeEnumExtArray = toEnumExtArray(MenuType, [
+  newTagText("目录", "success"),
+  newTagText("菜单", "warning"),
+  newTagText("按钮", "danger"),
+]);
 export const useMenuTypeEnum = useEnum(MenuTypeEnumExtArray);
 export function getMenuTypeIcon(type: MenuType): string {
   switch (type) {

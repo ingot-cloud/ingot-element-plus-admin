@@ -261,6 +261,11 @@ const edit = ref(false);
 const canEditPid = ref(false);
 const visible = ref(false);
 
+watch(
+  () => editForm.path,
+  (path) => {}
+);
+
 const isDirectory = () => {
   return editForm.menuType == MenuType.Directory;
 };

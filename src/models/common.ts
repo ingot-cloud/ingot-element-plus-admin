@@ -9,12 +9,12 @@ export interface EnumExt<T = string> extends TagText {
 export const newEnumExt = <T>(
   value: T,
   text: string,
-  tag?: ElTagType
+  tag: ElTagType = ""
 ): EnumExt<T> => {
   return {
     value,
-    text,
-    tag: tag || "",
+    text: text,
+    tag,
   };
 };
 
@@ -22,6 +22,13 @@ export interface TagText {
   tag: ElTagType;
   text: string;
 }
+
+export const newTagText = (text: string, tag: ElTagType = "") => {
+  return {
+    text,
+    tag,
+  };
+};
 
 export interface Option<T = string> {
   value: T;
