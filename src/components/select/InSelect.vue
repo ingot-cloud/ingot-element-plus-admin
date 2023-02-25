@@ -5,6 +5,7 @@
     :size="size"
     :multiple="multiple"
     :clearable="clearable"
+    @change="privateOnChanged"
   >
     <el-option
       v-for="item in options"
@@ -19,7 +20,7 @@ import { defineProps, defineEmits, ref, watch } from "vue";
 import { selectProps } from "./props";
 
 const props = defineProps(selectProps);
-const emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits(["update:modelValue", "onChanged"]);
 
 const selectModel =
   props.split && props.modelValue
@@ -55,4 +56,8 @@ watch(selectModel, (nValue) => {
     props.split ? (nValue as []).join(props.split) : nValue
   );
 });
+
+const privateOnChanged = (value: any) => {
+  emits("onChanged", value);
+};
 </script>

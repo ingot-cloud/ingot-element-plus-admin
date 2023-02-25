@@ -34,20 +34,45 @@
           clearable
         ></el-input>
       </el-form-item>
-      <el-form-item prop="path" label="菜单路径">
-        <el-input
-          v-model="editForm.path"
-          placeholder="请输入菜单路径"
-          clearable
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="视图路径" v-if="!isButton()">
-        <el-input
-          v-model="editForm.viewPath"
-          placeholder="请输入视图路径"
-          clearable
-        ></el-input>
-      </el-form-item>
+      <el-row>
+        <el-col :span="!isButton() ? 18 : 24">
+          <el-form-item prop="path" label="菜单路径">
+            <el-input
+              v-model="editForm.path"
+              placeholder="请输入菜单路径"
+              clearable
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6" v-if="!isButton()">
+          <el-form-item label="自定义视图">
+            <el-checkbox v-model="editForm.customViewPath" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row v-if="editForm.customViewPath && !isButton()">
+        <el-col :span="isDirectory() ? 16 : 24">
+          <el-form-item label="视图路径" prop="viewPath">
+            <el-input
+              v-model="editForm.viewPath"
+              placeholder="请输入视图路径"
+              clearable
+            >
+            </el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8" v-if="isDirectory()">
+          <in-select
+            w-full
+            v-model="editForm.viewPath"
+            :options="LayoutOptions"
+            placeholder="选择使用默认布局"
+            clearable
+            @onChanged="privateOnLayoutSelectChanged"
+          />
+        </el-col>
+      </el-row>
+
       <el-form-item label="路由名称" v-if="!isButton()">
         <el-input
           v-model="editForm.routeName"
@@ -186,7 +211,11 @@
       </el-row>
     </el-form>
     <template #footer>
-      <in-button :loading="loading" type="primary" @click="handleConfirmClick">
+      <in-button
+        :loading="loading"
+        type="primary"
+        @click="privateOnConfirmClick"
+      >
         确定
       </in-button>
     </template>
@@ -202,6 +231,7 @@ export interface API {
 import { ClickOutside as vClickOutside } from "element-plus";
 import type { SysMenu } from "@/models";
 import { TreeKeyAndProps } from "@/models";
+import { LayoutOptions } from "@/router";
 import {
   CommonStatus,
   CommonStatusEnumExtArray,
@@ -228,6 +258,7 @@ const defaultEditForm: SysMenu = {
   authorityId: undefined,
   authorityCode: undefined,
   routeName: undefined,
+  customViewPath: false,
   viewPath: undefined,
   redirect: undefined,
   icon: undefined,
@@ -261,24 +292,18 @@ const edit = ref(false);
 const canEditPid = ref(false);
 const visible = ref(false);
 
-watch(
-  () => editForm.path,
-  (path) => {}
-);
-
 const isDirectory = () => {
   return editForm.menuType == MenuType.Directory;
 };
-// const isMenu = () => {
-//   return editForm.menuType == MenuType.Menu;
-// };
+const isMenu = () => {
+  return editForm.menuType == MenuType.Menu;
+};
 const isButton = () => {
   return editForm.menuType == MenuType.Button;
 };
 
 const show = (data?: SysMenu | string) => {
   visible.value = true;
-
   // 重置数据
   copyParams(editForm, defaultEditForm);
   copyParams(rawForm, defaultEditForm);
@@ -310,7 +335,7 @@ const show = (data?: SysMenu | string) => {
   }
 };
 
-const handleConfirmClick = () => {
+const privateOnConfirmClick = () => {
   const form = unref(editFormRef);
   form.validate((valid: boolean) => {
     if (valid) {
@@ -341,13 +366,15 @@ const handleConfirmClick = () => {
     }
   });
 };
-
 const privateOnIconClick = (name: string) => {
   editForm.icon = name;
   privateOnSettingClickOutside();
 };
 const privateOnSettingClickOutside = () => {
   unref(iconPopoverRef).popperRef?.delayHide?.();
+};
+const privateOnLayoutSelectChanged = (value: string) => {
+  editForm.viewPath = value;
 };
 
 defineExpose({

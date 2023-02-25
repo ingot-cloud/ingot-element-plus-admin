@@ -1,3 +1,5 @@
+import type { Option } from "@/models";
+
 export const NotFound = {
   path: "/:pathMatch(.*)",
   meta: { hideMenu: true, breadcrumbHidden: true },
@@ -28,6 +30,16 @@ export enum RedirectPageField {
  */
 export const LAYOUT_MAIN = () => import(PageLayoutViewPath.MAIN);
 export const LAYOUT_SIMPLE = () => import(PageLayoutViewPath.SIMPLE);
+export const LayoutOptions: Array<Option> = [
+  {
+    label: "主要布局",
+    value: PageLayoutViewPath.MAIN,
+  },
+  {
+    label: "简单布局",
+    value: PageLayoutViewPath.SIMPLE,
+  },
+];
 
 const dynamicViewsModules = import.meta.glob("@/pages/**/*.vue");
 Object.keys(dynamicViewsModules).forEach((key) => {

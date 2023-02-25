@@ -13,6 +13,7 @@ export interface SysMenu {
   authorityId?: string;
   authorityCode?: string;
   routeName?: string;
+  customViewPath?: boolean;
   viewPath?: string;
   redirect?: string;
   icon?: string;
