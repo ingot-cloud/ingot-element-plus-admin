@@ -33,7 +33,7 @@
             <in-select
               w-full
               v-model="editForm.type"
-              :options="SocialTypeOptions"
+              :options="useSocialTypeEnumsEnum.getOptions()"
             />
           </el-form-item>
         </el-col>
@@ -70,7 +70,7 @@ export interface API {
 </script>
 <script lang="ts" setup>
 import type { SysSocialDetails } from "@/models";
-import { SocialTypeOptions, SocialTypeEnums } from "@/models/enums";
+import { useSocialTypeEnumsEnum, SocialTypeEnums } from "@/models/enums";
 import { Message } from "@/utils/message";
 import { copyParams, getDiff } from "@/utils/object";
 import { CreateSocialAPI, UpdateSocialAPI } from "@/api/basic/social";
