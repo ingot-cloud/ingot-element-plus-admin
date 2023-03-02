@@ -1,6 +1,6 @@
 import type { AxiosRequestConfig, AxiosError } from "axios";
 import { useAuthStore } from "@/stores/modules/auth";
-import { useAppStore } from "@/stores/modules/app";
+import { useTenantStore } from "@/stores/modules/tenant";
 
 export const onRequestFulfilled = (
   config: AxiosRequestConfig
@@ -16,8 +16,10 @@ export const onRequestFulfilled = (
   }
 
   if (!config.ignoreTenant) {
-    const { getTenant } = storeToRefs(useAppStore());
-    config.headers["Tenant"] = getTenant.value;
+    if (!config.headers["Tenant"]) {
+      const { getGlobalTenant } = storeToRefs(useTenantStore());
+      config.headers["Tenant"] = getGlobalTenant.value;
+    }
   }
   return config;
 };
