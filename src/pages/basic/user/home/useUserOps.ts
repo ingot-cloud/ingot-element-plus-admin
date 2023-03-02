@@ -2,6 +2,7 @@ import type { DeptTreeNode, PageChangeParams, UserPageItemVO } from "@/models";
 import { UserPageAPI, UpdateUserAPI, RemoveUserAPI } from "@/api/basic/user";
 import { copyParams } from "@/utils/object";
 import router from "@/router";
+import { keepTenant } from "@/router/helper/tenant";
 
 export const useUserOps = () => {
   const paging = usePaging(transformPageAPI(UserPageAPI));
@@ -46,9 +47,11 @@ export const useUserOps = () => {
    * 编辑用户
    */
   const handleDetailUser = (params: UserPageItemVO): void => {
-    router.push({
-      path: `/basic/user/details/${params.userId}`,
-    });
+    router.push(
+      keepTenant({
+        path: `/basic/user/details/${params.userId}`,
+      })
+    );
   };
 
   /**

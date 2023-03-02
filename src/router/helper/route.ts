@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from "vue-router";
-import type { MenuRouteRecord } from "@/components/layout";
+import type { MenuRouteRecord } from "@/layouts";
 import type { MenuTreeNode } from "@/models";
 import { MenuType } from "@/models/enums";
 import { importComponent, NotFound } from "@/router/constants";

@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from "vue-router";
-import type { MenuRouteRecord } from "@/components/layout";
+import type { MenuRouteRecord } from "@/layouts";
 import { default as routes } from "@/router/routes";
 import { GetUserMenuAPI } from "@/api/basic/menu";
 import {

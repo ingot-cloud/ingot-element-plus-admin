@@ -38,7 +38,7 @@
 
 <script lang="ts" setup>
 import type { PropType } from "vue";
-import type { MenuRouteRecord } from "@/components/layout";
+import type { MenuRouteRecord } from "@/layouts";
 import { useAppStateStore } from "@/stores/modules/app";
 
 const props = defineProps({
