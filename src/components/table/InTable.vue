@@ -94,6 +94,7 @@
     :expand-row-keys="expandRowKeys"
     :tree-props="treeProps"
     :row-key="rowKey"
+    :default-sort="defaultSort"
   >
     <el-table-column
       v-if="selection"
@@ -118,6 +119,10 @@
       :width="item.width || undefined"
       :fixed="item.fixed || undefined"
       :align="item.align || 'left'"
+      :sortable="item.sortable"
+      :sort-method="item.sortMethod"
+      :sort-by="item.sortBy"
+      :sort-orders="item.sortOrders"
     >
       <template v-slot="scope" v-if="!item.type">
         <slot :name="item.prop" :item="scope.row" :index="scope.$index">

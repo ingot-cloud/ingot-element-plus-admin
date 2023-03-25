@@ -1,5 +1,6 @@
 import type { PropType } from "vue";
 import type { TableHeaderRecord, TablePage } from "./types";
+import type { Sort } from "element-plus";
 import { TreeListKeyAndProps } from "@/models";
 
 export const tableProps = {
@@ -110,5 +111,8 @@ export const tableProps = {
   },
   radioKey: {
     type: String,
+  },
+  defaultSort: {
+    type: Object as PropType<Sort | undefined>,
   },
 };

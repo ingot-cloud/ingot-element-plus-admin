@@ -13,6 +13,10 @@ export interface TableHeaderRecord<In = any, Out = any> {
   width?: string;
   fixed?: string | boolean;
   align?: string;
+  sortable?: string | boolean;
+  sortMethod?: (a: any, b: any) => number;
+  sortBy?: string | ((row: In, index: number) => string) | string[];
+  sortOrders?: ("ascending" | "descending" | null)[];
   transform?: TransformItem<In, Out>;
 }
 
