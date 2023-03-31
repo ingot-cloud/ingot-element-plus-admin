@@ -7,7 +7,7 @@ MODULE_NAME=ingot-admin
 
 echo "开始打包${MODULE_NAME}:${INNER_VERSION}"
 
-yarn build
+pnpm build
 
 docker login -u ${JY_DOCKER_REGISTRY_USERNAME} -p ${JY_DOCKER_REGISTRY_PASSWORD} docker-registry.wangchao.im
 
