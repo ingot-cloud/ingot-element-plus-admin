@@ -18,8 +18,19 @@ stages:
 
 npm-install:
   stage: install
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@latest-7 --activate
+    - pnpm config set store-dir .pnpm-store
   script:
-    - npm install
+    - pnpm install # install dependencies
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
+  when: manual
   tags: [ingot]
 
 npm-build:
@@ -30,6 +41,7 @@ npm-build:
     - docker build -t docker-registry.wangchao.im/ingot/${MODULE_NAME}:${RELEASE_VERSION} .
     - docker push docker-registry.wangchao.im/ingot/${MODULE_NAME}:${INNER_VERSION}
   tags: [ingot]
+  when: manual
   only:
     - main
 
@@ -38,6 +50,8 @@ docker-run:
   variables:
     SERVICE_NAME: ingot-admin-${RELEASE_VERSION}
     IMAGE_NAME: docker-registry.wangchao.im/ingot/${MODULE_NAME}:${RELEASE_VERSION}
+    VIRTUAL_HOST: ingot-admin.wangchao.im
+    VIRTUAL_PORT: 3000
   script:
    - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" docker-registry.wangchao.im
    - docker ps -q --filter name="${SERVICE_NAME}" | xargs -r docker rm -f
@@ -50,6 +64,7 @@ docker-run:
       -e LETSENCRYPT_HOST=${VIRTUAL_HOST}
       ${IMAGE_NAME}
   tags: [ingot]
+  when: manual
   only:
     - main
 
