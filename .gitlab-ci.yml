@@ -1,4 +1,4 @@
-image: node:16.20.0-alpine3.17
+image: node:16.20.0
 
 variables:
   MODULE_NAME: ingot-admin
