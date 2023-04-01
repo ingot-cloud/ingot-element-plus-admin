@@ -16,12 +16,15 @@ stages:
   - build
   - deploy
 
-npm-install:
-  stage: install
+.pnpm:
   before_script:
     - corepack enable
     - corepack prepare pnpm@latest-7 --activate
     - pnpm config set store-dir .pnpm-store
+
+npm-install:
+  stage: install
+  extends: .pnpm
   script:
     - pnpm install # install dependencies
   cache:
@@ -30,12 +33,12 @@ npm-install:
         - pnpm-lock.yaml
     paths:
       - .pnpm-store
-      - node_modules/
   when: manual
   tags: [ingot]
 
 npm-build:
   stage: build
+  extends: .pnpm
   script:
     - pnpm build
     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" docker-registry.wangchao.im
