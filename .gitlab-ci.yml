@@ -1,0 +1,55 @@
+image: node:16.20.0-alpine3.17
+
+variables:
+  MODULE_NAME: ingot-admin
+  DEV_VERSION: $CI_COMMIT_SHORT_SHA
+  RELEASE_VERSION: 0.1.0
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - dist/
+    - node_modules/
+
+stages:
+  - install
+  - build
+  - deploy
+
+npm-install:
+  stage: install
+  script:
+    - npm install
+  tags: [ingot]
+
+npm-build:
+  stage: build
+  script:
+    - npm run build
+    - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" docker-registry.wangchao.im
+    - docker build -t docker-registry.wangchao.im/ingot/${MODULE_NAME}:${RELEASE_VERSION} .
+    - docker push docker-registry.wangchao.im/ingot/${MODULE_NAME}:${INNER_VERSION}
+  tags: [ingot]
+  only:
+    - main
+
+docker-run:
+  stage: deploy
+  variables:
+    SERVICE_NAME: ingot-admin-${RELEASE_VERSION}
+    IMAGE_NAME: docker-registry.wangchao.im/ingot/${MODULE_NAME}:${RELEASE_VERSION}
+  script:
+   - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" docker-registry.wangchao.im
+   - docker ps -q --filter name="${SERVICE_NAME}" | xargs -r docker rm -f
+   - docker images -q --filter reference="${IMAGE_NAME}" | xargs -r docker rmi -f
+   - docker pull ${IMAGE_NAME}
+   - docker run -d --name ${SERVICE_NAME} --restart always
+      --network ingot-net
+      -e VIRTUAL_HOST=${VIRTUAL_HOST}
+      -e VIRTUAL_PORT=${VIRTUAL_PORT}
+      -e LETSENCRYPT_HOST=${VIRTUAL_HOST}
+      ${IMAGE_NAME}
+  tags: [ingot]
+  only:
+    - main
+
