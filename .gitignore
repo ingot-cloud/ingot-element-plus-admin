@@ -30,3 +30,4 @@ coverage
 
 
 .local_env
+.pnpm-store

@@ -30,6 +30,7 @@ npm-install:
         - pnpm-lock.yaml
     paths:
       - .pnpm-store
+      - node_modules/
   when: manual
   tags: [ingot]
 
