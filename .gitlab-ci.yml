@@ -40,7 +40,6 @@ npm-build:
     - docker build -t docker-registry.wangchao.im/ingot/${MODULE_NAME}:${RELEASE_VERSION} .
     - docker push docker-registry.wangchao.im/ingot/${MODULE_NAME}:${INNER_VERSION}
   tags: [ingot]
-  when: manual
   only:
     - main
 
