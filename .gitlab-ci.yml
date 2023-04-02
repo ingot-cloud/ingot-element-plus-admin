@@ -34,14 +34,13 @@ npm-install:
 npm-build:
   stage: build
   extends: .pnpm
-  dependencies:
-    - install
   script:
     - pnpm build
     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" docker-registry.wangchao.im
     - docker build -t docker-registry.wangchao.im/ingot/${MODULE_NAME}:${RELEASE_VERSION} .
     - docker push docker-registry.wangchao.im/ingot/${MODULE_NAME}:${INNER_VERSION}
   tags: [ingot]
+  when: manual
   only:
     - main
 
