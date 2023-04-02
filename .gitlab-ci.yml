@@ -35,9 +35,11 @@ npm-install:
 
 docker-build:
   stage: build
+  variables: 
+    INNER_VERSION: ${RELEASE_VERSION}
   script:
     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" docker-registry.wangchao.im
-    - docker build -t docker-registry.wangchao.im/ingot/${MODULE_NAME}:${RELEASE_VERSION} .
+    - docker build -t docker-registry.wangchao.im/ingot/${MODULE_NAME}:${INNER_VERSION} .
     - docker push docker-registry.wangchao.im/ingot/${MODULE_NAME}:${INNER_VERSION}
   tags: [ingot]
   when: manual
@@ -47,8 +49,9 @@ docker-build:
 docker-run:
   stage: deploy
   variables:
-    SERVICE_NAME: ingot-admin-${RELEASE_VERSION}
-    IMAGE_NAME: docker-registry.wangchao.im/ingot/${MODULE_NAME}:${RELEASE_VERSION}
+    INNER_VERSION: ${RELEASE_VERSION}
+    SERVICE_NAME: ingot-admin-${INNER_VERSION}
+    IMAGE_NAME: docker-registry.wangchao.im/ingot/${MODULE_NAME}:${INNER_VERSION}
     VIRTUAL_HOST: ingot-admin.wangchao.im
     VIRTUAL_PORT: 3000
   script:
