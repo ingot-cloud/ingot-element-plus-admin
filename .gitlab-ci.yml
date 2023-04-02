@@ -1,4 +1,4 @@
-image: node:16.20.0
+image: docker:20.10.9
 
 variables:
   MODULE_NAME: ingot-admin
@@ -26,16 +26,16 @@ stages:
 npm-install:
   stage: install
   extends: .pnpm
+  image: node:16.20.0
   script:
     - pnpm install # install dependencies
+    - pnpm build
   when: manual
   tags: [ingot]
 
-npm-build:
+docker-build:
   stage: build
-  extends: .pnpm
   script:
-    - pnpm build
     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" docker-registry.wangchao.im
     - docker build -t docker-registry.wangchao.im/ingot/${MODULE_NAME}:${RELEASE_VERSION} .
     - docker push docker-registry.wangchao.im/ingot/${MODULE_NAME}:${INNER_VERSION}
