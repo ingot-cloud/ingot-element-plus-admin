@@ -10,6 +10,7 @@ specifiers:
   '@iconify-json/material-symbols': ^1.1.26
   '@iconify-json/mdi': ^1.1.39
   '@iconify-json/mdi-light': ^1.1.5
+  '@iconify-json/teenyicons': ^1.1.5
   '@iconify-json/twemoji': ^1.1.7
   '@iconify/vue': ^4.0.2
   '@rushstack/eslint-patch': ^1.2.0
@@ -21,6 +22,7 @@ specifiers:
   '@types/qs': ^6.9.7
   '@unocss/reset': ^0.47.6
   '@vitejs/plugin-vue': ^3.2.0
+  '@vue/compiler-sfc': ^3.2.47
   '@vue/eslint-config-prettier': ^7.0.0
   '@vue/eslint-config-typescript': ^11.0.2
   '@vue/test-utils': ^2.2.6
@@ -79,6 +81,7 @@ devDependencies:
   '@iconify-json/material-symbols': 1.1.26
   '@iconify-json/mdi': 1.1.39
   '@iconify-json/mdi-light': 1.1.5
+  '@iconify-json/teenyicons': 1.1.5
   '@iconify-json/twemoji': 1.1.7
   '@iconify/vue': 4.0.2_vue@3.2.45
   '@rushstack/eslint-patch': 1.2.0
@@ -90,6 +93,7 @@ devDependencies:
   '@types/qs': 6.9.7
   '@unocss/reset': 0.47.6
   '@vitejs/plugin-vue': 3.2.0_vite@3.2.5+vue@3.2.45
+  '@vue/compiler-sfc': 3.2.47
   '@vue/eslint-config-prettier': 7.0.0_l5rdqc4k22455lce6ocqroldia
   '@vue/eslint-config-typescript': 11.0.2_adxhicpeghzj7xflzvuh26phpu
   '@vue/test-utils': 2.2.6_vue@3.2.45
@@ -104,7 +108,7 @@ devDependencies:
   typescript: 4.7.4
   unocss: 0.47.6_vite@3.2.5
   unplugin-auto-import: 0.12.1_@vueuse+core@9.8.2
-  unplugin-icons: 0.14.15
+  unplugin-icons: 0.14.15_@vue+compiler-sfc@3.2.47
   unplugin-vue-components: 0.22.12_vue@3.2.45
   vite: 3.2.5_@types+node@18.11.17
   vite-plugin-html: 3.2.0_vite@3.2.5
@@ -497,6 +501,12 @@ packages:
 
   /@iconify-json/mdi/1.1.39:
     resolution: {integrity: sha512-Pgft3XHBEyxcT4xN8U9f0nqVuHDQFGypbU3goJZJVdI25VtKmbyPyuISsnXJq/jo2Llwz5MRocfiH4fXn3U64Q==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify-json/teenyicons/1.1.5:
+    resolution: {integrity: sha512-nhMUhmQIyuRh7ZMeG+P2OI8kYPly7kLgec52Ett4NvIOv9+dOkIK3Gzchvlcg/ZZlugQn/n/hAJiCgzcNnrWRQ==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
@@ -1041,7 +1051,7 @@ packages:
       '@volar/language-core': 1.0.16
       '@volar/source-map': 1.0.16
       '@vue/compiler-dom': 3.2.45
-      '@vue/compiler-sfc': 3.2.45
+      '@vue/compiler-sfc': 3.2.47
       '@vue/reactivity': 3.2.45
       '@vue/shared': 3.2.45
       minimatch: 5.1.2
@@ -1063,11 +1073,27 @@ packages:
       estree-walker: 2.0.2
       source-map: 0.6.1
 
+  /@vue/compiler-core/3.2.47:
+    resolution: {integrity: sha512-p4D7FDnQb7+YJmO2iPEv0SQNeNzcbHdGByJDsT4lynf63AFkOTFN07HsiRSvjGo0QrxR/o3d0hUyNCUnBU2Tig==}
+    dependencies:
+      '@babel/parser': 7.20.7
+      '@vue/shared': 3.2.47
+      estree-walker: 2.0.2
+      source-map: 0.6.1
+    dev: true
+
   /@vue/compiler-dom/3.2.45:
     resolution: {integrity: sha512-tyYeUEuKqqZO137WrZkpwfPCdiiIeXYCcJ8L4gWz9vqaxzIQRccTSwSWZ/Axx5YR2z+LvpUbmPNXxuBU45lyRw==}
     dependencies:
       '@vue/compiler-core': 3.2.45
       '@vue/shared': 3.2.45
+
+  /@vue/compiler-dom/3.2.47:
+    resolution: {integrity: sha512-dBBnEHEPoftUiS03a4ggEig74J2YBZ2UIeyfpcRM2tavgMWo4bsEfgCGsu+uJIL/vax9S+JztH8NmQerUo7shQ==}
+    dependencies:
+      '@vue/compiler-core': 3.2.47
+      '@vue/shared': 3.2.47
+    dev: true
 
   /@vue/compiler-sfc/3.2.45:
     resolution: {integrity: sha512-1jXDuWah1ggsnSAOGsec8cFjT/K6TMZ0sPL3o3d84Ft2AYZi2jWJgRMjw4iaK0rBfA89L5gw427H4n1RZQBu6Q==}
@@ -1083,11 +1109,33 @@ packages:
       postcss: 8.4.20
       source-map: 0.6.1
 
+  /@vue/compiler-sfc/3.2.47:
+    resolution: {integrity: sha512-rog05W+2IFfxjMcFw10tM9+f7i/+FFpZJJ5XHX72NP9eC2uRD+42M3pYcQqDXVYoj74kHMSEdQ/WmCjt8JFksQ==}
+    dependencies:
+      '@babel/parser': 7.20.7
+      '@vue/compiler-core': 3.2.47
+      '@vue/compiler-dom': 3.2.47
+      '@vue/compiler-ssr': 3.2.47
+      '@vue/reactivity-transform': 3.2.47
+      '@vue/shared': 3.2.47
+      estree-walker: 2.0.2
+      magic-string: 0.25.9
+      postcss: 8.4.20
+      source-map: 0.6.1
+    dev: true
+
   /@vue/compiler-ssr/3.2.45:
     resolution: {integrity: sha512-6BRaggEGqhWht3lt24CrIbQSRD5O07MTmd+LjAn5fJj568+R9eUD2F7wMQJjX859seSlrYog7sUtrZSd7feqrQ==}
     dependencies:
       '@vue/compiler-dom': 3.2.45
       '@vue/shared': 3.2.45
+
+  /@vue/compiler-ssr/3.2.47:
+    resolution: {integrity: sha512-wVXC+gszhulcMD8wpxMsqSOpvDZ6xKXSVWkf50Guf/S+28hTAXPDYRTbLQ3EDkOP5Xz/+SY37YiwDquKbJOgZw==}
+    dependencies:
+      '@vue/compiler-dom': 3.2.47
+      '@vue/shared': 3.2.47
+    dev: true
 
   /@vue/devtools-api/6.4.5:
     resolution: {integrity: sha512-JD5fcdIuFxU4fQyXUu3w2KpAJHzTVdN+p4iOX2lMWSHMOoQdMAcpFLZzm9Z/2nmsoZ1a96QEhZ26e50xLBsgOQ==}
@@ -1135,6 +1183,16 @@ packages:
       estree-walker: 2.0.2
       magic-string: 0.25.9
 
+  /@vue/reactivity-transform/3.2.47:
+    resolution: {integrity: sha512-m8lGXw8rdnPVVIdIFhf0LeQ/ixyHkH5plYuS83yop5n7ggVJU+z5v0zecwEnX7fa7HNLBhh2qngJJkxpwEEmYA==}
+    dependencies:
+      '@babel/parser': 7.20.7
+      '@vue/compiler-core': 3.2.47
+      '@vue/shared': 3.2.47
+      estree-walker: 2.0.2
+      magic-string: 0.25.9
+    dev: true
+
   /@vue/reactivity/3.2.45:
     resolution: {integrity: sha512-PRvhCcQcyEVohW0P8iQ7HDcIOXRjZfAsOds3N99X/Dzewy8TVhTCT4uXpAHfoKjVTJRA0O0K+6QNkDIZAxNi3A==}
     dependencies:
@@ -1164,6 +1222,10 @@ packages:
 
   /@vue/shared/3.2.45:
     resolution: {integrity: sha512-Ewzq5Yhimg7pSztDV+RH1UDKBzmtqieXQlpTVm2AwraoRL/Rks96mvd8Vgi7Lj+h+TH8dv7mXD3FRZR3TUvbSg==}
+
+  /@vue/shared/3.2.47:
+    resolution: {integrity: sha512-BHGyyGN3Q97EZx0taMQ+OLNuZcW3d37ZEVmEAyeoA9ERdGvm9Irc/0Fua8SNyOtV1w6BS4q25wbMzJujO9HIfQ==}
+    dev: true
 
   /@vue/test-utils/2.2.6_vue@3.2.45:
     resolution: {integrity: sha512-64zHtJZdG7V/U2L0j/z3Pt5bSygccI3xs+Kl7LB73AZK4MQ8WONJhqDQPK8leUFFA9CmmoJygeky7zcl2hX10A==}
@@ -4846,7 +4908,7 @@ packages:
       - rollup
     dev: true
 
-  /unplugin-icons/0.14.15:
+  /unplugin-icons/0.14.15_@vue+compiler-sfc@3.2.47:
     resolution: {integrity: sha512-J6YBA+fUzVM2IZPXCK3Pnk36jYVwQ6lkjRgOnZaXNIxpMDsmwDqrE1AGJ0zUbfuEoOa90OBGc0OPfN1r+qlSIQ==}
     peerDependencies:
       '@svgr/core': '>=5.5.0'
@@ -4866,6 +4928,7 @@ packages:
       '@antfu/install-pkg': 0.1.1
       '@antfu/utils': 0.7.2
       '@iconify/utils': 2.0.4
+      '@vue/compiler-sfc': 3.2.47
       debug: 4.3.4
       kolorist: 1.6.0
       local-pkg: 0.4.2

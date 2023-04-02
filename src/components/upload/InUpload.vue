@@ -13,7 +13,7 @@
     :on-success="handleUploadSuccess"
     :before-upload="beforeUpload"
   >
-    <el-icon><Plus /></el-icon>
+    <el-icon><i:material-symbols:add /></el-icon>
     <template #file="{ file }">
       <div>
         <img
@@ -26,7 +26,7 @@
             class="el-upload-list__item-preview"
             @click="handlePictureCardPreview(file)"
           >
-            <el-icon><zoom-in /></el-icon>
+            <el-icon><i:teenyicons:zoom-in-outline /></el-icon>
           </span>
           <!-- <span
             v-if="!disabled"
@@ -40,7 +40,7 @@
             class="el-upload-list__item-delete"
             @click="handleRemove(file)"
           >
-            <el-icon><Delete /></el-icon>
+            <el-icon><i:material-symbols:delete /></el-icon>
           </span>
         </span>
       </div>
@@ -57,7 +57,6 @@
 </template>
 <script lang="ts" setup>
 import type { PropType } from "vue";
-import { Delete, Plus, ZoomIn } from "@element-plus/icons-vue";
 import type { UploadFile, UploadRawFile, UploadUserFile } from "element-plus";
 import { useAuthStore } from "@/stores/modules/auth";
 import { Message } from "@/utils/message";

@@ -52,6 +52,7 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
         resolvers: [
           ElementPlusResolver(),
           IconsResolver({
+            prefix: "i",
             customCollections: ["ingot"],
           }),
         ],

@@ -95,7 +95,6 @@ declare module '@vue/runtime-core' {
     InMenuToggle: typeof import('./src/layouts/widgets/InMenuToggle.vue')['default']
     InPageHeader: typeof import('./src/components/InPageHeader.vue')['default']
     InRefreshIcon: typeof import('./src/components/icons/InRefreshIcon.vue')['default']
-    InRouterViewLayout: typeof import('./src/layouts/InRouterViewLayout.vue')['default']
     InSelect: typeof import('./src/components/select/InSelect.vue')['default']
     InSimpleLayout: typeof import('./src/layouts/InSimpleLayout.vue')['default']
     InSpacer: typeof import('./src/components/InSpacer.vue')['default']
