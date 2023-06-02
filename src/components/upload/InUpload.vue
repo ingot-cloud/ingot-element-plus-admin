@@ -1,17 +1,15 @@
 <template>
   <el-upload
     :action="action"
-    :headers="headers"
     :limit="limit"
-    :data="uploadData"
     :accept="accept"
     :on-exceed="handleExceed"
     :disabled="disabled"
-    :file-list="modelValue"
+    :file-list="innerFileList"
     list-type="picture-card"
     :on-error="handleUploadError"
     :on-success="handleUploadSuccess"
-    :before-upload="beforeUpload"
+    :http-request="uploadRequest"
   >
     <el-icon><i:material-symbols:add /></el-icon>
     <template #file="{ file }">
@@ -28,13 +26,6 @@
           >
             <el-icon><i:teenyicons:zoom-in-outline /></el-icon>
           </span>
-          <!-- <span
-            v-if="!disabled"
-            class="el-upload-list__item-delete"
-            @click="handleDownload(file)"
-          >
-            <el-icon><Download /></el-icon>
-          </span> -->
           <span
             v-if="!disabled"
             class="el-upload-list__item-delete"
@@ -57,19 +48,19 @@
 </template>
 <script lang="ts" setup>
 import type { PropType } from "vue";
-import type { UploadFile, UploadRawFile, UploadUserFile } from "element-plus";
-import { useAuthStore } from "@/stores/modules/auth";
+import type {
+  UploadFile,
+  UploadUserFile,
+  UploadFiles,
+  UploadRequestOptions,
+} from "element-plus";
+import type { UploadAPIFn } from "./types";
 import { Message } from "@/utils/message";
-
-const getAccessToken = storeToRefs(useAuthStore()).getAccessToken;
-const headers = {
-  Authorization: getAccessToken.value,
-};
 
 const emits = defineEmits(["update:modelValue"]);
 const props = defineProps({
   modelValue: {
-    type: Array as PropType<Array<UploadUserFile>>,
+    type: Array as PropType<Array<UploadFile>>,
     default() {
       return [];
     },
@@ -89,57 +80,102 @@ const props = defineProps({
   tip: {
     type: String,
   },
-  imageUrlPrefix: {
-    type: String,
-    default: "/api",
+  api: {
+    type: Function as PropType<UploadAPIFn>,
+    required: true,
   },
   action: {
     type: String,
-    default: "/api/pms/common/file/uploadWithTenant",
+    default: "",
   },
 });
 
 const dialogImageUrl = ref("");
 const dialogVisible = ref(false);
 const disabled = ref(false);
+const innerFileList = ref<Array<UploadFile>>([]);
+const innerChange = ref(false);
+watch(
+  () => props.modelValue,
+  (value) => {
+    if (innerChange.value) {
+      innerChange.value = false;
+      return;
+    }
+    if (!value || value.length == 0) {
+      innerFileList.value = [];
+      return;
+    }
 
-const uploadData = ref({});
+    innerFileList.value = value.map((item) => {
+      const fileName = item.url?.substring(item.url?.lastIndexOf("/") + 1);
+      return {
+        url: item.url,
+        name: fileName,
+        status: "success",
+        uid: 0,
+      } as UploadFile;
+    });
+  },
+  {
+    immediate: true,
+  }
+);
 
-const handleImageSrc = (file: UploadUserFile) => {
-  const url = file.url;
-  return url?.startsWith("blob:http") ? url : `${props.imageUrlPrefix}${url}`;
+const changeFileList = () => {
+  if (!innerFileList.value) {
+    innerFileList.value = [];
+  }
+  innerFileList.value = innerFileList.value.map((item) => {
+    if (item.uid === 0) {
+      return item;
+    }
+    let url = item.url;
+    if (item.response) {
+      url = (item.response as any).data.url;
+    }
+    return {
+      url,
+      name: item.name,
+      status: item.status,
+      uid: item.uid,
+    };
+  });
+
+  innerChange.value = true;
+  emits("update:modelValue", innerFileList.value);
 };
-
+const uploadRequest = (options: UploadRequestOptions): Promise<unknown> => {
+  return props.api({
+    file: options.file,
+    fileName: options.file.name,
+  });
+};
+const handleImageSrc = (file: UploadUserFile) => {
+  return file.url;
+};
 const handleRemove = (file: UploadFile) => {
   if (props.disabled) {
     return;
   }
-  const index = props.modelValue.findIndex((item) => item.url === file.url);
-  const tmp = props.modelValue.slice();
-  tmp.splice(index, 1);
-  emits("update:modelValue", tmp);
+  const index = innerFileList.value.findIndex((item) => item.url === file.url);
+  if (index == -1) {
+    return;
+  }
+  innerFileList.value.splice(index, 1);
+  changeFileList();
 };
-
 const handlePictureCardPreview = (file: UploadFile) => {
   dialogImageUrl.value = file.url!;
   dialogVisible.value = true;
 };
-
-// const handleDownload = (file: UploadFile) => {};
-const beforeUpload = (file: UploadRawFile) => {
-  uploadData.value = {
-    fileName: file.name,
-  };
-};
-const handleUploadSuccess = (res: any) => {
-  const tmp = props.modelValue.slice();
-  tmp.push({
-    url: `/pms/common/file/${res.data.fileName}`,
-    name: "",
-    status: "ready",
-    uid: 0,
-  });
-  emits("update:modelValue", tmp);
+const handleUploadSuccess = (
+  res: any,
+  file: UploadFile,
+  fileList: UploadFiles
+) => {
+  innerFileList.value = fileList;
+  changeFileList();
 };
 const handleUploadError = (error: Error) => {
   Message.error(error.message);
