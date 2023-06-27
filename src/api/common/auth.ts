@@ -10,24 +10,29 @@ import { AES } from "@/utils/encrypt";
 export function PasswordTokenAPI({
   username,
   password,
+  code,
 }: {
   username: string;
   password: string;
+  code?: string;
 }): Promise<R<UserToken>> {
   const afterEncrypt = AES({
     data: { password },
     keys: ["password"],
   });
-
+  const grant_type = "password";
   // application/x-www-form-urlencoded
   const data = new URLSearchParams({
     username,
     password: afterEncrypt.password,
-    grant_type: "password",
   });
   return Http.post<UserToken>("/api/auth/oauth2/token", data, {
     headers: {
       Authorization: storeToRefs(useAppStore()).getBasicToken.value,
+    },
+    params: {
+      _vc_code: code,
+      grant_type,
     },
   });
 }

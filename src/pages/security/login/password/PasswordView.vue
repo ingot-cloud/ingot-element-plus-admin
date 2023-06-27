@@ -30,6 +30,13 @@
       </in-button>
     </el-form-item>
   </el-form>
+  <Verify
+    @success="verifySuccess"
+    :mode="'pop'"
+    :captchaType="'blockPuzzle'"
+    :imgSize="{ width: '330px', height: '155px' }"
+    ref="VerifyRef"
+  />
 </template>
 <script lang="ts" setup>
 import password from "./password";
@@ -37,8 +44,19 @@ import password from "./password";
 const { formModel, rules, loading } = password;
 const formRef = ref();
 const router = useRouter();
+const VerifyRef = ref(); // 定义verify组件引用
 
 const handleLogin = () => {
+  formRef.value.validate((valid: boolean) => {
+    if (valid) {
+      VerifyRef.value.show();
+    }
+  });
+};
+
+// 滑块验证码校验成功调用后台登录接口
+const verifySuccess = (params: any) => {
+  formModel.code = params.captchaVerification;
   password.handleLogin(formRef, router);
 };
 </script>

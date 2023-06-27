@@ -34,14 +34,17 @@ export const useAuthStore = defineStore(
     const login = ({
       username,
       password,
+      code,
     }: {
       username: string;
       password: string;
+      code?: string;
     }): Promise<void> => {
       return new Promise((resolve, reject) => {
         PasswordTokenAPI({
           username,
           password,
+          code,
         })
           .then((response) => {
             updateToken(response.data);

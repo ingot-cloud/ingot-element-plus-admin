@@ -6,6 +6,7 @@ import { useTabsStore } from "@/stores/modules/tabs";
 const formModel = reactive({
   username: "",
   password: "",
+  code: "",
 });
 
 const rules = ref({
