@@ -2,7 +2,6 @@ import type { Ref } from "vue";
 import type { Router } from "vue-router";
 import { useAuthStore } from "@/stores/modules/auth";
 import { useTabsStore } from "@/stores/modules/tabs";
-import { AES } from "@/utils/encrypt";
 
 const formModel = reactive({
   username: "",
@@ -25,12 +24,8 @@ const handleLogin = (formRef: Ref, router: Router): void => {
   form.validate((valid: boolean) => {
     if (valid) {
       loading.value = true;
-      const loginParams = AES({
-        data: { ...formModel },
-        keys: ["password"],
-      });
       useAuthStore()
-        .login(loginParams)
+        .login(formModel)
         .then(() => {
           useTabsStore().closeAllTabs("/");
           router.replace({

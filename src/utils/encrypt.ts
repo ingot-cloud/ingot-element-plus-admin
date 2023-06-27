@@ -1,7 +1,7 @@
 import * as CryptoJS from "crypto-js";
 
-interface AESParams {
-  data: any;
+interface AESParams<T> {
+  data: T;
   keys: Array<string>;
   encodeKey?: string;
 }
@@ -9,7 +9,7 @@ interface AESParams {
 /**
  * AES 加密处理
  */
-export const AES = (params: AESParams) => {
+export const AES = <T>(params: AESParams<T>) => {
   const { data, keys } = params;
   const encodeKey = params.encodeKey || import.meta.env.VITE_APP_AES;
   const result = JSON.parse(JSON.stringify(data));
@@ -27,5 +27,5 @@ export const AES = (params: AESParams) => {
     result[key] = encrypted.toString();
   });
 
-  return result;
+  return result as T;
 };

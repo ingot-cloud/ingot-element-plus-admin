@@ -2,6 +2,7 @@ import Http from "@/net";
 import type { UserToken, R, UserPasswordDTO } from "@/models";
 import { useAppStore } from "@/stores/modules/app";
 import { storeToRefs } from "pinia";
+import { AES } from "@/utils/encrypt";
 
 /**
  * 通过密码登录
@@ -13,10 +14,15 @@ export function PasswordTokenAPI({
   username: string;
   password: string;
 }): Promise<R<UserToken>> {
+  const afterEncrypt = AES({
+    data: { password },
+    keys: ["password"],
+  });
+
   // application/x-www-form-urlencoded
   const data = new URLSearchParams({
     username,
-    password,
+    password: afterEncrypt.password,
     grant_type: "password",
   });
   return Http.post<UserToken>("/api/auth/oauth2/token", data, {
