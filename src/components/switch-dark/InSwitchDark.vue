@@ -19,7 +19,7 @@ const toggleDark = useToggle(isDark);
   </button>
 </template>
 
-<style lang="postcss">
+<style lang="postcss" scoped>
 .in-switch-dark {
   margin: 0;
   display: inline-block;
@@ -99,12 +99,12 @@ const toggleDark = useToggle(isDark);
   left: 0;
 }
 
-.dark {
-  .in-switch-dark-dark-icon {
+html.dark {
+  & .in-switch-dark-dark-icon {
     opacity: 1;
   }
 
-  .in-switch-dark-light-icon {
+  & .in-switch-dark-light-icon {
     opacity: 0;
   }
 }
