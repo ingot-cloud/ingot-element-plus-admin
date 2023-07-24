@@ -104,14 +104,14 @@ declare global {
   const templateRef: typeof import('@vueuse/core')['templateRef']
   const throttledRef: typeof import('@vueuse/core')['throttledRef']
   const throttledWatch: typeof import('@vueuse/core')['throttledWatch']
-  const toEnumExtArray: typeof import('./src/composables/biz/useEnum')['toEnumExtArray']
+  const toEnumExtArray: typeof import('./src/hooks/biz/useEnum')['toEnumExtArray']
   const toRaw: typeof import('vue')['toRaw']
   const toReactive: typeof import('@vueuse/core')['toReactive']
   const toRef: typeof import('vue')['toRef']
   const toRefs: typeof import('vue')['toRefs']
-  const transformDeleteAPI: typeof import('./src/composables/biz/usePaging')['transformDeleteAPI']
-  const transformPageAPI: typeof import('./src/composables/biz/usePaging')['transformPageAPI']
-  const transformUpdateAPI: typeof import('./src/composables/biz/usePaging')['transformUpdateAPI']
+  const transformDeleteAPI: typeof import('./src/hooks/biz/usePaging')['transformDeleteAPI']
+  const transformPageAPI: typeof import('./src/hooks/biz/usePaging')['transformPageAPI']
+  const transformUpdateAPI: typeof import('./src/hooks/biz/usePaging')['transformUpdateAPI']
   const triggerRef: typeof import('vue')['triggerRef']
   const tryOnBeforeMount: typeof import('@vueuse/core')['tryOnBeforeMount']
   const tryOnBeforeUnmount: typeof import('@vueuse/core')['tryOnBeforeUnmount']
@@ -143,10 +143,10 @@ declare global {
   const useClipboard: typeof import('@vueuse/core')['useClipboard']
   const useCloned: typeof import('@vueuse/core')['useCloned']
   const useColorMode: typeof import('@vueuse/core')['useColorMode']
-  const useConfirmDelete: typeof import('./src/composables/biz/usePaging')['useConfirmDelete']
+  const useConfirmDelete: typeof import('./src/hooks/biz/usePaging')['useConfirmDelete']
   const useConfirmDialog: typeof import('@vueuse/core')['useConfirmDialog']
-  const useConfirmStatus: typeof import('./src/composables/biz/usePaging')['useConfirmStatus']
-  const useConfirmUpdate: typeof import('./src/composables/biz/usePaging')['useConfirmUpdate']
+  const useConfirmStatus: typeof import('./src/hooks/biz/usePaging')['useConfirmStatus']
+  const useConfirmUpdate: typeof import('./src/hooks/biz/usePaging')['useConfirmUpdate']
   const useCounter: typeof import('@vueuse/core')['useCounter']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVar: typeof import('@vueuse/core')['useCssVar']
@@ -171,7 +171,7 @@ declare global {
   const useElementHover: typeof import('@vueuse/core')['useElementHover']
   const useElementSize: typeof import('@vueuse/core')['useElementSize']
   const useElementVisibility: typeof import('@vueuse/core')['useElementVisibility']
-  const useEnum: typeof import('./src/composables/biz/useEnum')['useEnum']
+  const useEnum: typeof import('./src/hooks/biz/useEnum')['useEnum']
   const useEventBus: typeof import('@vueuse/core')['useEventBus']
   const useEventListener: typeof import('@vueuse/core')['useEventListener']
   const useEventSource: typeof import('@vueuse/core')['useEventSource']
@@ -186,8 +186,8 @@ declare global {
   const useFullscreen: typeof import('@vueuse/core')['useFullscreen']
   const useGamepad: typeof import('@vueuse/core')['useGamepad']
   const useGeolocation: typeof import('@vueuse/core')['useGeolocation']
-  const useGo: typeof import('./src/composables/web/usePage')['useGo']
-  const useIconsCollection: typeof import('./src/composables/web/useIcons')['useIconsCollection']
+  const useGo: typeof import('./src/hooks/web/usePage')['useGo']
+  const useIconsCollection: typeof import('./src/hooks/web/useIcons')['useIconsCollection']
   const useIdle: typeof import('@vueuse/core')['useIdle']
   const useImage: typeof import('@vueuse/core')['useImage']
   const useInfiniteScroll: typeof import('@vueuse/core')['useInfiniteScroll']
@@ -216,7 +216,7 @@ declare global {
   const useOffsetPagination: typeof import('@vueuse/core')['useOffsetPagination']
   const useOnline: typeof import('@vueuse/core')['useOnline']
   const usePageLeave: typeof import('@vueuse/core')['usePageLeave']
-  const usePaging: typeof import('./src/composables/biz/usePaging')['usePaging']
+  const usePaging: typeof import('./src/hooks/biz/usePaging')['usePaging']
   const useParallax: typeof import('@vueuse/core')['useParallax']
   const usePermission: typeof import('@vueuse/core')['usePermission']
   const usePointer: typeof import('@vueuse/core')['usePointer']
@@ -227,9 +227,9 @@ declare global {
   const usePreferredLanguages: typeof import('@vueuse/core')['usePreferredLanguages']
   const usePreferredReducedMotion: typeof import('@vueuse/core')['usePreferredReducedMotion']
   const useRafFn: typeof import('@vueuse/core')['useRafFn']
-  const useRedirect: typeof import('./src/composables/web/usePage')['useRedirect']
+  const useRedirect: typeof import('./src/hooks/web/usePage')['useRedirect']
   const useRefHistory: typeof import('@vueuse/core')['useRefHistory']
-  const useRefreshPage: typeof import('./src/composables/web/usePage')['useRefreshPage']
+  const useRefreshPage: typeof import('./src/hooks/web/usePage')['useRefreshPage']
   const useResizeObserver: typeof import('@vueuse/core')['useResizeObserver']
   const useRoute: typeof import('vue-router')['useRoute']
   const useRouter: typeof import('vue-router')['useRouter']
@@ -403,14 +403,14 @@ declare module 'vue' {
     readonly templateRef: UnwrapRef<typeof import('@vueuse/core')['templateRef']>
     readonly throttledRef: UnwrapRef<typeof import('@vueuse/core')['throttledRef']>
     readonly throttledWatch: UnwrapRef<typeof import('@vueuse/core')['throttledWatch']>
-    readonly toEnumExtArray: UnwrapRef<typeof import('./src/composables/biz/useEnum')['toEnumExtArray']>
+    readonly toEnumExtArray: UnwrapRef<typeof import('./src/hooks/biz/useEnum')['toEnumExtArray']>
     readonly toRaw: UnwrapRef<typeof import('vue')['toRaw']>
     readonly toReactive: UnwrapRef<typeof import('@vueuse/core')['toReactive']>
     readonly toRef: UnwrapRef<typeof import('vue')['toRef']>
     readonly toRefs: UnwrapRef<typeof import('vue')['toRefs']>
-    readonly transformDeleteAPI: UnwrapRef<typeof import('./src/composables/biz/usePaging')['transformDeleteAPI']>
-    readonly transformPageAPI: UnwrapRef<typeof import('./src/composables/biz/usePaging')['transformPageAPI']>
-    readonly transformUpdateAPI: UnwrapRef<typeof import('./src/composables/biz/usePaging')['transformUpdateAPI']>
+    readonly transformDeleteAPI: UnwrapRef<typeof import('./src/hooks/biz/usePaging')['transformDeleteAPI']>
+    readonly transformPageAPI: UnwrapRef<typeof import('./src/hooks/biz/usePaging')['transformPageAPI']>
+    readonly transformUpdateAPI: UnwrapRef<typeof import('./src/hooks/biz/usePaging')['transformUpdateAPI']>
     readonly triggerRef: UnwrapRef<typeof import('vue')['triggerRef']>
     readonly tryOnBeforeMount: UnwrapRef<typeof import('@vueuse/core')['tryOnBeforeMount']>
     readonly tryOnBeforeUnmount: UnwrapRef<typeof import('@vueuse/core')['tryOnBeforeUnmount']>
@@ -442,10 +442,10 @@ declare module 'vue' {
     readonly useClipboard: UnwrapRef<typeof import('@vueuse/core')['useClipboard']>
     readonly useCloned: UnwrapRef<typeof import('@vueuse/core')['useCloned']>
     readonly useColorMode: UnwrapRef<typeof import('@vueuse/core')['useColorMode']>
-    readonly useConfirmDelete: UnwrapRef<typeof import('./src/composables/biz/usePaging')['useConfirmDelete']>
+    readonly useConfirmDelete: UnwrapRef<typeof import('./src/hooks/biz/usePaging')['useConfirmDelete']>
     readonly useConfirmDialog: UnwrapRef<typeof import('@vueuse/core')['useConfirmDialog']>
-    readonly useConfirmStatus: UnwrapRef<typeof import('./src/composables/biz/usePaging')['useConfirmStatus']>
-    readonly useConfirmUpdate: UnwrapRef<typeof import('./src/composables/biz/usePaging')['useConfirmUpdate']>
+    readonly useConfirmStatus: UnwrapRef<typeof import('./src/hooks/biz/usePaging')['useConfirmStatus']>
+    readonly useConfirmUpdate: UnwrapRef<typeof import('./src/hooks/biz/usePaging')['useConfirmUpdate']>
     readonly useCounter: UnwrapRef<typeof import('@vueuse/core')['useCounter']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVar: UnwrapRef<typeof import('@vueuse/core')['useCssVar']>
@@ -470,7 +470,7 @@ declare module 'vue' {
     readonly useElementHover: UnwrapRef<typeof import('@vueuse/core')['useElementHover']>
     readonly useElementSize: UnwrapRef<typeof import('@vueuse/core')['useElementSize']>
     readonly useElementVisibility: UnwrapRef<typeof import('@vueuse/core')['useElementVisibility']>
-    readonly useEnum: UnwrapRef<typeof import('./src/composables/biz/useEnum')['useEnum']>
+    readonly useEnum: UnwrapRef<typeof import('./src/hooks/biz/useEnum')['useEnum']>
     readonly useEventBus: UnwrapRef<typeof import('@vueuse/core')['useEventBus']>
     readonly useEventListener: UnwrapRef<typeof import('@vueuse/core')['useEventListener']>
     readonly useEventSource: UnwrapRef<typeof import('@vueuse/core')['useEventSource']>
@@ -485,8 +485,8 @@ declare module 'vue' {
     readonly useFullscreen: UnwrapRef<typeof import('@vueuse/core')['useFullscreen']>
     readonly useGamepad: UnwrapRef<typeof import('@vueuse/core')['useGamepad']>
     readonly useGeolocation: UnwrapRef<typeof import('@vueuse/core')['useGeolocation']>
-    readonly useGo: UnwrapRef<typeof import('./src/composables/web/usePage')['useGo']>
-    readonly useIconsCollection: UnwrapRef<typeof import('./src/composables/web/useIcons')['useIconsCollection']>
+    readonly useGo: UnwrapRef<typeof import('./src/hooks/web/usePage')['useGo']>
+    readonly useIconsCollection: UnwrapRef<typeof import('./src/hooks/web/useIcons')['useIconsCollection']>
     readonly useIdle: UnwrapRef<typeof import('@vueuse/core')['useIdle']>
     readonly useImage: UnwrapRef<typeof import('@vueuse/core')['useImage']>
     readonly useInfiniteScroll: UnwrapRef<typeof import('@vueuse/core')['useInfiniteScroll']>
@@ -515,7 +515,7 @@ declare module 'vue' {
     readonly useOffsetPagination: UnwrapRef<typeof import('@vueuse/core')['useOffsetPagination']>
     readonly useOnline: UnwrapRef<typeof import('@vueuse/core')['useOnline']>
     readonly usePageLeave: UnwrapRef<typeof import('@vueuse/core')['usePageLeave']>
-    readonly usePaging: UnwrapRef<typeof import('./src/composables/biz/usePaging')['usePaging']>
+    readonly usePaging: UnwrapRef<typeof import('./src/hooks/biz/usePaging')['usePaging']>
     readonly useParallax: UnwrapRef<typeof import('@vueuse/core')['useParallax']>
     readonly usePermission: UnwrapRef<typeof import('@vueuse/core')['usePermission']>
     readonly usePointer: UnwrapRef<typeof import('@vueuse/core')['usePointer']>
@@ -526,9 +526,9 @@ declare module 'vue' {
     readonly usePreferredLanguages: UnwrapRef<typeof import('@vueuse/core')['usePreferredLanguages']>
     readonly usePreferredReducedMotion: UnwrapRef<typeof import('@vueuse/core')['usePreferredReducedMotion']>
     readonly useRafFn: UnwrapRef<typeof import('@vueuse/core')['useRafFn']>
-    readonly useRedirect: UnwrapRef<typeof import('./src/composables/web/usePage')['useRedirect']>
+    readonly useRedirect: UnwrapRef<typeof import('./src/hooks/web/usePage')['useRedirect']>
     readonly useRefHistory: UnwrapRef<typeof import('@vueuse/core')['useRefHistory']>
-    readonly useRefreshPage: UnwrapRef<typeof import('./src/composables/web/usePage')['useRefreshPage']>
+    readonly useRefreshPage: UnwrapRef<typeof import('./src/hooks/web/usePage')['useRefreshPage']>
     readonly useResizeObserver: UnwrapRef<typeof import('@vueuse/core')['useResizeObserver']>
     readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>

@@ -99,7 +99,7 @@ declare module '@vue/runtime-core' {
     InSimpleLayout: typeof import('./src/layouts/InSimpleLayout.vue')['default']
     InSpacer: typeof import('./src/components/InSpacer.vue')['default']
     InSubmenu: typeof import('./src/layouts/widgets/InSubmenu.vue')['default']
-    InSwitchDark: typeof import('./src/components/InSwitchDark.vue')['default']
+    InSwitchDark: typeof import('./src/components/switch-dark/InSwitchDark.vue')['default']
     InTable: typeof import('./src/components/table/InTable.vue')['default']
     InTabs: typeof import('./src/components/InTabs.vue')['default']
     InTag: typeof import('./src/components/biz/InTag.vue')['default']

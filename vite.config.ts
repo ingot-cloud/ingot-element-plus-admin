@@ -40,7 +40,7 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
       // https://github.com/antfu/unplugin-auto-import
       AutoImport({
         imports: ["vue", "vue/macros", "vue-router", "@vueuse/core", "pinia"],
-        dirs: ["./src/composables/**"],
+        dirs: ["./src/hooks/**"],
         dts: "./auto-imports.d.ts",
         vueTemplate: true,
         resolvers: [ElementPlusResolver()],
@@ -72,6 +72,8 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
+        "@cmps": fileURLToPath(new URL("./src/components", import.meta.url)),
+        "@models": fileURLToPath(new URL("./src/models", import.meta.url)),
       },
     },
     css: {
