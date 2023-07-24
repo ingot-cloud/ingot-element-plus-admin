@@ -1,123 +1,82 @@
 <template>
-  <div class="login-topbar">
-    <div class="topbar-content">
-      <div class="title-left">{{ app.title }}</div>
-      <div class="title-right">登录</div>
-      <in-spacer />
-      <in-switch-dark />
-    </div>
-  </div>
-  <div class="login-container">
-    <div class="login-content">
-      <el-tabs v-model="currentTab" stretch>
-        <el-tab-pane v-for="item in tabs" :key="item.name" :name="item.name">
-          <template #label>
-            <span><i class="el-icon-date"></i> {{ item.title }}</span>
-          </template>
-          <PasswordView v-if="currentTab === LoginType.Password" />
-          <SmsView v-if="currentTab === LoginType.Sms" />
-        </el-tab-pane>
-      </el-tabs>
-      <div class="other-login">其他登录方式</div>
+  <div class="login-page login-page-visible">
+    <div class="banner-area" role="banner-area"></div>
+    <div class="login-area">
+      <div class="login-box"></div>
+      <div class="login-copyright-bar">
+        <div class="login-copyright">© 2018-2023 Ingot 版权所有</div>
+      </div>
     </div>
   </div>
 </template>
+<style lang="postcss" scoped>
+.login-page {
+  --login-banner-area-width: 500px;
+  --login-box-width: 480px;
+  --login-box-height: 600px;
+  --login-copyright-bar-width: 480px;
+  --login-copyright-bar-height: 60px;
 
-<script lang="ts" setup>
-import { useAppStore } from "@/stores/modules/app";
-import PasswordView from "./password/PasswordView.vue";
-import SmsView from "./sms/SmsView.vue";
-
-enum LoginType {
-  Password = "password",
-  Sms = "sms",
-}
-
-const { app } = storeToRefs(useAppStore());
-
-const currentTab = LoginType.Password;
-const tabs = [
-  {
-    title: "密码登录",
-    name: LoginType.Password,
-  },
-  {
-    title: "短信登录",
-    name: LoginType.Sms,
-  },
-];
-</script>
-
-<style lang="postcss">
-.login-topbar {
-  box-sizing: border-box;
-  border-bottom: 1px solid var(--in-border-color);
-  height: 80px;
+  overflow: hidden;
+  position: relative;
   width: 100%;
-  position: absolute;
-  z-index: 1000;
-  clear: both;
-  & .topbar-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    height: 80px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding-right: 10px;
-    & .title-left {
-      font-size: 24px;
-      padding: 0 10px;
-      color: var(--in-color-primary);
-    }
-    & .title-right {
-      text-align: left;
-      font-size: 24px;
-      padding: 0 10px;
-      border-left: 1px solid #999;
-      color: var(--in-text-color-primary);
-    }
-  }
-}
-.login-container {
-  --login-content-height: 560px;
-  --login-content-header-height: 52px;
-  --login-content-other-login-height: 40px;
-  --login-content-pannel-height: calc(
-    var(--login-content-height) - var(--login-content-header-height) -
-      var(--login-content-other-login-height)
-  );
-  --other-login-text-color: #999999;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  & .login-content {
-    box-shadow: var(--in-box-shadow);
-    height: var(--login-content-height);
-    width: 600px;
-    & .el-tabs__header {
-      margin: 0;
-      & .el-tabs__item {
-        height: var(--login-content-header-height);
-        line-height: var(--login-content-header-height);
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  opacity: 0.01;
+  transition: opacity 0.3s;
+
+  &.login-page-visible {
+    opacity: 1;
+  }
+
+  & .banner-area {
+    position: absolute;
+    width: var(--login-banner-area-width);
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-size: cover !important;
+    background-position: center center;
+    background-image: url("https://img.alicdn.com/imgextra/i4/O1CN01EVFIzN1TY2SJuh2c0_!!6000000002393-2-tps-1000-3000.png");
+  }
+
+  & .login-area {
+    position: absolute;
+    left: var(--login-banner-area-width);
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    & .login-box {
+      position: absolute;
+      width: var(--login-box-width);
+      height: var(--login-box-height);
+      left: 50%;
+      top: 50%;
+      margin-left: calc(var(--login-box-width) / 2 * -1);
+      margin-top: calc(var(--login-box-height) / 2 * -1);
+      border-radius: 10px;
+      border: 1px solid rgba(126, 134, 142, 0.16);
+      box-shadow: 0 4px 14px 0 rgba(126, 134, 142, 0.16);
+    }
+
+    & .login-copyright-bar {
+      position: absolute;
+      width: var(--login-copyright-bar-width);
+      height: var(--login-copyright-bar-height);
+      bottom: 0;
+      left: 50%;
+      margin-left: calc(var(--login-copyright-bar-width) / 2 * -1);
+      line-height: var(--login-copyright-bar-height);
+      font-size: 12px;
+      color: rgba(23, 26, 29, 0.6);
+      text-align: left;
+      & .login-copyright {
+        float: left;
+        padding: 0 7px;
       }
-    }
-    & .el-tabs__content {
-      height: var(--login-content-pannel-height);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    & .other-login {
-      border-top: 1px solid #d8d8d8;
-      color: var(--other-login-text-color);
-      height: var(--login-content-other-login-height);
-      line-height: var(--login-content-other-login-height);
-      font-size: 14px;
-      padding-left: 20px;
     }
   }
 }
