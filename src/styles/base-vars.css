@@ -14,6 +14,8 @@
 
   --in-common-margin: 12px;
   --in-common-padding: 12px;
+
+  --in-transition-duration: var(--el-transition-duration);
 }
 
 :root {
@@ -23,11 +25,18 @@
   --in-menu-text-active-color: #ffffff;
 
   --in-color-primary: var(--el-color-primary);
+  --in-text-color: var(--el-text-color-primary);
+  --in-text-color-light: var(--el-text-color-regular);
+  --in-text-color-lighter: var(--el-text-color-secondary);
   --in-text-color-primary: var(--el-text-color-primary);
   --in-text-color-secondary: var(--el-text-color-secondary);
   --in-box-shadow: var(--el-box-shadow);
+  
   --in-bg-color: var(--el-bg-color);
   --in-bg-color-page: var(--el-bg-color-page);
+  --in-bg-color-mute: #f2f2f2;
+
   --in-border-color: var(--el-border-color);
+  --in-border-color-light: var(--el-border-color-lighter);
   --in-color-info-light-5: var(--el-color-info-light-5);
 }
