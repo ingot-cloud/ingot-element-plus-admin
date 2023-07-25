@@ -1,7 +1,6 @@
-import type { Ref } from "vue";
-import type { Router } from "vue-router";
 import { useAuthStore } from "@/stores/modules/auth";
 import { useTabsStore } from "@/stores/modules/tabs";
+import Router from "@/router";
 
 const formModel = reactive({
   username: "",
@@ -9,43 +8,43 @@ const formModel = reactive({
   code: "",
 });
 
-const rules = ref({
-  username: [{ required: true, message: "请输入登录名称", trigger: "blur" }],
-  password: [{ required: true, message: "请输入登录密码", trigger: "blur" }],
-});
-
 const loading = ref(false);
+
+const go = useGo(Router);
+
+const resetFields = () => {
+  formModel.username = "";
+  formModel.password = "";
+  formModel.code = "";
+};
 
 /**
  * 密码登录逻辑
  * @param formRef
  */
-const handleLogin = (formRef: Ref, router: Router): void => {
-  const form = unref(formRef);
-  form.validate((valid: boolean) => {
-    if (valid) {
-      loading.value = true;
-      useAuthStore()
-        .login(formModel)
-        .then(() => {
-          useTabsStore().closeAllTabs("/");
-          router.replace({
-            path: "/",
-          });
+const handleLogin = (): void => {
+  loading.value = true;
+  useAuthStore()
+    .login(formModel)
+    .then(() => {
+      useTabsStore().closeAllTabs("/");
+      go(
+        {
+          path: "/",
+        },
+        true
+      );
 
-          loading.value = false;
-          form.resetFields();
-        })
-        .catch(() => {
-          loading.value = false;
-        });
-    }
-  });
+      loading.value = false;
+      resetFields();
+    })
+    .catch(() => {
+      loading.value = false;
+    });
 };
 
 export default {
   loading,
   formModel,
-  rules,
   handleLogin,
 };

@@ -7,15 +7,13 @@
     </div>
 
     <div class="login-container">
-      <el-input
-        class="login-input"
+      <LoginInput
         v-model="formModel.username"
         placeholder="请输入账号"
         clearable
         @keyup.enter="handleLogin"
-      ></el-input>
-      <el-input
-        class="login-input"
+      ></LoginInput>
+      <LoginInput
         v-model="formModel.password"
         placeholder="请输入密码"
         type="password"
@@ -23,10 +21,10 @@
         show-password
         @keyup.enter="handleLogin"
       >
-        <template #append>
-          <div class="forgot">忘记密码</div>
+        <template #action>
+          <div class="forgot" @click="handleForgot">忘记密码</div>
         </template>
-      </el-input>
+      </LoginInput>
       <in-button
         type="primary"
         class="login-btn"
@@ -49,29 +47,30 @@
 <script lang="ts" setup>
 import { useAppStore } from "@/stores/modules/app";
 import password from "./password";
+import LoginInput from "../components/LoginInput.vue";
+import { Message } from "@/utils/message";
 
 const { app } = useAppStore();
 
-const { formModel, rules, loading } = password;
-const formRef = ref();
-const router = useRouter();
+// 定义verify组件引用
+const VerifyRef = ref();
+const { formModel, loading } = password;
 const canLogin = computed(() => {
   return formModel.username.length > 0 && formModel.password.length > 0;
 });
-const VerifyRef = ref(); // 定义verify组件引用
 
 const handleLogin = () => {
-  formRef.value.validate((valid: boolean) => {
-    if (valid) {
-      VerifyRef.value.show();
-    }
-  });
+  VerifyRef.value.show();
 };
 
 // 滑块验证码校验成功调用后台登录接口
 const verifySuccess = (params: any) => {
   formModel.code = params.captchaVerification;
-  password.handleLogin(formRef, router);
+  password.handleLogin();
+};
+
+const handleForgot = () => {
+  Message.warning("请联系管理员");
 };
 </script>
 <style lang="postcss" scoped>
@@ -120,27 +119,26 @@ const verifySuccess = (params: any) => {
     grid-gap: 12px;
     width: 310px;
 
-    & .login-input {
-      --el-input-bg-color: #f2f2f6;
-      --el-fill-color-light: #f2f2f6;
-      --el-border-color: #00000000;
-      --el-color-danger: #00000000;
-      --el-input-hover-border-color: #00000000;
-      --el-input-focus-border-color: #00000000;
-
+    & .forgot {
+      width: 80px;
       height: var(--login-item-height);
-      border-radius: 8px;
+      line-height: var(--login-item-height);
+      font-size: 14px;
+      color: rgba(23, 26, 29, 0.6);
+      text-align: center;
+      cursor: pointer;
+    }
 
-      & .el-input-group__append {
-      }
-      & .forgot {
-        height: var(--login-item-height);
-        line-height: var(--login-item-height);
-        font-size: 14px;
-        color: rgba(23, 26, 29, 0.6);
-        text-align: center;
-        cursor: pointer;
-      }
+    & .forgot::before {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 1px;
+      height: 12px;
+      left: 0;
+      top: 50%;
+      margin-top: -6px;
+      background: rgba(126, 134, 142, 0.16);
     }
 
     & .login-btn {
