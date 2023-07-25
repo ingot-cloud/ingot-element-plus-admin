@@ -72,6 +72,10 @@ const verifySuccess = (params: any) => {
 const handleForgot = () => {
   Message.warning("请联系管理员");
 };
+
+onMounted(() => {
+  password.init();
+});
 </script>
 <style lang="postcss" scoped>
 .password-box {

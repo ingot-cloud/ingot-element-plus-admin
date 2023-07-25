@@ -12,7 +12,8 @@ const loading = ref(false);
 
 const go = useGo(Router);
 
-const resetFields = () => {
+const init = () => {
+  loading.value = false;
   formModel.username = "";
   formModel.password = "";
   formModel.code = "";
@@ -34,9 +35,6 @@ const handleLogin = (): void => {
         },
         true
       );
-
-      loading.value = false;
-      resetFields();
     })
     .catch(() => {
       loading.value = false;
@@ -46,5 +44,6 @@ const handleLogin = (): void => {
 export default {
   loading,
   formModel,
+  init,
   handleLogin,
 };
