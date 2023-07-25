@@ -1,14 +1,20 @@
 <template>
   <div class="login-page login-page-visible">
-    <div class="banner-area" role="banner-area"></div>
+    <div class="banner-area" role="banner-area" :style="bannerStyle"></div>
     <div class="login-area">
       <div class="login-box"></div>
       <div class="login-copyright-bar">
-        <div class="login-copyright">© 2018-2023 Ingot 版权所有</div>
+        <div class="login-copyright">{{ app.copyright }}</div>
       </div>
     </div>
   </div>
 </template>
+<script setup lang="ts">
+import { useAppStore } from "@/stores/modules/app";
+
+const { app } = useAppStore();
+const bannerStyle = `background-image: url("${app.loginBanner}");`;
+</script>
 <style lang="postcss" scoped>
 .login-page {
   --login-banner-area-width: 500px;
@@ -39,7 +45,6 @@
     bottom: 0;
     background-size: cover !important;
     background-position: center center;
-    background-image: url("https://img.alicdn.com/imgextra/i4/O1CN01EVFIzN1TY2SJuh2c0_!!6000000002393-2-tps-1000-3000.png");
   }
 
   & .login-area {

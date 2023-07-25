@@ -16,6 +16,14 @@ export interface AppStore {
    */
   title: string;
   /**
+   * 版权
+   */
+  copyright: string;
+  /**
+   * 登录banner
+   */
+  loginBanner: string;
+  /**
    * 网络配置
    */
   netConfig: NetConfig;

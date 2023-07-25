@@ -9,6 +9,8 @@ interface ImportMetaEnv {
   readonly VITE_APP_NET_DEFAULT_TIMEOUT_MESSAGE: string;
   readonly VITE_APP_BASIC_TOKEN: string;
   readonly VITE_APP_AES: string;
+  readonly VITE_APP_COPYRIGHT: string;
+  readonly VITE_APP_LOGIN_BANNER: string;
 }
 
 interface ImportMeta {
