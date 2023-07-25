@@ -8,13 +8,9 @@ export interface NetConfig {
 }
 
 /**
- * App Store
+ * 登录页面相关配置
  */
-export interface AppStore {
-  /**
-   * 标题
-   */
-  title: string;
+export interface LoginConfig {
   /**
    * 版权
    */
@@ -23,6 +19,28 @@ export interface AppStore {
    * 登录banner
    */
   loginBanner: string;
+  /**
+   * 登录title
+   */
+  title: string;
+  /**
+   * 登录描述
+   */
+  desc: string;
+}
+
+/**
+ * App Store
+ */
+export interface AppStore {
+  /**
+   * 标题
+   */
+  title: string;
+  /**
+   * 登录配置
+   */
+  login: LoginConfig;
   /**
    * 网络配置
    */

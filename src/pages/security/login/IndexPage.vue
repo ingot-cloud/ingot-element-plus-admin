@@ -2,18 +2,22 @@
   <div class="login-page login-page-visible">
     <div class="banner-area" role="banner-area" :style="bannerStyle"></div>
     <div class="login-area">
-      <div class="login-box"></div>
+      <div class="login-box">
+        <PasswordView />
+      </div>
       <div class="login-copyright-bar">
-        <div class="login-copyright">{{ app.copyright }}</div>
+        <div class="login-copyright">{{ app.login.copyright }}</div>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { useAppStore } from "@/stores/modules/app";
+import PasswordView from "./password/PasswordView.vue";
+import "./login.css";
 
 const { app } = useAppStore();
-const bannerStyle = `background-image: url("${app.loginBanner}");`;
+const bannerStyle = `background-image: url("${app.login.loginBanner}");`;
 </script>
 <style lang="postcss" scoped>
 .login-page {

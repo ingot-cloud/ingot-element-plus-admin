@@ -1,35 +1,43 @@
 <template>
-  <div class="title-container">密码登录</div>
-  <el-form ref="formRef" :model="formModel" :rules="rules" label-width="0px">
-    <el-form-item class="form-item" prop="username">
+  <div class="password-box">
+    <div class="title-container">
+      <img class="logo-image" src="@/assets/logo.png" />
+      <div class="login-title">{{ app.login.title }}</div>
+      <div class="login-desc">{{ app.login.desc }}</div>
+    </div>
+
+    <div class="login-container">
       <el-input
+        class="login-input"
         v-model="formModel.username"
-        placeholder="登录名称"
+        placeholder="请输入账号"
         clearable
         @keyup.enter="handleLogin"
       ></el-input>
-    </el-form-item>
-    <el-form-item class="form-item" prop="password">
       <el-input
+        class="login-input"
         v-model="formModel.password"
-        placeholder="登录密码"
+        placeholder="请输入密码"
         type="password"
         clearable
         show-password
         @keyup.enter="handleLogin"
-      ></el-input>
-    </el-form-item>
-    <el-form-item class="form-item">
+      >
+        <template #append>
+          <div class="forgot">忘记密码</div>
+        </template>
+      </el-input>
       <in-button
         type="primary"
         class="login-btn"
         @click="handleLogin"
         :loading="loading"
+        :disabled="!canLogin"
       >
         {{ loading ? "登录中..." : "登录" }}
       </in-button>
-    </el-form-item>
-  </el-form>
+    </div>
+  </div>
   <Verify
     @success="verifySuccess"
     :mode="'pop'"
@@ -39,11 +47,17 @@
   />
 </template>
 <script lang="ts" setup>
+import { useAppStore } from "@/stores/modules/app";
 import password from "./password";
+
+const { app } = useAppStore();
 
 const { formModel, rules, loading } = password;
 const formRef = ref();
 const router = useRouter();
+const canLogin = computed(() => {
+  return formModel.username.length > 0 && formModel.password.length > 0;
+});
 const VerifyRef = ref(); // 定义verify组件引用
 
 const handleLogin = () => {
@@ -61,19 +75,83 @@ const verifySuccess = (params: any) => {
 };
 </script>
 <style lang="postcss" scoped>
-.title-container {
-  margin-top: 80px;
-  margin-bottom: 22px;
-  font-size: 18px;
-  font-weight: 400;
-  color: var(--in-text-color-secondary);
-}
+.password-box {
+  padding-top: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-.form-item {
-  width: 330px;
-}
+  & .title-container {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 45px;
+    color: var(--in-text-color-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-.login-btn {
-  width: 100%;
+    & .logo-image {
+      width: 48px;
+      height: 48px;
+    }
+
+    & .login-title {
+      margin: 10px auto 0;
+      line-height: 30px;
+      font-size: 20px;
+      color: #171a1d;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    & .login-desc {
+      margin: 0 auto;
+      line-height: 30px;
+      font-size: 16px;
+      color: #171a1d;
+      text-align: center;
+    }
+  }
+
+  & .login-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    grid-gap: 12px;
+    width: 310px;
+
+    & .login-input {
+      --el-input-bg-color: #f2f2f6;
+      --el-fill-color-light: #f2f2f6;
+      --el-border-color: #00000000;
+      --el-color-danger: #00000000;
+      --el-input-hover-border-color: #00000000;
+      --el-input-focus-border-color: #00000000;
+
+      height: var(--login-item-height);
+      border-radius: 8px;
+
+      & .el-input-group__append {
+      }
+      & .forgot {
+        height: var(--login-item-height);
+        line-height: var(--login-item-height);
+        font-size: 14px;
+        color: rgba(23, 26, 29, 0.6);
+        text-align: center;
+        cursor: pointer;
+      }
+    }
+
+    & .login-btn {
+      --el-button-disabled-bg-color: var(--in-color-primary);
+      --el-button-disabled-text-color: rgba(255, 255, 255, 0.4);
+
+      width: 100%;
+      height: var(--login-item-height);
+      font-size: 16px;
+      border-radius: 8px;
+    }
+  }
 }
 </style>

@@ -7,8 +7,12 @@ import type { ComponentSize } from "@/components/cmp-size/types";
 export const useAppStore = defineStore("app", () => {
   const app = reactive<AppStore>({
     title: import.meta.env.VITE_APP_TITLE,
-    copyright: import.meta.env.VITE_APP_COPYRIGHT,
-    loginBanner: import.meta.env.VITE_APP_LOGIN_BANNER,
+    login: {
+      copyright: import.meta.env.VITE_APP_COPYRIGHT,
+      loginBanner: import.meta.env.VITE_APP_LOGIN_BANNER,
+      title: import.meta.env.VITE_APP_LOGIN_TITLE,
+      desc: import.meta.env.VITE_APP_LOGIN_DESC,
+    },
     netConfig: {
       baseURL: import.meta.env.VITE_APP_NET_BASE_URL || undefined,
       timeout: import.meta.env.VITE_APP_NET_DEFAULT_TIMEOUT || 10_000,
