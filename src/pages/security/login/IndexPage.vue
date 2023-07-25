@@ -3,6 +3,9 @@
     <div class="banner-area" role="banner-area" :style="bannerStyle"></div>
     <div class="login-area">
       <div class="login-box">
+        <div class="login-switcher" @click="handleSwitch">
+          <img :src="isScanLogin ? PasswordLoginImage : QrCodeLoginImage" />
+        </div>
         <PasswordView />
       </div>
       <div class="login-copyright-bar">
@@ -14,10 +17,16 @@
 <script setup lang="ts">
 import { useAppStore } from "@/stores/modules/app";
 import PasswordView from "./password/PasswordView.vue";
+import PasswordLoginImage from "@/assets/password-login.png";
+import QrCodeLoginImage from "@/assets/qrcode-login.png";
 import "./login.css";
 
 const { app } = useAppStore();
 const bannerStyle = `background-image: url("${app.login.loginBanner}");`;
+const isScanLogin = ref(false); // 是否为扫码登录
+const handleSwitch = () => {
+  isScanLogin.value = !isScanLogin.value;
+};
 </script>
 <style lang="postcss" scoped>
 .login-page {
@@ -69,6 +78,25 @@ const bannerStyle = `background-image: url("${app.login.loginBanner}");`;
       border-radius: 10px;
       border: 1px solid rgba(126, 134, 142, 0.16);
       box-shadow: 0 4px 14px 0 rgba(126, 134, 142, 0.16);
+
+      & .login-switcher {
+        position: absolute;
+        z-index: 20;
+        top: 0;
+        right: 0;
+        width: 80px;
+        height: 80px;
+        & img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          opacity: 0.8;
+          transition: all 0.3s;
+        }
+        & img:hover {
+          opacity: 1;
+        }
+      }
     }
 
     & .login-copyright-bar {
