@@ -1,11 +1,13 @@
 import type { UserToken, UserInfo } from "@/models/security";
 import {
+  PreAuthorizeAPI,
+  ConfirmCodeAPI,
   PasswordTokenAPI,
   RefreshTokenAPI,
   RevokeTokenAPI,
 } from "@/api/common/auth";
 import { UserInfoAPI } from "@/api/common/user";
-import type { MenuTreeNode } from "@/models";
+import type { MenuTreeNode, PreAuthorizeResult } from "@/models";
 /**
  * 授权信息
  */
@@ -46,6 +48,49 @@ export const useAuthStore = defineStore(
           password,
           code,
         })
+          .then((response) => {
+            updateToken(response.data);
+            resolve();
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    };
+
+    /**
+     * 预授权接口
+     */
+    const preAuthorize = ({
+      username,
+      password,
+      code,
+    }: {
+      username: string;
+      password: string;
+      code?: string;
+    }): Promise<PreAuthorizeResult> => {
+      return new Promise((resolve, reject) => {
+        PreAuthorizeAPI({
+          username,
+          password,
+          code,
+        })
+          .then((response) => {
+            resolve(response.data);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    };
+
+    /**
+     * 确认码
+     */
+    const confirmCode = (code: string, tenant: string): Promise<void> => {
+      return new Promise((resolve, reject) => {
+        ConfirmCodeAPI(code, tenant)
           .then((response) => {
             updateToken(response.data);
             resolve();
@@ -98,6 +143,8 @@ export const useAuthStore = defineStore(
       getRefreshToken,
       updateToken,
       login,
+      preAuthorize,
+      confirmCode,
       refreshToken,
       logout,
     };

@@ -1,8 +1,66 @@
 import Http from "@/net";
-import type { UserToken, R, UserPasswordDTO } from "@/models";
+import type {
+  UserToken,
+  R,
+  UserPasswordDTO,
+  PreAuthorizeResult,
+} from "@/models";
 import { useAppStore } from "@/stores/modules/app";
 import { storeToRefs } from "pinia";
 import { AES } from "@/utils/encrypt";
+
+/**
+ * 预授权
+ */
+export function PreAuthorizeAPI({
+  username,
+  password,
+  code,
+}: {
+  username: string;
+  password: string;
+  code?: string;
+}): Promise<R<PreAuthorizeResult>> {
+  const afterEncrypt = AES({
+    data: { password },
+    keys: ["password"],
+  });
+  const pre_grant_type = "password";
+  // application/x-www-form-urlencoded
+  const data = new URLSearchParams({
+    username,
+    password: afterEncrypt.password,
+  });
+  return Http.post<PreAuthorizeResult>("/api/auth/oauth2/pre_authorize", data, {
+    headers: {
+      Authorization: storeToRefs(useAppStore()).getBasicToken.value,
+    },
+    params: {
+      _vc_code: code,
+      pre_grant_type,
+    },
+  });
+}
+
+/**
+ * 确认码模式
+ */
+export function ConfirmCodeAPI(
+  code: string,
+  Tenant: string
+): Promise<R<UserToken>> {
+  const grant_type = "confirm_code";
+  return Http.post<UserToken>("/api/auth/oauth2/token", null, {
+    headers: {
+      Tenant,
+      Authorization: storeToRefs(useAppStore()).getBasicToken.value,
+    },
+    params: {
+      code,
+      grant_type,
+    },
+  });
+}
 
 /**
  * 通过密码登录

@@ -1,6 +1,4 @@
 import { useAuthStore } from "@/stores/modules/auth";
-import { useTabsStore } from "@/stores/modules/tabs";
-import Router from "@/router";
 
 const formModel = reactive({
   username: "",
@@ -9,8 +7,6 @@ const formModel = reactive({
 });
 
 const loading = ref(false);
-
-const go = useGo(Router);
 
 const init = () => {
   loading.value = false;
@@ -23,22 +19,19 @@ const init = () => {
  * 密码登录逻辑
  * @param formRef
  */
-const handleLogin = (): void => {
+const handleLogin = () => {
   loading.value = true;
-  useAuthStore()
-    .login(formModel)
-    .then(() => {
-      useTabsStore().closeAllTabs("/");
-      go(
-        {
-          path: "/",
-        },
-        true
-      );
-    })
-    .catch(() => {
-      loading.value = false;
-    });
+  return new Promise((resolve) => {
+    useAuthStore()
+      .preAuthorize(formModel)
+      .then((result) => {
+        loading.value = false;
+        resolve(result);
+      })
+      .catch(() => {
+        loading.value = false;
+      });
+  });
 };
 
 export default {

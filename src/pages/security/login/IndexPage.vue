@@ -3,10 +3,19 @@
     <div class="banner-area" role="banner-area" :style="bannerStyle"></div>
     <div class="login-area">
       <div class="login-box">
-        <div class="login-switcher" @click="handleSwitch">
-          <img :src="isScanLogin ? PasswordLoginImage : QrCodeLoginImage" />
+        <SelectTenant
+          v-if="isStepOneSuccess"
+          :code="authorizeResult.code"
+          :list="authorizeResult.allows"
+          @back="handleBackToLoginView"
+        />
+        <div v-else>
+          <div class="login-switcher" @click="handleSwitch">
+            <img :src="isScanLogin ? PasswordLoginImage : QrCodeLoginImage" />
+          </div>
+          <QrCodeView v-if="isScanLogin" />
+          <PasswordView v-else @success="handlePreAuthorizeSuccess" />
         </div>
-        <PasswordView />
       </div>
       <div class="login-copyright-bar">
         <div class="login-copyright">{{ app.login.copyright }}</div>
@@ -15,8 +24,11 @@
   </div>
 </template>
 <script setup lang="ts">
+import type { PreAuthorizeResult } from "@/models";
 import { useAppStore } from "@/stores/modules/app";
 import PasswordView from "./password/PasswordView.vue";
+import QrCodeView from "./qrcode/QrCodeView.vue";
+import SelectTenant from "./select-tenant/SelectTenant.vue";
 import PasswordLoginImage from "@/assets/password-login.png";
 import QrCodeLoginImage from "@/assets/qrcode-login.png";
 import "./login.css";
@@ -24,18 +36,21 @@ import "./login.css";
 const { app } = useAppStore();
 const bannerStyle = `background-image: url("${app.login.loginBanner}");`;
 const isScanLogin = ref(false); // 是否为扫码登录
+const isStepOneSuccess = ref(false);
+const authorizeResult = ref<PreAuthorizeResult>({});
 const handleSwitch = () => {
   isScanLogin.value = !isScanLogin.value;
+};
+const handlePreAuthorizeSuccess = (result: PreAuthorizeResult) => {
+  authorizeResult.value = result;
+  isStepOneSuccess.value = true;
+};
+const handleBackToLoginView = () => {
+  isStepOneSuccess.value = false;
 };
 </script>
 <style lang="postcss" scoped>
 .login-page {
-  --login-banner-area-width: 500px;
-  --login-box-width: 480px;
-  --login-box-height: 600px;
-  --login-copyright-bar-width: 480px;
-  --login-copyright-bar-height: 60px;
-
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -78,25 +93,6 @@ const handleSwitch = () => {
       border-radius: 10px;
       border: 1px solid rgba(126, 134, 142, 0.16);
       box-shadow: 0 4px 14px 0 rgba(126, 134, 142, 0.16);
-
-      & .login-switcher {
-        position: absolute;
-        z-index: 20;
-        top: 0;
-        right: 0;
-        width: 80px;
-        height: 80px;
-        & img {
-          display: block;
-          width: 100%;
-          height: 100%;
-          opacity: 0.8;
-          transition: all 0.3s;
-        }
-        & img:hover {
-          opacity: 1;
-        }
-      }
     }
 
     & .login-copyright-bar {

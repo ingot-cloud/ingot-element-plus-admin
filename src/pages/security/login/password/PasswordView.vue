@@ -51,6 +51,7 @@ import LoginInput from "../components/LoginInput.vue";
 import { Message } from "@/utils/message";
 
 const { app } = useAppStore();
+const emit = defineEmits(["success"]);
 
 // 定义verify组件引用
 const VerifyRef = ref();
@@ -66,7 +67,9 @@ const handleLogin = () => {
 // 滑块验证码校验成功调用后台登录接口
 const verifySuccess = (params: any) => {
   formModel.code = params.captchaVerification;
-  password.handleLogin();
+  password.handleLogin().then((result) => {
+    emit("success", result);
+  });
 };
 
 const handleForgot = () => {

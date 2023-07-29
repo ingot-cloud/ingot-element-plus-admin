@@ -6,6 +6,16 @@ export interface UserToken {
   scope?: string;
 }
 
+export interface TenantItem {
+  id?: string;
+  name?: string;
+}
+
+export interface PreAuthorizeResult {
+  allows?: Array<TenantItem>;
+  code?: string;
+}
+
 export interface User {
   email?: string;
   phone?: string;
