@@ -27,3 +27,29 @@
     }
   }
 }
+
+.login-anim-in {
+  animation: login-view-in 0.2s;
+}
+
+.login-anim-out {
+  animation: login-view-out 0.2s;
+}
+
+@keyframes login-view-in {
+  0% {
+    transform: translateX(50px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes login-view-out {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50px);
+  }
+}

@@ -1,5 +1,5 @@
 <template>
-  <div v-loading="loading">
+  <div v-loading="loading" :class="isShow ? 'login-anim-in' : ''">
     <div class="back-btn" @click="handleBack">
       <i-ep:arrow-left />
       返回
@@ -30,6 +30,10 @@ import { useTabsStore } from "@/stores/modules/tabs";
 import Router from "@/router";
 
 const props = defineProps({
+  isShow: {
+    type: Boolean,
+    value: true,
+  },
   code: {
     type: String,
   },

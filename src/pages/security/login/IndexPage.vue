@@ -5,6 +5,7 @@
       <div class="login-box">
         <SelectTenant
           v-if="isStepOneSuccess"
+          :is-show="isStepOneSuccess"
           :code="authorizeResult.code"
           :list="authorizeResult.allows"
           @back="handleBackToLoginView"
@@ -13,8 +14,13 @@
           <div class="login-switcher" @click="handleSwitch">
             <img :src="isScanLogin ? PasswordLoginImage : QrCodeLoginImage" />
           </div>
-          <QrCodeView v-if="isScanLogin" />
-          <PasswordView v-else @success="handlePreAuthorizeSuccess" />
+          <QrCodeView v-if="isScanLogin" :is-show="isScanLogin" />
+          <PasswordView
+            v-else
+            :is-show="isScanLogin"
+            @success="handlePreAuthorizeSuccess"
+            class="login-anim-in"
+          />
         </div>
       </div>
       <div class="login-copyright-bar">
@@ -36,7 +42,7 @@ import "./login.css";
 const { app } = useAppStore();
 const bannerStyle = `background-image: url("${app.login.loginBanner}");`;
 const isScanLogin = ref(false); // 是否为扫码登录
-const isStepOneSuccess = ref(false);
+const isStepOneSuccess = ref(false); // 是否预授权成功
 const authorizeResult = ref<PreAuthorizeResult>({});
 const handleSwitch = () => {
   isScanLogin.value = !isScanLogin.value;
