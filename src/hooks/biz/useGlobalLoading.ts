@@ -28,7 +28,7 @@ export const useGlobalLoading = () => {
     window.globalLoading = true;
   };
 
-  const done = (time: number = 0) => {
+  const stop = (time: number = 0) => {
     nextTick(() => {
       setTimeout(() => {
         window.globalLoading = false;
@@ -40,7 +40,7 @@ export const useGlobalLoading = () => {
 
   return {
     start,
-    done,
+    stop,
   };
 };
 
