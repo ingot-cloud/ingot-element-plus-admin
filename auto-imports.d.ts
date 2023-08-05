@@ -143,6 +143,7 @@ declare global {
   const useClipboard: typeof import('@vueuse/core')['useClipboard']
   const useCloned: typeof import('@vueuse/core')['useCloned']
   const useColorMode: typeof import('@vueuse/core')['useColorMode']
+  const useCommandComponent: typeof import('./src/hooks/biz/useCommandComponent')['default']
   const useConfirmDelete: typeof import('./src/hooks/biz/usePaging')['useConfirmDelete']
   const useConfirmDialog: typeof import('@vueuse/core')['useConfirmDialog']
   const useConfirmStatus: typeof import('./src/hooks/biz/usePaging')['useConfirmStatus']
@@ -186,7 +187,7 @@ declare global {
   const useFullscreen: typeof import('@vueuse/core')['useFullscreen']
   const useGamepad: typeof import('@vueuse/core')['useGamepad']
   const useGeolocation: typeof import('@vueuse/core')['useGeolocation']
-  const useGo: typeof import('./src/hooks/web/usePage')['useGo']
+  const useGo: typeof import('./src/hooks/web/useRouter')['useGo']
   const useIconsCollection: typeof import('./src/hooks/web/useIcons')['useIconsCollection']
   const useIdle: typeof import('@vueuse/core')['useIdle']
   const useImage: typeof import('@vueuse/core')['useImage']
@@ -227,9 +228,9 @@ declare global {
   const usePreferredLanguages: typeof import('@vueuse/core')['usePreferredLanguages']
   const usePreferredReducedMotion: typeof import('@vueuse/core')['usePreferredReducedMotion']
   const useRafFn: typeof import('@vueuse/core')['useRafFn']
-  const useRedirect: typeof import('./src/hooks/web/usePage')['useRedirect']
+  const useRedirect: typeof import('./src/hooks/web/useRouter')['useRedirect']
   const useRefHistory: typeof import('@vueuse/core')['useRefHistory']
-  const useRefreshPage: typeof import('./src/hooks/web/usePage')['useRefreshPage']
+  const useRefreshPage: typeof import('./src/hooks/web/useRouter')['useRefreshPage']
   const useResizeObserver: typeof import('@vueuse/core')['useResizeObserver']
   const useRoute: typeof import('vue-router')['useRoute']
   const useRouter: typeof import('vue-router')['useRouter']
@@ -442,6 +443,7 @@ declare module 'vue' {
     readonly useClipboard: UnwrapRef<typeof import('@vueuse/core')['useClipboard']>
     readonly useCloned: UnwrapRef<typeof import('@vueuse/core')['useCloned']>
     readonly useColorMode: UnwrapRef<typeof import('@vueuse/core')['useColorMode']>
+    readonly useCommandComponent: UnwrapRef<typeof import('./src/hooks/biz/useCommandComponent')['default']>
     readonly useConfirmDelete: UnwrapRef<typeof import('./src/hooks/biz/usePaging')['useConfirmDelete']>
     readonly useConfirmDialog: UnwrapRef<typeof import('@vueuse/core')['useConfirmDialog']>
     readonly useConfirmStatus: UnwrapRef<typeof import('./src/hooks/biz/usePaging')['useConfirmStatus']>
@@ -485,7 +487,7 @@ declare module 'vue' {
     readonly useFullscreen: UnwrapRef<typeof import('@vueuse/core')['useFullscreen']>
     readonly useGamepad: UnwrapRef<typeof import('@vueuse/core')['useGamepad']>
     readonly useGeolocation: UnwrapRef<typeof import('@vueuse/core')['useGeolocation']>
-    readonly useGo: UnwrapRef<typeof import('./src/hooks/web/usePage')['useGo']>
+    readonly useGo: UnwrapRef<typeof import('./src/hooks/web/useRouter')['useGo']>
     readonly useIconsCollection: UnwrapRef<typeof import('./src/hooks/web/useIcons')['useIconsCollection']>
     readonly useIdle: UnwrapRef<typeof import('@vueuse/core')['useIdle']>
     readonly useImage: UnwrapRef<typeof import('@vueuse/core')['useImage']>
@@ -526,9 +528,9 @@ declare module 'vue' {
     readonly usePreferredLanguages: UnwrapRef<typeof import('@vueuse/core')['usePreferredLanguages']>
     readonly usePreferredReducedMotion: UnwrapRef<typeof import('@vueuse/core')['usePreferredReducedMotion']>
     readonly useRafFn: UnwrapRef<typeof import('@vueuse/core')['useRafFn']>
-    readonly useRedirect: UnwrapRef<typeof import('./src/hooks/web/usePage')['useRedirect']>
+    readonly useRedirect: UnwrapRef<typeof import('./src/hooks/web/useRouter')['useRedirect']>
     readonly useRefHistory: UnwrapRef<typeof import('@vueuse/core')['useRefHistory']>
-    readonly useRefreshPage: UnwrapRef<typeof import('./src/hooks/web/usePage')['useRefreshPage']>
+    readonly useRefreshPage: UnwrapRef<typeof import('./src/hooks/web/useRouter')['useRefreshPage']>
     readonly useResizeObserver: UnwrapRef<typeof import('@vueuse/core')['useResizeObserver']>
     readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>
