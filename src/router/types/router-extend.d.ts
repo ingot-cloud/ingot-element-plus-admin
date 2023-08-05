@@ -35,6 +35,7 @@ declare module "vue-router" {
 
   interface _RouteLocationBase {
     /**
+     * @Deprecated 不推荐使用该属性
      * 跳过之后所有 NavigationGuard 中执行的逻辑
      */
     skipAfterGuard: boolean;
