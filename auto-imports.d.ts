@@ -187,6 +187,7 @@ declare global {
   const useFullscreen: typeof import('@vueuse/core')['useFullscreen']
   const useGamepad: typeof import('@vueuse/core')['useGamepad']
   const useGeolocation: typeof import('@vueuse/core')['useGeolocation']
+  const useGlobalLoading: typeof import('./src/hooks/biz/useGlobalLoading')['default']
   const useGo: typeof import('./src/hooks/web/useRouter')['useGo']
   const useIconsCollection: typeof import('./src/hooks/web/useIcons')['useIconsCollection']
   const useIdle: typeof import('@vueuse/core')['useIdle']
@@ -487,6 +488,7 @@ declare module 'vue' {
     readonly useFullscreen: UnwrapRef<typeof import('@vueuse/core')['useFullscreen']>
     readonly useGamepad: UnwrapRef<typeof import('@vueuse/core')['useGamepad']>
     readonly useGeolocation: UnwrapRef<typeof import('@vueuse/core')['useGeolocation']>
+    readonly useGlobalLoading: UnwrapRef<typeof import('./src/hooks/biz/useGlobalLoading')['default']>
     readonly useGo: UnwrapRef<typeof import('./src/hooks/web/useRouter')['useGo']>
     readonly useIconsCollection: UnwrapRef<typeof import('./src/hooks/web/useIcons')['useIconsCollection']>
     readonly useIdle: UnwrapRef<typeof import('@vueuse/core')['useIdle']>
