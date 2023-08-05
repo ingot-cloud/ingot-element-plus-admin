@@ -20,10 +20,9 @@ export class AuthGuard extends BaseNavigationGuard {
           // return { path: "/login", query: { redirect: to.fullPath } };
           return { path: "/login" };
         }
-      } else {
-        // 不执行后面所有 NavigationGuard 的逻辑
-        to.skipAfterGuard = true;
       }
+
+      return true;
     };
   }
 }

@@ -1,15 +1,17 @@
 import type { BaseNavigationGuard } from "@/router/types";
 import type { Router } from "vue-router";
-import { AuthGuard } from "./authRouter";
-import { UserInfoGuard } from "./userRouter";
-import { DynamicRouterGuard } from "./dynamicRouter";
-import { GlobalGuard } from "./globalRouter";
+import { AuthGuard } from "./authGuard";
+import { UserInfoGuard } from "./userGuard";
+import { DynamicRouterGuard } from "./dynamicGuard";
+import { GlobalGuard } from "./globalGuard";
+import { EndGuard } from "./endGuard";
 
 const guardList: Array<BaseNavigationGuard> = [
   new GlobalGuard(),
   new DynamicRouterGuard(),
   new UserInfoGuard(),
   new AuthGuard(),
+  new EndGuard(),
 ];
 
 guardList.sort((l, r) => {

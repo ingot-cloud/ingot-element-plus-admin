@@ -27,6 +27,10 @@ declare module "vue-router" {
      * 是否为固钉
      */
     isAffix?: boolean;
+    /**
+     * 是否需要获取动态路由信息
+     */
+    dynamicRoutes?: boolean;
   }
 
   interface _RouteLocationBase {

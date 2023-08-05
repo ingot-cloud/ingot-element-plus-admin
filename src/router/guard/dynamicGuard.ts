@@ -9,12 +9,16 @@ export class DynamicRouterGuard extends BaseNavigationGuard {
 
   public exec(router: Router): NavigationGuardWithThis<undefined> {
     return async (to) => {
-      const result = await useRouterStore().fetchRoutes();
-      result.dynamicRoutes.forEach((route) => {
-        router.addRoute(route);
-      });
+      // 如果需要获取动态路由，则发送请求
+      if (to.meta.dynamicRoutes) {
+        const result = await useRouterStore().fetchRoutes();
+        result.dynamicRoutes.forEach((route) => {
+          router.addRoute(route);
+        });
+        return { path: to.fullPath, replace: true, query: to.query };
+      }
 
-      return { path: to.fullPath, replace: true, query: to.query };
+      return true;
     };
   }
 }

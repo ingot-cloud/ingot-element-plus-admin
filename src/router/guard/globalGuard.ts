@@ -15,6 +15,7 @@ export class GlobalGuard extends BaseNavigationGuard {
       if (!isKeepTenant(to) && !isKeepTenant(from)) {
         useTenantStore().resetGlobalTenant();
       }
+
       return true;
     };
   }
