@@ -12,7 +12,7 @@
 <script setup lang="ts">
 defineProps({
   id: {
-    type: String,
+    type: [String, Number],
   },
   avatar: {
     type: String,
