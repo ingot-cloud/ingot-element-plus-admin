@@ -64,7 +64,7 @@
         :type="item.type || undefined"
         :width="item.width || undefined"
         :fixed="item.fixed || undefined"
-        :align="item.align || 'left'"
+        :align="item.align || 'center'"
       >
         <template v-slot="scope" v-if="!item.type">
           <slot :name="item.prop" :item="scope.row" :index="scope.$index">
@@ -118,7 +118,7 @@
       :type="item.type || undefined"
       :width="item.width || undefined"
       :fixed="item.fixed || undefined"
-      :align="item.align || 'left'"
+      :align="item.align || 'center'"
       :sortable="item.sortable"
       :sort-method="item.sortMethod"
       :sort-by="item.sortBy"
