@@ -14,6 +14,6 @@ defineProps<{
 <style lang="postcss">
 .in-with-label {
   @apply color-[var(--in-text-color-primary)] m-r-5px;
-  font-size: 12px;
+  font-size: 14px;
 }
 </style>
