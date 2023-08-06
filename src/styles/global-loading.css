@@ -8,6 +8,12 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.in-global-loading .in-global-loading-box .in-global-loading-text {
+  color: var(--in-color-primary);
+  font-size: 14px;
+  text-align: center;
+  margin-top: 5px;
+}
 .in-global-loading .in-global-loading-box-warp {
   width: 80px;
   height: 80px;

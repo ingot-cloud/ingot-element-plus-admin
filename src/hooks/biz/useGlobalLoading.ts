@@ -21,7 +21,9 @@ export const useGlobalLoading = () => {
 					<div class="in-global-loading-box-item"></div>
 					<div class="in-global-loading-box-item"></div>
 				</div>
+        <div class="in-global-loading-text">加载中...</div>
 			</div>
+
 		`;
     div.innerHTML = htmls;
     bodys.insertBefore(div, bodys.childNodes[0]);
