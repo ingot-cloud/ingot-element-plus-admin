@@ -19,7 +19,7 @@ export const tableHeaders: Array<TableHeaderRecord> = [
   },
   {
     label: "操作",
-    width: "290",
+    width: "320",
     prop: "actions",
     fixed: "right",
     align: "center",

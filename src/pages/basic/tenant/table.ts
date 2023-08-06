@@ -5,7 +5,7 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     label: "序号",
     type: "index",
     align: "center",
-    width: "50",
+    width: "80",
   },
   {
     label: "租户名称",

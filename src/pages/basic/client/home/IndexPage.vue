@@ -35,7 +35,7 @@
       @refresh="paging.exec"
     >
       <template #toolbar>
-        <in-button type="primary" @click="handleCreate()"> 添加 </in-button>
+        <in-button type="primary" @click="handleCreate()"> 创建 </in-button>
       </template>
       <template #authorizationGrantTypes="{ item }">
         <el-tag

@@ -5,7 +5,7 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     label: "序号",
     type: "index",
     align: "center",
-    width: "50",
+    width: "80",
   },
   {
     label: "客户端ID",
@@ -65,18 +65,20 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     hide: true,
   },
   {
-    label: "Token认证类型",
+    label: "认证类型",
     prop: "tokenAuthType",
+    width: "100",
   },
   {
     label: "状态",
     prop: "status",
     align: "center",
-    width: "60",
+    width: "80",
   },
   {
     label: "创建时间",
     prop: "clientIdIssuedAt",
+    width: "180",
   },
   {
     label: "操作",

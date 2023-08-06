@@ -22,6 +22,7 @@ export enum AuthorizedGrantType {
   RefreshToken = "refresh_token",
   Client = "client_credentials",
   Code = "authorization_code",
+  ConfirmCode = "confirm_code",
 }
 export const AuthorizedGrantTypeEnumExtArray = [
   newEnumExt(AuthorizedGrantType.Code, "授权码模式"),
@@ -29,6 +30,7 @@ export const AuthorizedGrantTypeEnumExtArray = [
   newEnumExt(AuthorizedGrantType.Social, "社交模式"),
   newEnumExt(AuthorizedGrantType.Client, "客户端模式"),
   newEnumExt(AuthorizedGrantType.RefreshToken, "允许刷新Token"),
+  newEnumExt(AuthorizedGrantType.ConfirmCode, "确认码模式"),
 ];
 export const useAuthorizedGrantTypeEnum = useEnum(
   AuthorizedGrantTypeEnumExtArray

@@ -1,5 +1,5 @@
 <template>
-  <in-dialog :title="title" v-model="visible" width="70%">
+  <in-dialog :title="title" v-model="visible" width="60%">
     <el-form
       ref="editFormRef"
       class="form"
@@ -8,76 +8,54 @@
       :model="editForm"
       :rules="rules"
     >
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <el-form-item label="客户端ID" prop="clientId">
-            <el-input
-              v-model="editForm.clientId"
-              clearable
-              placeholder="请输入客户端ID"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="秘钥" prop="clientSecret">
-            <el-input
-              v-model="editForm.clientSecret"
-              clearable
-              placeholder="请输入客户端秘钥"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <el-form-item label="客户端名称" prop="clientName">
-            <el-input
-              v-model="editForm.clientName"
-              clearable
-              placeholder="请输入客户端名称"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="访问范围" prop="scopes">
-            <el-input
-              v-model="editForm.scopes"
-              clearable
-              placeholder="请输入客户端scope"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="12">
-          <el-form-item
-            label="Client认证方式"
-            prop="clientAuthenticationMethods"
-          >
-            <in-select
-              v-model="editForm.clientAuthenticationMethods"
-              :options="useClientAuthMethodEnum.getOptions()"
-              placeholder="请选择Client认证方式"
-              split=","
-              multiple
-            />
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="Client授权类型" prop="authorizationGrantTypes">
-            <in-select
-              v-model="editForm.authorizationGrantTypes"
-              :options="useAuthorizedGrantTypeEnum.getOptions()"
-              placeholder="请选择允许授权类型"
-              split=","
-              multiple
-            />
-          </el-form-item>
-        </el-col>
-      </el-row>
-
+      <el-form-item label="客户端ID" prop="clientId">
+        <el-input
+          v-model="editForm.clientId"
+          clearable
+          placeholder="请输入客户端ID"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="秘钥" prop="clientSecret">
+        <el-input
+          v-model="editForm.clientSecret"
+          clearable
+          placeholder="请输入客户端秘钥"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="客户端名称" prop="clientName">
+        <el-input
+          v-model="editForm.clientName"
+          clearable
+          placeholder="请输入客户端名称"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="访问范围" prop="scopes">
+        <el-input
+          v-model="editForm.scopes"
+          clearable
+          placeholder="请输入客户端scope"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="Client认证方式" prop="clientAuthenticationMethods">
+        <in-select
+          v-model="editForm.clientAuthenticationMethods"
+          :options="useClientAuthMethodEnum.getOptions()"
+          placeholder="请选择Client认证方式"
+          split=","
+          multiple
+          style="width: 100%"
+        />
+      </el-form-item>
+      <el-form-item label="Client授权类型" prop="authorizationGrantTypes">
+        <in-select
+          v-model="editForm.authorizationGrantTypes"
+          :options="useAuthorizedGrantTypeEnum.getOptions()"
+          placeholder="请选择允许授权类型"
+          split=","
+          multiple
+          style="width: 100%"
+        />
+      </el-form-item>
       <el-form-item label="重定向URL">
         <el-input
           v-model="editForm.redirectUris"
@@ -85,27 +63,13 @@
           placeholder="请输入重定向URL"
         ></el-input>
       </el-form-item>
-
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <el-form-item label="访问Token失效时间">
-            <el-input
-              v-model="editForm.accessTokenTimeToLive"
-              clearable
-              type="number"
-              placeholder="请输入访问Token失效时间"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="Token授权类型">
-            <in-select
-              v-model="editForm.tokenAuthType"
-              :options="useTokenAuthMethodEnum.getOptions()"
-            />
-          </el-form-item>
-        </el-col>
-      </el-row>
+      <el-form-item label="Token授权类型">
+        <in-select
+          v-model="editForm.tokenAuthType"
+          :options="useTokenAuthMethodEnum.getOptions()"
+          style="width: 100%"
+        />
+      </el-form-item>
 
       <el-row :gutter="20" v-if="grantRefreshToken">
         <el-col :span="12">
@@ -127,8 +91,9 @@
 
       <el-row :gutter="20" v-if="grantCode">
         <el-col :span="12">
-          <el-form-item label="需要提供验证密钥质询和验证器">
+          <el-form-item label="验证密钥">
             <el-switch v-model="editForm.requireProofKey" class="form-item" />
+            <span m-l-5px font-500>是否需要提供验证密钥质询和验证器</span>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -211,6 +176,9 @@ const visible = ref(false);
 const show = () => {
   visible.value = true;
   copyParams(editForm, defaultEditForm);
+  nextTick(() => {
+    editFormRef.value.resetFields();
+  });
 };
 
 const handleConfirmClick = () => {
