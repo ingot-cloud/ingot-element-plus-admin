@@ -35,14 +35,14 @@
         {{ loading ? "登录中..." : "登录" }}
       </in-button>
     </div>
+    <Verify
+      @success="verifySuccess"
+      :mode="'pop'"
+      :captchaType="'blockPuzzle'"
+      :imgSize="{ width: '330px', height: '155px' }"
+      ref="VerifyRef"
+    />
   </div>
-  <Verify
-    @success="verifySuccess"
-    :mode="'pop'"
-    :captchaType="'blockPuzzle'"
-    :imgSize="{ width: '330px', height: '155px' }"
-    ref="VerifyRef"
-  />
 </template>
 <script lang="ts" setup>
 import { useAppStore } from "@/stores/modules/app";
