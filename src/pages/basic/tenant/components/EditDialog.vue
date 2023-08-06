@@ -1,5 +1,5 @@
 <template>
-  <in-dialog :title="title" v-model="visible" width="600">
+  <in-dialog :title="title" v-model="visible" width="800">
     <el-form
       ref="editFormRef"
       label-width="80px"
@@ -7,7 +7,7 @@
       :model="editForm"
       :rules="rules"
     >
-      <el-row>
+      <el-row :gutter="24">
         <el-col :span="12">
           <el-form-item label="租户名称" prop="name">
             <el-input
@@ -28,7 +28,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-col :span="24">
+      <el-col :span="20">
         <el-form-item label="周期" prop="daterange">
           <el-date-picker
             v-model="editForm.daterange"

@@ -1,26 +1,40 @@
 <template>
-  <in-page-header @back="$router.back()">
-    <template #title>
-      {{ title }}
-    </template>
-    <in-filter-container :show-backtop="false">
-      <template #top>
-        <in-filter-item>
-          <in-with-label :title="filterRecord.title">
-            <el-input
-              v-model="queryCondition[`${filterRecord.key}`]"
-              :placeholder="filterRecord.placeholder"
-              clearable
-            ></el-input>
-          </in-with-label>
-          <in-button type="primary" @click="fetchData"> 搜索 </in-button>
+  <in-container>
+    <in-page-header @back="$router.back()">
+      <template #title>
+        {{ title }}
+      </template>
+      <in-filter-container :show-backtop="false">
+        <template #top>
+          <in-filter-item>
+            <in-with-label :title="filterRecord.title">
+              <el-input
+                v-model="queryCondition[`${filterRecord.key}`]"
+                :placeholder="filterRecord.placeholder"
+                clearable
+              ></el-input>
+            </in-with-label>
+            <in-button type="primary" @click="fetchData"> 搜索 </in-button>
+          </in-filter-item>
+        </template>
 
-          <template #rightActions>
+        <in-table
+          ref="bindTable"
+          :headers="headers"
+          :data="records"
+          :selection="editBatch"
+          defaultExpandAll
+          @refresh="fetchData"
+          @handleSizeChange="fetchData"
+          @handleCurrentChange="fetchData"
+          @selectionChange="onSelectChanged"
+        >
+          <template #toolbar>
             <in-button type="primary" @click="showBindMoreView">
               绑定更多
             </in-button>
             <in-button
-              type="primary"
+              type="warning"
               v-if="!editBatch"
               @click="editBatch = true"
             >
@@ -34,36 +48,22 @@
             >
               解绑
             </in-button>
-            <in-button v-if="editBatch" type="warning" @click="cancelEditBatch">
+            <in-button v-if="editBatch" @click="cancelEditBatch">
               取消
             </in-button>
           </template>
-        </in-filter-item>
-      </template>
-
-      <in-table
-        ref="bindTable"
-        :headers="headers"
-        :data="records"
-        :selection="editBatch"
-        defaultExpandAll
-        @refresh="fetchData"
-        @handleSizeChange="fetchData"
-        @handleCurrentChange="fetchData"
-        @selectionChange="onSelectChanged"
-      >
-        <template #status="{ item }">
-          <common-status-tag :status="item.status" />
-        </template>
-        <template #actions="{ item }">
-          <in-button type="danger" @click="handleUnbind(item)">
-            解绑
-          </in-button>
-        </template>
-      </in-table>
-    </in-filter-container>
-  </in-page-header>
-
+          <template #status="{ item }">
+            <common-status-tag :status="item.status" />
+          </template>
+          <template #actions="{ item }">
+            <in-button type="danger" @click="handleUnbind(item)">
+              解绑
+            </in-button>
+          </template>
+        </in-table>
+      </in-filter-container>
+    </in-page-header>
+  </in-container>
   <BindViewDrawer
     ref="bindView"
     :id="id"

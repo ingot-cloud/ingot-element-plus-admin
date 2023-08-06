@@ -1,5 +1,4 @@
 import type { TableHeaderRecord } from "@/components/table";
-import { useDeptRoleScopeEnum } from "@/models/enums";
 
 export const tableHeaders: Array<TableHeaderRecord> = [
   {
@@ -9,7 +8,6 @@ export const tableHeaders: Array<TableHeaderRecord> = [
   {
     label: "权限范围",
     prop: "scope",
-    transform: (v) => useDeptRoleScopeEnum.getTagText(v).text,
   },
   {
     label: "排序",

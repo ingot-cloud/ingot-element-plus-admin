@@ -11,6 +11,11 @@
           创建部门
         </in-button>
       </template>
+      <template #scope="{ item }">
+        <el-tag>
+          {{ useDeptRoleScopeEnum.getTagText(item.scope).text }}
+        </el-tag>
+      </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status" />
       </template>
@@ -56,6 +61,7 @@ import { useDeptStore } from "@/stores/modules/dept";
 import EditDialog from "./components/EditDialog.vue";
 import type { API as EditDialogAPI } from "./components/EditDialog.vue";
 import type { TableAPI } from "@/components/table";
+import { useDeptRoleScopeEnum } from "@/models/enums";
 
 const editDialogRef = ref<EditDialogAPI>();
 const loading = ref(false);

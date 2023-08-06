@@ -1,9 +1,9 @@
 <template>
-  <in-dialog title="创建用户" v-model="visible">
+  <in-dialog title="创建用户" v-model="visible" width="500">
     <el-form
       ref="createForm"
       label-width="100px"
-      label-position="left"
+      label-position="right"
       :model="editForm"
       :rules="rules"
     >

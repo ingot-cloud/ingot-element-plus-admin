@@ -1,12 +1,12 @@
 <template>
-  <in-dialog :title="title" v-model="visible" width="700">
+  <in-dialog :title="title" v-model="visible" width="800">
     <el-form
       ref="editFormRef"
       label-width="80px"
       :model="editForm"
       :rules="rules"
     >
-      <el-row>
+      <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item prop="pid" label="上级部门">
             <el-tree-select
@@ -40,7 +40,7 @@
         </el-col>
       </el-row>
 
-      <el-row>
+      <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item prop="name" label="部门名称">
             <el-input

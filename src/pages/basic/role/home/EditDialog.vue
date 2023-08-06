@@ -1,5 +1,5 @@
 <template>
-  <in-dialog :title="title" v-model="visible" width="600">
+  <in-dialog :title="title" v-model="visible" width="800">
     <el-form
       ref="roleEditFormRef"
       class="form"
@@ -8,7 +8,7 @@
       :model="editForm"
       :rules="rules"
     >
-      <el-row>
+      <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="角色名称" prop="name">
             <el-input
@@ -29,7 +29,7 @@
         ></el-col>
       </el-row>
 
-      <el-row>
+      <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="角色类型" prop="type">
             <in-select

@@ -8,13 +8,13 @@ export const tableHeaders: Array<TableHeaderRecord> = [
   {
     label: "菜单类型",
     prop: "menuType",
-    width: "80",
+    width: "100",
     align: "center",
   },
   {
     label: "图标",
     prop: "icon",
-    width: "50",
+    width: "80",
     align: "center",
   },
   {
@@ -23,7 +23,7 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     transform: (v) => v || "-",
   },
   {
-    label: "路径",
+    label: "路由",
     prop: "path",
     width: "300",
   },
@@ -45,37 +45,37 @@ export const tableHeaders: Array<TableHeaderRecord> = [
   {
     label: "排序",
     prop: "sort",
-    width: "50",
+    width: "80",
     align: "center",
   },
   {
     label: "隐藏菜单",
     prop: "hidden",
-    width: "80",
+    width: "100",
     align: "center",
   },
   {
     label: "隐藏面包屑",
     prop: "hideBreadcrumb",
-    width: "80",
+    width: "100",
     align: "center",
   },
   {
     label: "是否缓存",
     prop: "isCache",
-    width: "80",
+    width: "100",
     align: "center",
   },
   {
     label: "匹配props",
     prop: "props",
-    width: "80",
+    width: "100",
     align: "center",
   },
   {
     label: "状态",
     prop: "status",
-    width: "60",
+    width: "80",
     align: "center",
   },
   {

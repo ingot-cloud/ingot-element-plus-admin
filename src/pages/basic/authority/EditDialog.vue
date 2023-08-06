@@ -1,5 +1,10 @@
 <template>
-  <in-dialog :title="title" v-model="visible" @close="loading = false">
+  <in-dialog
+    :title="title"
+    v-model="visible"
+    @close="loading = false"
+    width="40%"
+  >
     <el-form
       ref="editFormRef"
       class="form"
@@ -7,7 +12,6 @@
       label-position="right"
       :model="editForm"
       :rules="rules"
-      size="small"
     >
       <el-form-item label="上级权限">
         <el-tree-select

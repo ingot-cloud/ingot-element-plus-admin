@@ -17,23 +17,7 @@
             ></el-input>
           </in-with-label>
           <in-button type="primary" @click="fetchData"> 搜索 </in-button>
-          <template #rightActions>
-            <div v-if="!editBatch">
-              <in-button @click="editBatch = true"> 批量绑定 </in-button>
-            </div>
-            <div v-else>
-              <in-button
-                type="danger"
-                :disabled="selectData.length === 0"
-                @click="handleBatchBind"
-              >
-                绑定
-              </in-button>
-              <in-button type="warning" @click="cancelEditBatch">
-                取消
-              </in-button>
-            </div>
-          </template>
+          <template #rightActions> </template>
         </in-filter-item>
       </template>
       <in-table
@@ -50,6 +34,23 @@
         @handleCurrentChange="fetchData"
         @selectionChange="onSelectChanged"
       >
+        <template #toolbar>
+          <div v-if="!editBatch">
+            <in-button type="primary" @click="editBatch = true">
+              批量绑定
+            </in-button>
+          </div>
+          <div v-else>
+            <in-button
+              type="danger"
+              :disabled="selectData.length === 0"
+              @click="handleBatchBind"
+            >
+              绑定
+            </in-button>
+            <in-button @click="cancelEditBatch"> 取消 </in-button>
+          </div>
+        </template>
         <template #status="{ item }">
           <common-status-tag :status="item.status" />
         </template>

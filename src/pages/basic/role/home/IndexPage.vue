@@ -38,6 +38,11 @@
       <template #toolbar>
         <in-button type="primary" @click="handleCreate"> 添加 </in-button>
       </template>
+      <template #code="{ item }">
+        <el-tag>
+          {{ item.code }}
+        </el-tag>
+      </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status"></common-status-tag>
       </template>

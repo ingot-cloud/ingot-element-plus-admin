@@ -1,9 +1,9 @@
 <template>
-  <in-dialog :title="title" v-model="visible" width="600">
+  <in-dialog :title="title" v-model="visible" width="800">
     <el-form
       ref="editFormRef"
       class="form"
-      label-width="80px"
+      label-width="100px"
       :model="editForm"
       :rules="rules"
     >
@@ -36,10 +36,10 @@
       </el-form-item>
       <el-row>
         <el-col :span="!isButton() ? 18 : 24">
-          <el-form-item prop="path" label="菜单路径">
+          <el-form-item prop="path" label="菜单路由">
             <el-input
               v-model="editForm.path"
-              placeholder="请输入菜单路径"
+              placeholder="请输入菜单路由"
               clearable
             ></el-input>
           </el-form-item>
@@ -50,7 +50,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row v-if="editForm.customViewPath && !isButton()">
+      <el-row v-if="editForm.customViewPath && !isButton()" :gutter="20">
         <el-col :span="isDirectory() ? 16 : 24">
           <el-form-item label="视图路径" prop="viewPath">
             <el-input
