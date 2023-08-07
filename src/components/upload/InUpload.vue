@@ -181,6 +181,6 @@ const handleUploadError = (error: Error) => {
   Message.error(error.message);
 };
 const handleExceed = () => {
-  Message.error(`最多上传${props.limit}张图片`);
+  Message.error(`最多上传${props.limit}个文件/图片`);
 };
 </script>
