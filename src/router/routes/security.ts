@@ -7,6 +7,7 @@ export const securityRoutes: Array<RouteRecordRaw> = [
   {
     path: "/login",
     meta: {
+      title: "登录",
       permitAuth: true,
       hideMenu: true,
       breadcrumbHidden: true,

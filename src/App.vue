@@ -15,4 +15,15 @@ const { componentSize } = storeToRefs(useAppStateStore());
 const buttonConfig = reactive({
   autoInsertSpace: false,
 });
+const route = useRoute();
+
+watch(
+  () => route.path,
+  () => {
+    useTitle();
+  },
+  {
+    deep: true,
+  }
+);
 </script>
