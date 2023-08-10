@@ -56,14 +56,12 @@ import type {
 } from "element-plus";
 import type { UploadAPIFn } from "./types";
 import { Message } from "@/utils/message";
+import { isString } from "@/utils";
 
 const emits = defineEmits(["update:modelValue"]);
 const props = defineProps({
   modelValue: {
-    type: Array as PropType<Array<UploadFile>>,
-    default() {
-      return [];
-    },
+    type: [String, Array],
   },
   disabled: {
     type: Boolean,
@@ -107,10 +105,17 @@ watch(
       return;
     }
 
-    innerFileList.value = value.map((item) => {
-      const fileName = item.url?.substring(item.url?.lastIndexOf("/") + 1);
+    const tempValue: Array<string> = [];
+    if (isString(value)) {
+      tempValue.push(value as string);
+    } else {
+      tempValue.push(...(value as Array<string>));
+    }
+
+    innerFileList.value = tempValue.map((url) => {
+      const fileName = url.substring(url.lastIndexOf("/") + 1);
       return {
-        url: item.url,
+        url,
         name: fileName,
         status: "success",
         uid: 0,
@@ -143,7 +148,14 @@ const changeFileList = () => {
   });
 
   innerChange.value = true;
-  emits("update:modelValue", innerFileList.value);
+  if (props.limit === 1) {
+    emits(
+      "update:modelValue",
+      innerFileList.value[0] ? innerFileList.value[0].url : ""
+    );
+  } else {
+    emits("update:modelValue", innerFileList.value || []);
+  }
 };
 const uploadRequest = (options: UploadRequestOptions): Promise<unknown> => {
   return props.api({
