@@ -170,6 +170,9 @@ export const useUserInfoStore = defineStore("security.user", () => {
   const getUsername = computed(() => {
     return userInfo.user ? userInfo.user.nickname : "欢迎登录";
   });
+  const getAvatar = computed(() => {
+    return userInfo.user ? userInfo.user.avatar : "";
+  });
   const getRoles = computed(() => userInfo.roles);
   const getUserInfoWhetherExist = computed(
     () => userInfo.roles && userInfo.roles.length !== 0
@@ -196,6 +199,7 @@ export const useUserInfoStore = defineStore("security.user", () => {
   return {
     userInfo,
     getUsername,
+    getAvatar,
     getRoles,
     getUserInfoWhetherExist,
     clear,

@@ -21,6 +21,7 @@ export interface User {
   email?: string;
   phone?: string;
   nickname?: string;
+  avatar?: string;
   nonInitPwd?: boolean;
 }
 
