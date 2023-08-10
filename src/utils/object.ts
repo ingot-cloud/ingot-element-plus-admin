@@ -130,7 +130,7 @@ export function copyParams<To extends object, From extends object>(
 }
 
 /**
- * 拷贝参数
+ * 拷贝参数，只拷贝指定key
  */
 export function copyParamsWithKeys<To extends object, From extends object>(
   to: To,
@@ -151,4 +151,37 @@ export function copyParamsWithKeys<To extends object, From extends object>(
       }
     }
   });
+}
+
+/**
+ * 拷贝参数，并且忽略指定key
+ */
+export function copyParamsWithoutKeys<To extends object, From extends object>(
+  to: To,
+  from: From,
+  ignoreKeys: Array<string>,
+  filterNull?: boolean
+): void {
+  const keys = Object.keys(from).filter((key) => {
+    return !ignoreKeys.includes(key);
+  });
+  copyParamsWithKeys(to, from, keys, filterNull);
+}
+
+/**
+ * 分配对象，并且忽略指定key
+ * @param target
+ * @param source
+ * @param ignoreKeys
+ */
+export function assignIgnoreKeys<T extends {}, U>(
+  target: T,
+  source: U,
+  ignoreKeys: Array<string>
+) {
+  const middle = Object.assign({}, source);
+  ignoreKeys.forEach((key) => {
+    Reflect.deleteProperty(middle, key);
+  });
+  Object.assign(target, middle);
 }
