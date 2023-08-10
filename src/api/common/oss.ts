@@ -10,5 +10,5 @@ export function UploadAPI(params: UploadRequestParams): Promise<R<OSSResult>> {
   formData.append("file", params.file);
   formData.append("fileName", params.fileName);
   formData.append("bucketName", "ingot");
-  return Http.post<OSSResult>("/api/pms/v1/oss", formData);
+  return Http.post<OSSResult>("/api/pms/v1/oss/upload", formData);
 }
