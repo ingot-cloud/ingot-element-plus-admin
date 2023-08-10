@@ -1,5 +1,5 @@
 <template>
-  <div class="password-box" :class="isShow ? '' : 'login-anim-in'">
+  <div class="password-box">
     <div class="title-container">
       <img class="logo-image" src="@/assets/logo.png" />
       <div class="login-title">{{ app.login.title }}</div>
@@ -52,12 +52,6 @@ import { Message } from "@/utils/message";
 
 const { app } = useAppStore();
 const emit = defineEmits(["success"]);
-defineProps({
-  isShow: {
-    type: Boolean,
-    value: true,
-  },
-});
 
 // 定义verify组件引用
 const VerifyRef = ref();

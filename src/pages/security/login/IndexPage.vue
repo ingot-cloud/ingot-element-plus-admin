@@ -3,25 +3,27 @@
     <div class="banner-area" role="banner-area" :style="bannerStyle"></div>
     <div class="login-area">
       <div class="login-box">
-        <SelectTenant
-          v-if="isStepOneSuccess"
-          :is-show="isStepOneSuccess"
-          :code="authorizeResult.code"
-          :list="authorizeResult.allows"
-          @back="handleBackToLoginView"
-        />
-        <div v-else>
-          <div class="login-switcher" @click="handleSwitch">
-            <img :src="isScanLogin ? PasswordLoginImage : QrCodeLoginImage" />
-          </div>
-          <QrCodeView v-if="isScanLogin" :is-show="isScanLogin" />
-          <PasswordView
-            v-else
-            :is-show="isScanLogin"
-            @success="handlePreAuthorizeSuccess"
-            class="login-anim-in"
+        <Transition name="fade-transform" mode="out-in">
+          <SelectTenant
+            v-if="isStepOneSuccess"
+            :code="authorizeResult.code"
+            :list="authorizeResult.allows"
+            @back="handleBackToLoginView"
           />
-        </div>
+          <div v-else>
+            <div class="login-switcher" @click="handleSwitch">
+              <img :src="isScanLogin ? PasswordLoginImage : QrCodeLoginImage" />
+            </div>
+            <Transition name="fade-transform" mode="out-in">
+              <QrCodeView v-if="isScanLogin" />
+              <PasswordView
+                v-else
+                @success="handlePreAuthorizeSuccess"
+                :is-show="true"
+              />
+            </Transition>
+          </div>
+        </Transition>
       </div>
       <div class="login-copyright-bar">
         <div class="login-copyright">{{ app.login.copyright }}</div>
