@@ -31,8 +31,7 @@
         :disabled="editDisabled"
       >
         <el-row>
-          <el-col :span="6"></el-col>
-          <el-col :span="6">
+          <el-col :span="6" :offset="6">
             <el-form-item label="部门名称">
               <el-tree-select
                 w-full
@@ -58,8 +57,7 @@
         </el-row>
 
         <el-row>
-          <el-col :span="6"></el-col>
-          <el-col :span="6">
+          <el-col :span="6" :offset="6">
             <el-form-item label="角色" prop="roleIds">
               <in-select
                 w-full
@@ -86,8 +84,7 @@
         </el-row>
 
         <el-row>
-          <el-col :span="6"></el-col>
-          <el-col :span="6">
+          <el-col :span="6" :offset="6">
             <el-form-item label="昵称" prop="nickname">
               <el-input
                 v-model="editForm.nickname"
@@ -109,8 +106,7 @@
         </el-row>
 
         <el-row>
-          <el-col :span="6"></el-col>
-          <el-col :span="6">
+          <el-col :span="6" :offset="6">
             <el-form-item label="email" prop="email">
               <el-input
                 v-model="editForm.email"
@@ -126,6 +122,17 @@
                 <el-radio-button label="0">正常</el-radio-button>
                 <el-radio-button label="9">锁定</el-radio-button>
               </el-radio-group>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="12" :offset="6">
+            <el-form-item label="头像">
+              <in-common-upload
+                dir="public/user/avatar"
+                v-model="editForm.avatar"
+              />
             </el-form-item>
           </el-col>
         </el-row>
@@ -152,6 +159,7 @@ const rawForm = {
   nickname: undefined,
   phone: undefined,
   email: undefined,
+  avatar: undefined,
   status: undefined,
   createdAt: undefined,
 };
@@ -164,6 +172,7 @@ const keys = [
   "nickname",
   "phone",
   "email",
+  "avatar",
   "status",
   "createdAt",
 ];

@@ -7,6 +7,10 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     width: "80",
   },
   {
+    label: "头像",
+    prop: "avatar",
+  },
+  {
     label: "用户名",
     prop: "username",
   },

@@ -73,6 +73,9 @@
           placeholder="请输入email"
         ></el-input>
       </el-form-item>
+      <el-form-item label="头像">
+        <in-common-upload dir="public/user/avatar" v-model="editForm.avatar" />
+      </el-form-item>
     </el-form>
     <template #footer>
       <in-button :loading="loading" type="primary" @click="handleConfirmClick">
@@ -95,7 +98,7 @@ import { copyParamsWithKeys, copyParams } from "@/utils/object";
 import { CreateUserAPI } from "@/api/basic/user";
 import { useDeptStore } from "@/stores/modules/dept";
 
-const keys = ["username", "roleIds", "phone", "nickname", "email"];
+const keys = ["username", "roleIds", "phone", "nickname", "email", "avatar"];
 
 interface CreateUser {
   username?: string;
@@ -105,6 +108,7 @@ interface CreateUser {
   phone?: string;
   nickname?: string;
   email?: string;
+  avatar?: string;
   deptId?: string;
 }
 

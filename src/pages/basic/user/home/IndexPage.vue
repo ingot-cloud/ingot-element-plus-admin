@@ -44,6 +44,15 @@
       <template #toolbar>
         <in-button type="primary" @click="handleCreateUser"> 添加 </in-button>
       </template>
+      <template #avatar="{ item }">
+        <el-image
+          v-if="item.avatar"
+          class="w-30px h-30px"
+          :src="item.avatar"
+          fit="cover"
+        />
+        <el-tag v-else> 未设置 </el-tag>
+      </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status" />
       </template>

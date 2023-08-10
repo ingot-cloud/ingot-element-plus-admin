@@ -24,6 +24,7 @@ export interface SysUser extends OptionIDEntity {
   nickname?: string;
   phone?: string;
   email?: string;
+  avatar?: string;
   status?: CommonStatus;
 }
 
