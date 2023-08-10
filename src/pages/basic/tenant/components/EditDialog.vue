@@ -28,19 +28,20 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-col :span="20">
-        <el-form-item label="周期" prop="daterange">
-          <el-date-picker
-            v-model="editForm.daterange"
-            type="daterange"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-            value-format="YYYY-MM-DD"
-          >
-          </el-date-picker>
-        </el-form-item>
-      </el-col>
+      <el-form-item label="周期" prop="daterange">
+        <el-date-picker
+          v-model="editForm.daterange"
+          type="daterange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+          value-format="YYYY-MM-DD"
+        >
+        </el-date-picker>
+      </el-form-item>
+      <el-form-item label="logo">
+        <in-common-upload dir="public/tenant" v-model="editForm.avatar" />
+      </el-form-item>
     </el-form>
     <template #footer>
       <in-button :loading="loading" type="primary" @click="handleConfirmClick">
@@ -58,7 +59,7 @@ export interface API {
 <script lang="ts" setup>
 import type { SysTenant } from "@/models";
 import { Message } from "@/utils/message";
-import { copyParams } from "@/utils/object";
+import { copyParams, copyParamsWithoutKeys } from "@/utils/object";
 import { useTenantStore } from "@/stores/modules/tenant";
 
 const rules = {
@@ -74,6 +75,7 @@ const defaultEditForm: {
   startAt?: string;
   endAt?: string;
   daterange?: [string, string];
+  avatar?: string;
 } = {
   id: undefined,
   name: undefined,
@@ -81,6 +83,7 @@ const defaultEditForm: {
   startAt: undefined,
   endAt: undefined,
   daterange: ["", ""],
+  avatar: undefined,
 };
 
 const emits = defineEmits(["success"]);
@@ -121,7 +124,8 @@ const handleConfirmClick = () => {
     if (valid) {
       loading.value = true;
       const params: SysTenant = {};
-      Object.assign(params, toRaw(editForm));
+      copyParamsWithoutKeys(params, toRaw(editForm), ["daterange"]);
+
       if (editForm.daterange && editForm.daterange.length > 1) {
         params.startAt = editForm.daterange[0];
         params.endAt = editForm.daterange[1];
