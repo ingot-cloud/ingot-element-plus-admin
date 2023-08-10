@@ -38,6 +38,9 @@
       <template #toolbar>
         <in-button type="primary" @click="handleCreate"> 新增 </in-button>
       </template>
+      <template #avatar="{ item }">
+        <el-image class="w-30px h-30px" :src="item.avatar" fit="cover" />
+      </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status"></common-status-tag>
       </template>

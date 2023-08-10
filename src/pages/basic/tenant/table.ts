@@ -16,6 +16,10 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     prop: "code",
   },
   {
+    label: "logo",
+    prop: "avatar",
+  },
+  {
     label: "状态",
     prop: "status",
   },
