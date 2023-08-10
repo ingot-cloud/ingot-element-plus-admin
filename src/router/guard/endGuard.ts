@@ -9,7 +9,7 @@ export class EndGuard extends BaseNavigationGuard {
   public exec(): NavigationGuardWithThis<undefined> {
     const globalLoading = useGlobalLoading();
     return () => {
-      globalLoading.stop(600);
+      globalLoading.stop(1000);
       return true;
     };
   }
