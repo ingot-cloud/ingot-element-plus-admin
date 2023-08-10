@@ -15,6 +15,7 @@
           :key="item.id"
           :id="item.id"
           :name="item.name"
+          :avatar="item.avatar"
           @click="handleItemClick(item)"
         />
       </div>
@@ -64,6 +65,7 @@ const handleItemClick = (params: TenantItem) => {
     })
     .catch(() => {
       loading.value = false;
+      handleBack();
     });
 };
 </script>

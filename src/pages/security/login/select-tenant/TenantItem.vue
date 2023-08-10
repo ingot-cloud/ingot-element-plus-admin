@@ -1,6 +1,8 @@
 <template>
   <div class="tenant-item">
-    <div class="avatar"></div>
+    <div class="avatar">
+      <el-image v-if="avatar" :src="avatar" class="h-full w-full" fit="cover" />
+    </div>
     <div class="name">
       {{ name }}
     </div>

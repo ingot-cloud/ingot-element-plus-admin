@@ -9,6 +9,7 @@ export interface UserToken {
 export interface TenantItem {
   id?: string;
   name?: string;
+  avatar?: string;
 }
 
 export interface PreAuthorizeResult {
