@@ -15,6 +15,9 @@
         <Icon mr-2 :icon="getMenuTypeIcon(item.menuType)" />
         {{ useMenuTypeEnum.getTagText(item.menuType).text }}
       </template>
+      <template #path="{ item }">
+        <in-copy-tag :text="item.path" />
+      </template>
       <template #icon="{ item }">
         <in-icon
           v-if="item.icon"
