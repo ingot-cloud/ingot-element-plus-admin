@@ -94,6 +94,7 @@ declare module '@vue/runtime-core' {
     InColumnSetting: typeof import('./src/components/table/InColumnSetting.vue')['default']
     InCommonUpload: typeof import('./src/components/upload/InCommonUpload.vue')['default']
     InContainer: typeof import('./src/components/container/InContainer.vue')['default']
+    InCopyTag: typeof import('./src/components/InCopyTag.vue')['default']
     InDialog: typeof import('./src/components/InDialog.vue')['default']
     InEditor: typeof import('./src/components/editor/InEditor.vue')['default']
     InFilterContainer: typeof import('./src/components/container/InFilterContainer.vue')['default']
