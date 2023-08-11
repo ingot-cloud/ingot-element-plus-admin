@@ -1,5 +1,5 @@
 <template>
-  <in-dialog :title="title" v-model="visible" width="800">
+  <in-dialog :title="title" v-model="visible" width="900">
     <el-form
       ref="editFormRef"
       class="form"
@@ -7,35 +7,60 @@
       :model="editForm"
       :rules="rules"
     >
-      <el-form-item label="上级菜单">
-        <el-tree-select
-          w-full
-          v-model="editForm.pid"
-          :data="selectData"
-          :disabled="!canEditPid"
-          :node-key="TreeKeyAndProps.nodeKey"
-          :value-key="TreeKeyAndProps.nodeKey"
-          :props="TreeKeyAndProps.props"
-          :check-strictly="true"
-        />
-      </el-form-item>
-      <el-form-item label="菜单类型" prop="menuType">
-        <in-select
-          w-full
-          v-model="editForm.menuType"
-          :options="useMenuTypeEnum.getOptions()"
-          clearable
-        />
-      </el-form-item>
-      <el-form-item prop="name" label="菜单名称">
-        <el-input
-          v-model="editForm.name"
-          placeholder="请输入菜单名称"
-          clearable
-        ></el-input>
-      </el-form-item>
-      <el-row>
-        <el-col :span="!isButton() ? 18 : 24">
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item label="菜单类型" prop="menuType">
+            <in-select
+              w-full
+              v-model="editForm.menuType"
+              :options="useMenuTypeEnum.getOptions()"
+            />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="上级菜单">
+            <el-tree-select
+              w-full
+              v-model="editForm.pid"
+              :data="selectData"
+              :disabled="!canEditPid"
+              :node-key="TreeKeyAndProps.nodeKey"
+              :value-key="TreeKeyAndProps.nodeKey"
+              :props="TreeKeyAndProps.props"
+              :check-strictly="true"
+            />
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item prop="name" label="菜单名称">
+            <el-input
+              v-model="editForm.name"
+              placeholder="请输入菜单名称"
+              clearable
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="权限编码">
+            <el-tree-select
+              w-full
+              clearable
+              v-model="editForm.authorityId"
+              :data="authorityData"
+              :node-key="TreeKeyAndProps.nodeKey"
+              :value-key="TreeKeyAndProps.nodeKey"
+              :props="TreeKeyAndProps.props"
+              :check-strictly="true"
+            />
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :gutter="20">
+        <el-col :span="!isDirectory() ? 24 : 12">
           <el-form-item prop="path" label="菜单路由">
             <el-input
               v-model="editForm.path"
@@ -44,63 +69,19 @@
             ></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6" v-if="!isButton()">
-          <el-form-item label="自定义视图">
-            <el-checkbox v-model="editForm.customViewPath" />
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row v-if="editForm.customViewPath && !isButton()" :gutter="20">
-        <el-col :span="isDirectory() ? 16 : 24">
-          <el-form-item label="视图路径" prop="viewPath">
+        <el-col :span="12">
+          <el-form-item label="重定向路由" v-if="isDirectory()">
             <el-input
-              v-model="editForm.viewPath"
-              placeholder="请输入视图路径"
+              v-model="editForm.redirect"
+              placeholder="请输入重定向路由"
               clearable
-            >
-            </el-input>
+            ></el-input>
           </el-form-item>
-        </el-col>
-        <el-col :span="8" v-if="isDirectory()">
-          <in-select
-            w-full
-            v-model="editForm.viewPath"
-            :options="LayoutOptions"
-            placeholder="选择使用默认布局"
-            clearable
-            @onChanged="privateOnLayoutSelectChanged"
-          />
         </el-col>
       </el-row>
 
-      <el-form-item label="路由名称" v-if="!isButton()">
-        <el-input
-          v-model="editForm.routeName"
-          placeholder="请输入路由名称"
-          clearable
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="权限编码">
-        <el-tree-select
-          w-full
-          clearable
-          v-model="editForm.authorityId"
-          :data="authorityData"
-          :node-key="TreeKeyAndProps.nodeKey"
-          :value-key="TreeKeyAndProps.nodeKey"
-          :props="TreeKeyAndProps.props"
-          :check-strictly="true"
-        />
-      </el-form-item>
-      <el-form-item label="重定向路径" v-if="isDirectory()">
-        <el-input
-          v-model="editForm.redirect"
-          placeholder="请输入重定向路径"
-          clearable
-        ></el-input>
-      </el-form-item>
-      <el-row v-if="!isButton()">
-        <el-col :span="16">
+      <el-row v-if="!isButton()" :gutter="20">
+        <el-col :span="12">
           <el-form-item prop="icon" label="菜单icon">
             <el-input
               v-model="editForm.icon"
@@ -116,6 +97,7 @@
                   flex
                   items-center
                   justify-center
+                  cursor-pointer
                 >
                   <in-icon
                     :name="editForm.icon"
@@ -148,20 +130,19 @@
             </div>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
-          <el-form-item prop="sort" label="排序">
+        <el-col :span="12">
+          <el-form-item label="路由名称">
             <el-input
-              v-model="editForm.sort"
-              placeholder="请输入排序序号"
-              type="number"
+              v-model="editForm.routeName"
+              placeholder="请输入路由名称"
               clearable
             ></el-input>
           </el-form-item>
         </el-col>
       </el-row>
 
-      <el-row>
-        <el-col :span="8">
+      <el-row :gutter="20">
+        <el-col :span="12">
           <el-form-item prop="status" label="状态">
             <el-radio-group v-model="editForm.status">
               <el-radio-button :label="CommonStatus.Enable">
@@ -173,26 +154,61 @@
             </el-radio-group>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
-          <el-form-item prop="cache" label="是否缓存" v-if="!isButton()">
+        <el-col :span="6" v-if="!isButton()">
+          <el-form-item label="自定义视图">
+            <el-checkbox v-model="editForm.customViewPath" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="6" v-if="!isButton()">
+          <el-form-item label="高级选项">
+            <el-checkbox v-model="moreOptionsFlag" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row v-if="editForm.customViewPath && !isButton()" :gutter="20">
+        <el-col :span="isDirectory() ? 12 : 24">
+          <el-form-item label="视图路径" prop="viewPath">
+            <el-input
+              v-model="editForm.viewPath"
+              placeholder="请输入视图路径"
+              clearable
+            >
+            </el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12" v-if="isDirectory()">
+          <el-form-item label="默认布局">
+            <in-select
+              w-full
+              v-model="editForm.viewPath"
+              :options="LayoutOptions"
+              placeholder="选择使用默认布局"
+              clearable
+              @onChanged="privateOnLayoutSelectChanged"
+            />
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :gutter="20" v-if="!isButton() && moreOptionsFlag">
+        <el-col :span="6">
+          <el-form-item prop="cache" label="是否缓存">
             <el-radio-group v-model="editForm.isCache">
               <el-radio-button :label="true"> 是 </el-radio-button>
               <el-radio-button :label="false"> 否 </el-radio-button>
             </el-radio-group>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
-          <el-form-item prop="hidden" label="隐藏菜单" v-if="!isButton()">
+        <el-col :span="6">
+          <el-form-item prop="hidden" label="隐藏菜单">
             <el-radio-group v-model="editForm.hidden">
               <el-radio-button :label="true"> 是 </el-radio-button>
               <el-radio-button :label="false"> 否 </el-radio-button>
             </el-radio-group>
           </el-form-item>
         </el-col>
-      </el-row>
-
-      <el-row v-if="!isButton()">
-        <el-col :span="8">
+        <el-col :span="6">
           <el-form-item prop="hideBreadcrumb" label="隐藏面包屑">
             <el-radio-group v-model="editForm.hideBreadcrumb">
               <el-radio-button :label="true"> 是 </el-radio-button>
@@ -200,12 +216,25 @@
             </el-radio-group>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="6">
           <el-form-item prop="props" label="匹配props">
             <el-radio-group v-model="editForm.props">
               <el-radio-button :label="true"> 是 </el-radio-button>
               <el-radio-button :label="false"> 否 </el-radio-button>
             </el-radio-group>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :gutter="20" v-if="!isButton() && moreOptionsFlag">
+        <el-col :span="6">
+          <el-form-item prop="sort" label="排序">
+            <el-input
+              v-model="editForm.sort"
+              placeholder="请输入排序序号"
+              type="number"
+              clearable
+            ></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -280,6 +309,7 @@ defineProps({
   },
 });
 
+const moreOptionsFlag = ref(false);
 const statusEnum = useEnum(CommonStatusEnumExtArray);
 const iconButtonRef = ref();
 const iconPopoverRef = ref();
