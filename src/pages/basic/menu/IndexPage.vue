@@ -18,6 +18,9 @@
       <template #path="{ item }">
         <in-copy-tag :text="item.path" />
       </template>
+      <template #authorityCode="{ item }">
+        <in-copy-tag :text="item.authorityCode" />
+      </template>
       <template #icon="{ item }">
         <in-icon
           v-if="item.icon"
