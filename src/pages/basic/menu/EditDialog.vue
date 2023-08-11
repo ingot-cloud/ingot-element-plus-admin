@@ -334,6 +334,7 @@ const isButton = () => {
 
 const show = (data?: SysMenu | string) => {
   visible.value = true;
+  moreOptionsFlag.value = false;
   // 重置数据
   copyParams(editForm, defaultEditForm);
   copyParams(rawForm, defaultEditForm);
