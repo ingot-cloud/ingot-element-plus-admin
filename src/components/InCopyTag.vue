@@ -4,7 +4,6 @@
   </el-tag>
 </template>
 <script setup lang="ts">
-import { Message } from "@/utils/message";
 const props = defineProps({
   text: {
     type: String,
@@ -17,9 +16,10 @@ const props = defineProps({
 const { copy, copied, isSupported } = useClipboard({
   source: props.text,
 });
+const { success } = useMessage();
 watch(copied, (value) => {
   if (isSupported.value && value) {
-    Message.success(props.successMessage);
+    success(props.successMessage);
   }
 });
 </script>
