@@ -147,6 +147,7 @@ const editForm = reactive({
   correctLevel: CorrectLevel.P15,
   width: "400",
   height: "400",
+  isSpace: false,
 
   type: QrcodeType.Round,
   lineOptionsType: LineOptionsType.VerticalHorizontal,

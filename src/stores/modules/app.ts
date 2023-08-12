@@ -11,6 +11,7 @@ export const useAppStore = defineStore("app", () => {
       copyright: import.meta.env.VITE_APP_COPYRIGHT,
       loginBanner: import.meta.env.VITE_APP_LOGIN_BANNER,
       title: import.meta.env.VITE_APP_LOGIN_TITLE,
+      qrcodeTitle: import.meta.env.VITE_APP_LOGIN_QRCODE_TITLE,
       desc: import.meta.env.VITE_APP_LOGIN_DESC,
     },
     netConfig: {

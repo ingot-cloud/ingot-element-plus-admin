@@ -24,6 +24,10 @@ export interface LoginConfig {
    */
   title: string;
   /**
+   * 二维码title
+   */
+  qrcodeTitle: string;
+  /**
    * 登录描述
    */
   desc: string;
