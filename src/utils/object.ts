@@ -141,7 +141,12 @@ export function copyParamsWithKeys<To extends object, From extends object>(
   let tmpValue;
   keys.forEach((key) => {
     tmpValue = Reflect.get(from, key);
-    if (!filterNull || typeof tmpValue === "boolean" || tmpValue) {
+    if (
+      !filterNull ||
+      typeof tmpValue === "boolean" ||
+      (typeof tmpValue === "number" && tmpValue === 0) ||
+      tmpValue
+    ) {
       if (isArray(tmpValue)) {
         Reflect.set(to, key, (tmpValue as Array<any>).slice());
       } else if (isObject(tmpValue)) {
