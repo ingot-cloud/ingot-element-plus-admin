@@ -40,3 +40,7 @@
   --in-border-color-light: var(--el-border-color-lighter);
   --in-color-info-light-5: var(--el-color-info-light-5);
 }
+
+:root {
+  --in-border-style: 1px solid var(--in-border-color);
+}
