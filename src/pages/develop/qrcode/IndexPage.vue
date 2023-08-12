@@ -113,7 +113,14 @@
     <div h-full flex flex-col items-center justify-center>
       <in-qrcode :options="editForm" ref="QrcodeRef" />
 
-      <in-button @click="handleDownload"> 下载二维码 </in-button>
+      <div flex flex-row>
+        <in-button type="primary" @click="handleDownload(true)">
+          下载SVG
+        </in-button>
+        <in-button type="primary" @click="handleDownload(false)">
+          下载图片
+        </in-button>
+      </div>
     </div>
   </in-filter-container>
 </template>
@@ -130,7 +137,7 @@ import {
   LineOptionsType,
   RoundOptionsType,
 } from "@/components/qrcode";
-import { saveSvg } from "@/utils/download";
+import { saveSvg, saveImg } from "@/utils/download";
 
 const QrcodeRef = ref();
 const qrcodeSize = computed<number>({
@@ -147,7 +154,7 @@ const editForm = reactive({
   correctLevel: CorrectLevel.P15,
   width: "400",
   height: "400",
-  isSpace: false,
+  isSpace: true,
 
   type: QrcodeType.Round,
   lineOptionsType: LineOptionsType.VerticalHorizontal,
@@ -163,8 +170,18 @@ const correctLevelEnum = useCorrectLevelEnum();
 const lineOptionsTypeEnum = useLineOptionsTypeEnum();
 const roundOptionsTypeEnum = useRoundOptionsTypeEnum();
 const optionsPosTypeEnum = useOptionsPosTypeEnum();
-const handleDownload = () => {
-  saveSvg(`${editForm.type}`, QrcodeRef.value.getValue());
+const handleDownload = (isSvg: boolean) => {
+  if (isSvg) {
+    saveSvg(`${editForm.type}`, QrcodeRef.value.getValue());
+  } else {
+    saveImg(
+      `${editForm.type}`,
+      QrcodeRef.value.getValue(),
+      editForm.width,
+      editForm.height,
+      "png"
+    );
+  }
 };
 </script>
 <style scoped lang="postcss">

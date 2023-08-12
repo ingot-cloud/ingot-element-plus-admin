@@ -28,16 +28,6 @@ export function saveImg(
 
   // Finish creating downloadable data
   const filename = "QRcode_" + value + "." + type;
-  const wrap = document.createElement("div");
-  wrap.innerHTML = content;
-
-  const $svg = wrap.firstChild;
-  const $clone = $svg!.cloneNode(true);
-
-  ($clone as any).setAttribute("width", width);
-  ($clone as any).setAttribute("height", height);
-
-  const svgData = new XMLSerializer().serializeToString($clone);
 
   const canvas = document.createElement("canvas");
 
@@ -48,7 +38,11 @@ export function saveImg(
 
   const ctx = canvas.getContext("2d");
   const img = document.createElement("img");
-  img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
+  img.setAttribute(
+    "src",
+    "data:image/svg+xml;base64," +
+      btoa(decodeURIComponent(encodeURIComponent(content)))
+  );
 
   return new Promise((resolve) => {
     img.onload = () => {
