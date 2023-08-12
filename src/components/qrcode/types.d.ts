@@ -53,10 +53,10 @@ declare module "beautify-qrcode" {
    * @param {String} otherColor 连线颜色
    * @param {String} posColor 定位点颜色
    */
-  declare interface LineOptions extends Options {
+  declare interface LineOptions {
     type?: LineOptionsType;
-    size?: string;
-    opacity?: string;
+    size?: number;
+    opacity?: number;
     posType?: OptionsPosType;
     otherColor?: string;
     posColor?: string;
@@ -71,7 +71,7 @@ declare module "beautify-qrcode" {
    * @param {String} otherColor 信息点颜色
    * @param {String} posColor 定位点点颜色
    */
-  declare interface RoundOptions extends Options {
+  declare interface RoundOptions {
     type?: RoundOptionsType;
     size?: number;
     opacity?: number;
@@ -89,10 +89,10 @@ declare module "beautify-qrcode" {
   /**
    * 绘制A_a1
    */
-  declare function rendererLine(p: LineOptions): string;
+  declare function rendererLine(p: Options, line?: LineOptions): string;
 
   /**
    * 绘制A2
    */
-  declare function rendererRound(p: RoundOptions): string;
+  declare function rendererRound(p: Options, round?: RoundOptions): string;
 }
