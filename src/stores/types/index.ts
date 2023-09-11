@@ -12,26 +12,6 @@ export interface NetConfig {
  */
 export interface LoginConfig {
   /**
-   * 版权
-   */
-  copyright: string;
-  /**
-   * 登录banner
-   */
-  loginBanner: string;
-  /**
-   * 登录title
-   */
-  title: string;
-  /**
-   * 二维码title
-   */
-  qrcodeTitle: string;
-  /**
-   * 登录描述
-   */
-  desc: string;
-  /**
    * 客户端ID
    */
   clientId: string;
@@ -47,6 +27,10 @@ export interface LoginConfig {
    * 登录回调地址
    */
   loginCallbackUri: string;
+  /**
+   * 登录失败图片
+   */
+  errorImage: string;
 }
 
 /**
@@ -57,6 +41,10 @@ export interface AppStore {
    * 标题
    */
   title: string;
+  /**
+   * 版权
+   */
+  copyright: string;
   /**
    * 登录配置
    */

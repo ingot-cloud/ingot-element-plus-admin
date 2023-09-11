@@ -5,23 +5,14 @@ import type { RouteRecordRaw } from "vue-router";
  */
 export const securityRoutes: Array<RouteRecordRaw> = [
   {
-    path: "/login",
-    meta: {
-      title: "登录",
-      permitAuth: true,
-      hideMenu: true,
-      breadcrumbHidden: true,
-    },
-    component: () => import("@/pages/security/login/IndexPage.vue"),
-  },
-  {
     path: "/sso_callback",
     meta: {
       title: "登录",
       permitAuth: true,
       hideMenu: true,
-      breadcrumbHidden: true,
+      hideBreadcrumb: true,
+      manualCloseGlobalLoading: true,
     },
-    component: () => import("@/pages/security/login/IndexPage.vue"),
+    component: () => import("@/pages/security/sso-callback/IndexPage.vue"),
   },
 ];

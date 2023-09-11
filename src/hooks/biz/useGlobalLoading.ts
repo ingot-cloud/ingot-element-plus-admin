@@ -1,10 +1,12 @@
 import "@/styles/global-loading.css";
 
 export const useGlobalLoading = () => {
-  const start = () => {
+  const start = (hint?: string) => {
     if (window.globalLoading) {
       return;
     }
+    hint = hint || "加载中...";
+
     const bodys: Element = document.body;
     const div = <HTMLElement>document.createElement("div");
     div.setAttribute("class", "in-global-loading");
@@ -21,7 +23,7 @@ export const useGlobalLoading = () => {
 					<div class="in-global-loading-box-item"></div>
 					<div class="in-global-loading-box-item"></div>
 				</div>
-        <div class="in-global-loading-text">加载中...</div>
+        <div class="in-global-loading-text">${hint}</div>
 			</div>
 
 		`;

@@ -1,68 +1,9 @@
 import Http from "@/net";
-import type {
-  UserToken,
-  R,
-  UserPasswordDTO,
-  PreAuthorizeResult,
-} from "@/models";
+import type { UserToken, R, UserPasswordDTO } from "@/models";
 import { useAppStore } from "@/stores/modules/app";
+import { useLoginStore } from "@/stores/modules/login";
 import { storeToRefs } from "pinia";
 import { AES } from "@/utils/encrypt";
-
-// todo 使用pkce流程
-
-/**
- * 预授权
- */
-export function PreAuthorizeAPI({
-  username,
-  password,
-  code,
-}: {
-  username: string;
-  password: string;
-  code?: string;
-}): Promise<R<PreAuthorizeResult>> {
-  const afterEncrypt = AES({
-    data: { password },
-    keys: ["password"],
-  });
-  const pre_grant_type = "password";
-  // application/x-www-form-urlencoded
-  const data = new URLSearchParams({
-    username,
-    password: afterEncrypt.password,
-  });
-  return Http.post<PreAuthorizeResult>("/api/auth/oauth2/pre_authorize", data, {
-    headers: {
-      Authorization: storeToRefs(useAppStore()).getBasicToken.value,
-    },
-    params: {
-      _vc_code: code,
-      pre_grant_type,
-    },
-  });
-}
-
-/**
- * 确认码模式
- */
-export function ConfirmCodeAPI(
-  code: string,
-  Tenant: string
-): Promise<R<UserToken>> {
-  const grant_type = "pre_authorization_code";
-  return Http.post<UserToken>("/api/auth/oauth2/token", null, {
-    headers: {
-      Tenant,
-      Authorization: storeToRefs(useAppStore()).getBasicToken.value,
-    },
-    params: {
-      code,
-      grant_type,
-    },
-  });
-}
 
 /**
  * 通过密码登录
@@ -94,6 +35,23 @@ export function PasswordTokenAPI({
       _vc_code: code,
       grant_type,
     },
+  });
+}
+
+export function AuthorizeCodeTokenAPI(code: string) {
+  const loginStore = useLoginStore();
+  const { app } = useAppStore();
+  const grant_type = "authorization_code";
+  return Http.post<UserToken>("/api/auth/oauth2/token", null, {
+    params: {
+      code,
+      grant_type,
+      code_verifier: loginStore.codeVerifier,
+      client_id: app.login.clientId,
+      redirect_uri: app.login.loginCallbackUri,
+    },
+    ignoreTenant: true,
+    permit: true,
   });
 }
 

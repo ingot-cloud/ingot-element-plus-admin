@@ -31,6 +31,10 @@ declare module "vue-router" {
      * 是否需要获取动态路由信息
      */
     dynamicRoutes?: boolean;
+    /**
+     * 是否手动处理全局loading
+     */
+    manualCloseGlobalLoading?: boolean;
   }
 
   interface _RouteLocationBase {

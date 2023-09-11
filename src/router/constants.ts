@@ -2,7 +2,7 @@ import type { Option } from "@/models";
 
 export const NotFound = {
   path: "/:pathMatch(.*)",
-  meta: { hideMenu: true, breadcrumbHidden: true },
+  meta: { hideMenu: true, hideBreadcrumb: true },
   redirect: "/404",
 };
 export enum PageLayoutViewPath {
