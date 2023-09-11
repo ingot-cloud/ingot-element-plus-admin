@@ -18,7 +18,9 @@ export class AuthGuard extends BaseNavigationGuard {
         if (!token || token.length === 0) {
           // 终止导航重定向到 login
           // return { path: "/login", query: { redirect: to.fullPath } };
-          return { path: "/login" };
+          // return { path: "/login" };
+          useLogin().go();
+          return false;
         }
       }
 

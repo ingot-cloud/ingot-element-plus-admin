@@ -31,6 +31,22 @@ export interface LoginConfig {
    * 登录描述
    */
   desc: string;
+  /**
+   * 客户端ID
+   */
+  clientId: string;
+  /**
+   * 登录scope
+   */
+  scope: string;
+  /**
+   * 登录地址
+   */
+  loginUri: string;
+  /**
+   * 登录回调地址
+   */
+  loginCallbackUri: string;
 }
 
 /**

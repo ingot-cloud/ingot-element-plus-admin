@@ -13,6 +13,10 @@ export const useAppStore = defineStore("app", () => {
       title: import.meta.env.VITE_APP_LOGIN_TITLE,
       qrcodeTitle: import.meta.env.VITE_APP_LOGIN_QRCODE_TITLE,
       desc: import.meta.env.VITE_APP_LOGIN_DESC,
+      clientId: import.meta.env.VITE_APP_LOGIN_CLIENT_ID,
+      scope: import.meta.env.VITE_APP_LOGIN_SCOPE,
+      loginUri: import.meta.env.VITE_APP_LOGIN_URI,
+      loginCallbackUri: import.meta.env.VITE_APP_LOGIN_CALLBACK_URI,
     },
     netConfig: {
       baseURL: import.meta.env.VITE_APP_NET_BASE_URL || undefined,

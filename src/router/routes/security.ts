@@ -14,4 +14,14 @@ export const securityRoutes: Array<RouteRecordRaw> = [
     },
     component: () => import("@/pages/security/login/IndexPage.vue"),
   },
+  {
+    path: "/sso_callback",
+    meta: {
+      title: "登录",
+      permitAuth: true,
+      hideMenu: true,
+      breadcrumbHidden: true,
+    },
+    component: () => import("@/pages/security/login/IndexPage.vue"),
+  },
 ];

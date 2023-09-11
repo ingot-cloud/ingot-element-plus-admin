@@ -9,6 +9,8 @@ import { useAppStore } from "@/stores/modules/app";
 import { storeToRefs } from "pinia";
 import { AES } from "@/utils/encrypt";
 
+// todo 使用pkce流程
+
 /**
  * 预授权
  */
@@ -49,7 +51,7 @@ export function ConfirmCodeAPI(
   code: string,
   Tenant: string
 ): Promise<R<UserToken>> {
-  const grant_type = "confirm_code";
+  const grant_type = "pre_authorization_code";
   return Http.post<UserToken>("/api/auth/oauth2/token", null, {
     headers: {
       Tenant,

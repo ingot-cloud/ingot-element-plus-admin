@@ -13,6 +13,10 @@ interface ImportMetaEnv {
   readonly VITE_APP_LOGIN_BANNER: string;
   readonly VITE_APP_LOGIN_TITLE: string;
   readonly VITE_APP_LOGIN_DESC: string;
+  readonly VITE_APP_LOGIN_CLIENT_ID: string;
+  readonly VITE_APP_LOGIN_SCOPE: string;
+  readonly VITE_APP_LOGIN_URI: string;
+  readonly VITE_APP_LOGIN_CALLBACK_URI: string;
 }
 
 interface ImportMeta {
