@@ -6,5 +6,7 @@ import { useAuthStore } from "@/stores/modules/auth";
 export function logoutAndReload(ignoreRevokeAPI?: boolean) {
   useAuthStore()
     .logout(ignoreRevokeAPI)
-    .then(() => location.reload());
+    .then(() => {
+      useLogin().go();
+    });
 }
