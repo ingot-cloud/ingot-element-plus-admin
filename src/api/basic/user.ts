@@ -12,7 +12,7 @@ export function UserPageAPI(
   if (condition) {
     filterParams(condition);
   }
-  return request.get<Page<UserPageItemVO>>("/api/pms/v1/user/page", {
+  return request.get<Page<UserPageItemVO>>("/api/pms/v1/admin/user/page", {
     ...page,
     ...condition,
   });
@@ -23,7 +23,7 @@ export function UserPageAPI(
  * @param id 用户ID
  */
 export function UserProfileAPI(id: string): Promise<R<UserProfileVO>> {
-  return request.get<UserProfileVO>(`/api/pms/v1/user/profile/${id}`);
+  return request.get<UserProfileVO>(`/api/pms/v1/admin/user/profile/${id}`);
 }
 
 /**
@@ -32,7 +32,7 @@ export function UserProfileAPI(id: string): Promise<R<UserProfileVO>> {
  */
 export function CreateUserAPI(params: UserDTO): Promise<R<void>> {
   filterParams(params);
-  return request.post<void>("/api/pms/v1/user", params);
+  return request.post<void>("/api/pms/v1/admin/user", params);
 }
 
 /**
@@ -41,12 +41,12 @@ export function CreateUserAPI(params: UserDTO): Promise<R<void>> {
  */
 export function UpdateUserAPI(params: UserDTO): Promise<R<void>> {
   filterParams(params);
-  return request.put<void>("/api/pms/v1/user", params);
+  return request.put<void>("/api/pms/v1/admin/user", params);
 }
 
 /**
  * 删除用户
  */
 export function RemoveUserAPI(id: string): Promise<R<void>> {
-  return request.delete<void>(`/api/pms/v1/user/${id}`);
+  return request.delete<void>(`/api/pms/v1/admin/user/${id}`);
 }

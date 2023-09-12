@@ -13,7 +13,7 @@ export function SocialPageAPI(
   if (condition) {
     filterParams(condition);
   }
-  return request.get<Page<SysSocialDetails>>("/api/pms/v1/social/page", {
+  return request.get<Page<SysSocialDetails>>("/api/pms/v1/admin/social/page", {
     ...page,
     ...condition,
   });
@@ -26,7 +26,7 @@ export function SocialPageAPI(
  */
 export function CreateSocialAPI(params: SysSocialDetails): Promise<R<void>> {
   filterParams(params);
-  return request.post<void>("/api/pms/v1/social", params);
+  return request.post<void>("/api/pms/v1/admin/social", params);
 }
 
 /**
@@ -36,7 +36,7 @@ export function CreateSocialAPI(params: SysSocialDetails): Promise<R<void>> {
  */
 export function UpdateSocialAPI(params: SysSocialDetails): Promise<R<void>> {
   filterParams(params);
-  return request.put<void>("/api/pms/v1/social", params);
+  return request.put<void>("/api/pms/v1/admin/social", params);
 }
 
 /**
@@ -45,5 +45,5 @@ export function UpdateSocialAPI(params: SysSocialDetails): Promise<R<void>> {
  * @returns
  */
 export function RemoveSocialAPI(id: string): Promise<R<void>> {
-  return request.delete<void>(`/api/pms/v1/social/${id}`);
+  return request.delete<void>(`/api/pms/v1/admin/social/${id}`);
 }

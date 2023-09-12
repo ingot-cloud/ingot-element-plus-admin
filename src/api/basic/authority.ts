@@ -7,7 +7,9 @@ import { filterParams } from "@/utils/object";
  * @returns
  */
 export function GetAuthorityTreeAPI(): Promise<R<Array<AuthorityTreeNode>>> {
-  return request.get<Array<AuthorityTreeNode>>("/api/pms/v1/authority/tree");
+  return request.get<Array<AuthorityTreeNode>>(
+    "/api/pms/v1/admin/authority/tree"
+  );
 }
 
 /**
@@ -17,7 +19,7 @@ export function GetAuthorityTreeAPI(): Promise<R<Array<AuthorityTreeNode>>> {
  */
 export function CreateAuthorityAPI(params: SysAuthority): Promise<R<void>> {
   filterParams(params);
-  return request.post<void>("/api/pms/v1/authority", params);
+  return request.post<void>("/api/pms/v1/admin/authority", params);
 }
 
 /**
@@ -27,7 +29,7 @@ export function CreateAuthorityAPI(params: SysAuthority): Promise<R<void>> {
  */
 export function UpdateAuthorityAPI(params: SysAuthority): Promise<R<void>> {
   filterParams(params);
-  return request.put<void>("/api/pms/v1/authority", params);
+  return request.put<void>("/api/pms/v1/admin/authority", params);
 }
 
 /**
@@ -36,5 +38,5 @@ export function UpdateAuthorityAPI(params: SysAuthority): Promise<R<void>> {
  * @returns
  */
 export function RemoveAuthorityAPI(id: string): Promise<R<void>> {
-  return request.delete<void>(`/api/pms/v1/authority/${id}`);
+  return request.delete<void>(`/api/pms/v1/admin/authority/${id}`);
 }

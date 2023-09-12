@@ -16,7 +16,7 @@ import type {
 import { filterParams } from "@/utils/object";
 
 export function RoleOptionsAPI() {
-  return request.get<Array<Option<string>>>("/api/pms/v1/role/options");
+  return request.get<Array<Option<string>>>("/api/pms/v1/admin/role/options");
 }
 
 export function RolePageAPI(
@@ -26,7 +26,7 @@ export function RolePageAPI(
   if (condition) {
     filterParams(condition);
   }
-  return request.get<Page<RolePageItemVO>>("/api/pms/v1/role/page", {
+  return request.get<Page<RolePageItemVO>>("/api/pms/v1/admin/role/page", {
     ...page,
     ...condition,
   });
@@ -34,20 +34,20 @@ export function RolePageAPI(
 
 export function CreateRoleAPI(params: SysRole): Promise<R<void>> {
   filterParams(params);
-  return request.post<void>("/api/pms/v1/role", params);
+  return request.post<void>("/api/pms/v1/admin/role", params);
 }
 
 export function UpdateRoleAPI(params: SysRole): Promise<R<void>> {
   filterParams(params);
-  return request.put<void>("/api/pms/v1/role", params);
+  return request.put<void>("/api/pms/v1/admin/role", params);
 }
 
 export function RemoveRoleAPI(id: string): Promise<R<void>> {
-  return request.delete<void>(`/api/pms/v1/role/${id}`);
+  return request.delete<void>(`/api/pms/v1/admin/role/${id}`);
 }
 
 export function BindAuthorityAPI(params: RoleBindParams): Promise<R<void>> {
-  return request.put<void>("/api/pms/v1/role/bindAuthority", params);
+  return request.put<void>("/api/pms/v1/admin/role/bindAuthority", params);
 }
 
 export function GetBindAuthoritiesAPI(
@@ -59,7 +59,7 @@ export function GetBindAuthoritiesAPI(
     filterParams(condition);
   }
   return request.get<Array<AuthorityTreeNode>>(
-    `/api/pms/v1/role/bindAuthority/${id}`,
+    `/api/pms/v1/admin/role/bindAuthority/${id}`,
     {
       isBind,
       ...condition,
@@ -68,7 +68,7 @@ export function GetBindAuthoritiesAPI(
 }
 
 export function BindDeptAPI(params: RoleBindParams): Promise<R<void>> {
-  return request.put<void>("/api/pms/v1/role/bindDept", params);
+  return request.put<void>("/api/pms/v1/admin/role/bindDept", params);
 }
 
 export function GetBindDeptsAPI(
@@ -79,14 +79,17 @@ export function GetBindDeptsAPI(
   if (condition) {
     filterParams(condition);
   }
-  return request.get<Array<DeptTreeNode>>(`/api/pms/v1/role/bindDept/${id}`, {
-    isBind,
-    ...condition,
-  });
+  return request.get<Array<DeptTreeNode>>(
+    `/api/pms/v1/admin/role/bindDept/${id}`,
+    {
+      isBind,
+      ...condition,
+    }
+  );
 }
 
 export function BindClientAPI(params: RoleBindParams): Promise<R<void>> {
-  return request.put<void>("/api/pms/v1/role/bindClient", params);
+  return request.put<void>("/api/pms/v1/admin/role/bindClient", params);
 }
 
 export function GetBindClientsAPI(
@@ -98,7 +101,7 @@ export function GetBindClientsAPI(
     filterParams(condition);
   }
   return request.get<Array<OAuth2RegisteredClient>>(
-    `/api/pms/v1/role/bindClient/${id}`,
+    `/api/pms/v1/admin/role/bindClient/${id}`,
     {
       isBind,
       ...condition,
@@ -107,7 +110,7 @@ export function GetBindClientsAPI(
 }
 
 export function BindUserAPI(params: RoleBindParams): Promise<R<void>> {
-  return request.put<void>("/api/pms/v1/role/bindUser", params);
+  return request.put<void>("/api/pms/v1/admin/role/bindUser", params);
 }
 
 export function GetBindUsersAPI(
@@ -119,7 +122,7 @@ export function GetBindUsersAPI(
   if (condition) {
     filterParams(condition);
   }
-  return request.get<Page<SysUser>>(`/api/pms/v1/role/bindUser/${id}`, {
+  return request.get<Page<SysUser>>(`/api/pms/v1/admin/role/bindUser/${id}`, {
     ...page,
     isBind,
     ...condition,

@@ -13,10 +13,13 @@ export function ClientPageAPI(
   if (condition) {
     filterParams(condition);
   }
-  return request.get<Page<OAuth2RegisteredClient>>("/api/pms/v1/client/page", {
-    ...page,
-    ...condition,
-  });
+  return request.get<Page<OAuth2RegisteredClient>>(
+    "/api/pms/v1/admin/client/page",
+    {
+      ...page,
+      ...condition,
+    }
+  );
 }
 
 /**
@@ -27,7 +30,7 @@ export function ClientPageAPI(
 export function GetClientInfoAPI(
   id: string
 ): Promise<R<OAuth2RegisteredClient>> {
-  return request.get<OAuth2RegisteredClient>(`/api/pms/v1/client/${id}`);
+  return request.get<OAuth2RegisteredClient>(`/api/pms/v1/admin/client/${id}`);
 }
 
 /**
@@ -39,7 +42,7 @@ export function CreateClientAPI(
   params: OAuth2RegisteredClient
 ): Promise<R<void>> {
   filterParams(params);
-  return request.post<void>("/api/pms/v1/client", params);
+  return request.post<void>("/api/pms/v1/admin/client", params);
 }
 
 /**
@@ -51,7 +54,7 @@ export function UpdateClientAPI(
   params: OAuth2RegisteredClient
 ): Promise<R<void>> {
   filterParams(params);
-  return request.put<void>("/api/pms/v1/client", params);
+  return request.put<void>("/api/pms/v1/admin/client", params);
 }
 
 /**
@@ -60,5 +63,5 @@ export function UpdateClientAPI(
  * @returns
  */
 export function RemoveClientAPI(clientId: string): Promise<R<void>> {
-  return request.delete<void>(`/api/pms/v1/client/${clientId}`);
+  return request.delete<void>(`/api/pms/v1/admin/client/${clientId}`);
 }

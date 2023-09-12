@@ -7,7 +7,7 @@ import { filterParams } from "@/utils/object";
  * @returns
  */
 export function GetUserMenuAPI(): Promise<R<Array<MenuTreeNode>>> {
-  return request.get<Array<MenuTreeNode>>("/api/pms/v1/menu/userMenu");
+  return request.get<Array<MenuTreeNode>>("/api/pms/v1/admin/menu/userMenu");
 }
 
 /**
@@ -15,7 +15,7 @@ export function GetUserMenuAPI(): Promise<R<Array<MenuTreeNode>>> {
  * @returns
  */
 export function GetMenuTreeAPI(): Promise<R<Array<MenuTreeNode>>> {
-  return request.get<Array<MenuTreeNode>>("/api/pms/v1/menu/tree");
+  return request.get<Array<MenuTreeNode>>("/api/pms/v1/admin/menu/tree");
 }
 
 /**
@@ -25,7 +25,7 @@ export function GetMenuTreeAPI(): Promise<R<Array<MenuTreeNode>>> {
  */
 export function CreateMenuAPI(params: SysMenu): Promise<R<void>> {
   filterParams(params);
-  return request.post<void>("/api/pms/v1/menu", params);
+  return request.post<void>("/api/pms/v1/admin/menu", params);
 }
 
 /**
@@ -35,7 +35,7 @@ export function CreateMenuAPI(params: SysMenu): Promise<R<void>> {
  */
 export function UpdateMenuAPI(params: SysMenu): Promise<R<void>> {
   filterParams(params);
-  return request.put<void>("/api/pms/v1/menu", params);
+  return request.put<void>("/api/pms/v1/admin/menu", params);
 }
 
 /**
@@ -44,5 +44,5 @@ export function UpdateMenuAPI(params: SysMenu): Promise<R<void>> {
  * @returns
  */
 export function RemoveMenuAPI(id: string): Promise<R<void>> {
-  return request.delete<void>(`/api/pms/v1/menu/${id}`);
+  return request.delete<void>(`/api/pms/v1/admin/menu/${id}`);
 }
