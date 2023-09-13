@@ -53,12 +53,7 @@
       </el-row>
     </el-form>
     <template #footer>
-      <in-button
-        :loading="loading"
-        size="small"
-        type="primary"
-        @click="handleConfirmClick"
-      >
+      <in-button :loading="loading" type="primary" @click="handleConfirmClick">
         确定
       </in-button>
     </template>

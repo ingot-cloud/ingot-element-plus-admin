@@ -11,7 +11,7 @@ export enum CommonStatus {
 }
 
 export const CommonStatusEnumExtArray = [
-  newEnumExt(CommonStatus.Enable, "正常", "warning"),
+  newEnumExt(CommonStatus.Enable, "正常", "success"),
   newEnumExt(CommonStatus.Lock, "锁定", "danger"),
 ];
 
