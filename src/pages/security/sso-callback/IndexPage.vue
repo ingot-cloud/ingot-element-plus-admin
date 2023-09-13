@@ -1,18 +1,5 @@
 <template>
-  <div class="in-global-loading-box" v-if="loading">
-    <div class="in-global-loading-box-warp">
-      <div class="in-global-loading-box-item"></div>
-      <div class="in-global-loading-box-item"></div>
-      <div class="in-global-loading-box-item"></div>
-      <div class="in-global-loading-box-item"></div>
-      <div class="in-global-loading-box-item"></div>
-      <div class="in-global-loading-box-item"></div>
-      <div class="in-global-loading-box-item"></div>
-      <div class="in-global-loading-box-item"></div>
-      <div class="in-global-loading-box-item"></div>
-    </div>
-    <div class="in-global-loading-text">${hint}</div>
-  </div>
+  <in-global-loading v-if="loading"></in-global-loading>
   <div class="page-wrapper" v-else>
     <div class="page-main-area">
       <img class="page-main-image" :src="app.login.errorImage" />
@@ -36,6 +23,7 @@
 import { useAppStore } from "@/stores/modules/app";
 import { useLoginStore } from "@/stores/modules/login";
 import { useAuthStore } from "@/stores/modules/auth";
+import "@/styles/global-loading.css";
 
 const go = useGo();
 const loginStore = useLoginStore();
@@ -46,11 +34,11 @@ const route = useRoute();
 const loading = ref(true);
 
 onMounted(() => {
+  loading.value = true;
   if (!checkParams()) {
     loading.value = false;
     return;
   }
-
   authStore
     .codeLogin(route.query.code as string)
     .then(() => {
