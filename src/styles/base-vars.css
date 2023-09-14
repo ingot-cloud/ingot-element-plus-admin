@@ -15,6 +15,7 @@
 
   --in-common-margin: 12px;
   --in-common-padding: 12px;
+  --in-common-border-radius: 8px;
 
   --in-transition-duration: var(--el-transition-duration);
 }

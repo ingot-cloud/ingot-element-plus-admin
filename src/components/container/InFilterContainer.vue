@@ -35,17 +35,20 @@ const slot = useSlots();
 </script>
 <style lang="postcss" scoped>
 .in-filter-container {
-  @apply w-full h-full flex flex-row;
+  @apply w-full h-full flex flex-row bg-[var(--in-bg-color)];
+  border-radius: var(--in-common-border-radius);
   & .left-filter {
-    @apply m-r-[var(--in-common-margin)] p-[var(--in-common-padding)] bg-[var(--in-bg-color)];
+    @apply p-[var(--in-common-padding)];
+    border-right: 1px solid var(--in-border-color);
   }
   & .right-container {
     @apply flex flex-col;
     & .top-filter {
-      @apply m-b-[var(--in-common-margin)] p-[var(--in-common-padding)] bg-[var(--in-bg-color)];
+      @apply p-[var(--in-common-padding)];
+      border-bottom: 1px solid var(--in-border-color);
     }
     & .inner-container {
-      @apply flex-1 box-border overflow-x-hidden p-[var(--in-common-padding)] bg-[var(--in-bg-color)];
+      @apply flex-1 box-border overflow-x-hidden p-[var(--in-common-padding)];
     }
   }
 }
