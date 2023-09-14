@@ -10,8 +10,10 @@
       </el-aside>
 
       <el-container direction="vertical">
-        <in-tabs />
-
+        <!-- <in-tabs /> -->
+        <in-breadcrumb
+          class="m-l-[var(--in-common-margin)] m-t-[var(--in-common-margin)]"
+        />
         <el-main>
           <router-view v-slot="{ Component }">
             <keep-alive :include="cacheNames">

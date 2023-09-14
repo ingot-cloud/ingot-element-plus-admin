@@ -65,6 +65,7 @@ declare module '@vue/runtime-core' {
     'ICarbon:parentChild': typeof import('~icons/carbon/parent-child')['default']
     'IClarity:closeLine': typeof import('~icons/clarity/close-line')['default']
     'IClarity:minusLine': typeof import('~icons/clarity/minus-line')['default']
+    IconArrowRight: typeof import('./src/components/icons/IconArrowRight.vue')['default']
     IconDark: typeof import('./src/components/icons/IconDark.vue')['default']
     IconLight: typeof import('./src/components/icons/IconLight.vue')['default']
     'IDashicons:alignCenter': typeof import('~icons/dashicons/align-center')['default']

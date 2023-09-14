@@ -1,7 +1,7 @@
 <template>
   <div flex justify-center items-center p-l-12px>
     <!-- <in-menu-toggle /> -->
-    <!-- <in-breadcrumb /> -->
+
     <in-logo />
   </div>
 

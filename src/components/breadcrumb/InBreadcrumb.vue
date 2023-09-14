@@ -1,5 +1,8 @@
 <template>
-  <el-breadcrumb>
+  <el-breadcrumb
+    :separator-icon="IconArrowRight"
+    v-if="breadcrumbList.length > 1"
+  >
     <el-breadcrumb-item
       v-for="item in breadcrumbList"
       :key="item.path"
@@ -20,6 +23,7 @@
 <script lang="ts" setup>
 import type { RouteLocationMatched } from "vue-router";
 import type { BreadCrumbRecord } from "./types";
+import IconArrowRight from "@/components/icons/IconArrowRight.vue";
 
 const route = useRoute();
 const breadcrumbList = computed(() => {
