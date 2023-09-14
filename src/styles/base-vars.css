@@ -1,6 +1,7 @@
 :root {
   --in-app-bar-height: 50px;
   --in-app-bar-padding: 0 15px;
+  --in-app-bar-icon-size: 22px;
   --in-menu-icon-size: var(--el-menu-icon-width);
   --in-menu-show: 210px;
   --in-menu-hide: 56px;
@@ -23,6 +24,8 @@
   --in-menu-bg-hover-color: #14151a;
   --in-menu-text-color: #bdbdc0;
   --in-menu-text-active-color: #ffffff;
+
+  --in-app-bar-bg: #0076f6;
 
   --in-color-primary: var(--el-color-primary);
   --in-text-color: var(--el-text-color-primary);

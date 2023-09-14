@@ -1,6 +1,6 @@
 <template>
   <el-dropdown trigger="click">
-    <span i-mdi-format-size />
+    <span i-mdi-format-size cursor-pointer />
 
     <template #dropdown>
       <el-dropdown-menu>

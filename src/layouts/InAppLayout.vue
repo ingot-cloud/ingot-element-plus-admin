@@ -1,23 +1,27 @@
 <template>
   <el-container w-full h-full>
-    <el-aside>
-      <in-menu />
-    </el-aside>
+    <el-header>
+      <in-app-bar />
+    </el-header>
 
     <el-container>
-      <el-header>
-        <in-app-bar />
-      </el-header>
+      <el-aside>
+        <in-menu />
+      </el-aside>
 
-      <in-tabs />
+      <el-container direction="vertical">
+        <in-tabs />
 
-      <el-main>
-        <router-view v-slot="{ Component }">
-          <keep-alive :include="cacheNames">
-            <component :is="Component" />
-          </keep-alive>
-        </router-view>
-      </el-main>
+        <el-main>
+          <router-view v-slot="{ Component }">
+            <keep-alive :include="cacheNames">
+              <component :is="Component" />
+            </keep-alive>
+          </router-view>
+        </el-main>
+
+        <in-copyright />
+      </el-container>
     </el-container>
   </el-container>
 </template>
@@ -33,7 +37,15 @@ const { cacheNames } = storeToRefs(useRouterStore());
 .el-header {
   --el-header-padding: var(--in-app-bar-padding);
   --el-header-height: var(--in-app-bar-height);
-  @apply flex items-center justify-between box-border dark:bg-[var(--in-bg-color)] b-b b-b-[var(--in-border-color)];
+  @apply flex items-center justify-between box-border dark:bg-[var(--in-bg-color)];
+  @apply b-b b-b-[var(--in-app-bar-bg)] dark:b-b-[var(--in-border-color)];
+  background: var(--in-app-bar-bg);
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.16);
+  color: white;
+}
+
+.el-container {
+  @apply bg-[var(--in-bg-color-page)];
 }
 
 .el-main {
