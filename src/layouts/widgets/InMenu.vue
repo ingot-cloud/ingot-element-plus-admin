@@ -5,24 +5,15 @@
       getMenuOpened ? 'w-[var(--in-menu-show)]' : 'w-[var(--in-menu-hide)]',
     ]"
   >
-    <div
-      flex
-      justify-center
-      items-center
-      box-border
-      class="h-[var(--in-app-bar-height)] b-b b-b-[#414243]"
-    >
+    <div class="menu-header">
       <img class="logo-image" src="@/assets/logo.png" />
-      <span
-        v-if="getMenuOpened"
-        m-l-2
-        text-5
-        font-bold
-        truncate
-        class="text-[#dadada]"
-      >
-        {{ app.title }}
-      </span>
+      <div class="right-box" v-if="getMenuOpened">
+        <div class="title">{{ app.title }}asdasdasdasasdasdas</div>
+        <div class="auth-box">
+          <in-icon name="ph:seal-question-duotone" class="icon"></in-icon>
+          <div class="auth">未认证</div>
+        </div>
+      </div>
     </div>
     <el-scrollbar>
       <el-menu
@@ -40,6 +31,19 @@
         />
       </el-menu>
     </el-scrollbar>
+    <div
+      class="menu-control"
+      :class="[
+        getMenuOpened ? 'w-[var(--in-menu-show)]' : 'w-[var(--in-menu-hide)]',
+      ]"
+      @click="toggle"
+    >
+      <div class="content">
+        <in-icon v-if="getMenuOpened" name="line-md:arrow-left" class="icon" />
+        <in-icon v-else name="line-md:arrow-right" class="icon" />
+        <div v-if="getMenuOpened" class="title">收起菜单</div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -48,7 +52,8 @@ import { useAppStore, useAppStateStore } from "@/stores/modules/app";
 import { useRouterStore } from "@/stores/modules/router";
 
 const router = useRouter();
-const { getMenuOpened } = storeToRefs(useAppStateStore());
+const appStateStore = useAppStateStore();
+const { getMenuOpened } = storeToRefs(appStateStore);
 let lastActivePath = "/";
 const activePath = computed(() => {
   const route = router.currentRoute.value;
@@ -71,29 +76,122 @@ const activePath = computed(() => {
 
 const { getMenus } = storeToRefs(useRouterStore());
 const { app } = storeToRefs(useAppStore());
+const toggle = () => {
+  appStateStore.toggleMenu();
+};
 </script>
 
 <style lang="postcss" scoped>
 .ingot-menu {
   @apply flex flex-col h-full transition-width transition-ease transition-duration-300;
+  height: calc(100% - var(--in-app-bar-height));
+  padding: 8px 8px 0;
+
+  --menu-header-height: 70px;
+  --menu-header-bottom: 12px;
+  --menu-control-height: 40px;
+  --scrollbar-height: calc(
+    100vh - var(--in-app-bar-height) - var(--menu-header-height) -
+      var(--menu-header-bottom) - var(--menu-control-height)
+  );
+
+  & .menu-header {
+    @apply flex flex-row items-center box-border cursor-pointer;
+    height: var(--menu-header-height);
+    border-bottom: 1px solid var(--in-border-color);
+    margin-bottom: var(--menu-header-bottom);
+
+    & .logo-image {
+      height: 30px;
+      width: 30px;
+      margin-left: 12px;
+    }
+    & .right-box {
+      @apply flex flex-col items-start;
+      margin-left: 12px;
+      & .title {
+        font-size: 14px;
+        color: #171a1d;
+        margin-bottom: 2px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        line-height: 1.6;
+        width: 140px;
+      }
+      & .auth-box {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 2px;
+        grid-gap: 2px;
+        min-height: 18px;
+        border: 1px solid rgba(126, 134, 142, 0.16);
+        border-radius: 4px;
+        padding: 0 4px;
+        cursor: default;
+
+        .icon {
+          color: rgba(23, 26, 29, 0.6);
+        }
+
+        & .auth {
+          line-height: 16px;
+          font-size: 10px;
+          color: rgba(23, 26, 29, 0.6);
+        }
+      }
+    }
+  }
+
   & .el-menu {
     --el-menu-bg-color: var(--in-menu-bg-color);
     --el-menu-hover-bg-color: var(--in-menu-bg-hover-color);
     --el-menu-text-color: var(--in-menu-text-color);
     --el-menu-active-color: var(--in-menu-text-active-color);
     --el-menu-base-level-padding: var(--in-menu-base-level-padding);
+    --el-menu-item-font-size: var(--in-menu-item-font-size);
   }
   & .el-scrollbar {
-    height: calc(100% - var(--in-app-bar-height));
+    height: var(--scrollbar-height);
   }
-  & .logo-image {
-    height: 35px;
-    width: 35px;
+
+  & .menu-control {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    cursor: pointer;
+    padding: 0 8px;
+    color: rgba(23, 26, 29, 0.6);
+    & .content {
+      @apply flex flex-row items-center justify-center gap-4;
+      border-top: 1px solid var(--in-border-color);
+      height: var(--menu-control-height);
+      width: 100%;
+
+      .title {
+        font-size: 12px;
+      }
+      .icon {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+:deep(.el-menu-item) {
+  font-weight: bold;
+}
+:deep(.el-sub-menu) {
+  font-weight: bold;
+  & .el-menu-item {
+    font-weight: 1;
   }
 }
 :deep(.el-menu-item.is-active) {
-  background: #060708;
-  &::before {
+  background: var(--in-menu-bg-hover-color);
+  border-radius: 4px;
+  /* &::before {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -101,6 +199,12 @@ const { app } = storeToRefs(useAppStore());
     width: 4px;
     content: "";
     background: var(--in-color-primary);
-  }
+  } */
+}
+:deep(.el-menu-item:hover) {
+  border-radius: 4px;
+}
+:deep(.el-sub-menu:hover) {
+  border-radius: 4px !important;
 }
 </style>

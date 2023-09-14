@@ -63,6 +63,6 @@ const handleMenuCommand = (command: UserDropdownCommand): void => {
 }
 .avatar-arrow {
   color: var(--in-color-primary);
-  margin-left: 10px;
+  margin-left: 12px;
 }
 </style>

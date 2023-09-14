@@ -21,10 +21,11 @@
 }
 
 :root {
-  --in-menu-bg-color: #191a20;
-  --in-menu-bg-hover-color: #14151a;
-  --in-menu-text-color: #bdbdc0;
-  --in-menu-text-active-color: #ffffff;
+  --in-menu-bg-color: white;
+  --in-menu-bg-hover-color: rgba(126,134,142,.16);
+  --in-menu-text-color: #171a1d;
+  --in-menu-text-active-color: var(--el-color-primary);
+  --in-menu-item-font-size: 14px;
 
   --in-app-bar-bg: #0076f6;
 
@@ -47,4 +48,8 @@
 
 :root {
   --in-border-style: 1px solid var(--in-border-color);
+}
+
+:root:root {
+  --el-border-color: rgba(126,134,142,.16);
 }
