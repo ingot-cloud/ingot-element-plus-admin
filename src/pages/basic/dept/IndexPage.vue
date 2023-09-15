@@ -37,7 +37,6 @@
           text
           link
           @click="confirmDelete.exec(item.id, `是否删除部门(${item.name})`)"
-          :disabled="!item.canAction"
         >
           <template #icon>
             <i-ep:delete />
