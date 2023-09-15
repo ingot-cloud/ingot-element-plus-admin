@@ -12,10 +12,25 @@
         <span class="title">字体大小</span>
         <in-cmp-size />
       </div>
+      <div class="in-global-setting-item">
+        <span class="title">面包屑</span>
+        <el-switch v-model="appStateStore.showBreadcrumb" />
+      </div>
+      <div class="in-global-setting-item">
+        <span class="title">Tabs</span>
+        <el-switch v-model="appStateStore.showTabs" />
+      </div>
+      <div class="in-global-setting-item">
+        <span class="title">版权信息</span>
+        <el-switch v-model="appStateStore.showCopyright" />
+      </div>
     </div>
   </el-drawer>
 </template>
 <script setup lang="ts">
+import { useAppStateStore } from "@/stores/modules/app";
+
+const appStateStore = useAppStateStore();
 const drawer = ref(false);
 
 const onClick = () => {

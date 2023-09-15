@@ -43,9 +43,21 @@ export const useAppStateStore = defineStore(
   () => {
     const menuOpenStatus = ref(false);
     const componentSize = ref<ComponentSize>("default");
+    const showTabs = ref(false);
+    const showBreadcrumb = ref(true);
+    const showCopyright = ref(true);
 
     const getMenuOpened = computed(() => {
       return menuOpenStatus.value;
+    });
+    const getShowTabs = computed(() => {
+      return showTabs.value;
+    });
+    const getShowBreadcrumb = computed(() => {
+      return showBreadcrumb.value;
+    });
+    const getShowCopyright = computed(() => {
+      return showCopyright.value;
     });
 
     const toggleMenu = () => {
@@ -58,7 +70,13 @@ export const useAppStateStore = defineStore(
     return {
       menuOpenStatus,
       componentSize,
+      showTabs,
+      showBreadcrumb,
+      showCopyright,
       getMenuOpened,
+      getShowTabs,
+      getShowBreadcrumb,
+      getShowCopyright,
       toggleMenu,
       changeComponentSize,
     };
@@ -66,7 +84,7 @@ export const useAppStateStore = defineStore(
   {
     persist: {
       storage: localStorage,
-      paths: ["menuOpenStatus", "componentSize"],
+      paths: ["menuOpenStatus", "componentSize", "showTabs", "showBreadcrumb"],
     },
   }
 );

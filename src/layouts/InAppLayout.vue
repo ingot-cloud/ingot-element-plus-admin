@@ -10,8 +10,9 @@
       </el-aside>
 
       <el-container direction="vertical">
-        <!-- <in-tabs /> -->
+        <in-tabs v-if="appStateStore.getShowTabs" />
         <in-breadcrumb
+          v-if="appStateStore.getShowBreadcrumb"
           class="m-l-[var(--in-common-margin)] m-t-[var(--in-common-margin)]"
         />
         <el-main>
@@ -22,13 +23,16 @@
           </router-view>
         </el-main>
 
-        <in-copyright />
+        <in-copyright v-if="appStateStore.getShowCopyright" />
       </el-container>
     </el-container>
   </el-container>
 </template>
 <script lang="ts" setup>
 import { useRouterStore } from "@/stores/modules/router";
+import { useAppStateStore } from "@/stores/modules/app";
+
+const appStateStore = useAppStateStore();
 const { cacheNames } = storeToRefs(useRouterStore());
 </script>
 <style lang="postcss" scoped>
