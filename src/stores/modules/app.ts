@@ -1,5 +1,5 @@
 import type { AppStore } from "../types";
-import type { ComponentSize } from "@/components/cmp-size/types";
+import type { ComponentSize } from "@/layouts/widgets/cmp-size/types";
 
 /**
  * 全局配置
