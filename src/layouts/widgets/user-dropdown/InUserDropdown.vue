@@ -10,14 +10,24 @@
       </div>
       <template #dropdown>
         <el-dropdown-menu class="user-dropdown">
+          <el-dropdown-item>
+            <div class="username-dropdown">
+              <img :src="getAvatar" class="avatar" />
+              <div class="username">
+                {{ getUsername }}
+              </div>
+            </div>
+          </el-dropdown-item>
           <el-dropdown-item
             v-for="item in menuList"
             :key="item.title"
             :command="item.command"
             :divided="item.divided"
           >
-            <Icon mr-2 :icon="item.icon" />
-            {{ item.title }}
+            <div class="user-dropdown-item" :style="item.style">
+              <Icon class="icon" :icon="item.icon" />
+              {{ item.title }}
+            </div>
           </el-dropdown-item>
         </el-dropdown-menu>
       </template>
@@ -64,5 +74,41 @@ const handleMenuCommand = (command: UserDropdownCommand): void => {
 .avatar-arrow {
   color: var(--in-color-primary);
   margin-left: 12px;
+}
+.user-dropdown {
+  padding: 8px;
+
+  & .username-dropdown {
+    @apply flex flex-row;
+    height: 70px;
+    & .avatar {
+      width: 36px;
+      height: 36px;
+      margin-right: 12px;
+    }
+    & .username {
+      width: 124px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.5;
+      color: #171a1d;
+    }
+  }
+
+  & .user-dropdown-item {
+    @apply flex flex-row items-center;
+    height: 30px;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.85);
+
+    & .icon {
+      margin-right: 5px;
+      font-size: 16px;
+    }
+  }
 }
 </style>

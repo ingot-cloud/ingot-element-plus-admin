@@ -8,6 +8,7 @@ export interface UserDropdownMenuItem {
   command: UserDropdownCommand;
   icon: string;
   title: string;
+  style?: any;
 }
 
 export const menuList: Array<UserDropdownMenuItem> = [
@@ -18,7 +19,7 @@ export const menuList: Array<UserDropdownMenuItem> = [
   //   title: "个人信息",
   // },
   {
-    divided: false,
+    divided: true,
     command: { action: "fixPwd", params: "" },
     icon: "ep-edit",
     title: "修改密码",
@@ -28,5 +29,8 @@ export const menuList: Array<UserDropdownMenuItem> = [
     command: { action: "logout", params: "" },
     icon: "ep-switch-button",
     title: "退出登录",
+    style: {
+      color: "#ff5219",
+    },
   },
 ];
