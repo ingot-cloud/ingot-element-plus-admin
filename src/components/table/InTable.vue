@@ -27,7 +27,7 @@
 
   <el-radio-group v-if="radioKey" v-model="radioValue" w-full>
     <el-table
-      :border="true"
+      :border="border"
       v-loading="loading"
       ref="ingotTable"
       :data="data"
@@ -80,7 +80,7 @@
   </el-radio-group>
   <el-table
     v-else
-    :border="true"
+    :border="border"
     v-loading="loading"
     ref="ingotTable"
     :data="data"
@@ -243,3 +243,13 @@ defineExpose({
   },
 });
 </script>
+<style lang="postcss" scoped>
+:deep(th.el-table__cell) {
+  --el-table-header-bg-color: #f8f8f8;
+  color: black;
+  padding: 10px 0;
+}
+:deep(th.el-table__cell.is-leaf) {
+  border-bottom: none;
+}
+</style>

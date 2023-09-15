@@ -32,6 +32,10 @@ export const tableProps = {
     type: Boolean,
     default: false,
   },
+  border: {
+    type: Boolean,
+    default: false,
+  },
   pageSize: {
     type: Object as PropType<Array<number>>,
     default() {
@@ -98,15 +102,6 @@ export const tableProps = {
     type: Object,
     default() {
       return TreeListKeyAndProps.props;
-    },
-  },
-  headerCellStyle: {
-    type: Object,
-    default() {
-      return {
-        background: "#fafafa",
-        color: "black",
-      };
     },
   },
   radioKey: {
