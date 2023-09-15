@@ -1,7 +1,7 @@
 <template>
   <div flex justify-center items-center p-l-12px>
     <in-logo />
-    <in-app-bar-search m-l-100px />
+    <in-app-bar-search m-l-100px v-if="appStateStore.getShowSearch" />
   </div>
 
   <div flex justify-center items-center gap-4 p-r-12px>
@@ -15,3 +15,8 @@
     <in-user-dropdown />
   </div>
 </template>
+<script setup lang="ts">
+import { useAppStateStore } from "@/stores/modules/app";
+
+const appStateStore = useAppStateStore();
+</script>

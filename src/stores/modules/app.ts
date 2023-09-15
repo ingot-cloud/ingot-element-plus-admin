@@ -46,6 +46,7 @@ export const useAppStateStore = defineStore(
     const showTabs = ref(false);
     const showBreadcrumb = ref(true);
     const showCopyright = ref(true);
+    const showSearch = ref(true);
 
     const getMenuOpened = computed(() => {
       return menuOpenStatus.value;
@@ -58,6 +59,9 @@ export const useAppStateStore = defineStore(
     });
     const getShowCopyright = computed(() => {
       return showCopyright.value;
+    });
+    const getShowSearch = computed(() => {
+      return showSearch.value;
     });
 
     const toggleMenu = () => {
@@ -73,10 +77,12 @@ export const useAppStateStore = defineStore(
       showTabs,
       showBreadcrumb,
       showCopyright,
+      showSearch,
       getMenuOpened,
       getShowTabs,
       getShowBreadcrumb,
       getShowCopyright,
+      getShowSearch,
       toggleMenu,
       changeComponentSize,
     };

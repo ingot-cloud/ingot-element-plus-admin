@@ -24,6 +24,10 @@
         <span class="title">版权信息</span>
         <el-switch v-model="appStateStore.showCopyright" />
       </div>
+      <div class="in-global-setting-item">
+        <span class="title">搜索栏</span>
+        <el-switch v-model="appStateStore.showSearch" />
+      </div>
     </div>
   </el-drawer>
 </template>
