@@ -1,10 +1,10 @@
-import type { AxiosRequestConfig, AxiosError } from "axios";
+import type { InternalAxiosRequestConfig, AxiosError } from "axios";
 import { useAuthStore } from "@/stores/modules/auth";
 import { useTenantStore } from "@/stores/modules/tenant";
 
 export const onRequestFulfilled = (
-  config: AxiosRequestConfig
-): AxiosRequestConfig => {
+  config: InternalAxiosRequestConfig
+): InternalAxiosRequestConfig => {
   config.headers = config.headers || {};
   if (!config.permit) {
     if (!config.headers["Authorization"]) {

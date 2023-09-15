@@ -1,5 +1,10 @@
 import axios, { AxiosError } from "axios";
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import type {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from "axios";
 import { onRequestFulfilled, onRequestRejected } from "./interceptor/request";
 import {
   onResponseFulfilled,
@@ -21,7 +26,7 @@ class Http {
 
     // default interceptors
     this.instance.interceptors.request.use(
-      (config: AxiosRequestConfig) => {
+      (config: InternalAxiosRequestConfig) => {
         NProgress.start();
         CancelManager.addRequest(config);
         return onRequestFulfilled(config);

@@ -1,4 +1,9 @@
-import type { AxiosResponse, AxiosError, AxiosRequestConfig } from "axios";
+import type {
+  AxiosResponse,
+  AxiosError,
+  AxiosRequestConfig,
+  InternalAxiosRequestConfig,
+} from "axios";
 import { Message, Confirm } from "@/utils/message";
 import type { R } from "@/models/net";
 import { StatusCode } from "@/net/status-code";
@@ -17,7 +22,7 @@ const UnknownResponse: R = {
   status: Number(StatusCode.Unknown),
   statusText: "网络异常，请稍后重试",
   headers: {},
-  config: {},
+  config: {} as InternalAxiosRequestConfig,
 };
 
 const axiosResponseToR = (response?: AxiosResponse<R>): R => {
