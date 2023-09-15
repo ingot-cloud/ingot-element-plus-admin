@@ -8,7 +8,7 @@
     <div class="menu-header">
       <img class="logo-image" src="@/assets/logo.png" />
       <div class="right-box" v-if="getMenuOpened">
-        <div class="title">{{ app.title }}asdasdasdasasdasdas</div>
+        <div class="title">{{ app.title }}</div>
         <div class="auth-box">
           <in-icon name="ph:seal-question-duotone" class="icon"></in-icon>
           <div class="auth">未认证</div>
