@@ -92,6 +92,7 @@ declare module '@vue/runtime-core' {
     'IMdi:relativeScale': typeof import('~icons/mdi/relative-scale')['default']
     IMdiFormatSize: typeof import('~icons/mdi/format-size')['default']
     InAppBar: typeof import('./src/layouts/widgets/InAppBar.vue')['default']
+    InAppBarSearch: typeof import('./src/layouts/widgets/search/InAppBarSearch.vue')['default']
     InAppLayout: typeof import('./src/layouts/InAppLayout.vue')['default']
     InAppLayout1: typeof import('./src/layouts/InAppLayout1.vue')['default']
     InBreadcrumb: typeof import('./src/layouts/widgets/breadcrumb/InBreadcrumb.vue')['default']

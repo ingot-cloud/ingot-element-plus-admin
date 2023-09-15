@@ -12,11 +12,12 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
     "@vueuse/core": "^9.8.2",
     "axios": "^1.2.1",
     "beautify-qrcode": "^1.0.3",
     "crypto-js": "^4.1.1",
-    "element-plus": "^2.2.27",
+    "element-plus": "^2.3.14",
     "js-cookie": "^3.0.1",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.28",

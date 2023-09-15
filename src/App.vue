@@ -9,7 +9,7 @@
 </template>
 <script lang="ts" setup>
 import { useAppStateStore } from "@/stores/modules/app";
-import zhCn from "element-plus/lib/locale/lang/zh-cn";
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
 const { componentSize } = storeToRefs(useAppStateStore());
 const buttonConfig = reactive({

@@ -1,8 +1,7 @@
 <template>
   <div flex justify-center items-center p-l-12px>
-    <!-- <in-menu-toggle /> -->
-
     <in-logo />
+    <in-app-bar-search m-l-100px />
   </div>
 
   <div flex justify-center items-center gap-4 p-r-12px>
