@@ -41,7 +41,7 @@ export const commonRoutes: Array<RouteRecordRaw> = [
         path: PagePath.HOME,
         meta: {
           title: "首页",
-          icon: "ingot:home",
+          icon: "codicon:home",
           isAffix: true,
         },
         component: () => import("@/pages/dashboard/IndexPage.vue"),

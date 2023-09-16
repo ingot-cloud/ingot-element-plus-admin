@@ -1,10 +1,10 @@
 <template>
   <in-container>
+    <!-- :expandRowKeys="expandedKeys" -->
     <in-table
       :loading="loading"
       :data="treeData"
       :headers="tableHeaders"
-      :expandRowKeys="expandedKeys"
       @refresh="fetchData"
       ref="tableRef"
     >
