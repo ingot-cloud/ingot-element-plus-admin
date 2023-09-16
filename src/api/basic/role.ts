@@ -8,7 +8,6 @@ import type {
   RoleBindParams,
   SysAuthority,
   SysDept,
-  OAuth2RegisteredClient,
   DeptTreeNode,
   AuthorityTreeNode,
   Option,
