@@ -23,7 +23,6 @@
           :headers="headers"
           :data="records"
           :selection="editBatch"
-          defaultExpandAll
           @refresh="fetchData"
           @handleSizeChange="fetchData"
           @handleCurrentChange="fetchData"

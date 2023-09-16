@@ -1,11 +1,5 @@
 <template>
-  <el-drawer
-    :title="title"
-    v-model="isShow"
-    direction="ltr"
-    :modal="false"
-    size="70%"
-  >
+  <in-drawer :title="title" v-model="isShow" direction="ltr" size="50%">
     <in-filter-container :showBacktop="false">
       <template #top>
         <in-filter-item>
@@ -28,7 +22,6 @@
         :row-key="TreeListKeyAndProps.key"
         :tree-props="TreeListKeyAndProps.props"
         :selectable="selectable"
-        defaultExpandAll
         @refresh="fetchData"
         @handleSizeChange="fetchData"
         @handleCurrentChange="fetchData"
@@ -70,7 +63,7 @@
         </template>
       </in-table>
     </in-filter-container>
-  </el-drawer>
+  </in-drawer>
 </template>
 <script lang="ts" setup>
 import type { PropType } from "vue";
