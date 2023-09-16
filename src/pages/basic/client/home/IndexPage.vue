@@ -37,15 +37,6 @@
       <template #toolbar>
         <in-button type="primary" @click="handleCreate()"> 创建 </in-button>
       </template>
-      <template #authorizationGrantTypes="{ item }">
-        <el-tag
-          style="margin: 1px"
-          v-for="grant in stringToArray(item.authorizationGrantTypes)"
-          :key="grant"
-        >
-          {{ grant }}
-        </el-tag>
-      </template>
       <template #scopes="{ item }">
         <el-tag
           style="margin: 1px"

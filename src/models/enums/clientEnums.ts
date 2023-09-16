@@ -22,7 +22,7 @@ export enum AuthorizedGrantType {
   RefreshToken = "refresh_token",
   Client = "client_credentials",
   Code = "authorization_code",
-  ConfirmCode = "confirm_code",
+  PreAuthorizationCode = "pre_authorization_code",
 }
 export const AuthorizedGrantTypeEnumExtArray = [
   newEnumExt(AuthorizedGrantType.Code, "授权码模式"),
@@ -30,7 +30,7 @@ export const AuthorizedGrantTypeEnumExtArray = [
   newEnumExt(AuthorizedGrantType.Social, "社交模式"),
   newEnumExt(AuthorizedGrantType.Client, "客户端模式"),
   newEnumExt(AuthorizedGrantType.RefreshToken, "允许刷新Token"),
-  newEnumExt(AuthorizedGrantType.ConfirmCode, "确认码模式"),
+  newEnumExt(AuthorizedGrantType.PreAuthorizationCode, "预授权模式"),
 ];
 export const useAuthorizedGrantTypeEnum = useEnum(
   AuthorizedGrantTypeEnumExtArray
@@ -45,6 +45,7 @@ export enum ClientAuthMethod {
   CLIENT_SECRET_JWT = "client_secret_jwt",
   PRIVATE_KEY_JWT = "private_key_jwt",
   NONE = "none",
+  PRE_AUTH = "pre_auth",
 }
 export const ClientAuthMethodEnumExtArray = [
   newEnumExt(ClientAuthMethod.CLIENT_SECRET_BASIC, "Client Secret Basic"),
@@ -52,5 +53,6 @@ export const ClientAuthMethodEnumExtArray = [
   newEnumExt(ClientAuthMethod.CLIENT_SECRET_JWT, "Client Secret JWT"),
   newEnumExt(ClientAuthMethod.PRIVATE_KEY_JWT, "Private Key JWT"),
   newEnumExt(ClientAuthMethod.NONE, "None"),
+  newEnumExt(ClientAuthMethod.PRE_AUTH, "预授权"),
 ];
 export const useClientAuthMethodEnum = useEnum(ClientAuthMethodEnumExtArray);

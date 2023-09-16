@@ -8,11 +8,11 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     width: "80",
   },
   {
-    label: "客户端ID",
+    label: "AppID",
     prop: "clientId",
   },
   {
-    label: "客户端名称",
+    label: "App名称",
     prop: "clientName",
   },
   {
@@ -20,11 +20,6 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     prop: "clientAuthenticationMethods",
     width: "100",
     hide: true,
-  },
-  {
-    label: "授权类型",
-    prop: "authorizationGrantTypes",
-    width: "180",
   },
   {
     label: "重定向URI",
@@ -39,24 +34,24 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     hide: true,
   },
   {
-    label: "需要提供验证密钥质询和验证器(授权码流程)",
+    label: "Required PKCE",
     prop: "requireProofKey",
-    hide: true,
     transform: (v: boolean) => (v ? "是" : "否"),
   },
   {
-    label: "需要授权同意(授权码流程)",
+    label: "授权同意",
     prop: "requireAuthorizationConsent",
     hide: true,
     transform: (v: boolean) => (v ? "是" : "否"),
   },
   {
-    label: "AccessToken存活时间(秒)",
+    label: "Token存活时间(秒)",
     prop: "accessTokenTimeToLive",
   },
   {
-    label: "是否重复使用刷新Token",
+    label: "重复使用刷新Token",
     prop: "reuseRefreshTokens",
+    hide: true,
     transform: (v: boolean) => (v ? "是" : "否"),
   },
   {
@@ -78,6 +73,7 @@ export const tableHeaders: Array<TableHeaderRecord> = [
   {
     label: "创建时间",
     prop: "clientIdIssuedAt",
+    hide: true,
     width: "180",
   },
   {

@@ -88,27 +88,6 @@ export function GetBindDeptsAPI(
   );
 }
 
-export function BindClientAPI(params: RoleBindParams): Promise<R<void>> {
-  return request.put<void>("/api/pms/v1/admin/role/bindClient", params);
-}
-
-export function GetBindClientsAPI(
-  id: string,
-  isBind: boolean,
-  condition?: OAuth2RegisteredClient
-): Promise<R<Array<OAuth2RegisteredClient>>> {
-  if (condition) {
-    filterParams(condition);
-  }
-  return request.get<Array<OAuth2RegisteredClient>>(
-    `/api/pms/v1/admin/role/bindClient/${id}`,
-    {
-      isBind,
-      ...condition,
-    }
-  );
-}
-
 export function BindUserAPI(params: RoleBindParams): Promise<R<void>> {
   return request.put<void>("/api/pms/v1/admin/role/bindUser", params);
 }

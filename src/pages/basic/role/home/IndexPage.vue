@@ -92,9 +92,6 @@
               >
                 关联权限
               </el-dropdown-item>
-              <el-dropdown-item :command="{ data: item, type: 'bindclient' }">
-                关联客户端
-              </el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
