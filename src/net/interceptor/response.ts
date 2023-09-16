@@ -7,8 +7,8 @@ import type {
 import { Message, Confirm } from "@/utils/message";
 import type { R } from "@/models/net";
 import { StatusCode } from "@/net/status-code";
-import { useAuthStore } from "@/stores/modules/auth";
-import Http from "@/net";
+// import { useAuthStore } from "@/stores/modules/auth";
+// import Http from "@/net";
 import { logoutAndReload } from "@/utils/security";
 import { isString } from "@/utils";
 
