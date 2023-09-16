@@ -104,6 +104,7 @@ declare module '@vue/runtime-core' {
     InCopyright: typeof import('./src/layouts/widgets/InCopyright.vue')['default']
     InCopyTag: typeof import('./src/components/InCopyTag.vue')['default']
     InDialog: typeof import('./src/components/InDialog.vue')['default']
+    InDrawer: typeof import('./src/components/drawer/InDrawer.vue')['default']
     InEditor: typeof import('./src/components/editor/InEditor.vue')['default']
     InFilterContainer: typeof import('./src/components/container/InFilterContainer.vue')['default']
     InFilterItem: typeof import('./src/components/container/InFilterItem.vue')['default']

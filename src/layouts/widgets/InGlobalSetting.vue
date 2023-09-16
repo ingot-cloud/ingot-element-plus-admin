@@ -2,7 +2,7 @@
   <div class="in-global-setting" cursor-pointer @click="onClick">
     <in-icon name="icon-park-outline:setting-config" class="icon" />
   </div>
-  <el-drawer v-model="drawer" title="配置" direction="rtl" size="300px">
+  <in-drawer v-model="drawer" title="配置" size="300px">
     <div class="in-global-setting-list">
       <div class="in-global-setting-item">
         <span class="title">主题模式</span>
@@ -29,7 +29,7 @@
         <el-switch v-model="appStateStore.showSearch" />
       </div>
     </div>
-  </el-drawer>
+  </in-drawer>
 </template>
 <script setup lang="ts">
 import { useAppStateStore } from "@/stores/modules/app";
