@@ -1,13 +1,13 @@
 <template>
   <div class="in-filter-container">
-    <div class="header-container" v-if="slot.header">
+    <div class="in-filter-container-header" v-if="slot.header">
       <slot name="header"> </slot>
     </div>
-    <div class="left-right-container">
+    <div class="in-filter-container-left-right">
       <div class="left-filter" v-if="slot.left">
         <slot name="left"> </slot>
       </div>
-      <el-container class="right-container">
+      <el-container class="in-filter-container-right">
         <div class="top-filter" v-if="slot.top">
           <slot name="top"> </slot>
         </div>
@@ -43,12 +43,12 @@ const slot = useSlots();
   @apply w-full h-full flex flex-col bg-[var(--in-bg-color)];
   border-radius: var(--in-common-border-radius);
 
-  & .left-right-container {
+  & .in-filter-container-left-right {
     @apply flex flex-row;
     flex: 1;
   }
 
-  & .header-container {
+  & .in-filter-container-header {
     @apply p-[var(--in-common-padding)];
     border-bottom: 1px solid var(--in-border-color);
   }
@@ -56,7 +56,7 @@ const slot = useSlots();
     @apply p-[var(--in-common-padding)];
     border-right: 1px solid var(--in-border-color);
   }
-  & .right-container {
+  & .in-filter-container-right {
     @apply flex flex-col;
     & .top-filter {
       @apply p-[var(--in-common-padding)];
