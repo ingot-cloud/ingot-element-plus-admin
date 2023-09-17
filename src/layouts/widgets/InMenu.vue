@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useAppStore, useAppStateStore } from "@/stores/modules/app";
+import { useAppStateStore } from "@/stores/modules/app";
 import { useUserInfoStore } from "@/stores/modules/auth";
 import { useRouterStore } from "@/stores/modules/router";
 
