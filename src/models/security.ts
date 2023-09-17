@@ -10,6 +10,7 @@ export interface TenantItem {
   id?: string;
   name?: string;
   avatar?: string;
+  main?: string;
 }
 
 export interface PreAuthorizeResult {
@@ -28,6 +29,7 @@ export interface User {
 export interface UserInfo {
   user?: User;
   roles: Array<string>;
+  allows: Array<TenantItem>;
 }
 
 export interface UserPasswordDTO {

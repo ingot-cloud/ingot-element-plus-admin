@@ -5,15 +5,21 @@
       getMenuOpened ? 'w-[var(--in-menu-show)]' : 'w-[var(--in-menu-hide)]',
     ]"
   >
-    <div class="menu-header">
-      <img class="logo-image" src="@/assets/logo.png" />
+    <div class="menu-header" @click="switchOrg">
+      <img class="logo-image" :src="userInforStore.getCurrentOrg?.avatar" />
       <div class="right-box" v-if="getMenuOpened">
-        <div class="title">{{ app.title }}</div>
-        <div class="auth-box">
-          <in-icon name="ph:seal-question-duotone" class="icon"></in-icon>
-          <div class="auth">未认证</div>
+        <div class="title">{{ userInforStore.getCurrentOrg?.name }}</div>
+        <div class="auth-box" :class="{ authenticated: isAuth }">
+          <in-icon
+            v-if="!isAuth"
+            name="ph:seal-question-duotone"
+            class="icon"
+          ></in-icon>
+          <in-icon v-else name="bx:shield" class="icon"></in-icon>
+          <div class="auth">{{ isAuth ? "已认证" : "未认证" }}</div>
         </div>
       </div>
+      <in-icon name="icon-park:switch" />
     </div>
     <el-scrollbar>
       <el-menu
@@ -49,10 +55,14 @@
 
 <script lang="ts" setup>
 import { useAppStore, useAppStateStore } from "@/stores/modules/app";
+import { useUserInfoStore } from "@/stores/modules/auth";
 import { useRouterStore } from "@/stores/modules/router";
 
+// 现在只显示已认证状态
+const isAuth = ref(true);
 const router = useRouter();
 const appStateStore = useAppStateStore();
+const userInforStore = useUserInfoStore();
 const { getMenuOpened } = storeToRefs(appStateStore);
 let lastActivePath = "/";
 const activePath = computed(() => {
@@ -75,9 +85,16 @@ const activePath = computed(() => {
 });
 
 const { getMenus } = storeToRefs(useRouterStore());
-const { app } = storeToRefs(useAppStore());
 const toggle = () => {
   appStateStore.toggleMenu();
+};
+
+const switchOrg = () => {
+  useMessageConfirm()
+    .warning("是否切换组织")
+    .then(() => {
+      useLogin().go();
+    });
 };
 </script>
 
@@ -131,7 +148,18 @@ const toggle = () => {
         padding: 0 4px;
         cursor: default;
 
-        .icon {
+        &.authenticated {
+          border: 1px solid var(--in-color-primary);
+          & .icon {
+            color: var(--in-color-primary);
+          }
+
+          & .auth {
+            color: var(--in-color-primary);
+          }
+        }
+
+        & .icon {
           color: rgba(23, 26, 29, 0.6);
         }
 

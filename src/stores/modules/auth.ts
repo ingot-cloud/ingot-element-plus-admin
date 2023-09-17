@@ -132,6 +132,7 @@ export const useUserInfoStore = defineStore("security.user", () => {
   const defaultUser = {
     user: undefined,
     roles: [],
+    allows: [],
   };
   const userInfo = reactive<UserInfo>(defaultUser);
 
@@ -142,6 +143,10 @@ export const useUserInfoStore = defineStore("security.user", () => {
     return userInfo.user ? userInfo.user.avatar : "";
   });
   const getRoles = computed(() => userInfo.roles);
+  const getAllows = computed(() => userInfo.allows);
+  const getCurrentOrg = computed(() =>
+    userInfo.allows.find((item) => item.main)
+  );
   const getUserInfoWhetherExist = computed(
     () => userInfo.roles && userInfo.roles.length !== 0
   );
@@ -170,6 +175,8 @@ export const useUserInfoStore = defineStore("security.user", () => {
     getAvatar,
     getRoles,
     getUserInfoWhetherExist,
+    getAllows,
+    getCurrentOrg,
     clear,
     fetchUserInfo,
   };
