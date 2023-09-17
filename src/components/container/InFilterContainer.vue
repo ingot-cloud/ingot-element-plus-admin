@@ -1,26 +1,31 @@
 <template>
   <div class="in-filter-container">
-    <div class="left-filter" v-if="slot.left">
-      <slot name="left"> </slot>
+    <div class="header-container" v-if="slot.header">
+      <slot name="header"> </slot>
     </div>
-    <el-container class="right-container">
-      <div class="top-filter" v-if="slot.top">
-        <slot name="top"> </slot>
+    <div class="left-right-container">
+      <div class="left-filter" v-if="slot.left">
+        <slot name="left"> </slot>
       </div>
-      <div class="inner-container">
-        <el-backtop
-          v-if="showBacktop"
-          target=".inner-container"
-          :right="60"
-          :bottom="60"
-        >
-          <div flex items-center justify-center>
-            <i-material-symbols:vertical-align-top-rounded />
-          </div>
-        </el-backtop>
-        <slot />
-      </div>
-    </el-container>
+      <el-container class="right-container">
+        <div class="top-filter" v-if="slot.top">
+          <slot name="top"> </slot>
+        </div>
+        <div class="inner-container">
+          <el-backtop
+            v-if="showBacktop"
+            target=".inner-container"
+            :right="60"
+            :bottom="60"
+          >
+            <div flex items-center justify-center>
+              <i-material-symbols:vertical-align-top-rounded />
+            </div>
+          </el-backtop>
+          <slot />
+        </div>
+      </el-container>
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
@@ -35,8 +40,18 @@ const slot = useSlots();
 </script>
 <style lang="postcss" scoped>
 .in-filter-container {
-  @apply w-full h-full flex flex-row bg-[var(--in-bg-color)];
+  @apply w-full h-full flex flex-col bg-[var(--in-bg-color)];
   border-radius: var(--in-common-border-radius);
+
+  & .left-right-container {
+    @apply flex flex-row;
+    flex: 1;
+  }
+
+  & .header-container {
+    @apply p-[var(--in-common-padding)];
+    border-bottom: 1px solid var(--in-border-color);
+  }
   & .left-filter {
     @apply p-[var(--in-common-padding)];
     border-right: 1px solid var(--in-border-color);
