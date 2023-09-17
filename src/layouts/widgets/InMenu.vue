@@ -19,7 +19,7 @@
           <div class="auth">{{ isAuth ? "已认证" : "未认证" }}</div>
         </div>
       </div>
-      <in-icon name="icon-park:switch" />
+      <in-icon v-if="getMenuOpened" name="icon-park:switch" />
     </div>
     <el-scrollbar>
       <el-menu
