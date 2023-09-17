@@ -33,7 +33,7 @@
       </template>
     </el-dropdown>
   </div>
-  <el-tree
+  <in-tree
     ref="deptTreeRef"
     class="m-t-[var(--in-common-margin)]"
     :data="deptTree"
@@ -44,7 +44,7 @@
     :expand-on-click-node="false"
     :filter-node-method="privateFilterNode"
     @node-click="privateOnNodeClick"
-  ></el-tree>
+  ></in-tree>
 </template>
 <script lang="ts" setup>
 import { TreeKeyAndProps } from "@/models";

@@ -7,15 +7,13 @@
       clearable
     />
 
-    <el-tree
+    <in-tree
       v-loading="loading"
       ref="deptTreeRef"
       class="member-dept-tree"
       :data="deptTree"
       :props="TreeKeyAndProps.props"
       :node-key="TreeKeyAndProps.nodeKey"
-      :highlight-current="true"
-      :expand-on-click-node="false"
       :filter-node-method="privateFilterNode"
       @node-click="privateOnNodeClick"
     >
@@ -25,7 +23,7 @@
           <span class="text">{{ node.label }}</span>
         </div>
       </template>
-    </el-tree>
+    </in-tree>
   </div>
 </template>
 <script setup lang="ts">
@@ -102,8 +100,6 @@ onMounted(() => {
 
   & .member-dept-tree {
     @apply m-t-[var(--in-common-margin)];
-    --el-tree-node-hover-bg-color: rgba(126, 134, 142, 0.16);
-    --el-tree-node-content-height: 36px;
   }
 
   & .dept-item {
@@ -126,17 +122,5 @@ onMounted(() => {
       font-size: 14px;
     }
   }
-}
-
-:deep(
-    .el-tree--highlight-current
-      .el-tree-node.is-current
-      > .el-tree-node__content
-  ) {
-  background-color: var(--el-tree-node-hover-bg-color) !important;
-  border-radius: 4px;
-}
-:deep(.el-tree-node__content:hover) {
-  border-radius: 4px;
 }
 </style>

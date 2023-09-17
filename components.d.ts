@@ -128,6 +128,7 @@ declare module '@vue/runtime-core' {
     InTable: typeof import('./src/components/table/InTable.vue')['default']
     InTabs: typeof import('./src/components/InTabs.vue')['default']
     InTag: typeof import('./src/components/biz/InTag.vue')['default']
+    InTree: typeof import('./src/components/InTree.vue')['default']
     InUpload: typeof import('./src/components/upload/InUpload.vue')['default']
     InUserDropdown: typeof import('./src/layouts/widgets/user-dropdown/InUserDropdown.vue')['default']
     InWithLabel: typeof import('./src/components/InWithLabel.vue')['default']
