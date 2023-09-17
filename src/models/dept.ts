@@ -8,6 +8,7 @@ export interface DeptTreeNode {
   name?: string;
   scope?: DeptRoleScope;
   sort?: number;
+  mainFlag?: boolean;
   status?: CommonStatus;
   id?: string;
   pid?: string;
