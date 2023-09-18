@@ -24,7 +24,9 @@
         <div class="title">{{ userOps.currentDeptNode.name }}</div>
       </template>
       <template #toolbar>
-        <in-button type="primary" @click="handleCreateUser"> 添加 </in-button>
+        <in-button type="primary" @click="handleCreateUser">
+          添加成员
+        </in-button>
       </template>
       <template #avatar="{ item }">
         <div flex flex-row items-center gap-2 justify-center>
