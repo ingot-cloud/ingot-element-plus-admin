@@ -34,6 +34,7 @@ import type { DeptTreeNode } from "@/models";
 
 const deptStore = useDeptStore();
 const deptTree = ref<Array<DeptTreeNode>>([]);
+const emits = defineEmits(["onNodeClick"]);
 
 const deptTreeRef = ref();
 const loading = ref(false);
@@ -44,8 +45,7 @@ watch(searchValue, (val) => {
 });
 
 const privateOnNodeClick = (value: DeptTreeNode) => {
-  // emits("onNodeClick", value);
-  console.log(value);
+  emits("onNodeClick", value);
 };
 const privateFilterNode = (value: string, data: DeptTreeNode) => {
   if (!value || !data.name) return true;
@@ -79,11 +79,13 @@ const fetchData = () => {
         result.push(item);
       });
       deptTree.value = result;
-      if (deptTree.value.length > 0) {
-        // console.log(deptTree.value[0]);
-        // deptTreeRef.value?.setCurrentNode({ id: 1 }, false);
-        // console.log(deptTreeRef.value?.getCurrentNode());
-      }
+
+      nextTick(() => {
+        const selectData = deptTree.value[0];
+        const node = deptTreeRef.value.getNode(deptTree.value[0]);
+        node.store.setCurrentNode(node);
+        privateOnNodeClick(selectData);
+      });
     })
     .catch(() => {
       loading.value = false;
