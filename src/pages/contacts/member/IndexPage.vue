@@ -20,7 +20,9 @@
       @handleSizeChange="userOps.fetchUserData"
       @handleCurrentChange="userOps.fetchUserData"
     >
-      <template #title> {{ userOps.currentDeptNode.name }} </template>
+      <template #title>
+        <div class="title">{{ userOps.currentDeptNode.name }}</div>
+      </template>
       <template #toolbar>
         <in-button type="primary" @click="handleCreateUser"> 添加 </in-button>
       </template>
@@ -32,7 +34,7 @@
             :src="item.avatar"
             fit="cover"
           />
-          {{ item.username }}
+          {{ item.nickname }}
         </div>
       </template>
       <template #status="{ item }">
@@ -65,6 +67,8 @@
       </template>
     </in-table>
   </in-filter-container>
+
+  <EditDrawer ref="EditDrawerRef" @success="userOps.fetchUserData()" />
 </template>
 <script lang="ts" setup>
 import type { UserPageItemVO } from "@/models";
@@ -72,13 +76,24 @@ import ContactsTabs from "@/pages/contacts/components/ContactsTabs.vue";
 import LeftContent from "./components/LeftContent.vue";
 import { useUserOps } from "./useUserOps";
 import { tableHeaders } from "./table";
+import EditDrawer from "./components/EditDrawer.vue";
 
+const EditDrawerRef = ref();
 const userOps = useUserOps();
-const handleCreateUser = () => {};
-const handleDetailUser = (item: UserPageItemVO) => {};
+const handleCreateUser = () => {
+  EditDrawerRef.value.show();
+};
+const handleDetailUser = (item: UserPageItemVO) => {
+  EditDrawerRef.value.show(item);
+};
 </script>
 <style scoped lang="postcss">
 :deep(.in-filter-container-header) {
   padding: 0 !important;
+}
+.title {
+  color: #171a1d;
+  font-weight: 600;
+  font-size: 17px;
 }
 </style>

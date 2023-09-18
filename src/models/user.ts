@@ -7,8 +7,6 @@ import type { CommonStatus } from "./enums";
  */
 export interface UserPageItemVO {
   userId: string;
-  tenantName: string;
-  deptName: string;
   username: string;
   nickname?: string;
   phone?: string;
@@ -35,7 +33,7 @@ export interface UserDTO extends SysUser {
 }
 
 export interface UserProfileVO {
-  deptId: string;
+  deptIds: Array<string>;
   roleIds?: Array<string>;
   username: string;
   nickname?: string;
