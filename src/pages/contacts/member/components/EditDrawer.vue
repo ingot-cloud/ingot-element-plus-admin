@@ -8,11 +8,18 @@
       :model="editForm"
       :rules="rules"
     >
-      <el-form-item label="用户名" prop="username">
+      <el-form-item label="头像">
+        <in-common-upload-avatar
+          dir="public/user/avatar"
+          v-model="editForm.avatar"
+        />
+      </el-form-item>
+
+      <el-form-item label="名称" prop="nickname">
         <el-input
-          v-model="editForm.username"
+          v-model="editForm.nickname"
           clearable
-          placeholder="请输入用户名"
+          placeholder="请输入名称"
         ></el-input>
       </el-form-item>
 
@@ -40,6 +47,14 @@
         />
       </el-form-item>
 
+      <el-form-item label="用户名" prop="username">
+        <el-input
+          v-model="editForm.username"
+          clearable
+          placeholder="请输入用户名"
+        ></el-input>
+      </el-form-item>
+
       <el-form-item label="密码" prop="newPassword">
         <el-input
           v-model="editForm.newPassword"
@@ -47,14 +62,6 @@
           placeholder="请输入新密码"
           show-password
           type="password"
-        ></el-input>
-      </el-form-item>
-
-      <el-form-item label="名称" prop="nickname">
-        <el-input
-          v-model="editForm.nickname"
-          clearable
-          placeholder="请输入名称"
         ></el-input>
       </el-form-item>
 
@@ -79,10 +86,6 @@
           <el-radio-button label="0">正常</el-radio-button>
           <el-radio-button label="9">锁定</el-radio-button>
         </el-radio-group>
-      </el-form-item>
-
-      <el-form-item label="头像">
-        <in-common-upload dir="public/user/avatar" v-model="editForm.avatar" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -135,6 +138,7 @@ const rules = {
   username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
   roleIds: [{ required: true, message: "请选择角色", trigger: "blur" }],
   phone: [{ required: true, message: "请输入手机号", trigger: "blur" }],
+  nickname: [{ required: true, message: "请输入名称", trigger: "blur" }],
 };
 
 const emits = defineEmits(["success"]);

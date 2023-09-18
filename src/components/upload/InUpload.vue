@@ -90,7 +90,6 @@ const props = defineProps({
 
 const dialogImageUrl = ref("");
 const dialogVisible = ref(false);
-const disabled = ref(false);
 const innerFileList = ref<Array<UploadFile>>([]);
 const innerChange = ref(false);
 watch(

@@ -16,6 +16,7 @@ export const tableHeaders: Array<TableHeaderRecord> = [
   {
     label: "email",
     prop: "email",
+    transform: (v) => v || "-",
   },
   {
     label: "状态",
