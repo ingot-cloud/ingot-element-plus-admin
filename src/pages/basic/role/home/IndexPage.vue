@@ -46,6 +46,9 @@
       <template #status="{ item }">
         <common-status-tag :status="item.status"></common-status-tag>
       </template>
+      <template #type="{ item }">
+        <in-tag :value="useRoleTypeEnum.getTagText(item.type)" />
+      </template>
       <template #actions="{ item }">
         <in-button text link type="primary" @click="handleEdit(item)">
           <template #icon>
@@ -108,6 +111,7 @@ import EditDialog from "./EditDialog.vue";
 import type { API as EditDialogAPI } from "./EditDialog.vue";
 import type { TableAPI } from "@/components/table";
 import { useRoleStore } from "@/stores/modules/role";
+import { useRoleTypeEnum } from "@/models/enums/roleEnums";
 import router from "@/router";
 
 const editDialog = ref<EditDialogAPI>();
