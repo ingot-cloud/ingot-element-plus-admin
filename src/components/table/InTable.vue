@@ -36,6 +36,7 @@
       @select="privateOnTableSelect"
       @selection-change="privateOnTableSelectionChange"
       @row-click="privateRowClick"
+      @expand-change="privateExpandChange"
       :highlight-current-row="highlightCurrentRow"
       :default-expand-all="defaultExpandAll"
       :expand-row-keys="expandRowKeys"
@@ -89,6 +90,7 @@
     @select="privateOnTableSelect"
     @selection-change="privateOnTableSelectionChange"
     @row-click="privateRowClick"
+    @expand-change="privateExpandChange"
     :highlight-current-row="highlightCurrentRow"
     :default-expand-all="defaultExpandAll"
     :expand-row-keys="expandRowKeys"
@@ -163,6 +165,7 @@ const emits = defineEmits([
   "selectionChange",
   "refresh",
   "rowClick",
+  "expand-change",
 ]);
 const { componentSize } = storeToRefs(useAppStateStore());
 
@@ -219,6 +222,9 @@ const privateOnTableSelectAll = (selection: any) => {
 };
 const privateOnTableSelectionChange = (selection: any) => {
   emits("selectionChange", selection);
+};
+const privateExpandChange = (row: any, expandedRows: any) => {
+  emits("expand-change", row, expandedRows);
 };
 const privateOnHeaderChanged = (value: Array<String>) => {
   headersEnable.value = props.headers.filter((item: TableHeaderRecord) =>
