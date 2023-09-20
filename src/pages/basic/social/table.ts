@@ -37,10 +37,12 @@ export const tableHeaders: Array<TableHeaderRecord> = [
   {
     label: "创建时间",
     prop: "createdAt",
+    hide: true,
   },
   {
     label: "创建时间",
     prop: "updatedAt",
+    hide: true,
   },
   {
     label: "操作",

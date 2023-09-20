@@ -64,7 +64,7 @@
       :type="item.type || undefined"
       :width="item.width || undefined"
       :fixed="item.fixed || undefined"
-      :align="item.align || 'center'"
+      :align="item.align || 'left'"
       :sortable="item.sortable"
       :sort-method="item.sortMethod"
       :sort-by="item.sortBy"

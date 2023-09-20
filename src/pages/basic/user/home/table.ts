@@ -1,12 +1,6 @@
 import type { TableHeaderRecord } from "@/components/table";
 export const tableHeaders: Array<TableHeaderRecord> = [
   {
-    label: "序号",
-    type: "index",
-    align: "center",
-    width: "80",
-  },
-  {
     label: "头像",
     prop: "avatar",
   },
@@ -34,6 +28,7 @@ export const tableHeaders: Array<TableHeaderRecord> = [
   {
     label: "注册时间",
     prop: "createdAt",
+    hide: true,
   },
   {
     label: "操作",

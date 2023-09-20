@@ -38,6 +38,17 @@
       <template #toolbar>
         <in-button type="primary" @click="handleCreate"> 新增 </in-button>
       </template>
+      <template #name="{ item }">
+        <div flex flex-row items-center gap-2>
+          <el-image
+            v-if="item.avatar"
+            class="w-30px h-30px"
+            :src="item.avatar"
+            fit="cover"
+          />
+          {{ item.name }}
+        </div>
+      </template>
       <template #avatar="{ item }">
         <el-image class="w-30px h-30px" :src="item.avatar" fit="cover" />
       </template>
