@@ -18,7 +18,7 @@
 
     <el-divider direction="vertical" />
     <el-dropdown trigger="click">
-      <el-icon size="22">
+      <el-icon size="22" cursor-pointer>
         <i-material-symbols:more-vert />
       </el-icon>
       <template #dropdown>

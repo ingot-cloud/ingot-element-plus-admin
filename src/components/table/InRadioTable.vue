@@ -24,66 +24,70 @@
       </div>
     </div>
   </div>
-  <el-table
-    :border="border"
-    v-loading="loading"
-    ref="ingotTable"
-    :data="data"
-    :stripe="stripe"
-    @select-all="privateOnTableSelectAll"
-    @select="privateOnTableSelect"
-    @selection-change="privateOnTableSelectionChange"
-    @row-click="privateRowClick"
-    @expand-change="privateExpandChange"
-    :highlight-current-row="highlightCurrentRow"
-    :default-expand-all="defaultExpandAll"
-    :expand-row-keys="expandRowKeys"
-    :tree-props="treeProps"
-    :row-key="rowKey"
-    :default-sort="defaultSort"
-  >
-    <el-table-column
-      v-if="selection"
-      :width="selectionProps.width"
-      :align="selectionProps.align"
-      :selectable="selectable"
-      type="selection"
-    />
-    <el-table-column
-      v-if="index"
-      :width="indexProps.width"
-      :align="indexProps.align"
-      :label="indexProps.label"
-      type="index"
-    />
 
-    <el-table-column
-      v-for="item in headersEnable"
-      :key="item.prop"
-      :label="item.label"
-      :type="item.type || undefined"
-      :width="item.width || undefined"
-      :fixed="item.fixed || undefined"
-      :align="item.align || 'center'"
-      :sortable="item.sortable"
-      :sort-method="item.sortMethod"
-      :sort-by="item.sortBy"
-      :sort-orders="item.sortOrders"
+  <el-radio-group v-model="radioValue" w-full>
+    <el-table
+      :border="border"
+      v-loading="loading"
+      ref="ingotTable"
+      :data="data"
+      :stripe="stripe"
+      @select-all="privateOnTableSelectAll"
+      @select="privateOnTableSelect"
+      @selection-change="privateOnTableSelectionChange"
+      @row-click="privateRowClick"
+      @expand-change="privateExpandChange"
+      :highlight-current-row="highlightCurrentRow"
+      :default-expand-all="defaultExpandAll"
+      :expand-row-keys="expandRowKeys"
+      :tree-props="treeProps"
+      :row-key="rowKey"
+      :default-sort="defaultSort"
     >
-      <template v-slot="scope" v-if="!item.type">
-        <slot :name="item.prop" :item="scope.row" :index="scope.$index">
-          {{
-            item.transform
-              ? item.transform(scope.row[String(item.prop)])
-              : scope.row[String(item.prop)]
-          }}
-        </slot>
+      <el-table-column
+        v-if="selection"
+        :width="selectionProps.width"
+        :align="selectionProps.align"
+        :selectable="selectable"
+        type="selection"
+      />
+      <el-table-column
+        v-if="index"
+        :width="indexProps.width"
+        :align="indexProps.align"
+        :label="indexProps.label"
+        type="index"
+      />
+
+      <el-table-column
+        v-for="item in headersEnable"
+        :key="item.prop"
+        :label="item.label"
+        :type="item.type || undefined"
+        :width="item.width || undefined"
+        :fixed="item.fixed || undefined"
+        :align="item.align || 'center'"
+        :sortable="item.sortable"
+        :sort-method="item.sortMethod"
+        :sort-by="item.sortBy"
+        :sort-orders="item.sortOrders"
+      >
+        <template v-slot="scope" v-if="!item.type">
+          <slot :name="item.prop" :item="scope.row" :index="scope.$index">
+            {{
+              item.transform
+                ? item.transform(scope.row[String(item.prop)])
+                : scope.row[String(item.prop)]
+            }}
+          </slot>
+        </template>
+      </el-table-column>
+      <template #empty>
+        <el-empty />
       </template>
-    </el-table-column>
-    <template #empty>
-      <el-empty />
-    </template>
-  </el-table>
+    </el-table>
+  </el-radio-group>
+
   <div v-if="page && page.total" m-t-20px flex flex-row justify-end items-start>
     <el-pagination
       :small="componentSize === 'small'"

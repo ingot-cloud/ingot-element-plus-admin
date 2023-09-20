@@ -1,6 +1,7 @@
-import type { SysRole, Page, R, Option } from "@/models";
+import type { SysRole, RolePageItemVO, Page, R, Option } from "@/models";
 import {
   RoleOptionsAPI,
+  RoleListAPI,
   RolePageAPI,
   CreateRoleAPI,
   UpdateRoleAPI,
@@ -30,8 +31,20 @@ export const useRoleStore = defineStore("role", () => {
     });
   };
 
+  const fetchRoleList = (condition?: SysRole) => {
+    return new Promise<Array<RolePageItemVO>>((resolve, reject) => {
+      RoleListAPI(condition)
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
+  };
+
   const fetchRolePage = (page: Page, condition?: SysRole) => {
-    return new Promise<R<Page<SysRole>>>((resolve, reject) => {
+    return new Promise<R<Page<RolePageItemVO>>>((resolve, reject) => {
       RolePageAPI(page, condition)
         .then((response) => {
           resolve(response);
@@ -84,6 +97,7 @@ export const useRoleStore = defineStore("role", () => {
   return {
     roleOptions,
     fetchRoleOptions,
+    fetchRoleList,
     fetchRolePage,
     createRole,
     updateRole,

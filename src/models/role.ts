@@ -3,21 +3,28 @@ import type { CommonStatus } from "./enums";
 export interface RolePageItemVO {
   id: string;
   name: string;
+  groupId: string;
+  groupName: string;
   code: string;
   type: string;
   status: CommonStatus;
-  remark: string;
   createdAt: string;
-  canAction: boolean;
+}
+
+export interface RoleTreeNode {
+  id?: string;
+  name?: string;
+  isGroup?: boolean;
+  children?: Array<RoleTreeNode>;
 }
 
 export interface SysRole {
   id?: string;
+  groupId?: string;
   name?: string;
   code?: string;
   type?: string;
   status?: CommonStatus;
-  remark?: string;
 }
 
 export interface RoleBindParams {

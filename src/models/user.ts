@@ -17,7 +17,6 @@ export interface UserPageItemVO {
 
 export interface SysUser extends OptionIDEntity {
   id?: string;
-  deptId?: string;
   username?: string;
   nickname?: string;
   phone?: string;
@@ -27,8 +26,8 @@ export interface SysUser extends OptionIDEntity {
 }
 
 export interface UserDTO extends SysUser {
-  roleIds?: Array<string>;
-  clientIds?: Array<string>;
+  roleId?: string;
+  deptId?: string;
   newPassword?: string;
 }
 

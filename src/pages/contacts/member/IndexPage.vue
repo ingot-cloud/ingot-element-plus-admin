@@ -29,7 +29,7 @@
         </in-button>
       </template>
       <template #avatar="{ item }">
-        <div flex flex-row items-center gap-2 justify-center>
+        <div flex flex-row items-center gap-2>
           <el-image
             v-if="item.avatar"
             class="w-30px h-30px"

@@ -16,6 +16,17 @@ export function RoleOptionsAPI() {
   return request.get<Array<Option<string>>>("/api/pms/v1/admin/role/options");
 }
 
+export function RoleListAPI(
+  condition?: SysRole
+): Promise<R<Array<RolePageItemVO>>> {
+  if (condition) {
+    filterParams(condition);
+  }
+  return request.get<Array<RolePageItemVO>>("/api/pms/v1/admin/role/list", {
+    ...condition,
+  });
+}
+
 export function RolePageAPI(
   page: Page,
   condition?: SysRole
