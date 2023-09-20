@@ -7,8 +7,6 @@ import type {
   R,
   RoleBindParams,
   SysAuthority,
-  SysDept,
-  DeptTreeNode,
   AuthorityTreeNode,
   Option,
 } from "@/models";
@@ -59,27 +57,6 @@ export function GetBindAuthoritiesAPI(
   }
   return request.get<Array<AuthorityTreeNode>>(
     `/api/pms/v1/admin/role/bindAuthority/${id}`,
-    {
-      isBind,
-      ...condition,
-    }
-  );
-}
-
-export function BindDeptAPI(params: RoleBindParams): Promise<R<void>> {
-  return request.put<void>("/api/pms/v1/admin/role/bindDept", params);
-}
-
-export function GetBindDeptsAPI(
-  id: string,
-  isBind: boolean,
-  condition?: SysDept
-): Promise<R<Array<DeptTreeNode>>> {
-  if (condition) {
-    filterParams(condition);
-  }
-  return request.get<Array<DeptTreeNode>>(
-    `/api/pms/v1/admin/role/bindDept/${id}`,
     {
       isBind,
       ...condition,

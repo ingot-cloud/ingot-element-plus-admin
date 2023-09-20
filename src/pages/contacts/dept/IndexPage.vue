@@ -62,6 +62,7 @@
           </template>
           删除
         </in-button>
+        <in-icon v-if="item.mainFlag" name="mingcute:department-line" />
       </template>
     </in-table>
   </in-filter-container>

@@ -50,7 +50,13 @@
         <in-tag :value="useRoleTypeEnum.getTagText(item.type)" />
       </template>
       <template #actions="{ item }">
-        <in-button text link type="primary" @click="handleEdit(item)">
+        <in-button
+          text
+          link
+          type="primary"
+          @click="handleEdit(item)"
+          v-if="item.canAction"
+        >
           <template #icon>
             <i-ep:edit />
           </template>
@@ -58,7 +64,7 @@
         </in-button>
         <common-status-button
           :status="item.status"
-          :disabled="!item.canAction"
+          v-if="item.canAction"
           text
           link
           @click="
@@ -71,7 +77,7 @@
           link
           type="danger"
           @click="confirmDelete.exec(item.id, `是否删除角色(${item.name})`)"
-          :disabled="!item.canAction"
+          v-if="item.canAction"
         >
           <template #icon>
             <i-ep:delete />
@@ -87,9 +93,6 @@
           </in-button>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item :command="{ data: item, type: 'binddept' }">
-                关联部门
-              </el-dropdown-item>
               <el-dropdown-item
                 :command="{ data: item, type: 'bindauthority' }"
               >
