@@ -8,8 +8,8 @@
     />
 
     <div class="action-box">
-      <in-button>新增角色组</in-button>
-      <in-button>新增角色</in-button>
+      <in-button @click="privateHandleCreateGroup">新增角色组</in-button>
+      <in-button @click="privateHandleCreateRole">新增角色</in-button>
       <div>
         <el-divider direction="vertical" />
         <el-dropdown trigger="click">
@@ -53,22 +53,46 @@
           />
           <in-icon v-else name="tabler:user" class="icon" />
           <span class="text">{{ node.label }}</span>
+          <el-dropdown
+            trigger="hover"
+            class="action"
+            v-if="data.type == RoleType.Custom"
+          >
+            <div class="action-icon">
+              <in-icon name="icon-park-outline:more" cursor-pointer />
+            </div>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item @click="privateEditRoleOrGroup(data)">
+                  编辑
+                </el-dropdown-item>
+                <el-dropdown-item @click="privateDeleteRoleOrGroup(data)">
+                  删除
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
         </div>
       </template>
     </in-tree>
   </div>
+
+  <RoleGroupDrawer ref="RoleGroupDrawerRef" @success="fetchData" />
 </template>
 <script setup lang="ts">
 import { TreeKeyAndProps } from "@/models";
+import { RoleType } from "@/models/enums";
 import { Search } from "@element-plus/icons-vue";
 import { useRoleStore } from "@/stores/modules/role";
 import type { RoleGroupItemVO } from "@/models";
+import RoleGroupDrawer from "./RoleGroupDrawer.vue";
 
 const roleStore = useRoleStore();
 const roleTree = ref<Array<RoleGroupItemVO>>([]);
 const emits = defineEmits(["onNodeClick"]);
 
 const roleTreeRef = ref();
+const RoleGroupDrawerRef = ref();
 const loading = ref(false);
 const searchValue = ref("");
 
@@ -125,6 +149,25 @@ const privateOnDropSuccess = (node: any) => {
   roleStore.groupSort(ids);
 };
 
+const privateHandleCreateGroup = () => {
+  RoleGroupDrawerRef.value.show();
+};
+const privateHandleCreateRole = () => {};
+const privateEditRoleOrGroup = (params: RoleGroupItemVO) => {
+  if (params.isGroup) {
+    RoleGroupDrawerRef.value.show(params);
+  }
+};
+const confirmDeleteGroup = useConfirmDelete(
+  roleStore.removeRoleGroup,
+  fetchData
+);
+const privateDeleteRoleOrGroup = (params: RoleGroupItemVO) => {
+  if (params.isGroup) {
+    confirmDeleteGroup.exec(params.id!, `是否删除角色组:${params.name}`);
+  }
+};
+
 onMounted(() => {
   fetchData();
 });
@@ -154,11 +197,21 @@ onMounted(() => {
 
     & .text {
       flex: 1;
-      max-width: 120px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
       font-size: 14px;
+    }
+
+    & .action {
+      min-width: 22px;
+      & .action-icon {
+        font-size: 18px;
+      }
+      & .action-icon:hover {
+        background: #dee1e3;
+        border-radius: 4px;
+      }
     }
   }
 }
