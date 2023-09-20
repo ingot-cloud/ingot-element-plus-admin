@@ -37,7 +37,11 @@
       :data="roleTree"
       :props="TreeKeyAndProps.props"
       :node-key="TreeKeyAndProps.nodeKey"
+      draggable
+      :allow-drag="privateAllowDrag"
+      :allow-drop="privateAllowDrop"
       :filter-node-method="privateFilterNode"
+      @node-drop="privateOnDropSuccess"
       @node-click="privateOnNodeClick"
     >
       <template #default="{ node, data }">
@@ -58,10 +62,10 @@
 import { TreeKeyAndProps } from "@/models";
 import { Search } from "@element-plus/icons-vue";
 import { useRoleStore } from "@/stores/modules/role";
-import type { RoleTreeNode } from "@/models";
+import type { RoleGroupItemVO } from "@/models";
 
 const roleStore = useRoleStore();
-const roleTree = ref<Array<RoleTreeNode>>([]);
+const roleTree = ref<Array<RoleGroupItemVO>>([]);
 const emits = defineEmits(["onNodeClick"]);
 
 const roleTreeRef = ref();
@@ -72,13 +76,13 @@ watch(searchValue, (val) => {
   roleTreeRef.value!.filter(val);
 });
 
-const privateOnNodeClick = (value: RoleTreeNode) => {
+const privateOnNodeClick = (value: RoleGroupItemVO) => {
   if (value.isGroup) {
     return;
   }
   emits("onNodeClick", value);
 };
-const privateFilterNode = (value: string, data: RoleTreeNode) => {
+const privateFilterNode = (value: string, data: RoleGroupItemVO) => {
   if (!value || !data.name) return true;
   return data.name.indexOf(value) > -1;
 };
@@ -86,33 +90,10 @@ const privateFilterNode = (value: string, data: RoleTreeNode) => {
 const fetchData = () => {
   loading.value = true;
   roleStore
-    .fetchRoleList()
+    .fetchRoleGroupList()
     .then((data) => {
       loading.value = false;
-      const result: Array<RoleTreeNode> = [];
-      // 整理树形结构，第一层为组，第二层为角色
-      data.forEach((item) => {
-        if (result.findIndex((g) => g.id === item.groupId) > -1) {
-          return;
-        }
-        result.push({
-          id: item.groupId,
-          name: item.groupName,
-          isGroup: true,
-          children: [],
-        });
-      });
-      data.forEach((item) => {
-        result
-          .find((g) => g.id === item.groupId)
-          ?.children?.push({
-            id: item.id,
-            name: item.name,
-            isGroup: false,
-          });
-      });
-
-      roleTree.value = result;
+      roleTree.value = data;
     })
     .catch(() => {
       loading.value = false;
@@ -122,13 +103,26 @@ const fetchData = () => {
 const privateHandleDeptAction = (value: boolean) => {
   privateHandleExpanded(roleTree.value, value);
 };
-const privateHandleExpanded = (list: Array<RoleTreeNode>, value: boolean) => {
+const privateHandleExpanded = (
+  list: Array<RoleGroupItemVO>,
+  value: boolean
+) => {
   list.forEach((item) => {
     roleTreeRef.value.getNode(item).expanded = value;
     if (item.children && item.children.length) {
       privateHandleExpanded(item.children, value);
     }
   });
+};
+const privateAllowDrag = (node: any) => {
+  return node.data.isGroup;
+};
+const privateAllowDrop = (draggingNode: any, dropNode: any, type: string) => {
+  return dropNode.data.isGroup && type !== "inner";
+};
+const privateOnDropSuccess = (node: any) => {
+  const ids = roleTree.value.map((item) => item.id!);
+  roleStore.groupSort(ids);
 };
 
 onMounted(() => {

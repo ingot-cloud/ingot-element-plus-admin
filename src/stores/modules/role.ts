@@ -1,11 +1,24 @@
-import type { SysRole, RolePageItemVO, Page, R, Option } from "@/models";
+import type {
+  SysRole,
+  RolePageItemVO,
+  RoleGroupItemVO,
+  SysRoleGroup,
+  Page,
+  R,
+  Option,
+} from "@/models";
 import {
   RoleOptionsAPI,
   RoleListAPI,
   RolePageAPI,
+  RoleGroupListAPI,
   CreateRoleAPI,
   UpdateRoleAPI,
   RemoveRoleAPI,
+  CreateRoleGroupAPI,
+  UpdateRoleGroupAPI,
+  RemoveRoleGroupAPI,
+  GroupSortAPI,
 } from "@/api/basic/role";
 
 export const useRoleStore = defineStore("role", () => {
@@ -34,6 +47,18 @@ export const useRoleStore = defineStore("role", () => {
   const fetchRoleList = (condition?: SysRole) => {
     return new Promise<Array<RolePageItemVO>>((resolve, reject) => {
       RoleListAPI(condition)
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
+  };
+
+  const fetchRoleGroupList = () => {
+    return new Promise<Array<RoleGroupItemVO>>((resolve, reject) => {
+      RoleGroupListAPI()
         .then((response) => {
           resolve(response.data);
         })
@@ -94,13 +119,66 @@ export const useRoleStore = defineStore("role", () => {
     });
   };
 
+  const createRoleGroup = (params: SysRoleGroup) => {
+    return new Promise<void>((resolve, reject) => {
+      CreateRoleGroupAPI(params)
+        .then(() => {
+          resolve();
+        })
+        .catch(() => {
+          reject();
+        });
+    });
+  };
+
+  const updateRoleGroup = (params: SysRoleGroup) => {
+    return new Promise<void>((resolve, reject) => {
+      UpdateRoleGroupAPI(params)
+        .then(() => {
+          resolve();
+        })
+        .catch(() => {
+          reject();
+        });
+    });
+  };
+
+  const removeRoleGroup = (id: string) => {
+    return new Promise<void>((resolve, reject) => {
+      RemoveRoleGroupAPI(id)
+        .then(() => {
+          resolve();
+        })
+        .catch(() => {
+          reject();
+        });
+    });
+  };
+
+  const groupSort = (ids: Array<string>) => {
+    return new Promise<void>((resolve, reject) => {
+      GroupSortAPI(ids)
+        .then(() => {
+          resolve();
+        })
+        .catch(() => {
+          reject();
+        });
+    });
+  };
+
   return {
     roleOptions,
     fetchRoleOptions,
+    fetchRoleGroupList,
     fetchRoleList,
     fetchRolePage,
     createRole,
     updateRole,
     removeRole,
+    createRoleGroup,
+    updateRoleGroup,
+    removeRoleGroup,
+    groupSort,
   };
 });

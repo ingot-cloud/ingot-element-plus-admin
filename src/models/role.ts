@@ -32,3 +32,18 @@ export interface RoleBindParams {
   removeIds?: Array<string>;
   bindIds?: Array<string>;
 }
+
+export interface RoleGroupItemVO {
+  id?: string;
+  name?: string;
+  isGroup?: boolean;
+  type?: string;
+  children?: Array<RoleGroupItemVO>;
+}
+
+export interface SysRoleGroup {
+  id?: string;
+  name?: string;
+  sort?: string;
+  type?: string;
+}
