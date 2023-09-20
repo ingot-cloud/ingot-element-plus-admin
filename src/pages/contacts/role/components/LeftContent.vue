@@ -78,14 +78,16 @@
   </div>
 
   <RoleGroupDrawer ref="RoleGroupDrawerRef" @success="fetchData" />
+  <RoleDrawer ref="RoleDrawerRef" :groupList="groupList" @success="fetchData" />
 </template>
 <script setup lang="ts">
 import { TreeKeyAndProps } from "@/models";
 import { RoleType } from "@/models/enums";
 import { Search } from "@element-plus/icons-vue";
 import { useRoleStore } from "@/stores/modules/role";
-import type { RoleGroupItemVO } from "@/models";
+import type { RoleGroupItemVO, Option } from "@/models";
 import RoleGroupDrawer from "./RoleGroupDrawer.vue";
+import RoleDrawer from "./RoleDrawer.vue";
 
 const roleStore = useRoleStore();
 const roleTree = ref<Array<RoleGroupItemVO>>([]);
@@ -93,8 +95,10 @@ const emits = defineEmits(["onNodeClick"]);
 
 const roleTreeRef = ref();
 const RoleGroupDrawerRef = ref();
+const RoleDrawerRef = ref();
 const loading = ref(false);
 const searchValue = ref("");
+const groupList = ref<Array<Option>>([]);
 
 watch(searchValue, (val) => {
   roleTreeRef.value!.filter(val);
@@ -118,6 +122,12 @@ const fetchData = () => {
     .then((data) => {
       loading.value = false;
       roleTree.value = data;
+      groupList.value = roleTree.value.map((item) => {
+        return {
+          value: item.id!,
+          label: item.name!,
+        };
+      });
     })
     .catch(() => {
       loading.value = false;
@@ -152,19 +162,26 @@ const privateOnDropSuccess = (node: any) => {
 const privateHandleCreateGroup = () => {
   RoleGroupDrawerRef.value.show();
 };
-const privateHandleCreateRole = () => {};
+const privateHandleCreateRole = () => {
+  RoleDrawerRef.value.show();
+};
 const privateEditRoleOrGroup = (params: RoleGroupItemVO) => {
   if (params.isGroup) {
     RoleGroupDrawerRef.value.show(params);
+  } else {
+    RoleDrawerRef.value.show(params);
   }
 };
 const confirmDeleteGroup = useConfirmDelete(
   roleStore.removeRoleGroup,
   fetchData
 );
+const confirmDeleteRole = useConfirmDelete(roleStore.removeRole, fetchData);
 const privateDeleteRoleOrGroup = (params: RoleGroupItemVO) => {
   if (params.isGroup) {
     confirmDeleteGroup.exec(params.id!, `是否删除角色组:${params.name}`);
+  } else {
+    confirmDeleteRole.exec(params.id!, `是否删除角色:${params.name}`);
   }
 };
 

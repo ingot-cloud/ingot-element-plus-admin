@@ -37,6 +37,7 @@ export interface RoleGroupItemVO {
   id?: string;
   name?: string;
   isGroup?: boolean;
+  groupId?: string;
   type?: string;
   children?: Array<RoleGroupItemVO>;
 }
