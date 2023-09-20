@@ -63,9 +63,7 @@ watch(filterText, (val) => {
 });
 
 const privateHandleDeptAction = (value: boolean) => {
-  deptTreeRef.value.store._getAllNodes().forEach((item: any) => {
-    item.expanded = value;
-  });
+  privateHandleExpanded(deptTree.value, value);
 };
 const privateOnNodeClick = (value: DeptTreeNode) => {
   emits("onNodeClick", value);
@@ -73,6 +71,15 @@ const privateOnNodeClick = (value: DeptTreeNode) => {
 const privateFilterNode = (value: string, data: DeptTreeNode) => {
   if (!value || !data.name) return true;
   return data.name.indexOf(value) > -1;
+};
+
+const privateHandleExpanded = (list: Array<DeptTreeNode>, value: boolean) => {
+  list.forEach((item) => {
+    deptTreeRef.value.getNode(item).expanded = value;
+    if (item.children && item.children.length) {
+      privateHandleExpanded(item.children, value);
+    }
+  });
 };
 
 onMounted(() => {
