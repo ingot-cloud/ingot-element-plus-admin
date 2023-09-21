@@ -1,6 +1,7 @@
 <template>
   <in-dialog :title="title" v-model="visible" width="800">
     <in-table
+      hide-setting
       :loading="paging.loading.value"
       :data="paging.pageInfo.records"
       :headers="tableHeaders"
@@ -12,16 +13,14 @@
       @handleCurrentChange="paging.exec"
       @selectionChange="onSelectChanged"
     >
-      <template #title>
+      <template #toolbar>
         <el-input
           v-model="paging.condition.nickname"
           clearable
           style="width: 200px"
           placeholder="请输入名称"
         ></el-input>
-      </template>
-      <template #toolbar>
-        <in-button @click="paging.exec">搜索</in-button>
+        <in-button @click="paging.exec" type="primary">搜索</in-button>
       </template>
       <template #avatar="{ item }">
         <div flex flex-row items-center gap-2>

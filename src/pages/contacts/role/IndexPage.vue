@@ -11,7 +11,7 @@
     </template>
 
     <in-table
-      hide-toolbar
+      hide-setting
       :loading="userOps.loading.value"
       :data="userOps.pageInfo.records"
       :headers="tableHeaders"
@@ -22,18 +22,16 @@
       @handleCurrentChange="userOps.fetchUserData"
     >
       <template #title>
-        <div flex flex-row items-center w-full>
-          <div>
-            {{ userOps.currentNode.name || "请选择角色" }}
-          </div>
-          <in-button
-            v-if="userOps.currentNode.name"
-            type="primary"
-            @click="privateAddMember"
-          >
-            添加成员
-          </in-button>
-        </div>
+        {{ userOps.currentNode.name || "请选择角色" }}
+      </template>
+      <template #toolbar>
+        <in-button
+          v-if="userOps.currentNode.name"
+          type="primary"
+          @click="privateAddMember"
+        >
+          添加成员
+        </in-button>
       </template>
       <template #avatar="{ item }">
         <div flex flex-row items-center gap-2 justify-start>

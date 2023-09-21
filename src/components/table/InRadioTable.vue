@@ -3,7 +3,7 @@
     flex
     flex-col
     gap-10px
-    :class="{ 'm-b-10px': !hideSetting || slot.title }"
+    :class="{ 'm-b-10px': !hideSetting || slot.title || slot.toolbar }"
   >
     <div v-if="slot.title" class="title">
       <slot name="title"> </slot>
