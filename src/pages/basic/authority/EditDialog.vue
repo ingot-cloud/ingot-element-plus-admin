@@ -42,6 +42,15 @@
           class="form-item"
         ></el-input>
       </el-form-item>
+      <el-form-item label="权限类型" prop="type">
+        <in-select
+          w-full
+          v-model="editForm.type"
+          placeholder="请选择权限类型"
+          :options="authorityTypeEnum.getOptions()"
+          clearable
+        />
+      </el-form-item>
       <el-form-item label="备注">
         <el-input
           v-model="editForm.remark"
@@ -68,6 +77,7 @@ export interface API {
 import type { SysAuthority } from "@/models";
 import { TreeKeyAndProps } from "@/models";
 import { useAuthorityStore } from "@/stores/modules/authority";
+import { useAuthorityTypeEnum } from "@/models/enums";
 import { Message } from "@/utils/message";
 import {
   copyParams,
@@ -76,10 +86,12 @@ import {
 } from "@/utils/object";
 
 const authorityStore = useAuthorityStore();
+const authorityTypeEnum = useAuthorityTypeEnum();
 
 const rules = {
   name: [{ required: true, message: "请输入权限名称", trigger: "blur" }],
   code: [{ required: true, message: "请输入权限编码", trigger: "blur" }],
+  type: [{ required: true, message: "请选择权限类型", trigger: "blur" }],
 };
 
 const defaultEditForm: SysAuthority = {
@@ -87,6 +99,7 @@ const defaultEditForm: SysAuthority = {
   pid: undefined,
   name: undefined,
   code: undefined,
+  type: undefined,
   remark: undefined,
 };
 

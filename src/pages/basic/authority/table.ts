@@ -9,9 +9,8 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     prop: "code",
   },
   {
-    label: "备注",
-    prop: "remark",
-    transform: (v: string) => v || "-",
+    label: "类型",
+    prop: "type",
   },
   {
     label: "状态",

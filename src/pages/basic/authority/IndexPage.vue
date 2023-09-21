@@ -17,6 +17,9 @@
       <template #status="{ item }">
         <common-status-tag :status="item.status" />
       </template>
+      <template #type="{ item }">
+        <in-tag :value="authorityTypeEnum.getTagText(item.type)" />
+      </template>
       <template #actions="{ item }">
         <in-button type="success" text link @click="handleEdit(item.id)">
           <template #icon>
@@ -59,6 +62,7 @@
 <script lang="ts" setup>
 import { tableHeaders } from "./table";
 import type { SysAuthority, AuthorityTreeNode } from "@/models";
+import { useAuthorityTypeEnum } from "@/models/enums";
 import EditDialog from "./EditDialog.vue";
 import type { API as EditDialogAPI } from "./EditDialog.vue";
 import type { TableAPI } from "@/components/table";
@@ -68,6 +72,7 @@ onMounted(() => {
   fetchData();
 });
 
+const authorityTypeEnum = useAuthorityTypeEnum();
 const loading = ref(false);
 const editDialogRef = ref<EditDialogAPI>();
 const tableRef = ref<TableAPI>();
