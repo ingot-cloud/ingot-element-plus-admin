@@ -37,12 +37,15 @@
       :data="roleTree"
       :props="TreeKeyAndProps.props"
       :node-key="TreeKeyAndProps.nodeKey"
+      :default-expanded-keys="defaultExpandedKeys"
       draggable
       :allow-drag="privateAllowDrag"
       :allow-drop="privateAllowDrop"
       :filter-node-method="privateFilterNode"
       @node-drop="privateOnDropSuccess"
       @node-click="privateOnNodeClick"
+      @node-expand="privateOnNodeExpand"
+      @node-collapse="privateOnNodeCollapse"
     >
       <template #default="{ node, data }">
         <div class="role-item">
@@ -99,6 +102,7 @@ const RoleDrawerRef = ref();
 const loading = ref(false);
 const searchValue = ref("");
 const groupList = ref<Array<Option>>([]);
+const defaultExpandedKeys = ref<Array<string>>([]);
 
 watch(searchValue, (val) => {
   roleTreeRef.value!.filter(val);
@@ -154,9 +158,20 @@ const privateAllowDrag = (node: any) => {
 const privateAllowDrop = (draggingNode: any, dropNode: any, type: string) => {
   return dropNode.data.isGroup && type !== "inner";
 };
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const privateOnDropSuccess = (node: any) => {
   const ids = roleTree.value.map((item) => item.id!);
   roleStore.groupSort(ids);
+};
+const privateOnNodeExpand = (data: any) => {
+  defaultExpandedKeys.value.push(data.id);
+};
+const privateOnNodeCollapse = (data: any) => {
+  defaultExpandedKeys.value.splice(
+    defaultExpandedKeys.value.indexOf(data.id),
+    1
+  );
 };
 
 const privateHandleCreateGroup = () => {
