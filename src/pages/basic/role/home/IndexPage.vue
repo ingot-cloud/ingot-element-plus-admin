@@ -34,7 +34,6 @@
       @handleCurrentChange="paging.exec"
       @refresh="refreshData"
     >
-      <template #title> </template>
       <template #toolbar>
         <in-button type="primary" @click="handleCreate"> 添加 </in-button>
       </template>
