@@ -104,19 +104,3 @@ export function GetBindAuthoritiesAPI(
 export function BindUserAPI(params: RoleBindParams): Promise<R<void>> {
   return request.put<void>("/api/pms/v1/admin/role/bindUser", params);
 }
-
-export function GetBindUsersAPI(
-  page: Page,
-  id: string,
-  isBind: boolean,
-  condition?: SysUser
-): Promise<R<Page<SysUser>>> {
-  if (condition) {
-    filterParams(condition);
-  }
-  return request.get<Page<SysUser>>(`/api/pms/v1/admin/role/bindUser/${id}`, {
-    ...page,
-    isBind,
-    ...condition,
-  });
-}

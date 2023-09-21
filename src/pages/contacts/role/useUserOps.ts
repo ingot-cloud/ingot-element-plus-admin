@@ -1,4 +1,8 @@
-import type { RoleTreeNode, PageChangeParams, UserPageItemVO } from "@/models";
+import type {
+  RoleGroupItemVO,
+  PageChangeParams,
+  UserPageItemVO,
+} from "@/models";
 import { UserPageAPI, UpdateUserAPI, RemoveUserAPI } from "@/api/basic/user";
 import { copyParams } from "@/utils/object";
 
@@ -12,7 +16,7 @@ export const useUserOps = () => {
     transformDeleteAPI(RemoveUserAPI),
     paging.exec
   );
-  const currentNode = reactive<RoleTreeNode>({});
+  const currentNode = reactive<RoleGroupItemVO>({});
 
   /**
    * 重置过滤条件
@@ -35,7 +39,7 @@ export const useUserOps = () => {
    * 处理节点点击事件
    * @param node 角色树节点
    */
-  const handleTreeNodeClick = (node: RoleTreeNode): void => {
+  const handleTreeNodeClick = (node: RoleGroupItemVO): void => {
     copyParams(currentNode, node);
     paging.condition.roleId = node.id;
     fetchUserData();

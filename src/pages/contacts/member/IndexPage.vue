@@ -24,7 +24,7 @@
         <div class="title">{{ userOps.currentDeptNode.name }}</div>
       </template>
       <template #toolbar>
-        <in-button type="primary" @click="handleCreateUser">
+        <in-button type="primary" :icon="User" @click="handleCreateUser">
           添加成员
         </in-button>
       </template>
@@ -55,17 +55,7 @@
           :status="item.status"
           @click="userOps.handleDisableUser(item)"
         />
-        <in-button
-          link
-          text
-          type="danger"
-          @click="userOps.handleDeleteUser(item)"
-        >
-          <template #icon>
-            <i-ep:delete />
-          </template>
-          删除
-        </in-button>
+        <in-button-delete @click="userOps.handleDeleteUser(item)" />
       </template>
     </in-table>
   </in-filter-container>
@@ -79,6 +69,7 @@ import LeftContent from "./components/LeftContent.vue";
 import { useUserOps } from "./useUserOps";
 import { tableHeaders } from "./table";
 import EditDrawer from "./components/EditDrawer.vue";
+import { User } from "@element-plus/icons-vue";
 
 const EditDrawerRef = ref();
 const userOps = useUserOps();

@@ -1,16 +1,21 @@
 <template>
-  <div flex flex-row justify-between m-b-5px p-5px v-if="!hideToolbar">
-    <div>
+  <div
+    flex
+    flex-col
+    gap-10px
+    :class="{ 'm-b-10px': !hideSetting || slot.title }"
+  >
+    <div v-if="slot.title">
       <slot name="title"> </slot>
     </div>
-    <div flex justify-center items-center>
-      <div flex justify-center items-center gap-1 m-r-5px>
+    <div flex flex-row justify-between items-center>
+      <div flex justify-center items-center gap-1>
         <slot name="toolbar"></slot>
       </div>
 
-      <el-divider direction="vertical" />
+      <div flex justify-center items-center gap-1 v-if="!hideSetting">
+        <el-divider direction="vertical" />
 
-      <div flex justify-center items-center gap-1>
         <el-tooltip content="刷新" effect="light" placement="top">
           <in-refresh-icon size="22" @refresh="privateOnRefreshClick" />
         </el-tooltip>
@@ -102,7 +107,7 @@
 import type { TableHeaderRecord } from "./types";
 import { tableProps } from "./props";
 import { useAppStateStore } from "@/stores/modules/app";
-
+const slot = useSlots();
 const props = defineProps(tableProps);
 const emits = defineEmits([
   "handleSizeChange",

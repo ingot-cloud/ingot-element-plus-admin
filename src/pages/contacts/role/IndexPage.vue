@@ -11,6 +11,7 @@
     </template>
 
     <in-table
+      hide-toolbar
       :loading="userOps.loading.value"
       :data="userOps.pageInfo.records"
       :headers="tableHeaders"
@@ -21,7 +22,18 @@
       @handleCurrentChange="userOps.fetchUserData"
     >
       <template #title>
-        <div class="title">{{ userOps.currentNode.name }}</div>
+        <div flex flex-row items-center w-full>
+          <div class="title">
+            {{ userOps.currentNode.name || "请选择角色" }}
+          </div>
+          <in-button
+            v-if="userOps.currentNode.name"
+            type="primary"
+            @click="privateAddMember"
+          >
+            添加成员
+          </in-button>
+        </div>
       </template>
       <template #avatar="{ item }">
         <div flex flex-row items-center gap-2 justify-start>
@@ -34,19 +46,55 @@
           {{ item.nickname }}
         </div>
       </template>
+      <template #actions="{ item }">
+        <in-button-delete
+          v-if="userOps.currentNode.type !== RoleType.Custom"
+          @click="privateHandleDelete(item)"
+        />
+      </template>
     </in-table>
   </in-filter-container>
+
+  <AddMemberDialog ref="AddMemberDialogRef" @success="userOps.fetchUserData" />
 </template>
 <script lang="ts" setup>
 import ContactsTabs from "@/pages/contacts/components/ContactsTabs.vue";
 import LeftContent from "./components/LeftContent.vue";
 import { useUserOps } from "./useUserOps";
 import { tableHeaders } from "./table";
+import AddMemberDialog from "./components/AddMemberDialog.vue";
+import { BindUserAPI } from "@/api/basic/role";
+import { RoleType } from "@/models/enums";
 
+const AddMemberDialogRef = ref();
 const userOps = useUserOps();
+const confirm = useMessageConfirm();
+const privateAddMember = () => {
+  AddMemberDialogRef.value.show(userOps.currentNode);
+};
+const privateHandleDelete = (item: any) => {
+  confirm
+    .warning(
+      `是否将成员(${item.nickname})移除角色(${userOps.currentNode.name})`
+    )
+    .then(() => {
+      BindUserAPI({
+        id: userOps.currentNode.id,
+        removeIds: [item.userId],
+      }).then(() => {
+        userOps.fetchUserData();
+      });
+    });
+};
 </script>
 <style scoped lang="postcss">
 :deep(.in-filter-container-header) {
   padding: 0 !important;
+}
+.title {
+  flex: 1;
+  color: #171a1d;
+  font-weight: 600;
+  font-size: 17px;
 }
 </style>

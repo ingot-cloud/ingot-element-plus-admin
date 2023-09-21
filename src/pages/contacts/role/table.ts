@@ -16,4 +16,11 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     align: "left",
     transform: (v) => v || "-",
   },
+  {
+    label: "操作",
+    width: "100",
+    prop: "actions",
+    fixed: "right",
+    align: "center",
+  },
 ];
