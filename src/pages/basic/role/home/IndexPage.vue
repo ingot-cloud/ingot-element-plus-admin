@@ -46,7 +46,7 @@
         <common-status-tag :status="item.status"></common-status-tag>
       </template>
       <template #type="{ item }">
-        <in-tag :value="useRoleTypeEnum.getTagText(item.type)" />
+        <in-tag :value="roleType.getTagText(item.type)" />
       </template>
       <template #actions="{ item }">
         <in-button
@@ -119,6 +119,7 @@ import router from "@/router";
 const editDialog = ref<EditDialogAPI>();
 const tableRef = ref<TableAPI>();
 
+const roleType = useRoleTypeEnum();
 const roleStore = useRoleStore();
 const paging = usePaging(transformPageAPI(roleStore.fetchRolePage));
 const confirmStatus = useConfirmStatus(roleStore.updateRole, paging.exec);

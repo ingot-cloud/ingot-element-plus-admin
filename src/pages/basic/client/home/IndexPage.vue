@@ -47,9 +47,7 @@
         </el-tag>
       </template>
       <template #tokenAuthType="{ item }">
-        <in-tag
-          :value="useTokenAuthMethodEnum.getTagText(item.tokenAuthType)"
-        />
+        <in-tag :value="tokenAuthMethodEnum.getTagText(item.tokenAuthType)" />
       </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status" />
@@ -104,6 +102,8 @@ import router from "@/router";
 onMounted(() => {
   paging.exec();
 });
+
+const tokenAuthMethodEnum = useTokenAuthMethodEnum();
 
 const CreateDialogRef = ref<CreateDialogAPI>();
 const paging = usePaging(transformPageAPI(ClientPageAPI));

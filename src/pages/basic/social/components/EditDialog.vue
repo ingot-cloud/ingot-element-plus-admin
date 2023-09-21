@@ -33,7 +33,7 @@
             <in-select
               w-full
               v-model="editForm.type"
-              :options="useSocialTypeEnumsEnum.getOptions()"
+              :options="socialTypeEnumsEnum.getOptions()"
             />
           </el-form-item>
         </el-col>
@@ -94,6 +94,7 @@ const defaultEditForm: SysSocialDetails = {
 
 const emits = defineEmits(["success"]);
 
+const socialTypeEnumsEnum = useSocialTypeEnumsEnum();
 const editFormRef = ref();
 const editForm = reactive(Object.assign({}, defaultEditForm));
 const rawForm = reactive(Object.assign({}, defaultEditForm));

@@ -9,4 +9,6 @@ export const DeptRoleScopeEnumExtArray = [
   newEnumExt(DeptRoleScope.Current, "部门权限"),
   newEnumExt(DeptRoleScope.CurrentChild, "部门及子部门权限"),
 ];
-export const useDeptRoleScopeEnum = useEnum(DeptRoleScopeEnumExtArray);
+export const useDeptRoleScopeEnum = () => {
+  return useEnum(DeptRoleScopeEnumExtArray);
+};

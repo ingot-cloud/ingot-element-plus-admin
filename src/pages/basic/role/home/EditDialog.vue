@@ -36,7 +36,7 @@
               w-full
               v-model="editForm.type"
               placeholder="请选择角色类型"
-              :options="useRoleTypeEnum.getOptions()"
+              :options="roleTypeEnum.getOptions()"
               clearable
             />
           </el-form-item>
@@ -91,6 +91,7 @@ const keys = ["id", "name", "code", "type", "remark"];
 
 const emits = defineEmits(["success"]);
 
+const roleTypeEnum = useRoleTypeEnum();
 const roleStore = useRoleStore();
 const title = ref("");
 const edit = ref(false);

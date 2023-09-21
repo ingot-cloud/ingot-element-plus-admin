@@ -10,6 +10,7 @@ export interface SysAuthority {
   name?: string;
   code?: string;
   status?: CommonStatus;
+  type?: string;
   remark?: string;
   createdAt?: string;
 }

@@ -90,7 +90,7 @@
               <in-select
                 w-full
                 v-model="editForm.clientAuthenticationMethods"
-                :options="useClientAuthMethodEnum.getOptions()"
+                :options="clientAuthMethodEnum.getOptions()"
                 placeholder="请选择Client认证方式"
                 split=","
                 multiple
@@ -102,7 +102,7 @@
               <in-select
                 w-full
                 v-model="editForm.authorizationGrantTypes"
-                :options="useAuthorizedGrantTypeEnum.getOptions()"
+                :options="authorizedGrantTypeEnum.getOptions()"
                 placeholder="请选择允许授予类型"
                 split=","
                 multiple
@@ -127,7 +127,7 @@
               <in-select
                 w-full
                 v-model="editForm.tokenAuthType"
-                :options="useTokenAuthMethodEnum.getOptions()"
+                :options="tokenAuthMethodEnum.getOptions()"
               />
             </el-form-item>
           </el-col>
@@ -195,6 +195,10 @@ const defaultEditForm: OAuth2RegisteredClient = {
   tokenAuthType: undefined,
   status: undefined,
 };
+
+const authorizedGrantTypeEnum = useAuthorizedGrantTypeEnum();
+const tokenAuthMethodEnum = useTokenAuthMethodEnum();
+const clientAuthMethodEnum = useClientAuthMethodEnum();
 
 const edit = ref(false);
 const editFormRef = ref();

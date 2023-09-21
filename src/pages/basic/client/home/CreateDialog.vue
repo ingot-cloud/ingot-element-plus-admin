@@ -39,7 +39,7 @@
       <el-form-item label="Client认证方式" prop="clientAuthenticationMethods">
         <in-select
           v-model="editForm.clientAuthenticationMethods"
-          :options="useClientAuthMethodEnum.getOptions()"
+          :options="clientAuthMethodEnum.getOptions()"
           placeholder="请选择Client认证方式"
           split=","
           multiple
@@ -49,7 +49,7 @@
       <el-form-item label="Client授权类型" prop="authorizationGrantTypes">
         <in-select
           v-model="editForm.authorizationGrantTypes"
-          :options="useAuthorizedGrantTypeEnum.getOptions()"
+          :options="authorizedGrantTypeEnum.getOptions()"
           placeholder="请选择允许授权类型"
           split=","
           multiple
@@ -66,7 +66,7 @@
       <el-form-item label="Token授权类型">
         <in-select
           v-model="editForm.tokenAuthType"
-          :options="useTokenAuthMethodEnum.getOptions()"
+          :options="tokenAuthMethodEnum.getOptions()"
           style="width: 100%"
         />
       </el-form-item>
@@ -166,6 +166,10 @@ const defaultEditForm: OAuth2RegisteredClient = {
 };
 
 const emits = defineEmits(["success"]);
+
+const authorizedGrantTypeEnum = useAuthorizedGrantTypeEnum();
+const tokenAuthMethodEnum = useTokenAuthMethodEnum();
+const clientAuthMethodEnum = useClientAuthMethodEnum();
 
 const editFormRef = ref();
 const editForm = reactive(Object.assign({}, defaultEditForm));

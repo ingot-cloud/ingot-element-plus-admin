@@ -13,7 +13,7 @@
             <in-select
               w-full
               v-model="editForm.menuType"
-              :options="useMenuTypeEnum.getOptions()"
+              :options="menuTypeEnum.getOptions()"
             />
           </el-form-item>
         </el-col>
@@ -298,6 +298,8 @@ const defaultEditForm: SysMenu = {
   props: false,
   status: CommonStatus.Enable,
 };
+
+const menuTypeEnum = useMenuTypeEnum();
 
 const emits = defineEmits(["success"]);
 defineProps({

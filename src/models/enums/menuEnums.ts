@@ -10,7 +10,9 @@ export const MenuTypeEnumExtArray = toEnumExtArray(MenuType, [
   newTagText("菜单", "warning"),
   newTagText("按钮", "danger"),
 ]);
-export const useMenuTypeEnum = useEnum(MenuTypeEnumExtArray);
+export const useMenuTypeEnum = () => {
+  return useEnum(MenuTypeEnumExtArray);
+};
 export function getMenuTypeIcon(type: MenuType): string {
   switch (type) {
     case MenuType.Directory:

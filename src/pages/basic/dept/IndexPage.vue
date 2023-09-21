@@ -13,7 +13,7 @@
       </template>
       <template #scope="{ item }">
         <el-tag>
-          {{ useDeptRoleScopeEnum.getTagText(item.scope).text }}
+          {{ deptRoleScopeEnum.getTagText(item.scope).text }}
         </el-tag>
       </template>
       <template #status="{ item }">
@@ -72,6 +72,8 @@ const { deptTree } = storeToRefs(deptStore);
 onMounted(() => {
   fetchData();
 });
+
+const deptRoleScopeEnum = useDeptRoleScopeEnum();
 
 const fetchData = () => {
   loading.value = true;

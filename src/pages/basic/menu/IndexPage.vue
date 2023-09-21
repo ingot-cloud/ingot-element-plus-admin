@@ -13,7 +13,7 @@
       </template>
       <template #menuType="{ item }">
         <Icon mr-2 :icon="getMenuTypeIcon(item.menuType)" />
-        {{ useMenuTypeEnum.getTagText(item.menuType).text }}
+        {{ menuTypeEnum.getTagText(item.menuType).text }}
       </template>
       <template #path="{ item }">
         <in-copy-tag :text="item.path" />
@@ -94,6 +94,8 @@ import EditDialog from "./EditDialog.vue";
 import type { API as EditDialogAPI } from "./EditDialog.vue";
 import type { TableAPI } from "@/components/table";
 import { useAuthorityStore } from "@/stores/modules/authority";
+
+const menuTypeEnum = useMenuTypeEnum();
 
 const editDialogRef = ref<EditDialogAPI>();
 const tableRef = ref<TableAPI>();

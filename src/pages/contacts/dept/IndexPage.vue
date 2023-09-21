@@ -19,7 +19,7 @@
       </template>
       <template #scope="{ item }">
         <el-tag>
-          {{ useDeptRoleScopeEnum.getTagText(item.scope).text }}
+          {{ deptRoleScopeEnum.getTagText(item.scope).text }}
         </el-tag>
       </template>
       <template #status="{ item }">
@@ -78,6 +78,7 @@ import { useDeptRoleScopeEnum } from "@/models/enums";
 import { useUserInfoStore } from "@/stores/modules/auth";
 import EditDrawer from "./components/EditDrawer.vue";
 
+const deptRoleScopeEnum = useDeptRoleScopeEnum();
 const loading = ref(false);
 const userInforStore = useUserInfoStore();
 const deptStore = useDeptStore();

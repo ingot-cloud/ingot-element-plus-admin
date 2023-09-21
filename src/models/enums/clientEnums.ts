@@ -11,7 +11,9 @@ export const TokenAuthMethodEnumExtArray = [
   newEnumExt(TokenAuthMethod.Unique, "唯一", "warning"),
   newEnumExt(TokenAuthMethod.Standard, "标准", "danger"),
 ];
-export const useTokenAuthMethodEnum = useEnum(TokenAuthMethodEnumExtArray);
+export const useTokenAuthMethodEnum = () => {
+  return useEnum(TokenAuthMethodEnumExtArray);
+};
 
 /**
  * 允许的授权类型
@@ -32,9 +34,9 @@ export const AuthorizedGrantTypeEnumExtArray = [
   newEnumExt(AuthorizedGrantType.RefreshToken, "允许刷新Token"),
   newEnumExt(AuthorizedGrantType.PreAuthorizationCode, "预授权模式"),
 ];
-export const useAuthorizedGrantTypeEnum = useEnum(
-  AuthorizedGrantTypeEnumExtArray
-);
+export const useAuthorizedGrantTypeEnum = () => {
+  return useEnum(AuthorizedGrantTypeEnumExtArray);
+};
 
 /**
  * 客户端认证方法
@@ -55,4 +57,6 @@ export const ClientAuthMethodEnumExtArray = [
   newEnumExt(ClientAuthMethod.NONE, "None"),
   newEnumExt(ClientAuthMethod.PRE_AUTH, "预授权"),
 ];
-export const useClientAuthMethodEnum = useEnum(ClientAuthMethodEnumExtArray);
+export const useClientAuthMethodEnum = () => {
+  return useEnum(ClientAuthMethodEnumExtArray);
+};

@@ -30,12 +30,10 @@
       <el-form-item prop="scope" label="权限范围">
         <el-radio-group v-model="editForm.scope">
           <el-radio-button :label="DeptRoleScope.Current">
-            {{ useDeptRoleScopeEnum.getTagText(DeptRoleScope.Current).text }}
+            {{ deptRoleScopeEnum.getTagText(DeptRoleScope.Current).text }}
           </el-radio-button>
           <el-radio-button :label="DeptRoleScope.CurrentChild">
-            {{
-              useDeptRoleScopeEnum.getTagText(DeptRoleScope.CurrentChild).text
-            }}
+            {{ deptRoleScopeEnum.getTagText(DeptRoleScope.CurrentChild).text }}
           </el-radio-button>
         </el-radio-group>
       </el-form-item>
@@ -92,6 +90,8 @@ const rules = {
   pid: [{ required: true, message: "请选择上级菜单", trigger: "blur" }],
   name: [{ required: true, message: "请输入部门名称", trigger: "blur" }],
 };
+
+const deptRoleScopeEnum = useDeptRoleScopeEnum();
 
 const emits = defineEmits(["success"]);
 defineProps({
