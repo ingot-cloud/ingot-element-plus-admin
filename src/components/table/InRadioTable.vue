@@ -1,5 +1,5 @@
 <template>
-  <div flex flex-row justify-between m-b-5px p-5px>
+  <div flex flex-row justify-between m-b-5px p-5px v-if="!hideToolbar">
     <div>
       <slot name="title"> </slot>
     </div>

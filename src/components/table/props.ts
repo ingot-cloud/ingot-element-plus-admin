@@ -110,4 +110,8 @@ export const tableProps = {
   defaultSort: {
     type: Object as PropType<Sort | undefined>,
   },
+  hideToolbar: {
+    type: Boolean,
+    default: false,
+  },
 };
