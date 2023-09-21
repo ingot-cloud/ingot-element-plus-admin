@@ -23,7 +23,7 @@
     >
       <template #title>
         <div flex flex-row items-center w-full>
-          <div class="title">
+          <div>
             {{ userOps.currentNode.name || "请选择角色" }}
           </div>
           <in-button

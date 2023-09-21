@@ -21,7 +21,7 @@
       @handleCurrentChange="userOps.fetchUserData"
     >
       <template #title>
-        <div class="title">{{ userOps.currentDeptNode.name }}</div>
+        <div>{{ userOps.currentDeptNode.name }}</div>
       </template>
       <template #toolbar>
         <in-button type="primary" :icon="User" @click="handleCreateUser">
@@ -83,10 +83,5 @@ const handleDetailUser = (item: UserPageItemVO) => {
 <style scoped lang="postcss">
 :deep(.in-filter-container-header) {
   padding: 0 !important;
-}
-.title {
-  color: #171a1d;
-  font-weight: 600;
-  font-size: 17px;
 }
 </style>

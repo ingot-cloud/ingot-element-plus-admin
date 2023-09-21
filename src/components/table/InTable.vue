@@ -5,7 +5,7 @@
     gap-10px
     :class="{ 'm-b-10px': !hideSetting || slot.title }"
   >
-    <div v-if="slot.title">
+    <div v-if="slot.title" class="title">
       <slot name="title"> </slot>
     </div>
     <div flex flex-row justify-between items-center>
@@ -209,5 +209,10 @@ defineExpose({
 }
 :deep(th.el-table__cell.is-leaf) {
   border-bottom: none;
+}
+.title {
+  color: #171a1d;
+  font-weight: 600;
+  font-size: 17px;
 }
 </style>

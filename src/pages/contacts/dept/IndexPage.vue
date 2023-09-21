@@ -12,7 +12,7 @@
       @refresh="fetchData"
     >
       <template #title>
-        <div class="title">{{ userInforStore.getCurrentOrg?.name }}</div>
+        <div>{{ userInforStore.getCurrentOrg?.name }}</div>
       </template>
       <template #toolbar>
         <in-button type="primary" @click="handleEdit()"> 添加部门 </in-button>
@@ -114,10 +114,5 @@ onMounted(() => {
 <style scoped lang="postcss">
 :deep(.in-filter-container-header) {
   padding: 0 !important;
-}
-.title {
-  color: #171a1d;
-  font-weight: 600;
-  font-size: 17px;
 }
 </style>
