@@ -80,13 +80,6 @@
           placeholder="请输入email"
         ></el-input>
       </el-form-item>
-
-      <el-form-item label="状态" prop="status">
-        <el-radio-group v-model="editForm.status">
-          <el-radio-button label="0">正常</el-radio-button>
-          <el-radio-button label="9">锁定</el-radio-button>
-        </el-radio-group>
-      </el-form-item>
     </el-form>
     <template #footer>
       <in-button type="primary" @click="handleActionButton">确定</in-button>
@@ -112,7 +105,6 @@ const rawForm = {
   phone: undefined,
   email: undefined,
   avatar: undefined,
-  status: undefined,
   createdAt: undefined,
 };
 
@@ -125,7 +117,6 @@ const keys = [
   "phone",
   "email",
   "avatar",
-  "status",
   "createdAt",
 ];
 
@@ -176,6 +167,7 @@ const handleActionButton = () => {
         .then(() => {
           Message.success("操作成功");
           emits("success");
+          show.value = false;
           loading.value = false;
         })
         .catch(() => {
