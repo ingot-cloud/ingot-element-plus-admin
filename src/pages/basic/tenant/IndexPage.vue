@@ -86,6 +86,7 @@
   </in-filter-container>
 
   <EditDialog ref="editDialog" @success="refreshData" />
+  <CreateDrawer ref="CreateDrawerRef" @success="refreshData" />
 </template>
 <script lang="ts" setup>
 import type { SysTenant } from "@/models";
@@ -94,9 +95,11 @@ import EditDialog from "./components/EditDialog.vue";
 import type { API as EditDialogAPI } from "./components/EditDialog.vue";
 import type { TableAPI } from "@/components/table";
 import { useTenantStore } from "@/stores/modules/tenant";
+import CreateDrawer from "./components/CreateDrawer.vue";
 
 const editDialog = ref<EditDialogAPI>();
 const tableRef = ref<TableAPI>();
+const CreateDrawerRef = ref();
 
 const tenantStore = useTenantStore();
 const paging = usePaging(transformPageAPI(tenantStore.fetchTenantPage));
@@ -108,7 +111,7 @@ const refreshData = () => {
 };
 
 const handleCreate = (): void => {
-  editDialog.value?.show();
+  CreateDrawerRef.value?.show();
 };
 
 const handleEdit = (params: SysTenant): void => {
