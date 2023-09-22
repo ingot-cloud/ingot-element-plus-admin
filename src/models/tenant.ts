@@ -10,3 +10,10 @@ export interface SysTenant {
   endAt?: string;
   createdAt?: string;
 }
+
+export interface CreateOrgDTO {
+  avatar?: string;
+  name?: string;
+  nickname?: string;
+  phone?: string;
+}

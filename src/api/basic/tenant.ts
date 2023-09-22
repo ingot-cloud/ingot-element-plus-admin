@@ -1,5 +1,5 @@
 import Http from "@/net";
-import type { SysTenant, Option, Page, R } from "@/models";
+import type { SysTenant, CreateOrgDTO, Option, Page, R } from "@/models";
 import { filterParams } from "@/utils/object";
 
 /**
@@ -27,7 +27,7 @@ export function TenantPageAPI(
   });
 }
 
-export function TenantCreateAPI(params: SysTenant): Promise<R<void>> {
+export function TenantCreateAPI(params: CreateOrgDTO): Promise<R<void>> {
   filterParams(params);
   return Http.post<void>("/api/pms/v1/admin/tenant", params);
 }
