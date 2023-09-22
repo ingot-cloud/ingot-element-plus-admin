@@ -4,6 +4,7 @@ export interface UserToken {
   refreshToken?: string;
   expiresIn?: number;
   scope?: string;
+  org?: string;
 }
 
 export interface TenantItem {

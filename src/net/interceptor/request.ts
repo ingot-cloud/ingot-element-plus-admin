@@ -1,6 +1,5 @@
 import type { InternalAxiosRequestConfig, AxiosError } from "axios";
 import { useAuthStore } from "@/stores/modules/auth";
-import { useTenantStore } from "@/stores/modules/tenant";
 
 export const onRequestFulfilled = (
   config: InternalAxiosRequestConfig
@@ -17,8 +16,7 @@ export const onRequestFulfilled = (
 
   if (!config.ignoreTenant) {
     if (!config.headers["Tenant"]) {
-      const { getGlobalTenant } = storeToRefs(useTenantStore());
-      config.headers["Tenant"] = getGlobalTenant.value;
+      config.headers["Tenant"] = storeToRefs(useAuthStore()).getOrg.value;
     }
   }
   return config;

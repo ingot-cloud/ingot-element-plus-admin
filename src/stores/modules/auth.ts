@@ -26,6 +26,10 @@ export const useAuthStore = defineStore(
       return token.refreshToken || "";
     });
 
+    const getOrg = computed(() => {
+      return token.org || "";
+    });
+
     // 更新 token
     const updateToken = (value: UserToken) => {
       Object.assign(token, value);
@@ -110,6 +114,7 @@ export const useAuthStore = defineStore(
       token,
       getAccessToken,
       getRefreshToken,
+      getOrg,
       updateToken,
       login,
       codeLogin,

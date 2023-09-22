@@ -1,4 +1,4 @@
-import type { Option, Page, SysTenant, R } from "@/models";
+import type { Option, Page, CreateOrgDTO, SysTenant, R } from "@/models";
 import {
   TenantOptionsAPI,
   TenantPageAPI,
@@ -71,7 +71,7 @@ export const useTenantStore = defineStore("tenant", () => {
     });
   };
 
-  const createTenant = (params: SysTenant) => {
+  const createTenant = (params: CreateOrgDTO) => {
     return new Promise<void>((resolve, reject) => {
       TenantCreateAPI(params)
         .then(() => {
