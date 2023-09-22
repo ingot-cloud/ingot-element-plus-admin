@@ -13,9 +13,6 @@
           <el-dropdown-item>
             <div class="username-dropdown">
               <img v-if="getAvatar" :src="getAvatar" class="avatar" />
-              <div v-else class="username-avatar">
-                {{ getUsername }}
-              </div>
               <div class="username">
                 {{ getUsername }}
               </div>
@@ -88,20 +85,6 @@ const handleMenuCommand = (command: UserDropdownCommand): void => {
       width: 36px;
       height: 36px;
       margin-right: 12px;
-    }
-
-    & .username-avatar {
-      margin-right: 12px;
-      text-align: center;
-      height: 36px;
-      line-height: 36px;
-      min-width: 36px;
-      font-size: 12px;
-      border-radius: 4px;
-      background: var(--in-color-primary);
-      color: white;
-      padding-left: 5px;
-      padding-right: 5px;
     }
 
     & .username {
