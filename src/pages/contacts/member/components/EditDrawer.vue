@@ -68,7 +68,6 @@ import { copyParamsWithKeys, getDiffWithIgnore } from "@/utils/object";
 const rawForm = {
   id: undefined,
   deptIds: [],
-  username: undefined,
   nickname: undefined,
   phone: undefined,
   email: undefined,
