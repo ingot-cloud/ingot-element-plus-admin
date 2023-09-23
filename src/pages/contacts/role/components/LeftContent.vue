@@ -87,7 +87,7 @@
 import { TreeKeyAndProps } from "@/models";
 import { RoleType } from "@/models/enums";
 import { Search } from "@element-plus/icons-vue";
-import { useRoleStore } from "@/stores/modules/role";
+import { useRoleStore } from "@/stores/modules/org/role";
 import type { RoleGroupItemVO, Option } from "@/models";
 import RoleGroupDrawer from "./RoleGroupDrawer.vue";
 import RoleDrawer from "./RoleDrawer.vue";

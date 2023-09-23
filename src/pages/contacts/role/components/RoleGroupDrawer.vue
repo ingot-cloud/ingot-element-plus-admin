@@ -23,7 +23,7 @@
 </template>
 <script setup lang="ts">
 import type { RoleGroupItemVO } from "@/models";
-import { useRoleStore } from "@/stores/modules/role";
+import { useRoleStore } from "@/stores/modules/org/role";
 import { Message } from "@/utils/message";
 import { copyParamsWithKeys, getDiffWithIgnore } from "@/utils/object";
 

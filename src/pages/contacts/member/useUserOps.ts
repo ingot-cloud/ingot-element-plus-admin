@@ -1,5 +1,5 @@
 import type { DeptTreeNode, PageChangeParams, UserPageItemVO } from "@/models";
-import { UserPageAPI, UpdateUserAPI, RemoveUserAPI } from "@/api/basic/user";
+import { UserPageAPI, UpdateUserAPI, RemoveUserAPI } from "@/api/org/user";
 import { copyParams } from "@/utils/object";
 
 export const useUserOps = () => {

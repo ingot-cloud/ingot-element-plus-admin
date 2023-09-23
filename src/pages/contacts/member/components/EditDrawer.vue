@@ -4,7 +4,7 @@
       v-loading="loading"
       ref="editFormRef"
       label-width="100px"
-      label-position="right"
+      label-position="top"
       :model="editForm"
       :rules="rules"
     >
@@ -36,35 +36,6 @@
         />
       </el-form-item>
 
-      <el-form-item label="角色" prop="roleIds">
-        <in-select
-          w-full
-          v-model="editForm.roleIds"
-          placeholder="请选择角色"
-          :options="roleOptions"
-          multiple
-          clearable
-        />
-      </el-form-item>
-
-      <el-form-item label="用户名" prop="username">
-        <el-input
-          v-model="editForm.username"
-          clearable
-          placeholder="请输入用户名"
-        ></el-input>
-      </el-form-item>
-
-      <el-form-item label="密码" prop="newPassword">
-        <el-input
-          v-model="editForm.newPassword"
-          clearable
-          placeholder="请输入新密码"
-          show-password
-          type="password"
-        ></el-input>
-      </el-form-item>
-
       <el-form-item label="手机号" prop="phone">
         <el-input
           v-model="editForm.phone"
@@ -88,19 +59,16 @@
 </template>
 <script setup lang="ts">
 import type { UserPageItemVO } from "@/models";
-import { UpdateUserAPI, UserProfileAPI, CreateUserAPI } from "@/api/basic/user";
+import { UpdateUserAPI, UserProfileAPI, CreateUserAPI } from "@/api/org/user";
 import { TreeKeyAndProps } from "@/models";
-import { useRoleStore } from "@/stores/modules/role";
-import { useDeptStore } from "@/stores/modules/dept";
+import { useDeptStore } from "@/stores/modules/org/dept";
 import { Message } from "@/utils/message";
 import { copyParamsWithKeys, getDiffWithIgnore } from "@/utils/object";
 
 const rawForm = {
   id: undefined,
   deptIds: [],
-  roleIds: [],
   username: undefined,
-  newPassword: undefined,
   nickname: undefined,
   phone: undefined,
   email: undefined,
@@ -108,17 +76,7 @@ const rawForm = {
   createdAt: undefined,
 };
 
-const keys = [
-  "deptIds",
-  "roleIds",
-  "username",
-  "newPassword",
-  "nickname",
-  "phone",
-  "email",
-  "avatar",
-  "createdAt",
-];
+const keys = ["deptIds", "nickname", "phone", "email", "avatar", "createdAt"];
 
 const title = ref("");
 const show = ref(false);
@@ -126,8 +84,6 @@ const userId = ref();
 
 const rules = {
   deptIds: [{ required: true, message: "请选择部门", trigger: "blur" }],
-  username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
-  roleIds: [{ required: true, message: "请选择角色", trigger: "blur" }],
   phone: [{ required: true, message: "请输入手机号", trigger: "blur" }],
   nickname: [{ required: true, message: "请输入名称", trigger: "blur" }],
 };
@@ -135,9 +91,7 @@ const rules = {
 const emits = defineEmits(["success"]);
 
 const deptStore = useDeptStore();
-const roleStore = useRoleStore();
 const { deptTree } = storeToRefs(deptStore);
-const { roleOptions } = storeToRefs(roleStore);
 
 const editFormRef = ref();
 const editForm = reactive(Object.assign({}, rawForm));
@@ -193,7 +147,6 @@ const fetchData = (id: string) => {
 
 onMounted(() => {
   deptStore.fetchDeptTree();
-  roleStore.fetchRoleOptions();
 });
 
 defineExpose({

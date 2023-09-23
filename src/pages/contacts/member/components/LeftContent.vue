@@ -29,7 +29,7 @@
 <script setup lang="ts">
 import { TreeKeyAndProps } from "@/models";
 import { Search } from "@element-plus/icons-vue";
-import { useDeptStore } from "@/stores/modules/dept";
+import { useDeptStore } from "@/stores/modules/org/dept";
 import type { DeptTreeNode } from "@/models";
 
 const deptStore = useDeptStore();
@@ -58,27 +58,7 @@ const fetchData = () => {
     .fetchDeptTree()
     .then((data) => {
       loading.value = false;
-      const result: Array<DeptTreeNode> = [];
-      data.forEach((item) => {
-        if (item.mainFlag) {
-          result.push({
-            name: item.name,
-            scope: item.scope,
-            sort: item.sort,
-            mainFlag: item.mainFlag,
-            status: item.status,
-            id: item.id,
-          });
-          if (item.children && item.children.length !== 0) {
-            item.children.forEach((child) => {
-              result.push(child);
-            });
-          }
-          return;
-        }
-        result.push(item);
-      });
-      deptTree.value = result;
+      deptTree.value = data;
 
       nextTick(() => {
         const selectData = deptTree.value[0];
@@ -117,7 +97,7 @@ onMounted(() => {
 
     & .text {
       flex: 1;
-      max-width: 120px;
+      max-width: 160px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;

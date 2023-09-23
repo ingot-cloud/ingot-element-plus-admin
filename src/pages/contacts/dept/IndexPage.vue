@@ -73,7 +73,7 @@
 import ContactsTabs from "@/pages/contacts/components/ContactsTabs.vue";
 import { tableHeaders } from "./table";
 import type { SysDept } from "@/models";
-import { useDeptStore } from "@/stores/modules/dept";
+import { useDeptStore } from "@/stores/modules/org/dept";
 import { useDeptRoleScopeEnum } from "@/models/enums";
 import { useUserInfoStore } from "@/stores/modules/auth";
 import EditDrawer from "./components/EditDrawer.vue";

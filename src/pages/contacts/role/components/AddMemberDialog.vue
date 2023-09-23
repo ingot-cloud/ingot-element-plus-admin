@@ -48,7 +48,7 @@
 <script lang="ts" setup>
 import { UserPageAPI } from "@/api/basic/user";
 import type { TableHeaderRecord } from "@/components/table";
-import { BindUserAPI } from "@/api/basic/role";
+import { BindUserAPI } from "@/api/org/role";
 
 const emits = defineEmits(["success"]);
 

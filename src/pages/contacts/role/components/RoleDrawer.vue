@@ -33,7 +33,7 @@
 <script setup lang="ts">
 import type { PropType } from "vue";
 import type { RoleGroupItemVO, Option } from "@/models";
-import { useRoleStore } from "@/stores/modules/role";
+import { useRoleStore } from "@/stores/modules/org/role";
 import { Message } from "@/utils/message";
 import { copyParamsWithKeys, getDiffWithIgnore } from "@/utils/object";
 

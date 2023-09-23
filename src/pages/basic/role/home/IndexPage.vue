@@ -49,13 +49,7 @@
         <in-tag :value="roleType.getTagText(item.type)" />
       </template>
       <template #actions="{ item }">
-        <in-button
-          text
-          link
-          type="primary"
-          @click="handleEdit(item)"
-          v-if="item.canAction"
-        >
+        <in-button text link type="primary" @click="handleEdit(item)">
           <template #icon>
             <i-ep:edit />
           </template>
@@ -76,7 +70,6 @@
           link
           type="danger"
           @click="confirmDelete.exec(item.id, `是否删除角色(${item.name})`)"
-          v-if="item.canAction"
         >
           <template #icon>
             <i-ep:delete />

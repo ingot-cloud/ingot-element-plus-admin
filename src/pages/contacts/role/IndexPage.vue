@@ -61,7 +61,7 @@ import LeftContent from "./components/LeftContent.vue";
 import { useUserOps } from "./useUserOps";
 import { tableHeaders } from "./table";
 import AddMemberDialog from "./components/AddMemberDialog.vue";
-import { BindUserAPI } from "@/api/basic/role";
+import { BindUserAPI } from "@/api/org/role";
 import { RoleType } from "@/models/enums";
 
 const AddMemberDialogRef = ref();
