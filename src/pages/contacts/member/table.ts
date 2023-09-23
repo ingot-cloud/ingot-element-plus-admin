@@ -25,6 +25,7 @@ export const tableHeaders: Array<TableHeaderRecord> = [
   {
     label: "注册时间",
     prop: "createdAt",
+    hide: true,
   },
   {
     label: "操作",
