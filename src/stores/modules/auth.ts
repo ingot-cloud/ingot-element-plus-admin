@@ -155,6 +155,9 @@ export const useUserInfoStore = defineStore("security.user", () => {
   const getUserInfoWhetherExist = computed(
     () => userInfo.roles && userInfo.roles.length !== 0
   );
+  const getIsInitPwd = computed(() => {
+    return userInfo.user && userInfo.user.initPwd;
+  });
 
   const clear = () => {
     Object.assign(userInfo, { user: undefined, roles: [] });
@@ -182,6 +185,7 @@ export const useUserInfoStore = defineStore("security.user", () => {
     getUserInfoWhetherExist,
     getAllows,
     getCurrentOrg,
+    getIsInitPwd,
     clear,
     fetchUserInfo,
   };

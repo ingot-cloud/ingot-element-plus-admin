@@ -24,7 +24,7 @@ export interface User {
   phone?: string;
   nickname?: string;
   avatar?: string;
-  nonInitPwd?: boolean;
+  initPwd?: boolean;
 }
 
 export interface UserInfo {
