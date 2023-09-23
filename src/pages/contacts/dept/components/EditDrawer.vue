@@ -73,7 +73,7 @@ import {
 } from "@/models/enums";
 import { TreeKeyAndProps } from "@/models";
 import type { SysDept } from "@/models";
-import { useDeptStore } from "@/stores/modules/dept";
+import { useDeptStore } from "@/stores/modules/org/dept";
 import { Message } from "@/utils/message";
 import { copyParams, getDiff } from "@/utils/object";
 

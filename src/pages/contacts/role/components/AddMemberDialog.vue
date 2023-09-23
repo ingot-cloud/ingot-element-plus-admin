@@ -46,7 +46,7 @@
   </in-dialog>
 </template>
 <script lang="ts" setup>
-import { UserPageAPI } from "@/api/basic/user";
+import { UserPageAPI } from "@/api/org/user";
 import type { TableHeaderRecord } from "@/components/table";
 import { BindUserAPI } from "@/api/org/role";
 
@@ -75,10 +75,6 @@ const onSelectChanged = (value: Array<any>) => {
   bindIds.value = value.map((item) => item.userId);
 };
 
-onMounted(() => {
-  paging.exec();
-});
-
 const onConfirmClick = () => {
   if (bindIds.value.length === 0) {
     message.warning("请选择绑定用户");
@@ -102,6 +98,7 @@ const onConfirmClick = () => {
 
 defineExpose({
   show: (params: any) => {
+    paging.exec();
     id.value = params.id;
     title.value = params.name;
     visible.value = true;
