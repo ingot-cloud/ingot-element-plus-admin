@@ -93,6 +93,10 @@ const handleConfirmClick = () => {
 defineExpose({
   show() {
     visible.value = true;
+    nextTick(() => {
+      const form = unref(editFormRef);
+      form.resetFields();
+    });
   },
 });
 </script>
