@@ -43,7 +43,7 @@
   </in-dialog>
 </template>
 <script lang="ts" setup>
-import { FixPasswordAPI } from "@/api/common/auth";
+import { FixPasswordAPI } from "@/api/org/user";
 import { Message } from "@/utils/message";
 
 const rules = {

@@ -163,7 +163,7 @@ export const useUserInfoStore = defineStore("security.user", () => {
     Object.assign(userInfo, { user: undefined, roles: [] });
   };
 
-  const fetchUserInfo = () => {
+  const fetchUserInfo = (): Promise<UserInfo> => {
     return new Promise((resolve, reject) => {
       UserInfoAPI()
         .then((response) => {

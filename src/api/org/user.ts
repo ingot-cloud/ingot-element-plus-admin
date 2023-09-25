@@ -1,6 +1,32 @@
 import request from "@/net";
-import type { UserPageItemVO, Page, UserDTO, UserProfileVO, R } from "@/models";
+import type {
+  UserPageItemVO,
+  Page,
+  UserDTO,
+  UserProfileVO,
+  R,
+  UserPasswordDTO,
+} from "@/models";
 import { filterParams } from "@/utils/object";
+
+/**
+ * 初始化密码
+ */
+export function InitPwdAPI(
+  params: UserPasswordDTO
+): Promise<R<Page<UserPageItemVO>>> {
+  return request.put<Page<UserPageItemVO>>(
+    "/api/pms/v1/org/user/initFixPwd",
+    params
+  );
+}
+
+/**
+ * 修改密码
+ */
+export function FixPasswordAPI(params: UserPasswordDTO): Promise<R> {
+  return request.put<void>("/api/pms/v1/org/user/fixPwd", params);
+}
 
 /**
  * 用户分页信息

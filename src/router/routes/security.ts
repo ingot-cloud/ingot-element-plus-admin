@@ -15,4 +15,14 @@ export const securityRoutes: Array<RouteRecordRaw> = [
     },
     component: () => import("@/pages/security/sso-callback/IndexPage.vue"),
   },
+  {
+    path: "/init",
+    meta: {
+      permitAuth: true,
+      hideMenu: true,
+      hideBreadcrumb: true,
+      manualCloseGlobalLoading: true,
+    },
+    component: () => import("@/pages/security/init/IndexPage.vue"),
+  },
 ];

@@ -41,3 +41,8 @@ export interface UserProfileVO {
   status?: CommonStatus;
   createdAt: string;
 }
+
+export interface UserPasswordDTO {
+  password?: string;
+  newPassword?: string;
+}

@@ -16,7 +16,7 @@ export class UserInfoGuard extends BaseNavigationGuard {
       const { getUserInfoWhetherExist } = storeToRefs(useUserInfoStore());
       const exist = getUserInfoWhetherExist.value;
       if (!to.meta.permitAuth && !exist) {
-        return await new Promise<boolean>((resolve) => {
+        return await new Promise<any>((resolve) => {
           globalLoading.start();
           useUserInfoStore()
             .fetchUserInfo()
@@ -28,6 +28,15 @@ export class UserInfoGuard extends BaseNavigationGuard {
               resolve(false);
             });
         });
+      }
+
+      // 如果是第一次登录需要初始化密码，那么跳转页面
+      const { getIsInitPwd } = storeToRefs(useUserInfoStore());
+      if (getIsInitPwd.value && to.fullPath !== "/init") {
+        return {
+          path: "/init",
+          replace: true,
+        };
       }
 
       return true;
