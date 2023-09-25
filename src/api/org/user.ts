@@ -8,6 +8,7 @@ import type {
   UserPasswordDTO,
 } from "@/models";
 import { filterParams } from "@/utils/object";
+import { AES } from "@/utils/encrypt";
 
 /**
  * 初始化密码
@@ -15,9 +16,13 @@ import { filterParams } from "@/utils/object";
 export function InitPwdAPI(
   params: UserPasswordDTO
 ): Promise<R<Page<UserPageItemVO>>> {
+  const afterEncrypt = AES({
+    data: params,
+    keys: ["password", "newPassword"],
+  });
   return request.put<Page<UserPageItemVO>>(
     "/api/pms/v1/org/user/initFixPwd",
-    params
+    afterEncrypt
   );
 }
 
@@ -25,7 +30,11 @@ export function InitPwdAPI(
  * 修改密码
  */
 export function FixPasswordAPI(params: UserPasswordDTO): Promise<R> {
-  return request.put<void>("/api/pms/v1/org/user/fixPwd", params);
+  const afterEncrypt = AES({
+    data: params,
+    keys: ["password", "newPassword"],
+  });
+  return request.put<void>("/api/pms/v1/org/user/fixPwd", afterEncrypt);
 }
 
 /**
