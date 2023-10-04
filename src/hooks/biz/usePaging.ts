@@ -1,4 +1,4 @@
-import type { R, Page, PageChangeParams } from "@/models";
+import type { R, Page, PageChangeParams, EnumObj } from "@/models";
 import type { CommonStatus } from "@/models/enums";
 import {
   getCommonStatusActionDesc,
@@ -170,16 +170,16 @@ export const useConfirmUpdate = <Record>(
   };
 };
 
-export interface StatusRecord {
+export interface StatusRecord<T> {
   id: string;
-  status: CommonStatus;
+  status: T;
 }
 
 /**
  * 确认修改状态
  */
 export const useConfirmStatus = (
-  updateRecord: UpdateRecordFn<StatusRecord>,
+  updateRecord: UpdateRecordFn<StatusRecord<CommonStatus>>,
   callback?: ActionCallbackFn
 ) => {
   const exec = (id: string, status: CommonStatus, opsTragetText: string) => {
@@ -189,6 +189,33 @@ export const useConfirmStatus = (
       )}${opsTragetText}`
     ).then(() => {
       updateRecord({ id, status: getCommonStatusToggle(status) }).then(() => {
+        Message.success("操作成功");
+        if (callback) {
+          callback();
+        }
+      });
+    });
+  };
+
+  return {
+    exec,
+  };
+};
+
+export const useConfirmStatus2 = (
+  updateRecord: UpdateRecordFn<StatusRecord<string>>,
+  callback?: ActionCallbackFn
+) => {
+  const exec = (
+    id: string,
+    status: string,
+    opsTragetText: string,
+    enumObj: EnumObj<string>
+  ) => {
+    const oppositeValue = enumObj.getOpposite(status);
+    const oppositeText = enumObj.getTagText(oppositeValue).text;
+    Confirm.warning(`是否${oppositeText}${opsTragetText}`).then(() => {
+      updateRecord({ id, status: oppositeValue }).then(() => {
         Message.success("操作成功");
         if (callback) {
           callback();

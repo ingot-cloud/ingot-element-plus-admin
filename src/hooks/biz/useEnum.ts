@@ -1,4 +1,4 @@
-import type { EnumExt, TagText, Option } from "@/models";
+import type { EnumExt, TagText, Option, EnumObj } from "@/models";
 
 export const toEnumExtArray = (
   enumType: object,
@@ -16,14 +16,13 @@ export const toEnumExtArray = (
 /**
  * useEnum
  */
-export const useEnum = <T>(arr: Array<EnumExt<T>>) => {
+export const useEnum = <T>(arr: Array<EnumExt<T>>): EnumObj<T> => {
   const getTagText = (
     value: T,
     defaultValue: TagText = { text: "无", tag: "" }
   ): TagText => {
     return arr.find((item) => item.value == value) || defaultValue;
   };
-
   const getOptions = (): Array<Option<T>> => {
     const result: Array<Option<T>> = [];
     arr.forEach((item) => {
@@ -34,5 +33,25 @@ export const useEnum = <T>(arr: Array<EnumExt<T>>) => {
     });
     return result;
   };
-  return { getTagText, getOptions };
+  const getOpposite = (value: T): T => {
+    return arr.find((item) => item.value == value)?.oppositeValue || ("" as T);
+  };
+
+  return { getTagText, getOptions, getOpposite };
+};
+
+export const useEnum2 = (
+  enumType: object,
+  tagTextArray: Array<TagText>,
+  oppositeList: Array<string> = []
+) => {
+  const arr = Object.values(enumType).map((item, index) => {
+    return {
+      value: item,
+      text: tagTextArray[index].text,
+      tag: tagTextArray[index].tag,
+      opposite: oppositeList[index],
+    };
+  });
+  return useEnum(arr);
 };

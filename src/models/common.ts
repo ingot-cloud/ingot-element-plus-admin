@@ -2,19 +2,30 @@ import { CommonStatus } from "./enums";
 
 export type ElTagType = "" | "success" | "warning" | "info" | "danger";
 
+export interface EnumObj<T> {
+  getTagText: (value: T, defaultValue?: TagText) => TagText;
+  getOptions: () => Array<Option<T>>;
+  getOpposite: (value: T) => T;
+}
+
 export interface EnumExt<T = string> extends TagText {
+  // 值
   value: T;
+  // 相反值
+  oppositeValue?: T;
 }
 
 export const newEnumExt = <T>(
   value: T,
   text: string,
-  tag: ElTagType = ""
+  tag: ElTagType = "",
+  oppositeValue?: T
 ): EnumExt<T> => {
   return {
     value,
     text: text,
     tag,
+    oppositeValue,
   };
 };
 
