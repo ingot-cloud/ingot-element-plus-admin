@@ -50,7 +50,7 @@ export const useEnum2 = (
       value: item,
       text: tagTextArray[index].text,
       tag: tagTextArray[index].tag,
-      opposite: oppositeList[index],
+      oppositeValue: oppositeList[index],
     };
   });
   return useEnum(arr);

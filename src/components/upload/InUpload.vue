@@ -153,7 +153,10 @@ const changeFileList = () => {
       innerFileList.value[0] ? innerFileList.value[0].url : ""
     );
   } else {
-    emits("update:modelValue", innerFileList.value || []);
+    emits(
+      "update:modelValue",
+      innerFileList.value.map((item) => item.url) || []
+    );
   }
 };
 const uploadRequest = (options: UploadRequestOptions): Promise<unknown> => {
