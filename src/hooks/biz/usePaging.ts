@@ -99,7 +99,7 @@ export const usePaging = <Record, Condition>(
     records: [],
   }) as Page<Record>;
 
-  const exec = (params?: PageChangeParams): void => {
+  const exec = (params?: PageChangeParams) => {
     if (params) {
       pageInfo[params.type] = params.value;
     }
@@ -107,13 +107,19 @@ export const usePaging = <Record, Condition>(
     pageParams.total = undefined;
     pageParams.records = undefined;
     loading.value = true;
-    fetchPageFn(pageParams, condition)
-      .then((result) => {
-        loading.value = false;
-        pageInfo.records = result.records;
-        pageInfo.total = Number(result.total);
-      })
-      .catch(() => (loading.value = false));
+    return new Promise((resolve, reject) => {
+      fetchPageFn(pageParams, condition)
+        .then((result) => {
+          loading.value = false;
+          pageInfo.records = result.records;
+          pageInfo.total = Number(result.total);
+          resolve(result);
+        })
+        .catch(() => {
+          loading.value = false;
+          reject();
+        });
+    });
   };
 
   return {
