@@ -44,6 +44,10 @@
   --in-border-color: var(--el-border-color);
   --in-border-color-light: var(--el-border-color-lighter);
   --in-color-info-light-5: var(--el-color-info-light-5);
+
+  --in-common-title-color: #171a1d;
+  --in-common-title-font-weight: 600;
+  --in-common-title-font-size: 17px;
 }
 
 :root {
