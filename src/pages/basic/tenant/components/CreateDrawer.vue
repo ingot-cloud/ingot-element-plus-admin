@@ -100,7 +100,7 @@ defineExpose({
     nextTick(() => {
       const form = unref(editFormRef);
       form.resetFields();
-      title.value = "添加成员";
+      title.value = "创建组织";
       copyParamsWithKeys(editForm, rawForm, keys);
       copyParamsWithKeys(rawEditForm, rawForm, keys);
     });

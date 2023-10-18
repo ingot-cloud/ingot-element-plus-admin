@@ -2,13 +2,13 @@
   <in-filter-container>
     <template #top>
       <in-filter-item>
-        <in-with-label title="租户名称">
+        <in-with-label title="组织名称">
           <el-input
             v-model="paging.condition.name"
             class="item"
             clearable
             style="width: 200px"
-            placeholder="请输入租户名称"
+            placeholder="请输入组织名称"
           ></el-input>
         </in-with-label>
         <template #rightActions>
