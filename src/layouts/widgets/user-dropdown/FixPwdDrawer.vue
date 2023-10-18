@@ -1,7 +1,7 @@
 <template>
-  <in-dialog v-model="visible" title="修改密码">
+  <in-drawer title="修改密码" v-model="visible">
     <el-form
-      ref="editFormRef"
+      ref="EditFormRef"
       class="form"
       label-width="80px"
       :model="editForm"
@@ -40,9 +40,9 @@
         确定
       </in-button>
     </template>
-  </in-dialog>
+  </in-drawer>
 </template>
-<script lang="ts" setup>
+<script setup lang="ts">
 import { FixPasswordAPI } from "@/api/org/user";
 import { Message } from "@/utils/message";
 
@@ -62,11 +62,11 @@ interface EditForm {
 
 const visible = ref(false);
 const loading = ref(false);
-const editFormRef = ref();
+const EditFormRef = ref();
 const editForm = reactive<EditForm>({});
 
 const handleConfirmClick = () => {
-  editFormRef.value.validate((valid: boolean) => {
+  EditFormRef.value.validate((valid: boolean) => {
     if (valid) {
       if (editForm.newPassword !== editForm.confirmPassword) {
         Message.warning("新密码不一致");
@@ -94,7 +94,7 @@ defineExpose({
   show() {
     visible.value = true;
     nextTick(() => {
-      const form = unref(editFormRef);
+      const form = unref(EditFormRef);
       form.resetFields();
     });
   },

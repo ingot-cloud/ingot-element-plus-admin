@@ -148,6 +148,7 @@ declare global {
   const useCommandComponent: typeof import('./src/hooks/biz/useCommandComponent')['default']
   const useConfirmDelete: typeof import('./src/hooks/biz/usePaging')['useConfirmDelete']
   const useConfirmDialog: typeof import('@vueuse/core')['useConfirmDialog']
+  const useConfirmStatus2: typeof import('./src/hooks/biz/usePaging')['useConfirmStatus2']
   const useConfirmStatus: typeof import('./src/hooks/biz/usePaging')['useConfirmStatus']
   const useConfirmUpdate: typeof import('./src/hooks/biz/usePaging')['useConfirmUpdate']
   const useCounter: typeof import('@vueuse/core')['useCounter']
@@ -174,6 +175,7 @@ declare global {
   const useElementHover: typeof import('@vueuse/core')['useElementHover']
   const useElementSize: typeof import('@vueuse/core')['useElementSize']
   const useElementVisibility: typeof import('@vueuse/core')['useElementVisibility']
+  const useEnum2: typeof import('./src/hooks/biz/useEnum')['useEnum2']
   const useEnum: typeof import('./src/hooks/biz/useEnum')['useEnum']
   const useEventBus: typeof import('@vueuse/core')['useEventBus']
   const useEventListener: typeof import('@vueuse/core')['useEventListener']
@@ -456,6 +458,7 @@ declare module 'vue' {
     readonly useCommandComponent: UnwrapRef<typeof import('./src/hooks/biz/useCommandComponent')['default']>
     readonly useConfirmDelete: UnwrapRef<typeof import('./src/hooks/biz/usePaging')['useConfirmDelete']>
     readonly useConfirmDialog: UnwrapRef<typeof import('@vueuse/core')['useConfirmDialog']>
+    readonly useConfirmStatus2: UnwrapRef<typeof import('./src/hooks/biz/usePaging')['useConfirmStatus2']>
     readonly useConfirmStatus: UnwrapRef<typeof import('./src/hooks/biz/usePaging')['useConfirmStatus']>
     readonly useConfirmUpdate: UnwrapRef<typeof import('./src/hooks/biz/usePaging')['useConfirmUpdate']>
     readonly useCounter: UnwrapRef<typeof import('@vueuse/core')['useCounter']>
@@ -482,6 +485,7 @@ declare module 'vue' {
     readonly useElementHover: UnwrapRef<typeof import('@vueuse/core')['useElementHover']>
     readonly useElementSize: UnwrapRef<typeof import('@vueuse/core')['useElementSize']>
     readonly useElementVisibility: UnwrapRef<typeof import('@vueuse/core')['useElementVisibility']>
+    readonly useEnum2: UnwrapRef<typeof import('./src/hooks/biz/useEnum')['useEnum2']>
     readonly useEnum: UnwrapRef<typeof import('./src/hooks/biz/useEnum')['useEnum']>
     readonly useEventBus: UnwrapRef<typeof import('@vueuse/core')['useEventBus']>
     readonly useEventListener: UnwrapRef<typeof import('@vueuse/core')['useEventListener']>
