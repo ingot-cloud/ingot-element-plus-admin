@@ -34,6 +34,11 @@ defineProps({
     margin-bottom: 0;
     padding-bottom: var(--el-drawer-padding-primary);
   }
+
+  & .el-drawer__footer {
+    box-shadow: 0px 6px 8px 6px rgba(0, 0, 0, 0.08);
+  }
+
   & .in-custom-title {
     display: flex;
     flex-direction: row;
