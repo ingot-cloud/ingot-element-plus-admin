@@ -1,107 +1,96 @@
 <template>
-  <el-select v-model="selectValue" filterable @change="privateOnTenantChanged">
+  <el-select
+    remote
+    filterable
+    :remote-method="remoteMethod"
+    :loading="loading"
+    placeholder="请输入组织名称"
+    no-data-text="未搜索到组织"
+    @change="privateOnTenantChanged"
+  >
     <el-option
       v-for="item in options"
-      :key="item.value"
-      :label="item.label"
-      :value="item.value"
+      :key="item.id"
+      :label="item.name"
+      :value="item.id!"
     >
+      <div class="tenant-item">
+        <div class="avatar">
+          <el-image
+            v-if="item.avatar"
+            :src="item.avatar"
+            class="h-full w-full"
+            fit="cover"
+          />
+        </div>
+        <div class="name">
+          {{ item.name }}
+        </div>
+      </div>
     </el-option>
   </el-select>
 </template>
 <script lang="ts" setup>
 import { useTenantStore } from "@/stores/modules/tenant";
-import type { Option } from "@/models";
-import type { TenantOptionsAPI } from "./types";
+import type { SysTenant } from "@/models";
 
 const tenantStore = useTenantStore();
-const { tenantOptions, getGlobalTenant } = storeToRefs(tenantStore);
+const loading = ref(false);
+const options = ref<Array<SysTenant>>([]);
 
-const selectValue = ref<string>("");
-const options = ref<Array<Option>>([]);
+const emits = defineEmits(["onChanged"]);
 
-const emits = defineEmits(["onChanged", "update:modelValue"]);
-const props = defineProps({
-  modelValue: {
-    type: String,
-  },
-  changeGlobal: {
-    type: Boolean,
-    default: true,
-  },
-});
-
-let selectChange = false;
-let customChange = false;
-// 监控 modelValue，如果外层主动改变数值，需要手动改变内部selectModel值
-watch(
-  () => props.modelValue,
-  (value) => {
-    if (!value) {
-      return;
-    }
-    if (selectChange) {
-      selectChange = false;
-      return;
-    }
-    customChange = true;
-    selectValue.value = value;
+const remoteMethod = (query: string) => {
+  if (query) {
+    loading.value = true;
+    tenantStore
+      .search(query)
+      .then((data) => {
+        loading.value = false;
+        options.value = data;
+      })
+      .catch(() => {
+        loading.value = false;
+      });
+  } else {
+    options.value = [];
   }
-);
-
-// 监控 selectModel，如果内部选择发生改变，则改变modelValue值
-watch(selectValue, (value) => {
-  if (!value) {
-    return;
-  }
-  if (customChange) {
-    customChange = false;
-    return;
-  }
-  selectChange = true;
-  emits("update:modelValue", value);
-});
-
-watch(
-  tenantOptions,
-  (value) => {
-    if (props.changeGlobal) {
-      options.value = value;
-    }
-  },
-  { immediate: true }
-);
+};
 
 const privateOnTenantChanged = (value: string) => {
-  if (props.changeGlobal) {
-    tenantStore.changeGlobalTenant(value);
-  }
   emits("onChanged", value);
 };
-
-const publicRefreshOptions = () => {
-  tenantStore.fetchOptions().then((data) => {
-    options.value = data;
-    if (!selectValue.value) {
-      selectValue.value = getGlobalTenant.value;
-    }
-    const index = data.findIndex((item) => item.value === selectValue.value);
-    if (index === -1) {
-      selectValue.value = data[0].value;
-    }
-    privateOnTenantChanged(selectValue.value);
-  });
-};
-
-onMounted(() => {
-  publicRefreshOptions();
-});
-
-defineExpose<TenantOptionsAPI>({
-  getCurrentValue() {
-    return selectValue.value;
-  },
-  refreshOptions: publicRefreshOptions,
-});
 </script>
-<style lang="stylus" scoped></style>
+<style lang="postcss" scoped>
+.tenant-item {
+  @apply cursor-pointer;
+  min-height: 24px;
+  border-radius: 8px;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  grid-gap: 10px;
+
+  & .avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+    color: rgba(0, 137, 255, 0.48);
+    background: #ffffff;
+  }
+
+  & .name {
+    flex: 1;
+    display: -webkit-box;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    color: #171a1d;
+  }
+}
+</style>
