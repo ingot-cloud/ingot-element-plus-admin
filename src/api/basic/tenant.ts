@@ -1,12 +1,14 @@
 import Http from "@/net";
-import type { SysTenant, CreateOrgDTO, Option, Page, R } from "@/models";
+import type { SysTenant, CreateOrgDTO, Page, R } from "@/models";
 import { filterParams } from "@/utils/object";
 
 /**
  * 列表
  */
-export function TenantOptionsAPI(): Promise<R<Array<Option>>> {
-  return Http.get<Array<Option>>("/api/pms/v1/admin/tenant/options");
+export function TenantSearchAPI(name?: string): Promise<R<Array<SysTenant>>> {
+  return Http.get<Array<SysTenant>>("/api/pms/v1/admin/tenant/search", {
+    name,
+  });
 }
 
 /**
