@@ -21,16 +21,13 @@ export const useAppStore = defineStore("app", () => {
       timeoutErrorMessage:
         import.meta.env.VITE_APP_NET_DEFAULT_TIMEOUT_MESSAGE || undefined,
     },
-    tenant: import.meta.env.VITE_APP_TENANT,
     basicToken: `Basic ${import.meta.env.VITE_APP_BASIC_TOKEN}`,
   });
 
-  const getTenant = computed(() => app.tenant);
   const getBasicToken = computed(() => app.basicToken);
 
   return {
     app,
-    getTenant,
     getBasicToken,
   };
 });

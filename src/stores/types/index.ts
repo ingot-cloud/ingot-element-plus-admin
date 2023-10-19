@@ -54,10 +54,6 @@ export interface AppStore {
    */
   netConfig: NetConfig;
   /**
-   * 租户ID
-   */
-  tenant: string;
-  /**
    * basic token
    */
   basicToken: string;

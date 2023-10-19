@@ -1,62 +1,20 @@
-import type { Option, Page, CreateOrgDTO, SysTenant, R } from "@/models";
+import type { Page, CreateOrgDTO, SysTenant, R } from "@/models";
 import {
-  TenantOptionsAPI,
+  TenantSearchAPI,
   TenantPageAPI,
   TenantCreateAPI,
   TenantUpdateAPI,
   TenantRemoveAPI,
 } from "@/api/basic/tenant";
-import { useAppStore } from "@/stores/modules/app";
 
 export const useTenantStore = defineStore("tenant", () => {
-  const appStore = useAppStore();
-  const tenantOptions = ref<Array<Option>>([]);
   const needUpdate = ref(false);
-
-  const globalTenant = ref<string>(appStore.getTenant);
-  const getGlobalTenant = computed(() => globalTenant.value);
-
-  /**
-   * 修改全局tenant
-   */
-  const changeGlobalTenant = (tenant?: string) => {
-    if (!tenant) {
-      tenant = appStore.getTenant;
-    }
-    globalTenant.value = tenant;
-  };
-
-  /**
-   * 重置为默认值
-   */
-  const resetGlobalTenant = () => {
-    globalTenant.value = appStore.getTenant;
-  };
 
   /**
    * 修改更新标识
    */
   const changeUpdateFlag = (flag: boolean) => {
     needUpdate.value = flag;
-  };
-
-  const fetchOptions = () => {
-    return new Promise<Array<Option>>((resolve, reject) => {
-      if (!needUpdate.value && tenantOptions.value.length !== 0) {
-        resolve(tenantOptions.value);
-        return;
-      }
-
-      TenantOptionsAPI()
-        .then((response) => {
-          tenantOptions.value = response.data;
-          needUpdate.value = false;
-          resolve(response.data);
-        })
-        .catch(() => {
-          reject();
-        });
-    });
   };
 
   const fetchTenantPage = (page: Page, condition?: SysTenant) => {
@@ -110,17 +68,25 @@ export const useTenantStore = defineStore("tenant", () => {
     });
   };
 
+  const search = (name?: string) => {
+    return new Promise<Array<SysTenant>>((resolve, reject) => {
+      TenantSearchAPI(name)
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch(() => {
+          reject();
+        });
+    });
+  };
+
   return {
-    tenantOptions,
-    getGlobalTenant,
     needUpdate,
-    changeGlobalTenant,
-    resetGlobalTenant,
     changeUpdateFlag,
-    fetchOptions,
     fetchTenantPage,
     createTenant,
     updateTenant,
     removeTenant,
+    search,
   };
 });
