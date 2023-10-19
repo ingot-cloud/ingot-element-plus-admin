@@ -5,7 +5,7 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     prop: "avatar",
   },
   {
-    label: "用户名",
+    label: "账号",
     prop: "username",
   },
   {
@@ -20,6 +20,7 @@ export const tableHeaders: Array<TableHeaderRecord> = [
   {
     label: "email",
     prop: "email",
+    transform: (v) => v || "-",
   },
   {
     label: "状态",

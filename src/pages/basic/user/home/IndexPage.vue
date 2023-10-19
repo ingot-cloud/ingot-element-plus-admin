@@ -1,28 +1,22 @@
 <template>
   <in-filter-container>
-    <template #left>
-      <div w-300px>
-        <DeptFilter @onNodeClick="userOps.handleTreeNodeClick" />
-      </div>
-    </template>
-
     <template #top>
       <in-filter-item>
-        <in-with-label title="用户名">
+        <in-with-label title="手机号">
           <el-input
-            v-model="userOps.condition.username"
+            v-model="ops.condition.phone"
             clearable
             style="width: 200px"
-            placeholder="请输入用户名"
+            placeholder="请输入手机号"
           ></el-input>
         </in-with-label>
 
         <template #rightActions>
-          <in-button @click="userOps.resetFilter"> 重置 </in-button>
+          <in-button @click="ops.resetFilter"> 重置 </in-button>
           <in-button
             type="primary"
-            :loading="userOps.loading.value"
-            @click="userOps.fetchUserData"
+            :loading="ops.loading.value"
+            @click="ops.fetchUserData"
           >
             搜索
           </in-button>
@@ -31,38 +25,34 @@
     </template>
 
     <in-table
-      :loading="userOps.loading.value"
-      :data="userOps.pageInfo.records"
+      :loading="ops.loading.value"
+      :data="ops.pageInfo.records"
       :headers="tableHeaders"
-      :page="userOps.pageInfo"
+      :page="ops.pageInfo"
       ref="tableRef"
-      @refresh="userOps.fetchUserData"
-      @handleSizeChange="userOps.fetchUserData"
-      @handleCurrentChange="userOps.fetchUserData"
+      @refresh="ops.fetchUserData"
+      @handleSizeChange="ops.fetchUserData"
+      @handleCurrentChange="ops.fetchUserData"
     >
-      <template #title> {{ userOps.currentDeptNode.name }} </template>
       <template #toolbar>
         <in-button type="primary" @click="handleCreateUser"> 添加 </in-button>
       </template>
       <template #avatar="{ item }">
-        <el-image
-          v-if="item.avatar"
-          class="w-30px h-30px"
-          :src="item.avatar"
-          fit="cover"
-        />
-        <el-tag v-else> 未设置 </el-tag>
+        <div flex flex-row items-center gap-2>
+          <el-image
+            v-if="item.avatar"
+            class="w-30px h-30px"
+            :src="item.avatar"
+            fit="cover"
+          />
+          {{ item.nickname }}
+        </div>
       </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status" />
       </template>
       <template #actions="{ item }">
-        <in-button
-          link
-          text
-          type="primary"
-          @click="userOps.handleDetailUser(item)"
-        >
+        <in-button link text type="primary" @click="ops.handleDetailUser(item)">
           <template #icon>
             <i-mdi:card-account-details-outline />
           </template>
@@ -72,14 +62,9 @@
           text
           link
           :status="item.status"
-          @click="userOps.handleDisableUser(item)"
+          @click="ops.handleDisableUser(item)"
         />
-        <in-button
-          link
-          text
-          type="danger"
-          @click="userOps.handleDeleteUser(item)"
-        >
+        <in-button link text type="danger" @click="ops.handleDeleteUser(item)">
           <template #icon>
             <i-ep:delete />
           </template>
@@ -89,27 +74,24 @@
     </in-table>
   </in-filter-container>
 
-  <CreateDialog
+  <!-- <CreateDialog
     ref="createDialog"
-    :deptName="userOps.currentDeptNode.name"
-    :deptId="userOps.currentDeptNode.id"
+    :deptName="ops.currentDeptNode.name"
+    :deptId="ops.currentDeptNode.id"
     :roleList="roleOptions"
-    @success="userOps.fetchUserData"
-  />
+    @success="ops.fetchUserData"
+  /> -->
 </template>
 
 <script lang="ts" setup>
 import { useRoleStore } from "@/stores/modules/role";
-import { useUserOps } from "./useUserOps";
+import { useOps } from "./useOps";
 import { tableHeaders } from "./table";
-import DeptFilter from "./DeptFilter.vue";
-import CreateDialog from "./CreateDialog.vue";
 import type { API as CreateDialogAPI } from "./CreateDialog.vue";
 import type { TableAPI } from "@/components/table";
 
-const userOps = useUserOps();
+const ops = useOps();
 const roleStore = useRoleStore();
-const { roleOptions } = storeToRefs(roleStore);
 
 const createDialog = ref<CreateDialogAPI>();
 const tableRef = ref<TableAPI>();
@@ -120,6 +102,6 @@ const handleCreateUser = (): void => {
 
 onMounted(() => {
   roleStore.fetchRoleOptions();
-  userOps.fetchUserData();
+  ops.fetchUserData();
 });
 </script>

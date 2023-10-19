@@ -3,7 +3,7 @@ import type {
   UserPageItemVO,
   Page,
   UserDTO,
-  UserProfileVO,
+  OrgUserProfileVO,
   R,
   UserPasswordDTO,
 } from "@/models";
@@ -57,8 +57,8 @@ export function UserPageAPI(
  * 用户简介信息
  * @param id 用户ID
  */
-export function UserProfileAPI(id: string): Promise<R<UserProfileVO>> {
-  return request.get<UserProfileVO>(`/api/pms/v1/org/user/profile/${id}`);
+export function UserProfileAPI(id: string): Promise<R<OrgUserProfileVO>> {
+  return request.get<OrgUserProfileVO>(`/api/pms/v1/org/user/profile/${id}`);
 }
 
 /**

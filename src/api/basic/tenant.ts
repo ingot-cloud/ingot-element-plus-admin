@@ -6,9 +6,7 @@ import { filterParams } from "@/utils/object";
  * 列表
  */
 export function TenantOptionsAPI(): Promise<R<Array<Option>>> {
-  return Http.get<Array<Option>>("/api/pms/v1/admin/tenant/options", null, {
-    permit: true,
-  });
+  return Http.get<Array<Option>>("/api/pms/v1/admin/tenant/options");
 }
 
 /**

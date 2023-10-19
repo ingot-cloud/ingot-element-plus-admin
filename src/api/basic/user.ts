@@ -1,5 +1,12 @@
 import request from "@/net";
-import type { UserPageItemVO, Page, UserDTO, UserProfileVO, R } from "@/models";
+import type {
+  SysUser,
+  Page,
+  AllOrgUserFilterDTO,
+  UserDTO,
+  UserProfileVO,
+  R,
+} from "@/models";
 import { filterParams } from "@/utils/object";
 
 /**
@@ -7,12 +14,12 @@ import { filterParams } from "@/utils/object";
  */
 export function UserPageAPI(
   page: Page,
-  condition?: UserDTO
-): Promise<R<Page<UserPageItemVO>>> {
+  condition?: AllOrgUserFilterDTO
+): Promise<R<Page<SysUser>>> {
   if (condition) {
     filterParams(condition);
   }
-  return request.get<Page<UserPageItemVO>>("/api/pms/v1/admin/user/page", {
+  return request.get<Page<SysUser>>("/api/pms/v1/admin/user/page", {
     ...page,
     ...condition,
   });
