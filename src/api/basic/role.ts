@@ -1,10 +1,8 @@
 import request from "@/net";
 import type {
   RolePageItemVO,
-  RoleGroupItemVO,
   SysRoleGroup,
   SysRole,
-  SysUser,
   Page,
   R,
   RoleBindParams,
@@ -13,6 +11,12 @@ import type {
   Option,
 } from "@/models";
 import { filterParams } from "@/utils/object";
+
+export function RoleOrgOptionsAPI(orgId: string) {
+  return request.get<Array<Option<string>>>(
+    `/api/pms/v1/admin/role/options/${orgId}`
+  );
+}
 
 export function RoleOptionsAPI() {
   return request.get<Array<Option<string>>>("/api/pms/v1/admin/role/options");
