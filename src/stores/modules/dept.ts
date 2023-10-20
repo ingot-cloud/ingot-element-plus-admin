@@ -1,18 +1,13 @@
-import type { DeptTreeNode, SysDept } from "@/models";
-import {
-  DeptTreeAPI,
-  CreateDeptAPI,
-  UpdateDeptAPI,
-  RemoveDeptAPI,
-} from "@/api/basic/dept";
+import type { DeptTreeNode } from "@/models";
+import { DeptOrgTreeAPI } from "@/api/basic/dept";
 
 export const useDeptStore = defineStore("dept", () => {
   const expandedKeys = ref<Array<string>>([]);
   const deptTree = ref<Array<DeptTreeNode>>([]);
 
-  const fetchDeptTree = () => {
+  const fetchOrgDeptTree = (orgId: string) => {
     return new Promise<Array<DeptTreeNode>>((resolve, reject) => {
-      DeptTreeAPI()
+      DeptOrgTreeAPI(orgId)
         .then((response) => {
           const data = response.data;
           data.forEach((root) => {
@@ -29,46 +24,10 @@ export const useDeptStore = defineStore("dept", () => {
         });
     });
   };
-  const createDept = (params: SysDept) => {
-    return new Promise<void>((resolve, reject) => {
-      CreateDeptAPI(params)
-        .then(() => {
-          resolve();
-        })
-        .catch(() => {
-          reject();
-        });
-    });
-  };
-  const updateDept = (params: SysDept) => {
-    return new Promise<void>((resolve, reject) => {
-      UpdateDeptAPI(params)
-        .then(() => {
-          resolve();
-        })
-        .catch(() => {
-          reject();
-        });
-    });
-  };
-  const removeDept = (id: string) => {
-    return new Promise<void>((resolve, reject) => {
-      RemoveDeptAPI(id)
-        .then(() => {
-          resolve();
-        })
-        .catch(() => {
-          reject();
-        });
-    });
-  };
 
   return {
     expandedKeys,
     deptTree,
-    fetchDeptTree,
-    createDept,
-    updateDept,
-    removeDept,
+    fetchOrgDeptTree,
   };
 });
