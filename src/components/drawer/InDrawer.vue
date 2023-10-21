@@ -13,7 +13,7 @@
     <slot />
 
     <template #footer>
-      <div flex flex-row justify-end items-center gap-4>
+      <div flex flex-row justify-end items-center>
         <slot name="footer"> </slot>
       </div>
     </template>
