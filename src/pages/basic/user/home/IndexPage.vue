@@ -54,7 +54,7 @@
         <common-status-tag :status="item.status" />
       </template>
       <template #actions="{ item }">
-        <in-button link text type="primary" @click="ops.handleDetailUser(item)">
+        <in-button link text type="primary" @click="handleDetailUser(item)">
           <template #icon>
             <i-mdi:card-account-details-outline />
           </template>
@@ -66,38 +66,37 @@
           :status="item.status"
           @click="ops.handleDisableUser(item)"
         />
-        <in-button link text type="danger" @click="ops.handleDeleteUser(item)">
-          <template #icon>
-            <i-ep:delete />
-          </template>
-          删除
-        </in-button>
       </template>
     </in-table>
   </in-filter-container>
 
   <CreateDrawer ref="CreateDrawerRef" @success="ops.fetchUserData" />
+  <EditDrawer ref="EditDrawerRef" @success="ops.fetchUserData" />
 </template>
 
 <script lang="ts" setup>
-import { useRoleStore } from "@/stores/modules/role";
+import type { TableAPI } from "@/components/table";
+import type { SysUser } from "@/models";
 import { useOps } from "./useOps";
 import { tableHeaders } from "./table";
-import type { TableAPI } from "@/components/table";
 import CreateDrawer from "./CreateDrawer.vue";
+import EditDrawer from "./EditDrawer.vue";
 
 const ops = useOps();
-const roleStore = useRoleStore();
 
 const CreateDrawerRef = ref();
+const EditDrawerRef = ref();
 const tableRef = ref<TableAPI>();
 
 const handleCreateUser = (): void => {
   CreateDrawerRef.value?.show();
 };
 
+const handleDetailUser = (params: SysUser): void => {
+  EditDrawerRef.value.show(params);
+};
+
 onMounted(() => {
-  roleStore.fetchRoleOptions();
   ops.fetchUserData();
 });
 </script>

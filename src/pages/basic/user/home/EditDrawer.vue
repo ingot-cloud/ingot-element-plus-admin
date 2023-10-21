@@ -1,5 +1,5 @@
 <template>
-  <in-drawer title="添加用户" v-model="visible">
+  <in-drawer title="创建用户" v-model="visible">
     <in-form ref="FormRef" :model="editForm" :rules="rules">
       <el-form-item label="头像">
         <in-common-upload-avatar
@@ -30,6 +30,8 @@
       </el-form-item>
     </in-form>
     <template #footer>
+      <in-button @click="visible = false">取消</in-button>
+      <in-button type="danger" @click="handleRemoveClick">删除</in-button>
       <in-button :loading="loading" type="primary" @click="handleConfirmClick">
         确定
       </in-button>
@@ -37,9 +39,9 @@
   </in-drawer>
 </template>
 <script lang="ts" setup>
-import type { UserDTO } from "@/models";
+import type { UserDTO, SysUser } from "@/models";
 import { copyParams } from "@/utils/object";
-import { CreateUserAPI } from "@/api/basic/user";
+import { CreateUserAPI, RemoveUserAPI } from "@/api/basic/user";
 
 const defaultEditForm: UserDTO = {
   phone: undefined,
@@ -50,18 +52,28 @@ const defaultEditForm: UserDTO = {
 
 const emits = defineEmits(["success"]);
 
+const user = ref<SysUser>({});
 const visible = ref(false);
 const loading = ref(false);
 const editForm = reactive(Object.assign({}, defaultEditForm));
 const FormRef = ref();
 const message = useMessage();
+const confirmDelete = useConfirmDelete(
+  transformDeleteAPI(RemoveUserAPI),
+  () => {
+    visible.value = false;
+    message.success("操作成功");
+    emits("success");
+  }
+);
 
 const rules = {
   phone: [{ required: true, message: "请输入手机号", trigger: "blur" }],
   nickname: [{ required: true, message: "请输入姓名", trigger: "blur" }],
 };
 
-const show = () => {
+const show = (params: SysUser) => {
+  user.value = params;
   visible.value = true;
   copyParams(editForm, defaultEditForm);
   nextTick(() => {
@@ -88,6 +100,11 @@ const handleConfirmClick = () => {
     }
   });
 };
+
+const handleRemoveClick = () => {
+  confirmDelete.exec(user.value.id!, `是否删除用户(${user.value.nickname})`);
+};
+
 defineExpose({
   show,
 });

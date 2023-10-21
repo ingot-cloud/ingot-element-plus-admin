@@ -1,15 +1,10 @@
 import type { PageChangeParams, SysUser } from "@/models";
-import { UserPageAPI, UpdateUserAPI, RemoveUserAPI } from "@/api/basic/user";
-import router from "@/router";
+import { UserPageAPI, UpdateUserAPI } from "@/api/basic/user";
 
 export const useOps = () => {
   const paging = usePaging(transformPageAPI(UserPageAPI));
   const confirmStatus = useConfirmStatus(
     transformUpdateAPI(UpdateUserAPI),
-    paging.exec
-  );
-  const confirmDelete = useConfirmDelete(
-    transformDeleteAPI(RemoveUserAPI),
     paging.exec
   );
 
@@ -31,22 +26,6 @@ export const useOps = () => {
   };
 
   /**
-   * 编辑用户
-   */
-  const handleDetailUser = (params: SysUser): void => {
-    router.push({
-      path: `/basic/user/details/${params.id}`,
-    });
-  };
-
-  /**
-   * 删除用户
-   */
-  const handleDeleteUser = (params: SysUser): void => {
-    confirmDelete.exec(params.id!, `是否删除用户(${params.username})`);
-  };
-
-  /**
    * 禁用、启用
    */
   const handleDisableUser = (params: SysUser): void => {
@@ -59,8 +38,6 @@ export const useOps = () => {
     pageInfo: paging.pageInfo,
     resetFilter,
     fetchUserData,
-    handleDetailUser,
-    handleDeleteUser,
     handleDisableUser,
   };
 };

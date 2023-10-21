@@ -61,3 +61,20 @@ export interface OrgUserProfileVO {
   status?: CommonStatus;
   createdAt: string;
 }
+
+export interface ResetPwdVO {
+  random?: string;
+}
+
+export interface UserOrgEditDTO {
+  id?: string;
+  orgId?: string;
+  deptIds?: Array<string>;
+  roleIds?: Array<string>;
+}
+
+export interface UserOrgInfoVO {
+  orgId?: string;
+  deptIds?: Array<string>;
+  roleIds?: Array<string>;
+}

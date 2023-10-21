@@ -6,6 +6,9 @@ import type {
   UserDTO,
   UserProfileVO,
   R,
+  UserOrgInfoVO,
+  UserOrgEditDTO,
+  ResetPwdVO,
 } from "@/models";
 import { filterParams } from "@/utils/object";
 
@@ -56,4 +59,36 @@ export function UpdateUserAPI(params: UserDTO): Promise<R<void>> {
  */
 export function RemoveUserAPI(id: string): Promise<R<void>> {
   return request.delete<void>(`/api/pms/v1/admin/user/${id}`);
+}
+
+/**
+ * 用户组织信息
+ */
+export function UserOrgInfoAPI(id: string) {
+  return request.get<Array<UserOrgInfoVO>>(
+    `/api/pms/v1/admin/user/orgInfo/${id}`
+  );
+}
+
+/**
+ * 用户组织编辑
+ */
+export function UserOrgEditAPI(params: UserOrgEditDTO) {
+  filterParams(params);
+  return request.put<void>(`/api/pms/v1/admin/user/org`, params);
+}
+
+/**
+ * 用户离开组织API
+ */
+export function UserOrgLeaveAPI(params: UserOrgEditDTO) {
+  filterParams(params);
+  return request.put<void>(`/api/pms/v1/admin/user/org/leave`, params);
+}
+
+/**
+ * 用户重置密码
+ */
+export function UserResetPwdAPI(id: string) {
+  return request.put<ResetPwdVO>(`/api/pms/v1/admin/user/resetPwd/${id}`);
 }
