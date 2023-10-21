@@ -8,6 +8,7 @@ import type {
   Option,
 } from "@/models";
 import {
+  RoleOrgOptionsAPI,
   RoleOptionsAPI,
   RoleListAPI,
   RolePageAPI,
@@ -24,6 +25,20 @@ import {
 export const useRoleStore = defineStore("role", () => {
   const roleOptions = ref<Array<Option<string>>>([]);
   const needUpdate = ref(false);
+  const roleOrgOptions = ref<Array<Option<string>>>([]);
+
+  const fetchRoleOrgOptions = (orgId: string) => {
+    return new Promise<Array<Option<string>>>((resolve, reject) => {
+      RoleOrgOptionsAPI(orgId)
+        .then((response) => {
+          roleOrgOptions.value = response.data;
+          resolve(response.data);
+        })
+        .catch(() => {
+          reject();
+        });
+    });
+  };
 
   const fetchRoleOptions = () => {
     return new Promise<Array<Option<string>>>((resolve, reject) => {
@@ -169,6 +184,8 @@ export const useRoleStore = defineStore("role", () => {
 
   return {
     roleOptions,
+    roleOrgOptions,
+    fetchRoleOrgOptions,
     fetchRoleOptions,
     fetchRoleGroupList,
     fetchRoleList,
