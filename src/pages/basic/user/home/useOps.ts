@@ -29,7 +29,7 @@ export const useOps = () => {
    * 禁用、启用
    */
   const handleDisableUser = (params: SysUser): void => {
-    confirmStatus.exec(params.id!, params.status!, `用户(${params.username})`);
+    confirmStatus.exec(params.id!, params.status!, `用户(${params.nickname})`);
   };
 
   return {
