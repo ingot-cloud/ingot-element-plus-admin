@@ -1,7 +1,6 @@
 import type { PageChangeParams, SysUser } from "@/models";
 import { UserPageAPI, UpdateUserAPI, RemoveUserAPI } from "@/api/basic/user";
 import router from "@/router";
-import { keepTenant } from "@/router/helper/tenant";
 
 export const useOps = () => {
   const paging = usePaging(transformPageAPI(UserPageAPI));
@@ -35,11 +34,9 @@ export const useOps = () => {
    * 编辑用户
    */
   const handleDetailUser = (params: SysUser): void => {
-    router.push(
-      keepTenant({
-        path: `/basic/user/details/${params.id}`,
-      })
-    );
+    router.push({
+      path: `/basic/user/details/${params.id}`,
+    });
   };
 
   /**

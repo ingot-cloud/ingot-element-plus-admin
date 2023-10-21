@@ -32,10 +32,13 @@ export interface SysUser extends OptionIDEntity {
   status?: CommonStatus;
 }
 
-export interface UserDTO extends SysUser {
-  roleId?: string;
-  deptId?: string;
-  newPassword?: string;
+export interface UserDTO {
+  id?: string;
+  phone?: string;
+  nickname?: string;
+  email?: string;
+  avatar?: string;
+  status?: CommonStatus;
 }
 
 export interface UserProfileVO {

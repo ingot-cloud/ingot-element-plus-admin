@@ -35,7 +35,9 @@
       @handleCurrentChange="ops.fetchUserData"
     >
       <template #toolbar>
-        <in-button type="primary" @click="handleCreateUser"> 添加 </in-button>
+        <in-button type="primary" @click="handleCreateUser">
+          添加用户
+        </in-button>
       </template>
       <template #avatar="{ item }">
         <div flex flex-row items-center gap-2>
@@ -74,30 +76,24 @@
     </in-table>
   </in-filter-container>
 
-  <!-- <CreateDialog
-    ref="createDialog"
-    :deptName="ops.currentDeptNode.name"
-    :deptId="ops.currentDeptNode.id"
-    :roleList="roleOptions"
-    @success="ops.fetchUserData"
-  /> -->
+  <CreateDrawer ref="CreateDrawerRef" @success="ops.fetchUserData" />
 </template>
 
 <script lang="ts" setup>
 import { useRoleStore } from "@/stores/modules/role";
 import { useOps } from "./useOps";
 import { tableHeaders } from "./table";
-import type { API as CreateDialogAPI } from "./CreateDialog.vue";
 import type { TableAPI } from "@/components/table";
+import CreateDrawer from "./CreateDrawer.vue";
 
 const ops = useOps();
 const roleStore = useRoleStore();
 
-const createDialog = ref<CreateDialogAPI>();
+const CreateDrawerRef = ref();
 const tableRef = ref<TableAPI>();
 
 const handleCreateUser = (): void => {
-  createDialog.value?.show();
+  CreateDrawerRef.value?.show();
 };
 
 onMounted(() => {
