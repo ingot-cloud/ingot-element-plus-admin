@@ -79,8 +79,8 @@ import type { TableAPI } from "@/components/table";
 import type { SysUser } from "@/models";
 import { useOps } from "./useOps";
 import { tableHeaders } from "./table";
-import CreateDrawer from "./CreateDrawer.vue";
-import EditDrawer from "./EditDrawer.vue";
+import CreateDrawer from "./components/CreateDrawer.vue";
+import EditDrawer from "./components/EditDrawer.vue";
 
 const ops = useOps();
 
