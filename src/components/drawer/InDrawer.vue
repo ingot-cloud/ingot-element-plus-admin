@@ -10,7 +10,9 @@
       </div>
     </template>
 
-    <slot />
+    <div :style="`padding: ${padding}`">
+      <slot />
+    </div>
 
     <template #footer>
       <div flex flex-row justify-end items-center>
@@ -25,17 +27,24 @@ defineProps({
   title: {
     type: String,
   },
+  padding: {
+    type: String,
+    default: "20px",
+  },
 });
 </script>
 <style lang="postcss">
 .in-drawer {
+  --el-drawer-padding-primary: 0;
+
   & .el-drawer__header {
     border-bottom: 1px solid var(--in-border-color);
     margin-bottom: 0;
-    padding-bottom: var(--el-drawer-padding-primary);
+    padding: 20px;
   }
 
   & .el-drawer__footer {
+    padding: 20px;
     box-shadow: 0px 6px 8px 6px rgba(0, 0, 0, 0.08);
   }
 
