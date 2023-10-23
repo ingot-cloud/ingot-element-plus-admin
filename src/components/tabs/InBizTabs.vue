@@ -29,6 +29,15 @@ const headerValue = computed<string>({
     return currentName.value;
   },
 });
+watch(
+  () => props.modelValue,
+  (value) => {
+    if (!value) {
+      return;
+    }
+    currentName.value = value;
+  }
+);
 
 const {
   children: panes,
