@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title-container">
-      <div>个人基本信息</div>
+      <div class="title">个人基本信息</div>
       <div>
         <div v-if="!editFlag" class="edit" @click="editFlag = true">编辑</div>
         <div v-else class="cancel" @click="editFlag = false">取消</div>
@@ -103,7 +103,6 @@ defineExpose({
 </script>
 <style scoped lang="postcss">
 .title-container {
-  font-weight: 500;
   font-size: 12px;
   line-height: 22px;
   padding: 4px 20px;
@@ -112,6 +111,11 @@ defineExpose({
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  & .title {
+    color: black;
+    font-weight: 500;
+  }
 
   & .edit {
     cursor: pointer;

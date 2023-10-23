@@ -5,6 +5,7 @@ import {
   TenantCreateAPI,
   TenantUpdateAPI,
   TenantRemoveAPI,
+  TenantInfoAPI,
 } from "@/api/basic/tenant";
 
 export const useTenantStore = defineStore("tenant", () => {
@@ -80,6 +81,18 @@ export const useTenantStore = defineStore("tenant", () => {
     });
   };
 
+  const info = (id: string) => {
+    return new Promise<SysTenant>((resolve, reject) => {
+      TenantInfoAPI(id)
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch(() => {
+          reject();
+        });
+    });
+  };
+
   return {
     needUpdate,
     changeUpdateFlag,
@@ -88,5 +101,6 @@ export const useTenantStore = defineStore("tenant", () => {
     updateTenant,
     removeTenant,
     search,
+    info,
   };
 });

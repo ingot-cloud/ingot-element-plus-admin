@@ -12,6 +12,13 @@ export function TenantSearchAPI(name?: string): Promise<R<Array<SysTenant>>> {
 }
 
 /**
+ * 租户信息
+ */
+export function TenantInfoAPI(id?: string) {
+  return Http.get<SysTenant>(`/api/pms/v1/admin/tenant/${id}`);
+}
+
+/**
  * 租户分页信息
  */
 export function TenantPageAPI(
