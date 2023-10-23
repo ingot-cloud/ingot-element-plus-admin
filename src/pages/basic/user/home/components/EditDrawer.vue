@@ -23,7 +23,7 @@
   </in-drawer>
 </template>
 <script lang="ts" setup>
-import type { UserDTO, SysUser, UserProfileVO } from "@/models";
+import type { UserDTO, SysUser } from "@/models";
 import { RemoveUserAPI, UserProfileAPI, UpdateUserAPI } from "@/api/basic/user";
 import BaseInfoForm from "./BaseInfoForm.vue";
 import OrgInfoForm from "./OrgInfoForm.vue";
@@ -100,6 +100,7 @@ defineExpose({
   show(params: SysUser) {
     user.value = params;
     visible.value = true;
+    currentTab.value = TabNameBase;
     fetchData();
   },
 });
