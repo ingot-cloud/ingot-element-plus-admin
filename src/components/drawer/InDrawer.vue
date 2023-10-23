@@ -10,7 +10,7 @@
       </div>
     </template>
 
-    <div :style="`padding: ${padding}`">
+    <div :style="`padding: ${padding}`" v-loading="loading">
       <slot />
     </div>
 
@@ -30,6 +30,10 @@ defineProps({
   padding: {
     type: String,
     default: "20px",
+  },
+  loading: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>
