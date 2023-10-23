@@ -18,10 +18,10 @@
           </el-icon>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item @click="privateHandleDeptAction(true)">
+              <el-dropdown-item @click="privateHandleRoleCollapseAction(true)">
                 <el-icon><i-material-symbols:expand-rounded /></el-icon>全部展开
               </el-dropdown-item>
-              <el-dropdown-item @click="privateHandleDeptAction(false)">
+              <el-dropdown-item @click="privateHandleRoleCollapseAction(false)">
                 <el-icon><i-mdi:arrow-vertical-collapse /></el-icon>全部折叠
               </el-dropdown-item>
             </el-dropdown-menu>
@@ -138,7 +138,7 @@ const fetchData = () => {
     });
 };
 
-const privateHandleDeptAction = (value: boolean) => {
+const privateHandleRoleCollapseAction = (value: boolean) => {
   privateHandleExpanded(roleTree.value, value);
 };
 const privateHandleExpanded = (
@@ -146,7 +146,12 @@ const privateHandleExpanded = (
   value: boolean
 ) => {
   list.forEach((item) => {
-    roleTreeRef.value.getNode(item).expanded = value;
+    console.log(item, roleTreeRef.value.getNode(item.id));
+    const node = roleTreeRef.value.getNode(item.id);
+    node.expanded = value;
+    if (node.parent) {
+      node.parent.expanded = value;
+    }
     if (item.children && item.children.length) {
       privateHandleExpanded(item.children, value);
     }
