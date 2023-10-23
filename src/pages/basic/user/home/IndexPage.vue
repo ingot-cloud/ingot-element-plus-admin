@@ -2,6 +2,14 @@
   <in-filter-container>
     <template #top>
       <in-filter-item>
+        <in-with-label title="姓名">
+          <el-input
+            v-model="ops.condition.nickname"
+            clearable
+            style="width: 200px"
+            placeholder="请输入姓名"
+          ></el-input>
+        </in-with-label>
         <in-with-label title="手机号">
           <el-input
             v-model="ops.condition.phone"
