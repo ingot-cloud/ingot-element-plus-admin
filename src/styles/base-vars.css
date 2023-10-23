@@ -30,6 +30,10 @@
   --in-app-bar-bg: #0076f6;
 
   --in-color-primary: var(--el-color-primary);
+  --in-color-success: var(--el-color-success);
+  --in-color-warning: var(--el-color-warning);
+  --in-color-danger: var(--el-color-danger);
+  --in-color-info: var(--el-color-info);
   --in-text-color: var(--el-text-color-primary);
   --in-text-color-light: var(--el-text-color-regular);
   --in-text-color-lighter: var(--el-text-color-secondary);
