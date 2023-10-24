@@ -1,7 +1,7 @@
 import type { TableHeaderRecord } from "@/components/table";
 export const tableHeaders: Array<TableHeaderRecord> = [
   {
-    label: "头像",
+    label: "用户",
     prop: "avatar",
   },
   {
