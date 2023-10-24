@@ -1,33 +1,27 @@
 <template>
-  <in-dialog :title="title" v-model="visible" width="800">
-    <el-form
-      ref="editFormRef"
-      label-width="80px"
-      label-position="right"
-      :model="editForm"
-      :rules="rules"
-    >
-      <el-row :gutter="24">
-        <el-col :span="12">
-          <el-form-item label="租户名称" prop="name">
-            <el-input
-              v-model="editForm.name"
-              clearable
-              placeholder="请输入租户名称"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="租户编码" prop="code">
-            <el-input
-              :disabled="edit"
-              v-model="editForm.code"
-              clearable
-              placeholder="请输入租户编码"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
+  <in-drawer :title="title" v-model="visible">
+    <in-form ref="editFormRef" :model="editForm" :rules="rules">
+      <el-form-item label="logo">
+        <in-common-upload-avatar
+          dir="public/tenant"
+          v-model="editForm.avatar"
+        />
+      </el-form-item>
+      <el-form-item label="组织名称" prop="name">
+        <el-input
+          v-model="editForm.name"
+          clearable
+          placeholder="请输入组织名称"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="组织编码" prop="code">
+        <el-input
+          disabled
+          v-model="editForm.code"
+          clearable
+          placeholder="请输入组织编码"
+        ></el-input>
+      </el-form-item>
       <el-form-item label="周期" prop="daterange">
         <el-date-picker
           v-model="editForm.daterange"
@@ -39,23 +33,15 @@
         >
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="logo">
-        <in-common-upload dir="public/tenant" v-model="editForm.avatar" />
-      </el-form-item>
-    </el-form>
+    </in-form>
     <template #footer>
+      <in-button type="danger" @click="handleRemoveClick"> 删除 </in-button>
       <in-button :loading="loading" type="primary" @click="handleConfirmClick">
         确定
       </in-button>
     </template>
-  </in-dialog>
+  </in-drawer>
 </template>
-<script lang="ts">
-import type { SysTenant as P } from "@/models";
-export interface API {
-  show(data?: P): void;
-}
-</script>
 <script lang="ts" setup>
 import type { SysTenant } from "@/models";
 import { Message } from "@/utils/message";
@@ -63,8 +49,8 @@ import { copyParams, copyParamsWithoutKeys } from "@/utils/object";
 import { useTenantStore } from "@/stores/modules/tenant";
 
 const rules = {
-  name: [{ required: true, message: "请输入租户名称", trigger: "blur" }],
-  code: [{ required: true, message: "请输入租户编码", trigger: "blur" }],
+  name: [{ required: true, message: "请输入组织名称", trigger: "blur" }],
+  code: [{ required: true, message: "请输入组织编码", trigger: "blur" }],
   daterange: [{ required: false }],
 };
 
@@ -91,33 +77,18 @@ const emits = defineEmits(["success"]);
 const editFormRef = ref();
 const editForm = reactive(Object.assign({}, defaultEditForm));
 const loading = ref(false);
-const title = ref("");
-const edit = ref(false);
+const title = ref("编辑租户");
 const visible = ref(false);
 const tenantStore = useTenantStore();
 
-const show = (data?: SysTenant) => {
-  visible.value = true;
+const confirmDelete = useConfirmDelete(tenantStore.removeTenant, () => {
+  emits("success");
+});
 
-  // 重置数据
-  copyParams(editForm, defaultEditForm);
-  nextTick(() => {
-    const form = unref(editFormRef);
-    form.clearValidate();
-  });
-
-  if (data) {
-    title.value = "编辑租户";
-    edit.value = true;
-    copyParams(editForm, data);
-    if (data.startAt && data.endAt) {
-      editForm.daterange = [data.startAt, data.endAt];
-    }
-  } else {
-    title.value = "创建租户";
-    edit.value = false;
-  }
+const handleRemoveClick = () => {
+  confirmDelete.exec(editForm.id!, `是否删除角色(${editForm.name})`);
 };
+
 const handleConfirmClick = () => {
   const form = unref(editFormRef);
   form.validate((valid: boolean) => {
@@ -134,11 +105,8 @@ const handleConfirmClick = () => {
         params.endAt = undefined;
       }
 
-      const request = edit.value
-        ? tenantStore.updateTenant(params)
-        : tenantStore.createTenant(params);
-
-      request
+      tenantStore
+        .updateTenant(params)
         .then(() => {
           loading.value = false;
           Message.success("操作成功");
@@ -153,6 +121,20 @@ const handleConfirmClick = () => {
 };
 
 defineExpose({
-  show,
+  show(data: SysTenant) {
+    visible.value = true;
+
+    // 重置数据
+    copyParams(editForm, defaultEditForm);
+    nextTick(() => {
+      const form = unref(editFormRef);
+      form.clearValidate();
+    });
+
+    copyParams(editForm, data);
+    if (data.startAt && data.endAt) {
+      editForm.daterange = [data.startAt, data.endAt];
+    }
+  },
 });
 </script>

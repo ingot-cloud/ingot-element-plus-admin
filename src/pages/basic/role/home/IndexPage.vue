@@ -2,16 +2,29 @@
   <in-filter-container>
     <template #top>
       <in-filter-item>
-        <in-with-label title="角色名">
+        <in-with-label title="角色名称">
           <el-input
             v-model="paging.condition.name"
             clearable
             style="width: 200px"
-            placeholder="请输入角色名"
+            placeholder="请输入角色名称"
+          ></el-input>
+        </in-with-label>
+        <in-with-label title="角色编码">
+          <el-input
+            v-model="paging.condition.code"
+            clearable
+            style="width: 200px"
+            placeholder="请输入角色编码"
           ></el-input>
         </in-with-label>
         <template #rightActions>
-          <in-button @click="paging.condition.name = undefined">
+          <in-button
+            @click="
+              paging.condition.name = undefined;
+              paging.condition.code = undefined;
+            "
+          >
             重置
           </in-button>
           <in-button
@@ -34,8 +47,9 @@
       @handleCurrentChange="paging.exec"
       @refresh="refreshData"
     >
+      <template #title> 角色管理 </template>
       <template #toolbar>
-        <in-button type="primary" @click="handleCreate"> 添加 </in-button>
+        <in-button type="primary" @click="handleCreate"> 添加角色 </in-button>
       </template>
       <template #code="{ item }">
         <el-tag>
@@ -57,7 +71,6 @@
         </in-button>
         <common-status-button
           :status="item.status"
-          v-if="item.canAction"
           text
           link
           @click="
@@ -65,17 +78,6 @@
           "
         >
         </common-status-button>
-        <in-button
-          text
-          link
-          type="danger"
-          @click="confirmDelete.exec(item.id, `是否删除角色(${item.name})`)"
-        >
-          <template #icon>
-            <i-ep:delete />
-          </template>
-          删除
-        </in-button>
         <el-dropdown @command="handleBindCommand" m-l-10px>
           <in-button>
             <template #icon>
@@ -96,38 +98,36 @@
       </template>
     </in-table>
 
-    <EditDialog ref="editDialog" @success="refreshData" />
+    <EditDrawer ref="EditDrawerRef" @success="refreshData" />
   </in-filter-container>
 </template>
 <script lang="ts" setup>
 import { tableHeaders } from "./table";
 import type { RolePageItemVO } from "@/models";
-import EditDialog from "./EditDialog.vue";
-import type { API as EditDialogAPI } from "./EditDialog.vue";
+import EditDrawer from "./EditDrawer.vue";
 import type { TableAPI } from "@/components/table";
 import { useRoleStore } from "@/stores/modules/role";
 import { useRoleTypeEnum } from "@/models/enums/roleEnums";
 import router from "@/router";
 
-const editDialog = ref<EditDialogAPI>();
+const EditDrawerRef = ref();
 const tableRef = ref<TableAPI>();
 
 const roleType = useRoleTypeEnum();
 const roleStore = useRoleStore();
 const paging = usePaging(transformPageAPI(roleStore.fetchRolePage));
 const confirmStatus = useConfirmStatus(roleStore.updateRole, paging.exec);
-const confirmDelete = useConfirmDelete(roleStore.removeRole, paging.exec);
 
 const refreshData = () => {
   paging.exec();
 };
 
 const handleCreate = (): void => {
-  editDialog.value?.show();
+  EditDrawerRef.value?.show();
 };
 
 const handleEdit = (params: RolePageItemVO): void => {
-  editDialog.value?.show(params);
+  EditDrawerRef.value?.show(params);
 };
 
 const handleBindCommand = (params: {

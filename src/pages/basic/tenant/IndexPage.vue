@@ -35,8 +35,9 @@
       @handleCurrentChange="paging.exec"
       @refresh="refreshData"
     >
+      <template #title> 组织管理 </template>
       <template #toolbar>
-        <in-button type="primary" @click="handleCreate"> 新增 </in-button>
+        <in-button type="primary" @click="handleCreate"> 添加组织 </in-button>
       </template>
       <template #name="{ item }">
         <div flex flex-row items-center gap-2>
@@ -67,44 +68,29 @@
           text
           link
           @click="
-            confirmStatus.exec(item.id, item.status, `租户(${item.name})`)
+            confirmStatus.exec(item.id, item.status, `组织(${item.name})`)
           "
-        ></common-status-button>
-        <in-button
-          type="danger"
-          text
-          link
-          @click="confirmDelete.exec(item.id, `是否删除租户(${item.name})`)"
-        >
-          <template #icon>
-            <i-ep:delete />
-          </template>
-          删除
-        </in-button>
+        />
       </template>
     </in-table>
   </in-filter-container>
 
-  <EditDialog ref="editDialog" @success="refreshData" />
+  <EditDrawer ref="EditDrawerRef" @success="refreshData" />
   <CreateDrawer ref="CreateDrawerRef" @success="refreshData" />
 </template>
 <script lang="ts" setup>
 import type { SysTenant } from "@/models";
 import { tableHeaders } from "./table";
-import EditDialog from "./components/EditDialog.vue";
-import type { API as EditDialogAPI } from "./components/EditDialog.vue";
-import type { TableAPI } from "@/components/table";
+import EditDrawer from "./components/EditDrawer.vue";
 import { useTenantStore } from "@/stores/modules/tenant";
 import CreateDrawer from "./components/CreateDrawer.vue";
 
-const editDialog = ref<EditDialogAPI>();
-const tableRef = ref<TableAPI>();
 const CreateDrawerRef = ref();
+const EditDrawerRef = ref();
 
 const tenantStore = useTenantStore();
 const paging = usePaging(transformPageAPI(tenantStore.fetchTenantPage));
 const confirmStatus = useConfirmStatus(tenantStore.updateTenant, paging.exec);
-const confirmDelete = useConfirmDelete(tenantStore.removeTenant, paging.exec);
 
 const refreshData = () => {
   paging.exec();
@@ -115,7 +101,7 @@ const handleCreate = (): void => {
 };
 
 const handleEdit = (params: SysTenant): void => {
-  editDialog.value?.show(params);
+  EditDrawerRef.value?.show(params);
 };
 
 onMounted(() => {
