@@ -1,18 +1,11 @@
 <template>
-  <in-dialog
+  <in-drawer
     :title="title"
     v-model="visible"
     @close="loading = false"
     width="40%"
   >
-    <el-form
-      ref="editFormRef"
-      class="form"
-      label-width="100px"
-      label-position="right"
-      :model="editForm"
-      :rules="rules"
-    >
+    <in-form ref="editFormRef" class="form" :model="editForm" :rules="rules">
       <el-form-item label="上级权限">
         <el-tree-select
           w-full
@@ -59,13 +52,16 @@
           class="form-item"
         ></el-input>
       </el-form-item>
-    </el-form>
+    </in-form>
     <template #footer>
+      <in-button v-if="edit" type="danger" @click="handleRemoveClick">
+        删除
+      </in-button>
       <in-button :loading="loading" type="primary" @click="handleConfirmClick">
         确定
       </in-button>
     </template>
-  </in-dialog>
+  </in-drawer>
 </template>
 <script lang="ts">
 import type { SysAuthority as P } from "@/models";
@@ -84,9 +80,6 @@ import {
   copyParamsWithKeys,
   getDiffWithIgnore,
 } from "@/utils/object";
-
-const authorityStore = useAuthorityStore();
-const authorityTypeEnum = useAuthorityTypeEnum();
 
 const rules = {
   name: [{ required: true, message: "请输入权限名称", trigger: "blur" }],
@@ -121,6 +114,12 @@ const edit = ref(false);
 const canEditPid = ref(false);
 const visible = ref(false);
 
+const authorityStore = useAuthorityStore();
+const authorityTypeEnum = useAuthorityTypeEnum();
+const confirmDelete = useConfirmDelete(authorityStore.removeAuthority, () => {
+  emits("success");
+});
+
 const show = (data?: SysAuthority | string) => {
   visible.value = true;
 
@@ -134,23 +133,28 @@ const show = (data?: SysAuthority | string) => {
 
   if (data) {
     if (typeof data === "string") {
-      title.value = "创建";
+      title.value = "添加权限";
       edit.value = false;
       canEditPid.value = false;
       editForm.pid = data;
     } else {
       copyParams(editForm, data);
       copyParams(rawEditForm, data);
-      title.value = "编辑";
+      title.value = "编辑权限";
       edit.value = true;
       canEditPid.value = false;
     }
   } else {
-    title.value = "创建";
+    title.value = "添加权限";
     edit.value = false;
     canEditPid.value = true;
   }
 };
+
+const handleRemoveClick = () => {
+  confirmDelete.exec(editForm.id!, `是否删除权限(${editForm.name})`);
+};
+
 const handleConfirmClick = () => {
   const form = unref(editFormRef);
   form.validate((valid: boolean) => {

@@ -1,6 +1,5 @@
 <template>
   <in-container>
-    <!-- :expandRowKeys="expandedKeys" -->
     <in-table
       :loading="loading"
       :data="treeData"
@@ -8,8 +7,9 @@
       @refresh="fetchData"
       ref="tableRef"
     >
+      <template #title> 权限管理 </template>
       <template #toolbar>
-        <in-button type="primary" @click="handleCreate"> 添加 </in-button>
+        <in-button type="primary" @click="handleCreate"> 添加权限 </in-button>
       </template>
       <template #code="{ item }">
         <in-copy-tag :text="item.code" />
@@ -39,22 +39,11 @@
             confirmStatus.exec(item.id, item.status, `权限(${item.name})`)
           "
         />
-        <in-button
-          type="danger"
-          text
-          link
-          @click="confirmDelete.exec(item.id, `是否删除权限(${item.name})`)"
-        >
-          <template #icon>
-            <i-ep:delete />
-          </template>
-          删除
-        </in-button>
       </template>
     </in-table>
   </in-container>
-  <EditDialog
-    ref="editDialogRef"
+  <EditDrawer
+    ref="EditDrawerRef"
     :selectData="selectData"
     @success="fetchData"
   />
@@ -63,8 +52,7 @@
 import { tableHeaders } from "./table";
 import type { SysAuthority, AuthorityTreeNode } from "@/models";
 import { useAuthorityTypeEnum } from "@/models/enums";
-import EditDialog from "./EditDialog.vue";
-import type { API as EditDialogAPI } from "./EditDialog.vue";
+import EditDrawer from "./EditDrawer.vue";
 import type { TableAPI } from "@/components/table";
 import { useAuthorityStore } from "@/stores/modules/authority";
 
@@ -74,13 +62,12 @@ onMounted(() => {
 
 const authorityTypeEnum = useAuthorityTypeEnum();
 const loading = ref(false);
-const editDialogRef = ref<EditDialogAPI>();
+const EditDrawerRef = ref();
 const tableRef = ref<TableAPI>();
 const treeData = ref<Array<AuthorityTreeNode>>([]);
 const selectData = ref([] as Array<AuthorityTreeNode>);
 
 const authorityStore = useAuthorityStore();
-const { expandedKeys } = storeToRefs(authorityStore);
 
 const fetchData = (): void => {
   loading.value = true;
@@ -98,16 +85,12 @@ const confirmStatus = useConfirmStatus(
   authorityStore.updateAuthority,
   fetchData
 );
-const confirmDelete = useConfirmDelete(
-  authorityStore.removeAuthority,
-  fetchData
-);
 
 const handleCreate = (): void => {
-  editDialogRef.value?.show();
+  EditDrawerRef.value?.show();
 };
 
 const handleEdit = (params: SysAuthority | string): void => {
-  editDialogRef.value?.show(params);
+  EditDrawerRef.value?.show(params);
 };
 </script>
