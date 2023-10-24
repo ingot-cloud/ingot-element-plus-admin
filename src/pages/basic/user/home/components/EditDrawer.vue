@@ -13,15 +13,23 @@
         <OrgInfoForm ref="OrgInfoFormRef" />
       </in-biz-tab-panel>
     </in-biz-tabs>
-    <template #footer v-if="currentTab === TabNameBase">
-      <in-button @click="visible = false">取消</in-button>
-      <in-button type="danger" @click="handleRemoveClick">删除</in-button>
-      <in-button :loading="loading" type="primary" @click="handleConfirmClick">
-        确定
-      </in-button>
-    </template>
-    <template #footer v-else>
-      <in-button type="primary" @click="handleAddOrg"> 添加组织 </in-button>
+    <template #footer>
+      <div v-if="currentTab === TabNameBase">
+        <in-button @click="visible = false">取消</in-button>
+        <in-button type="danger" @click="handleRemoveClick">删除</in-button>
+        <in-button
+          :loading="loading"
+          type="primary"
+          @click="handleConfirmClick"
+        >
+          确定
+        </in-button>
+      </div>
+      <div v-else>
+        <in-button type="primary" @click="handleAddOrgClick">
+          添加组织
+        </in-button>
+      </div>
     </template>
   </in-drawer>
 </template>
@@ -53,7 +61,7 @@ const confirmDelete = useConfirmDelete(
   }
 );
 
-const handleAddOrg = () => {
+const handleAddOrgClick = () => {
   OrgInfoFormRef.value.addOrg(user.value.id!);
 };
 

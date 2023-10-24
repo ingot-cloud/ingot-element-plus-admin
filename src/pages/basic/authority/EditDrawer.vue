@@ -117,6 +117,8 @@ const visible = ref(false);
 const authorityStore = useAuthorityStore();
 const authorityTypeEnum = useAuthorityTypeEnum();
 const confirmDelete = useConfirmDelete(authorityStore.removeAuthority, () => {
+  Message.success("操作成功");
+  visible.value = false;
   emits("success");
 });
 

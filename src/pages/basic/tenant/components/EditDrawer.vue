@@ -82,6 +82,8 @@ const visible = ref(false);
 const tenantStore = useTenantStore();
 
 const confirmDelete = useConfirmDelete(tenantStore.removeTenant, () => {
+  Message.success("操作成功");
+  visible.value = false;
   emits("success");
 });
 

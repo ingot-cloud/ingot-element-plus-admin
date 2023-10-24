@@ -80,6 +80,8 @@ const editForm = reactive(Object.assign({}, defaultEditForm));
 const roleTypeEnum = useRoleTypeEnum();
 const roleStore = useRoleStore();
 const confirmDelete = useConfirmDelete(roleStore.removeRole, () => {
+  Message.success("操作成功");
+  visible.value = false;
   emits("success");
 });
 

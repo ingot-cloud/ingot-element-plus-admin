@@ -12,3 +12,4 @@ export * from "./client";
 export * from "./tree";
 export * from "./social";
 export * from "./oss";
+export * from "./id";
