@@ -77,7 +77,7 @@ const emits = defineEmits(["success"]);
 const editFormRef = ref();
 const editForm = reactive(Object.assign({}, defaultEditForm));
 const loading = ref(false);
-const title = ref("编辑租户");
+const title = ref("编辑组织");
 const visible = ref(false);
 const tenantStore = useTenantStore();
 
@@ -86,7 +86,7 @@ const confirmDelete = useConfirmDelete(tenantStore.removeTenant, () => {
 });
 
 const handleRemoveClick = () => {
-  confirmDelete.exec(editForm.id!, `是否删除角色(${editForm.name})`);
+  confirmDelete.exec(editForm.id!, `是否删除组织(${editForm.name})`);
 };
 
 const handleConfirmClick = () => {

@@ -120,37 +120,6 @@ const confirmDelete = useConfirmDelete(authorityStore.removeAuthority, () => {
   emits("success");
 });
 
-const show = (data?: SysAuthority | string) => {
-  visible.value = true;
-
-  // 重置数据
-  copyParams(editForm, defaultEditForm);
-  copyParams(rawEditForm, defaultEditForm);
-  nextTick(() => {
-    const form = unref(editFormRef);
-    form.clearValidate();
-  });
-
-  if (data) {
-    if (typeof data === "string") {
-      title.value = "添加权限";
-      edit.value = false;
-      canEditPid.value = false;
-      editForm.pid = data;
-    } else {
-      copyParams(editForm, data);
-      copyParams(rawEditForm, data);
-      title.value = "编辑权限";
-      edit.value = true;
-      canEditPid.value = false;
-    }
-  } else {
-    title.value = "添加权限";
-    edit.value = false;
-    canEditPid.value = true;
-  }
-};
-
 const handleRemoveClick = () => {
   confirmDelete.exec(editForm.id!, `是否删除权限(${editForm.name})`);
 };
@@ -189,6 +158,35 @@ const handleConfirmClick = () => {
 };
 
 defineExpose({
-  show,
+  show(data?: SysAuthority | string) {
+    visible.value = true;
+
+    // 重置数据
+    copyParams(editForm, defaultEditForm);
+    copyParams(rawEditForm, defaultEditForm);
+    nextTick(() => {
+      const form = unref(editFormRef);
+      form.clearValidate();
+    });
+
+    if (data) {
+      if (typeof data === "string") {
+        title.value = "添加权限";
+        edit.value = false;
+        canEditPid.value = false;
+        editForm.pid = data;
+      } else {
+        copyParams(editForm, data);
+        copyParams(rawEditForm, data);
+        title.value = "编辑权限";
+        edit.value = true;
+        canEditPid.value = false;
+      }
+    } else {
+      title.value = "添加权限";
+      edit.value = false;
+      canEditPid.value = true;
+    }
+  },
 });
 </script>

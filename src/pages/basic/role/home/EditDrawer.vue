@@ -128,7 +128,7 @@ defineExpose({
       edit.value = true;
       copyParams(editForm, data);
     } else {
-      title.value = "创建角色";
+      title.value = "添加角色";
       edit.value = false;
     }
   },
