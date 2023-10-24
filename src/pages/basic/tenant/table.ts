@@ -19,14 +19,8 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     prop: "status",
   },
   {
-    label: "开始时间",
+    label: "周期",
     prop: "startAt",
-    transform: (value: string) => value || "-",
-  },
-  {
-    label: "结束时间",
-    prop: "endAt",
-    transform: (value: string) => value || "-",
   },
   {
     label: "创建时间",

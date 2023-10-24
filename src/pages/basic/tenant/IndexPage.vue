@@ -50,8 +50,14 @@
           {{ item.name }}
         </div>
       </template>
-      <template #avatar="{ item }">
-        <el-image class="w-30px h-30px" :src="item.avatar" fit="cover" />
+      <template #code="{ item }">
+        <in-copy-tag :text="item.code" />
+      </template>
+      <template #startAt="{ item }">
+        <div v-if="item.startAt">
+          <el-tag>{{ item.startAt }} - {{ item.endAt }}</el-tag>
+        </div>
+        <el-tag v-else>无限期</el-tag>
       </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status"></common-status-tag>
