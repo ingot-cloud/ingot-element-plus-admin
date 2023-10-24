@@ -1,205 +1,219 @@
 <template>
-  <in-drawer :title="title" v-model="visible" width="900">
+  <in-drawer :title="title" v-model="visible" padding="0">
     <in-form ref="editFormRef" class="form" :model="editForm" :rules="rules">
-      <el-form-item label="菜单类型" prop="menuType">
-        <in-select
-          w-full
-          v-model="editForm.menuType"
-          :options="menuTypeEnum.getOptions()"
-        />
-      </el-form-item>
-      <el-form-item label="上级菜单">
-        <el-tree-select
-          w-full
-          v-model="editForm.pid"
-          :data="selectData"
-          :disabled="!canEditPid"
-          :node-key="TreeKeyAndProps.nodeKey"
-          :value-key="TreeKeyAndProps.nodeKey"
-          :props="TreeKeyAndProps.props"
-          :check-strictly="true"
-        />
-      </el-form-item>
+      <in-form-group-title title="基础信息" hide-action />
+      <div p-20px>
+        <el-form-item label="菜单类型" prop="menuType">
+          <in-select
+            w-full
+            v-model="editForm.menuType"
+            :options="menuTypeEnum.getOptions()"
+          />
+        </el-form-item>
+        <el-form-item label="上级菜单">
+          <el-tree-select
+            w-full
+            v-model="editForm.pid"
+            :data="selectData"
+            :disabled="!canEditPid"
+            :node-key="TreeKeyAndProps.nodeKey"
+            :value-key="TreeKeyAndProps.nodeKey"
+            :props="TreeKeyAndProps.props"
+            :check-strictly="true"
+          />
+        </el-form-item>
 
-      <el-form-item prop="name" label="菜单名称">
-        <el-input
-          v-model="editForm.name"
-          placeholder="请输入菜单名称"
-          clearable
-        ></el-input>
-      </el-form-item>
+        <el-form-item prop="name" label="菜单名称">
+          <el-input
+            v-model="editForm.name"
+            placeholder="请输入菜单名称"
+            clearable
+          ></el-input>
+        </el-form-item>
 
-      <el-form-item prop="path" label="菜单路由">
-        <el-input
-          v-model="editForm.path"
-          placeholder="请输入菜单路由"
-          clearable
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="重定向路由" v-if="isDirectory()">
-        <el-input
-          v-model="editForm.redirect"
-          placeholder="请输入重定向路由"
-          clearable
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="权限编码">
-        <el-tree-select
-          w-full
-          clearable
-          v-model="editForm.authorityId"
-          :data="authorityData"
-          :node-key="TreeKeyAndProps.nodeKey"
-          :value-key="TreeKeyAndProps.nodeKey"
-          :props="TreeKeyAndProps.props"
-          :check-strictly="true"
-        />
-      </el-form-item>
+        <el-form-item prop="path" label="菜单路由">
+          <el-input
+            v-model="editForm.path"
+            placeholder="请输入菜单路由"
+            clearable
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="重定向路由" v-if="isDirectory()">
+          <el-input
+            v-model="editForm.redirect"
+            placeholder="请输入重定向路由"
+            clearable
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="权限编码">
+          <el-tree-select
+            w-full
+            clearable
+            v-model="editForm.authorityId"
+            :data="authorityData"
+            :node-key="TreeKeyAndProps.nodeKey"
+            :value-key="TreeKeyAndProps.nodeKey"
+            :props="TreeKeyAndProps.props"
+            :check-strictly="true"
+          />
+        </el-form-item>
 
-      <el-form-item v-if="!isButton()" prop="icon" label="菜单icon">
-        <el-input
-          v-model="editForm.icon"
-          placeholder="请输入icon名称"
-          clearable
-        >
-          <template #append>
-            <div
-              ref="iconButtonRef"
-              v-click-outside="privateOnSettingClickOutside"
-              w-full
-              h-full
-              flex
-              items-center
-              justify-center
-              cursor-pointer
-            >
-              <in-icon
-                :name="editForm.icon"
-                class="w-[var(--in-menu-icon-size)] h-[var(--in-menu-icon-size)]"
-              />
+        <el-form-item v-if="!isButton()" prop="icon" label="菜单icon">
+          <el-input
+            v-model="editForm.icon"
+            placeholder="请输入icon名称"
+            clearable
+          >
+            <template #append>
+              <div
+                ref="iconButtonRef"
+                v-click-outside="privateOnSettingClickOutside"
+                w-full
+                h-full
+                flex
+                items-center
+                justify-center
+                cursor-pointer
+              >
+                <in-icon
+                  :name="editForm.icon"
+                  class="w-[var(--in-menu-icon-size)] h-[var(--in-menu-icon-size)]"
+                />
+              </div>
+            </template>
+          </el-input>
+          <el-popover
+            ref="iconPopoverRef"
+            trigger="click"
+            placement="bottom"
+            :width="300"
+            :virtual-ref="iconButtonRef"
+            virtual-triggering
+          >
+            <div flex flex-col items-center>
+              <in-icon-collection @onItemClick="privateOnIconClick" />
             </div>
-          </template>
-        </el-input>
-        <el-popover
-          ref="iconPopoverRef"
-          trigger="click"
-          placement="bottom"
-          :width="300"
-          :virtual-ref="iconButtonRef"
-          virtual-triggering
-        >
-          <div flex flex-col items-center>
-            <in-icon-collection @onItemClick="privateOnIconClick" />
+          </el-popover>
+          <div>
+            可以通过
+            <a href="https://icon-sets.iconify.design/?query=" target="_blank">
+              iconify
+            </a>
+            搜索icon
           </div>
-        </el-popover>
-        <div>
-          可以通过
-          <a href="https://icon-sets.iconify.design/?query=" target="_blank">
-            iconify
-          </a>
-          搜索icon
-        </div>
-      </el-form-item>
-      <el-form-item v-if="!isButton()" label="路由名称">
-        <el-input
-          v-model="editForm.routeName"
-          placeholder="请输入路由名称"
-          clearable
-        ></el-input>
-      </el-form-item>
-      <el-form-item prop="status" label="状态">
-        <el-radio-group v-model="editForm.status">
-          <el-radio-button :label="CommonStatus.Enable">
-            {{ statusEnum.getTagText(CommonStatus.Enable).text }}
-          </el-radio-button>
-          <el-radio-button :label="CommonStatus.Lock">
-            {{ statusEnum.getTagText(CommonStatus.Lock).text }}
-          </el-radio-button>
-        </el-radio-group>
-      </el-form-item>
+        </el-form-item>
+        <el-form-item v-if="!isButton()" label="路由名称">
+          <el-input
+            v-model="editForm.routeName"
+            placeholder="请输入路由名称"
+            clearable
+          ></el-input>
+        </el-form-item>
+        <el-form-item prop="status" label="状态">
+          <el-radio-group v-model="editForm.status">
+            <el-radio-button :label="CommonStatus.Enable">
+              {{ statusEnum.getTagText(CommonStatus.Enable).text }}
+            </el-radio-button>
+            <el-radio-button :label="CommonStatus.Lock">
+              {{ statusEnum.getTagText(CommonStatus.Lock).text }}
+            </el-radio-button>
+          </el-radio-group>
+        </el-form-item>
+      </div>
 
-      <el-form-item v-if="!isButton()" label="自定义视图">
-        <el-checkbox v-model="editForm.customViewPath" />
-      </el-form-item>
-      <el-form-item
-        v-if="editForm.customViewPath && !isButton()"
-        label="视图路径"
-        prop="viewPath"
-      >
-        <el-input
-          v-model="editForm.viewPath"
-          placeholder="请输入视图路径"
-          clearable
+      <in-form-group-title
+        v-if="!isButton()"
+        title="视图高级选项"
+        v-model="editForm.customViewPath"
+      />
+      <div p-20px v-if="editForm.customViewPath">
+        <el-form-item
+          v-if="editForm.customViewPath && !isButton()"
+          label="视图路径"
+          prop="viewPath"
         >
-        </el-input>
-      </el-form-item>
-      <el-form-item
-        v-if="editForm.customViewPath && !isButton() && isDirectory()"
-        label="默认布局"
-      >
-        <in-select
-          w-full
-          v-model="editForm.viewPath"
-          :options="LayoutOptions"
-          placeholder="选择使用默认布局"
-          clearable
-          @onChanged="privateOnLayoutSelectChanged"
-        />
-      </el-form-item>
+          <el-input
+            v-model="editForm.viewPath"
+            placeholder="请输入视图路径"
+            clearable
+          >
+          </el-input>
+        </el-form-item>
+        <el-form-item
+          v-if="editForm.customViewPath && !isButton() && isDirectory()"
+          label="默认布局"
+        >
+          <in-select
+            w-full
+            v-model="editForm.viewPath"
+            :options="LayoutOptions"
+            placeholder="选择使用默认布局"
+            clearable
+            @onChanged="privateOnLayoutSelectChanged"
+          />
+        </el-form-item>
+      </div>
 
-      <el-form-item v-if="!isButton()" label="高级选项">
-        <el-checkbox v-model="moreOptionsFlag" />
-      </el-form-item>
-
-      <el-row :gutter="20" v-if="!isButton() && moreOptionsFlag">
-        <el-col :span="6">
-          <el-form-item prop="cache" label="是否缓存">
-            <el-radio-group v-model="editForm.isCache">
-              <el-radio-button :label="true"> 是 </el-radio-button>
-              <el-radio-button :label="false"> 否 </el-radio-button>
-            </el-radio-group>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item prop="hidden" label="隐藏菜单">
-            <el-radio-group v-model="editForm.hidden">
-              <el-radio-button :label="true"> 是 </el-radio-button>
-              <el-radio-button :label="false"> 否 </el-radio-button>
-            </el-radio-group>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item prop="hideBreadcrumb" label="隐藏面包屑">
-            <el-radio-group v-model="editForm.hideBreadcrumb">
-              <el-radio-button :label="true"> 是 </el-radio-button>
-              <el-radio-button :label="false"> 否 </el-radio-button>
-            </el-radio-group>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item prop="props" label="匹配props">
-            <el-radio-group v-model="editForm.props">
-              <el-radio-button :label="true"> 是 </el-radio-button>
-              <el-radio-button :label="false"> 否 </el-radio-button>
-            </el-radio-group>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row :gutter="20" v-if="!isButton() && moreOptionsFlag">
-        <el-col :span="6">
-          <el-form-item prop="sort" label="排序">
-            <el-input
-              v-model="editForm.sort"
-              placeholder="请输入排序序号"
-              type="number"
-              clearable
-            ></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
+      <in-form-group-title
+        v-if="!isButton()"
+        title="其他高级选项"
+        v-model="moreOptionsFlag"
+      />
+      <div p-20px v-if="moreOptionsFlag">
+        <el-row :gutter="20" v-if="!isButton() && moreOptionsFlag">
+          <el-col :span="12">
+            <el-form-item prop="cache" label="是否缓存">
+              <el-radio-group v-model="editForm.isCache">
+                <el-radio-button :label="true"> 是 </el-radio-button>
+                <el-radio-button :label="false"> 否 </el-radio-button>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item prop="hidden" label="隐藏菜单">
+              <el-radio-group v-model="editForm.hidden">
+                <el-radio-button :label="true"> 是 </el-radio-button>
+                <el-radio-button :label="false"> 否 </el-radio-button>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20" v-if="!isButton() && moreOptionsFlag">
+          <el-col :span="12">
+            <el-form-item prop="hideBreadcrumb" label="隐藏面包屑">
+              <el-radio-group v-model="editForm.hideBreadcrumb">
+                <el-radio-button :label="true"> 是 </el-radio-button>
+                <el-radio-button :label="false"> 否 </el-radio-button>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item prop="props" label="匹配props">
+              <el-radio-group v-model="editForm.props">
+                <el-radio-button :label="true"> 是 </el-radio-button>
+                <el-radio-button :label="false"> 否 </el-radio-button>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20" v-if="!isButton() && moreOptionsFlag">
+          <el-col :span="12">
+            <el-form-item prop="sort" label="排序">
+              <el-input
+                v-model="editForm.sort"
+                placeholder="请输入排序序号"
+                type="number"
+                clearable
+              ></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </div>
     </in-form>
     <template #footer>
+      <in-button v-if="edit" type="danger" @click="privateOnRemoveClick">
+        删除
+      </in-button>
       <in-button
         :loading="loading"
         type="primary"
@@ -221,7 +235,7 @@ import {
   MenuType,
   useMenuTypeEnum,
 } from "@/models/enums";
-import { CreateMenuAPI, UpdateMenuAPI } from "@/api/basic/menu";
+import { CreateMenuAPI, UpdateMenuAPI, RemoveMenuAPI } from "@/api/basic/menu";
 import { Message } from "@/utils/message";
 import { copyParams, getDiff } from "@/utils/object";
 
@@ -278,14 +292,26 @@ const edit = ref(false);
 const canEditPid = ref(false);
 const visible = ref(false);
 
+const confirmDelete = useConfirmDelete(
+  transformDeleteAPI(RemoveMenuAPI),
+  () => {
+    emits("success");
+  }
+);
+
 const isDirectory = () => {
   return editForm.menuType == MenuType.Directory;
 };
+
 // const isMenu = () => {
 //   return editForm.menuType == MenuType.Menu;
 // };
 const isButton = () => {
   return editForm.menuType == MenuType.Button;
+};
+
+const privateOnRemoveClick = () => {
+  confirmDelete.exec(editForm.id!, `是否删除菜单${editForm.name}`);
 };
 
 const privateOnConfirmClick = () => {

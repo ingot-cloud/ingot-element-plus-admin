@@ -4,6 +4,7 @@ export const tableHeaders: Array<TableHeaderRecord> = [
   {
     label: "菜单名称",
     prop: "name",
+    width: "200",
   },
   {
     label: "菜单类型",
@@ -25,7 +26,6 @@ export const tableHeaders: Array<TableHeaderRecord> = [
   {
     label: "路由",
     prop: "path",
-    width: "300",
   },
   {
     label: "路由名称",

@@ -5,7 +5,7 @@
         {{ title }}
       </slot>
     </div>
-    <slot>
+    <slot v-if="!hideAction">
       <div v-if="!editFlag" class="edit" @click="editFlag = true">编辑</div>
       <div v-else class="cancel" @click="editFlag = false">取消</div>
     </slot>
@@ -18,6 +18,10 @@ const props = defineProps({
   },
   title: {
     type: String,
+  },
+  hideAction: {
+    type: Boolean,
+    default: false,
   },
 });
 const emits = defineEmits(["update:modelValue"]);

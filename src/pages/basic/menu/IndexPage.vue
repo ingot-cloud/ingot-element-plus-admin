@@ -65,17 +65,6 @@
           <template #icon> <i-ep:edit /> </template>
           编辑
         </in-button>
-        <in-button
-          type="danger"
-          text
-          link
-          @click="confirmDelete.exec(item.id, `是否删除菜单${item.name}`)"
-        >
-          <template #icon>
-            <i-ep:delete />
-          </template>
-          删除
-        </in-button>
       </template>
     </in-table>
   </in-container>
@@ -91,7 +80,7 @@ import { Icon } from "@iconify/vue";
 import { getMenuTypeIcon, useMenuTypeEnum } from "@/models/enums/menuEnums";
 import { tableHeaders } from "./table";
 import type { MenuTreeNode, SysMenu, AuthorityTreeNode } from "@/models";
-import { GetMenuTreeAPI, RemoveMenuAPI } from "@/api/basic/menu";
+import { GetMenuTreeAPI } from "@/api/basic/menu";
 import EditDrawer from "./EditDrawer.vue";
 import type { TableAPI } from "@/components/table";
 import { useAuthorityStore } from "@/stores/modules/authority";
@@ -133,11 +122,6 @@ const fetchData = () => {
 const showEditDialog = (params?: SysMenu | string) => {
   EditDrawerRef.value?.show(params);
 };
-
-const confirmDelete = useConfirmDelete(
-  transformDeleteAPI(RemoveMenuAPI),
-  fetchData
-);
 
 onMounted(() => {
   fetchData();
