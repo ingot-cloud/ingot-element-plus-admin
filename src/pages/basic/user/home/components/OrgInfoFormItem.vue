@@ -1,15 +1,13 @@
 <template>
   <div v-loading="loading">
-    <div class="title-container">
-      <div class="logo-title">
-        <img v-if="orgInfo.avatar" :src="orgInfo.avatar" class="avatar" />
-        <div class="title">{{ orgInfo.name }}</div>
-      </div>
-      <div>
-        <div v-if="!editFlag" class="edit" @click="editFlag = true">编辑</div>
-        <div v-else class="cancel" @click="editFlag = false">取消</div>
-      </div>
-    </div>
+    <in-form-group-title v-model="editFlag">
+      <template #title>
+        <div class="logo-title">
+          <img v-if="orgInfo.avatar" :src="orgInfo.avatar" class="avatar" />
+          <div class="title">{{ orgInfo.name }}</div>
+        </div>
+      </template>
+    </in-form-group-title>
 
     <div p-20px>
       <in-form
@@ -170,39 +168,19 @@ defineExpose({
 });
 </script>
 <style scoped lang="postcss">
-.title-container {
-  font-size: 12px;
-  line-height: 22px;
-  padding: 4px 20px;
-  background: #f2f2f6;
+.logo-title {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-
-  & .logo-title {
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-    grid-gap: 5px;
-    & .title {
-      font-size: 12px;
-      color: black;
-      font-weight: 500;
-    }
-    & .avatar {
-      height: 20px;
-      width: 20px;
-    }
+  gap: 5px;
+  grid-gap: 5px;
+  & .title {
+    font-size: 12px;
+    color: black;
+    font-weight: 500;
   }
-
-  & .edit {
-    cursor: pointer;
-    color: var(--in-color-primary);
-  }
-  & .cancel {
-    cursor: pointer;
-    color: var(--in-color-danger);
+  & .avatar {
+    height: 20px;
+    width: 20px;
   }
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
   <in-container>
-    <!-- :expandRowKeys="expandRowKeys" -->
     <in-table
       :loading="loading"
       :data="menuData"
@@ -8,8 +7,11 @@
       ref="tableRef"
       @refresh="fetchData"
     >
+      <template #title> 菜单管理 </template>
       <template #toolbar>
-        <in-button type="primary" @click="showEditDialog()"> 添加 </in-button>
+        <in-button type="primary" @click="showEditDialog()">
+          添加菜单
+        </in-button>
       </template>
       <template #menuType="{ item }">
         <Icon mr-2 :icon="getMenuTypeIcon(item.menuType)" />
@@ -77,8 +79,8 @@
       </template>
     </in-table>
   </in-container>
-  <EditDialog
-    ref="editDialogRef"
+  <EditDrawer
+    ref="EditDrawerRef"
     :selectData="selectData"
     :authorityData="authorityData"
     @success="fetchData"
@@ -90,14 +92,13 @@ import { getMenuTypeIcon, useMenuTypeEnum } from "@/models/enums/menuEnums";
 import { tableHeaders } from "./table";
 import type { MenuTreeNode, SysMenu, AuthorityTreeNode } from "@/models";
 import { GetMenuTreeAPI, RemoveMenuAPI } from "@/api/basic/menu";
-import EditDialog from "./EditDialog.vue";
-import type { API as EditDialogAPI } from "./EditDialog.vue";
+import EditDrawer from "./EditDrawer.vue";
 import type { TableAPI } from "@/components/table";
 import { useAuthorityStore } from "@/stores/modules/authority";
 
 const menuTypeEnum = useMenuTypeEnum();
 
-const editDialogRef = ref<EditDialogAPI>();
+const EditDrawerRef = ref();
 const tableRef = ref<TableAPI>();
 const loading = ref(false);
 const menuData = ref<Array<MenuTreeNode>>([]);
@@ -130,7 +131,7 @@ const fetchData = () => {
 };
 
 const showEditDialog = (params?: SysMenu | string) => {
-  editDialogRef.value?.show(params);
+  EditDrawerRef.value?.show(params);
 };
 
 const confirmDelete = useConfirmDelete(

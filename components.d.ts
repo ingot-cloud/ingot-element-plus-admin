@@ -118,6 +118,7 @@ declare module '@vue/runtime-core' {
     InFilterContainer: typeof import('./src/components/container/InFilterContainer.vue')['default']
     InFilterItem: typeof import('./src/components/container/InFilterItem.vue')['default']
     InForm: typeof import('./src/components/form/InForm.vue')['default']
+    InFormGroupTitle: typeof import('./src/components/form/InFormGroupTitle.vue')['default']
     InFullscreen: typeof import('./src/layouts/widgets/InFullscreen.vue')['default']
     InGlobalLoading: typeof import('./src/components/InGlobalLoading.vue')['default']
     InGlobalSetting: typeof import('./src/layouts/widgets/InGlobalSetting.vue')['default']
