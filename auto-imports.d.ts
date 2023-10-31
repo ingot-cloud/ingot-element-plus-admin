@@ -196,6 +196,7 @@ declare global {
   const useIconsCollection: typeof import('./src/hooks/web/useIcons')['useIconsCollection']
   const useIdle: typeof import('@vueuse/core')['useIdle']
   const useImage: typeof import('@vueuse/core')['useImage']
+  const useImageLoad: typeof import('./src/hooks/components/useImageLoad')['useImageLoad']
   const useInfiniteScroll: typeof import('@vueuse/core')['useInfiniteScroll']
   const useIntersectionObserver: typeof import('@vueuse/core')['useIntersectionObserver']
   const useInterval: typeof import('@vueuse/core')['useInterval']
@@ -506,6 +507,7 @@ declare module 'vue' {
     readonly useIconsCollection: UnwrapRef<typeof import('./src/hooks/web/useIcons')['useIconsCollection']>
     readonly useIdle: UnwrapRef<typeof import('@vueuse/core')['useIdle']>
     readonly useImage: UnwrapRef<typeof import('@vueuse/core')['useImage']>
+    readonly useImageLoad: UnwrapRef<typeof import('./src/hooks/components/useImageLoad')['useImageLoad']>
     readonly useInfiniteScroll: UnwrapRef<typeof import('@vueuse/core')['useInfiniteScroll']>
     readonly useIntersectionObserver: UnwrapRef<typeof import('@vueuse/core')['useIntersectionObserver']>
     readonly useInterval: UnwrapRef<typeof import('@vueuse/core')['useInterval']>
