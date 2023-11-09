@@ -197,10 +197,10 @@ const switchOrg = () => {
       height: var(--menu-control-height);
       width: 100%;
 
-      .title {
+      & .title {
         font-size: 12px;
       }
-      .icon {
+      & .icon {
         font-size: 14px;
       }
     }

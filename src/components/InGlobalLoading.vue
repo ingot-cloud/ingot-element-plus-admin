@@ -56,19 +56,27 @@ defineProps({
     & .in-global-loading-box-item:nth-child(7) {
       animation-delay: 0s;
     }
-    & .in-global-loading-box-item:nth-child(4),
-    .in-global-loading-box-item:nth-child(8) {
+    & .in-global-loading-box-item:nth-child(4) {
+      animation-delay: 0.1s;
+    }
+    & .in-global-loading-box-item:nth-child(8) {
       animation-delay: 0.1s;
     }
 
-    & .in-global-loading-box-item:nth-child(1),
-    .in-global-loading-box-item:nth-child(5),
-    .in-global-loading-box-item:nth-child(9) {
+    & .in-global-loading-box-item:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+    & .in-global-loading-box-item:nth-child(5) {
+      animation-delay: 0.2s;
+    }
+    & .in-global-loading-box-item:nth-child(9) {
       animation-delay: 0.2s;
     }
 
-    & .in-global-loading-box-item:nth-child(2),
-    .in-global-loading-box-item:nth-child(6) {
+    & .in-global-loading-box-item:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+    & .in-global-loading-box-item:nth-child(6) {
       animation-delay: 0.3s;
     }
 

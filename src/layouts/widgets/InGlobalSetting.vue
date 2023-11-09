@@ -45,7 +45,7 @@ const onClick = () => {
 .in-global-setting {
   width: var(--in-app-bar-icon-size);
   height: var(--in-app-bar-icon-size);
-  .icon {
+  & .icon {
     color: white;
     width: var(--in-app-bar-icon-size);
     height: var(--in-app-bar-icon-size);
@@ -59,7 +59,7 @@ const onClick = () => {
   border-bottom: 1px solid var(--in-border-color);
   padding: 5px 0;
   height: 30px;
-  .title {
+  & .title {
     flex: 1;
     font-size: 14px;
     color: var(--in-text-color);

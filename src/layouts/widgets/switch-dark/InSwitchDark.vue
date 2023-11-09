@@ -50,10 +50,6 @@ const toggleDark = useToggle(isDark);
     transition: border-color var(--in-transition-duration),
       background-color var(--in-transition-duration),
       transform var(--in-transition-duration);
-
-    .dark & {
-      transform: translateX(20px);
-    }
   }
 
   & .in-switch-dark__icon {
@@ -100,6 +96,11 @@ const toggleDark = useToggle(isDark);
 }
 
 html.dark {
+  & .in-switch-dark {
+    & .in-switch-dark__action {
+      transform: translateX(20px);
+    }
+  }
   & .in-switch-dark-dark-icon {
     opacity: 1;
   }
