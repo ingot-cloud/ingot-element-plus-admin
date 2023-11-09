@@ -14,6 +14,7 @@ import Unocss from "unocss/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import path from "path";
+import TopLevelAwait from "vite-plugin-top-level-await";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode, command, ssrBuild }) => {
@@ -68,6 +69,7 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
       }),
       // https://github.com/unocss/unocss
       Unocss(),
+      TopLevelAwait(),
     ],
     resolve: {
       alias: {
