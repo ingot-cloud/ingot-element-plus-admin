@@ -153,7 +153,7 @@ export const useUserInfoStore = defineStore("security.user", () => {
     userInfo.allows.find((item) => item.main)
   );
   const getUserInfoWhetherExist = computed(
-    () => userInfo.roles && userInfo.roles.length !== 0
+    () => userInfo.user && userInfo.user.phone
   );
   const getIsInitPwd = computed(() => {
     return userInfo.user && userInfo.user.initPwd;
