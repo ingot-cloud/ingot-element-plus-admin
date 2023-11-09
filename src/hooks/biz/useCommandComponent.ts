@@ -85,8 +85,8 @@ export const useCommandComponent = <T extends Component>(
     const vm = vNode.component?.proxy as ComponentPublicInstance<Options>;
     for (const prop in options) {
       if (Reflect.has(options, prop) && !Reflect.has(vm.$props, prop)) {
-        // Reflect.set(vm, prop as keyof ComponentPublicInstance, options[prop]);
-        vm[prop as keyof ComponentPublicInstance] = options[prop];
+        Reflect.set(vm, prop as keyof ComponentPublicInstance, options[prop]);
+        // vm[prop as keyof ComponentPublicInstance] = options[prop];
       }
     }
     return vNode;

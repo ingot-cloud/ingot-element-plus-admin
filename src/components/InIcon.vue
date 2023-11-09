@@ -16,8 +16,8 @@ const isIngotIcon = computed(
 );
 const icon = computed(() => {
   if (props.name && props.name.startsWith("ingot:")) {
-    return props.name.split(":")[1];
+    return props.name.split(":")[1] as string;
   }
-  return props.name;
+  return props.name as string;
 });
 </script>

@@ -34,7 +34,9 @@ export const useEnum = <T>(arr: Array<EnumExt<T>>): EnumObj<T> => {
     return result;
   };
   const getOpposite = (value: T): T => {
-    return arr.find((item) => item.value == value)?.oppositeValue || ("" as T);
+    return (
+      arr.find((item) => item.value == value)?.oppositeValue || ("" as any)
+    );
   };
 
   return { getTagText, getOptions, getOpposite };
