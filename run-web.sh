@@ -2,10 +2,9 @@
 
 version=0.1.0
 serviceName=ingot-admin-${version}
-imageName=docker-registry.wangchao.im/ingot/ingot-admin:${version}
+imageName=docker-registry.ingotcloud.top/ingot/web-admin:${version}
 
-VIRTUAL_HOST=ingot-admin.wangchao.im
-VIRTUAL_PORT=3000
+VIRTUAL_HOST=admin.ingotcloud.top
 
 # 停止运行当前容器
 docker ps -q --filter name="${serviceName}" | xargs -r docker rm -f

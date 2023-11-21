@@ -198,6 +198,7 @@ declare global {
   const useImage: typeof import('@vueuse/core')['useImage']
   const useImageLoad: typeof import('./src/hooks/components/useImageLoad')['useImageLoad']
   const useInfiniteScroll: typeof import('@vueuse/core')['useInfiniteScroll']
+  const useIngotWebTitle: typeof import('./src/hooks/web/useTitle')['useIngotWebTitle']
   const useIntersectionObserver: typeof import('@vueuse/core')['useIntersectionObserver']
   const useInterval: typeof import('@vueuse/core')['useInterval']
   const useIntervalFn: typeof import('@vueuse/core')['useIntervalFn']
@@ -274,7 +275,7 @@ declare global {
   const useTimeoutFn: typeof import('@vueuse/core')['useTimeoutFn']
   const useTimeoutPoll: typeof import('@vueuse/core')['useTimeoutPoll']
   const useTimestamp: typeof import('@vueuse/core')['useTimestamp']
-  const useTitle: typeof import('./src/hooks/web/useTitle')['useTitle']
+  const useTitle: typeof import('@vueuse/core')['useTitle']
   const useToNumber: typeof import('@vueuse/core')['useToNumber']
   const useToString: typeof import('@vueuse/core')['useToString']
   const useToggle: typeof import('@vueuse/core')['useToggle']
@@ -509,6 +510,7 @@ declare module 'vue' {
     readonly useImage: UnwrapRef<typeof import('@vueuse/core')['useImage']>
     readonly useImageLoad: UnwrapRef<typeof import('./src/hooks/components/useImageLoad')['useImageLoad']>
     readonly useInfiniteScroll: UnwrapRef<typeof import('@vueuse/core')['useInfiniteScroll']>
+    readonly useIngotWebTitle: UnwrapRef<typeof import('./src/hooks/web/useTitle')['useIngotWebTitle']>
     readonly useIntersectionObserver: UnwrapRef<typeof import('@vueuse/core')['useIntersectionObserver']>
     readonly useInterval: UnwrapRef<typeof import('@vueuse/core')['useInterval']>
     readonly useIntervalFn: UnwrapRef<typeof import('@vueuse/core')['useIntervalFn']>
@@ -585,7 +587,7 @@ declare module 'vue' {
     readonly useTimeoutFn: UnwrapRef<typeof import('@vueuse/core')['useTimeoutFn']>
     readonly useTimeoutPoll: UnwrapRef<typeof import('@vueuse/core')['useTimeoutPoll']>
     readonly useTimestamp: UnwrapRef<typeof import('@vueuse/core')['useTimestamp']>
-    readonly useTitle: UnwrapRef<typeof import('./src/hooks/web/useTitle')['useTitle']>
+    readonly useTitle: UnwrapRef<typeof import('@vueuse/core')['useTitle']>
     readonly useToNumber: UnwrapRef<typeof import('@vueuse/core')['useToNumber']>
     readonly useToString: UnwrapRef<typeof import('@vueuse/core')['useToString']>
     readonly useToggle: UnwrapRef<typeof import('@vueuse/core')['useToggle']>
