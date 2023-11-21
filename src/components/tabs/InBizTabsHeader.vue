@@ -14,7 +14,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import type { TabItem } from "./types.ts";
+import type { TabItem } from "./types";
 import type { PropType } from "vue";
 
 const emits = defineEmits(["update:modelValue", "changed"]);

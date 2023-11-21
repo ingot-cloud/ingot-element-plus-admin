@@ -78,3 +78,8 @@ export interface UserOrgInfoVO {
   deptIds?: Array<string>;
   roleIds?: Array<string>;
 }
+
+export interface UserQueryDTO extends SysUser {
+  roleId?: string;
+  deptId?: string;
+}

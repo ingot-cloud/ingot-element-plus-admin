@@ -57,6 +57,10 @@ export interface AppStore {
    * basic token
    */
   basicToken: string;
+  /**
+   * Bucket Name
+   */
+  bucketName: string;
 }
 
 /**

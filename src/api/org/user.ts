@@ -3,6 +3,7 @@ import type {
   UserPageItemVO,
   Page,
   UserDTO,
+  UserQueryDTO,
   OrgUserProfileVO,
   R,
   UserPasswordDTO,
@@ -42,7 +43,7 @@ export function FixPasswordAPI(params: UserPasswordDTO): Promise<R> {
  */
 export function UserPageAPI(
   page: Page,
-  condition?: UserDTO
+  condition?: UserQueryDTO
 ): Promise<R<Page<UserPageItemVO>>> {
   if (condition) {
     filterParams(condition);

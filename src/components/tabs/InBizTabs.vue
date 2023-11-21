@@ -7,7 +7,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { TabItem } from "./types.ts";
+import type { TabItem } from "./types";
 import { tabsRootContextKey } from "./constants";
 import { useOrderedChildren } from "element-plus";
 

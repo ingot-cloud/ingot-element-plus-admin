@@ -22,6 +22,7 @@ export const useAppStore = defineStore("app", () => {
         import.meta.env.VITE_APP_NET_DEFAULT_TIMEOUT_MESSAGE || undefined,
     },
     basicToken: `Basic ${import.meta.env.VITE_APP_BASIC_TOKEN}`,
+    bucketName: import.meta.env.VITE_APP_BUCKET_NAME,
   });
 
   const getBasicToken = computed(() => app.basicToken);
