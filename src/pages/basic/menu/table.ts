@@ -65,12 +65,14 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     prop: "isCache",
     width: "100",
     align: "center",
+    hide: true,
   },
   {
     label: "匹配props",
     prop: "props",
     width: "100",
     align: "center",
+    hide: true,
   },
   {
     label: "状态",

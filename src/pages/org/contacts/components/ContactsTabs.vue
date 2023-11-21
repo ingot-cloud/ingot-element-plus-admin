@@ -31,17 +31,17 @@ const onItemClick = (tab: string) => {
   switch (tab) {
     case "成员":
       go({
-        path: "/contacts/member",
+        path: "/org/contacts/member",
       });
       break;
     case "部门":
       go({
-        path: "/contacts/dept",
+        path: "/org/contacts/dept",
       });
       break;
     case "角色":
       go({
-        path: "/contacts/role",
+        path: "/org/contacts/role",
       });
       break;
   }

@@ -56,7 +56,7 @@
   <AddMemberDialog ref="AddMemberDialogRef" @success="userOps.fetchUserData" />
 </template>
 <script lang="ts" setup>
-import ContactsTabs from "@/pages/contacts/components/ContactsTabs.vue";
+import ContactsTabs from "@/pages/org/contacts/components/ContactsTabs.vue";
 import LeftContent from "./components/LeftContent.vue";
 import { useUserOps } from "./useUserOps";
 import { tableHeaders } from "./table";

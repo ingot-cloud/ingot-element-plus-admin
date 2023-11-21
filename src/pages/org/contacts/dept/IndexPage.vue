@@ -70,7 +70,7 @@
   <EditDrawer ref="EditDrawerRef" :selectData="deptTree" @success="fetchData" />
 </template>
 <script lang="ts" setup>
-import ContactsTabs from "@/pages/contacts/components/ContactsTabs.vue";
+import ContactsTabs from "@/pages/org/contacts/components/ContactsTabs.vue";
 import { tableHeaders } from "./table";
 import type { SysDept } from "@/models";
 import { useDeptStore } from "@/stores/modules/org/dept";
