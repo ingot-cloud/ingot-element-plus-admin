@@ -59,7 +59,7 @@
           <el-dropdown
             trigger="hover"
             class="action"
-            v-if="data.type == RoleType.Custom"
+            v-if="data.type == OrgTypeEnums.Custom"
           >
             <div class="action-icon">
               <in-icon name="icon-park-outline:more" cursor-pointer />
@@ -85,7 +85,7 @@
 </template>
 <script setup lang="ts">
 import { TreeKeyAndProps } from "@/models";
-import { RoleType } from "@/models/enums";
+import { OrgTypeEnums } from "@/models/enums";
 import { Search } from "@element-plus/icons-vue";
 import { useRoleStore } from "@/stores/modules/org/role";
 import type { RoleGroupItemVO, Option } from "@/models";

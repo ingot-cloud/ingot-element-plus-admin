@@ -50,7 +50,7 @@ const show = ref(false);
 const id = ref();
 
 const rules = {
-  name: [{ required: true, message: "请输入角色组名称", trigger: "blur" }],
+  name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
   groupId: [{ required: true, message: "请选择角色组", trigger: "blur" }],
 };
 
