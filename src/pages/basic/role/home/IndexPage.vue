@@ -56,7 +56,6 @@
       </template>
     </in-table>
 
-    <EditDrawer ref="EditDrawerRef" @success="refreshData" />
     <RoleDrawer
       ref="RoleDrawerRef"
       :groupList="groupList"
@@ -74,7 +73,6 @@ import { useOrgTypeEnums } from "@/models/enums";
 import RoleDrawer from "../components/RoleDrawer.vue";
 import RoleGroupDrawer from "../components/RoleGroupDrawer.vue";
 
-const EditDrawerRef = ref();
 const RoleDrawerRef = ref();
 const RoleGroupDrawerRef = ref();
 const tableRef = ref<TableAPI>();

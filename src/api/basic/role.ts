@@ -102,7 +102,3 @@ export function GetBindAuthoritiesAPI(
     }
   );
 }
-
-export function BindUserAPI(params: RoleBindParams): Promise<R<void>> {
-  return request.put<void>("/api/pms/v1/admin/role/bindUser", params);
-}
