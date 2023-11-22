@@ -5,7 +5,6 @@ import type {
   RoleGroupItemVO,
   SysRole,
   RoleFilterDTO,
-  Page,
   R,
   RoleBindParams,
   SysAuthority,
@@ -45,19 +44,6 @@ export function RoleListAPI(
     filterParams(condition);
   }
   return request.get<Array<RolePageItemVO>>("/api/pms/v1/admin/role/list", {
-    ...condition,
-  });
-}
-
-export function RolePageAPI(
-  page: Page,
-  condition?: SysRole
-): Promise<R<Page<RolePageItemVO>>> {
-  if (condition) {
-    filterParams(condition);
-  }
-  return request.get<Page<RolePageItemVO>>("/api/pms/v1/admin/role/page", {
-    ...page,
     ...condition,
   });
 }

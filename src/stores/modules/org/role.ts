@@ -3,14 +3,11 @@ import type {
   RolePageItemVO,
   RoleGroupItemVO,
   SysRoleGroup,
-  Page,
-  R,
   Option,
 } from "@/models";
 import {
   RoleOptionsAPI,
   RoleListAPI,
-  RolePageAPI,
   RoleGroupListAPI,
   CreateRoleAPI,
   UpdateRoleAPI,
@@ -61,18 +58,6 @@ export const useRoleStore = defineStore("org.role", () => {
       RoleGroupListAPI()
         .then((response) => {
           resolve(response.data);
-        })
-        .catch((e) => {
-          reject(e);
-        });
-    });
-  };
-
-  const fetchRolePage = (page: Page, condition?: SysRole) => {
-    return new Promise<R<Page<RolePageItemVO>>>((resolve, reject) => {
-      RolePageAPI(page, condition)
-        .then((response) => {
-          resolve(response);
         })
         .catch((e) => {
           reject(e);
@@ -172,7 +157,6 @@ export const useRoleStore = defineStore("org.role", () => {
     fetchRoleOptions,
     fetchRoleGroupList,
     fetchRoleList,
-    fetchRolePage,
     createRole,
     updateRole,
     removeRole,
