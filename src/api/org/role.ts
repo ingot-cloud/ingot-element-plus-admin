@@ -3,6 +3,7 @@ import type {
   RolePageItemVO,
   SysRoleGroup,
   SysRole,
+  RoleFilterDTO,
   Page,
   R,
   RoleBindParams,
@@ -16,8 +17,15 @@ export function RoleOptionsAPI() {
   return request.get<Array<Option<string>>>("/api/pms/v1/org/role/options");
 }
 
-export function RoleGroupListAPI(): Promise<R<Array<SysRoleGroup>>> {
-  return request.get<Array<SysRoleGroup>>("/api/pms/v1/org/role/group/list");
+export function RoleGroupListAPI(
+  filter?: RoleFilterDTO
+): Promise<R<Array<SysRoleGroup>>> {
+  if (filter) {
+    filterParams(filter);
+  }
+  return request.get<Array<SysRoleGroup>>("/api/pms/v1/org/role/group/list", {
+    ...filter,
+  });
 }
 
 export function RoleListAPI(

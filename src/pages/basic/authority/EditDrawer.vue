@@ -73,7 +73,7 @@ export interface API {
 import type { SysAuthority } from "@/models";
 import { TreeKeyAndProps } from "@/models";
 import { useAuthorityStore } from "@/stores/modules/authority";
-import { useAuthorityTypeEnum } from "@/models/enums";
+import { useOrgTypeEnums } from "@/models/enums";
 import { Message } from "@/utils/message";
 import {
   copyParams,
@@ -115,7 +115,7 @@ const canEditPid = ref(false);
 const visible = ref(false);
 
 const authorityStore = useAuthorityStore();
-const authorityTypeEnum = useAuthorityTypeEnum();
+const authorityTypeEnum = useOrgTypeEnums();
 const confirmDelete = useConfirmDelete(authorityStore.removeAuthority, () => {
   Message.success("操作成功");
   visible.value = false;

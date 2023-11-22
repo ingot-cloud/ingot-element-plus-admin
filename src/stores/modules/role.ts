@@ -3,6 +3,7 @@ import type {
   RolePageItemVO,
   RoleGroupItemVO,
   SysRoleGroup,
+  RoleFilterDTO,
   Page,
   R,
   Option,
@@ -71,9 +72,9 @@ export const useRoleStore = defineStore("role", () => {
     });
   };
 
-  const fetchRoleGroupList = () => {
+  const fetchRoleGroupList = (filter?: RoleFilterDTO) => {
     return new Promise<Array<RoleGroupItemVO>>((resolve, reject) => {
-      RoleGroupListAPI()
+      RoleGroupListAPI(filter)
         .then((response) => {
           resolve(response.data);
         })

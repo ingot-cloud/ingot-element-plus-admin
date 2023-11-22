@@ -49,7 +49,7 @@ import type { RolePageItemVO, SysRole } from "@/models";
 import { Message } from "@/utils/message";
 import { copyParams, copyParamsWithKeys } from "@/utils/object";
 import { useRoleStore } from "@/stores/modules/role";
-import { useRoleTypeEnum } from "@/models/enums/roleEnums";
+import { useOrgTypeEnums } from "@/models/enums";
 
 const rules = {
   name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
@@ -77,7 +77,7 @@ const loading = ref(false);
 const roleEditFormRef = ref();
 const editForm = reactive(Object.assign({}, defaultEditForm));
 
-const roleTypeEnum = useRoleTypeEnum();
+const roleTypeEnum = useOrgTypeEnums();
 const roleStore = useRoleStore();
 const confirmDelete = useConfirmDelete(roleStore.removeRole, () => {
   Message.success("操作成功");

@@ -36,6 +36,8 @@ export interface RoleBindParams {
 export interface RoleGroupItemVO {
   id?: string;
   name?: string;
+  code?: string;
+  status?: string;
   isGroup?: boolean;
   groupId?: string;
   type?: string;
@@ -47,4 +49,9 @@ export interface SysRoleGroup {
   name?: string;
   sort?: string;
   type?: string;
+}
+
+export interface RoleFilterDTO {
+  roleName?: string;
+  roleType?: string;
 }

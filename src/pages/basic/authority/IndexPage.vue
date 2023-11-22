@@ -51,7 +51,7 @@
 <script lang="ts" setup>
 import { tableHeaders } from "./table";
 import type { SysAuthority, AuthorityTreeNode } from "@/models";
-import { useAuthorityTypeEnum } from "@/models/enums";
+import { useOrgTypeEnums } from "@/models/enums";
 import EditDrawer from "./EditDrawer.vue";
 import type { TableAPI } from "@/components/table";
 import { useAuthorityStore } from "@/stores/modules/authority";
@@ -60,7 +60,7 @@ onMounted(() => {
   fetchData();
 });
 
-const authorityTypeEnum = useAuthorityTypeEnum();
+const authorityTypeEnum = useOrgTypeEnums();
 const loading = ref(false);
 const EditDrawerRef = ref();
 const tableRef = ref<TableAPI>();
