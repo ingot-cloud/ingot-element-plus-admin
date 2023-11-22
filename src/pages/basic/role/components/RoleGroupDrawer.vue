@@ -18,6 +18,7 @@
       <el-form-item label="类型" prop="type">
         <in-select
           w-full
+          :disabled="isEdit"
           v-model="editForm.type"
           placeholder="请选择类型"
           :options="roleTypeEnum.getOptions()"

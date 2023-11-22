@@ -53,32 +53,6 @@
           </template>
           编辑
         </in-button>
-        <!-- <common-status-button
-          :status="item.status"
-          text
-          link
-          @click="
-            confirmStatus.exec(item.id, item.status, `角色(${item.name})`)
-          "
-        >
-        </common-status-button>
-        <el-dropdown v-if="!item.isGroup" @command="handleBindCommand" m-l-10px>
-          <in-button>
-            <template #icon>
-              <i-material-symbols:expand-more-rounded />
-            </template>
-            更多
-          </in-button>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item
-                :command="{ data: item, type: 'bindauthority' }"
-              >
-                关联权限
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown> -->
       </template>
     </in-table>
 
@@ -94,11 +68,9 @@
 <script lang="ts" setup>
 import { tableHeaders } from "./table";
 import type { RoleGroupItemVO, Option, RoleFilterDTO } from "@/models";
-import EditDrawer from "./EditDrawer.vue";
 import type { TableAPI } from "@/components/table";
 import { useRoleStore } from "@/stores/modules/role";
 import { useOrgTypeEnums } from "@/models/enums";
-import router from "@/router";
 import RoleDrawer from "../components/RoleDrawer.vue";
 import RoleGroupDrawer from "../components/RoleGroupDrawer.vue";
 
@@ -159,22 +131,6 @@ const handleEdit = (params: RoleGroupItemVO): void => {
   } else {
     RoleDrawerRef.value.show(params);
   }
-};
-
-const handleBindCommand = (params: {
-  type: string;
-  data: RoleGroupItemVO;
-}): void => {
-  const type = params.type;
-  const data = params.data;
-  const roleId = data.id;
-
-  router.push({
-    path: `/basic/role/${type}/${roleId}`,
-    query: {
-      name: data.name,
-    },
-  });
 };
 
 onMounted(() => {

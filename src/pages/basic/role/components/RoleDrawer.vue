@@ -36,6 +36,7 @@
       <el-form-item label="类型" prop="type">
         <in-select
           w-full
+          :disabled="isEdit"
           v-model="editForm.type"
           placeholder="请选择类型"
           :options="roleTypeEnum.getOptions()"
@@ -44,6 +45,9 @@
       </el-form-item>
     </el-form>
     <template #footer>
+      <in-button v-if="isEdit" type="success" @click="handleBindCommand">
+        关联权限
+      </in-button>
       <common-status-button
         v-if="isEdit"
         :status="editForm.status"
@@ -101,6 +105,7 @@ defineProps({
   },
 });
 
+const go = useGo();
 const roleStore = useRoleStore();
 const roleTypeEnum = useOrgTypeEnums();
 
@@ -118,6 +123,18 @@ const confirmDelete = useConfirmDelete(roleStore.removeRole, () => {
   show.value = false;
   emits("success");
 });
+
+const handleBindCommand = (): void => {
+  const type = "bindauthority";
+  const roleId = editForm.id;
+
+  go({
+    path: `/basic/role/${type}/${roleId}`,
+    query: {
+      name: editForm.name,
+    },
+  });
+};
 
 const handleRemoveClick = () => {
   confirmDelete.exec(editForm.id!, `是否删除角色(${editForm.name})`);
