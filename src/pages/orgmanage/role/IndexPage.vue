@@ -20,7 +20,6 @@
 </template>
 <script lang="ts" setup>
 import LeftContent from "./components/LeftContent.vue";
-import { useUserOps } from "./useUserOps";
 import { tableHeaders } from "./table";
 import { GetBindAuthoritiesAPI, BindAuthorityAPI } from "@/api/basic/role";
 import type {
@@ -34,8 +33,6 @@ import UnbindView from "./components/UnbindView.vue";
 
 const id = ref("");
 const UnbindViewRef = ref();
-const userOps = useUserOps();
-const confirm = useMessageConfirm();
 
 const handleTreeNodeClick = (node: RoleGroupItemVO): void => {
   id.value = node.id!;
