@@ -22,8 +22,8 @@
       :loading="loading"
       :data="roleTree"
       ref="tableRef"
-      rowKey="customId"
       :headers="tableHeaders"
+      :expandRowKeys="groupList.map((item) => item.value)"
       @refresh="refreshData"
     >
       <template #title> 角色管理 </template>
