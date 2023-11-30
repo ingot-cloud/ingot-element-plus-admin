@@ -65,9 +65,9 @@
       <template #actions="{ item }">
         <in-button type="primary" text link @click="handleEdit(item)">
           <template #icon>
-            <i-ep:edit />
+            <i-mdi:card-account-details-outline />
           </template>
-          编辑
+          详情
         </in-button>
         <common-status-button
           :status="item.status"

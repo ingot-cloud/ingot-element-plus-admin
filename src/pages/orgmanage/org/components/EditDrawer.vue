@@ -1,41 +1,22 @@
 <template>
-  <in-drawer :title="title" v-model="visible">
-    <in-form ref="editFormRef" :model="editForm" :rules="rules">
-      <el-form-item label="logo">
-        <in-common-upload-avatar
-          dir="public/tenant"
-          v-model="editForm.avatar"
-        />
-      </el-form-item>
-      <el-form-item label="组织名称" prop="name">
-        <el-input
-          v-model="editForm.name"
-          clearable
-          placeholder="请输入组织名称"
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="组织编码" prop="code">
-        <el-input
-          disabled
-          v-model="editForm.code"
-          clearable
-          placeholder="请输入组织编码"
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="周期" prop="daterange">
-        <el-date-picker
-          v-model="editForm.daterange"
-          type="daterange"
-          range-separator="至"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-          value-format="YYYY-MM-DD"
-        >
-        </el-date-picker>
-      </el-form-item>
-    </in-form>
+  <in-drawer :title="title" v-model="visible" padding="0" :loading="loading">
+    <in-biz-tabs v-model="currentTab">
+      <in-biz-tab-panel title="基础信息" :name="TabNameBase">
+        <BaseInfoForm ref="BaseInfoFormRef" />
+      </in-biz-tab-panel>
+      <in-biz-tab-panel title="应用信息" :name="TabNameApp">
+        <AppInfo ref="AppInfoRef" />
+      </in-biz-tab-panel>
+    </in-biz-tabs>
+
     <template #footer>
-      <in-button type="danger" @click="handleRemoveClick"> 删除 </in-button>
+      <in-button
+        type="danger"
+        v-if="currentTab == TabNameBase"
+        @click="handleRemoveClick"
+      >
+        删除
+      </in-button>
       <in-button :loading="loading" type="primary" @click="handleConfirmClick">
         确定
       </in-button>
@@ -45,41 +26,26 @@
 <script lang="ts" setup>
 import type { SysTenant } from "@/models";
 import { Message } from "@/utils/message";
-import { copyParams, copyParamsWithoutKeys } from "@/utils/object";
 import { useTenantStore } from "@/stores/modules/tenant";
+import { OrgApplicationAPI } from "@/api/basic/application";
+import BaseInfoForm from "./BaseInfoForm.vue";
+import AppInfo from "./AppInfo.vue";
 
-const rules = {
-  name: [{ required: true, message: "请输入组织名称", trigger: "blur" }],
-  code: [{ required: true, message: "请输入组织编码", trigger: "blur" }],
-  daterange: [{ required: false }],
-};
+const TabNameBase = "1";
+const TabNameApp = "2";
+const currentTab = ref(TabNameBase);
 
-const defaultEditForm: {
-  id?: string;
-  name?: string;
-  code?: string;
-  startAt?: string;
-  endAt?: string;
-  daterange?: [string, string];
-  avatar?: string;
-} = {
-  id: undefined,
-  name: undefined,
-  code: undefined,
-  startAt: undefined,
-  endAt: undefined,
-  daterange: ["", ""],
-  avatar: undefined,
-};
+const BaseInfoFormRef = ref();
+const AppInfoRef = ref();
 
 const emits = defineEmits(["success"]);
 
-const editFormRef = ref();
-const editForm = reactive(Object.assign({}, defaultEditForm));
+const tenant = ref<SysTenant>({});
 const loading = ref(false);
 const title = ref("编辑组织");
 const visible = ref(false);
 const tenantStore = useTenantStore();
+const message = useMessage();
 
 const confirmDelete = useConfirmDelete(tenantStore.removeTenant, () => {
   Message.success("操作成功");
@@ -88,55 +54,56 @@ const confirmDelete = useConfirmDelete(tenantStore.removeTenant, () => {
 });
 
 const handleRemoveClick = () => {
-  confirmDelete.exec(editForm.id!, `是否删除组织(${editForm.name})`);
+  confirmDelete.exec(tenant.value.id!, `是否删除组织(${tenant.value.name})`);
 };
 
 const handleConfirmClick = () => {
-  const form = unref(editFormRef);
-  form.validate((valid: boolean) => {
-    if (valid) {
-      loading.value = true;
-      const params: SysTenant = {};
-      copyParamsWithoutKeys(params, toRaw(editForm), ["daterange"]);
-
-      if (editForm.daterange && editForm.daterange.length > 1) {
-        params.startAt = editForm.daterange[0];
-        params.endAt = editForm.daterange[1];
-      } else {
-        params.startAt = undefined;
-        params.endAt = undefined;
-      }
-
-      tenantStore
-        .updateTenant(params)
-        .then(() => {
-          loading.value = false;
-          Message.success("操作成功");
-          visible.value = false;
-          emits("success");
+  switch (currentTab.value) {
+    case TabNameBase:
+      BaseInfoFormRef.value
+        .getData()
+        .then((params: SysTenant) => {
+          loading.value = true;
+          tenantStore
+            .updateTenant(params)
+            .then(() => {
+              loading.value = false;
+              visible.value = false;
+              message.success("操作成功");
+              emits("success");
+            })
+            .catch(() => {
+              loading.value = false;
+            });
         })
         .catch(() => {
-          loading.value = false;
+          message.warning("数据未修改");
         });
-    }
-  });
+      break;
+  }
+};
+
+const fetchData = (data: SysTenant) => {
+  loading.value = true;
+  OrgApplicationAPI(data.id!)
+    .then((response) => {
+      loading.value = false;
+      nextTick(() => {
+        BaseInfoFormRef.value.setData(data);
+        AppInfoRef.value.setData(response.data);
+      });
+    })
+    .catch(() => {
+      loading.value = false;
+    });
 };
 
 defineExpose({
   show(data: SysTenant) {
     visible.value = true;
-
-    // 重置数据
-    copyParams(editForm, defaultEditForm);
-    nextTick(() => {
-      const form = unref(editFormRef);
-      form.clearValidate();
-    });
-
-    copyParams(editForm, data);
-    if (data.startAt && data.endAt) {
-      editForm.daterange = [data.startAt, data.endAt];
-    }
+    tenant.value = data;
+    currentTab.value = TabNameBase;
+    fetchData(data);
   },
 });
 </script>

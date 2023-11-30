@@ -53,25 +53,3 @@ defineExpose({
   },
 });
 </script>
-<style scoped lang="postcss">
-.title-container {
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 22px;
-  padding: 4px 20px;
-  background: #f2f2f6;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-
-  & .edit {
-    cursor: pointer;
-    color: var(--in-color-primary);
-  }
-  & .cancel {
-    cursor: pointer;
-    color: var(--in-color-danger);
-  }
-}
-</style>
