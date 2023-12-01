@@ -25,7 +25,6 @@
 </template>
 <script lang="ts" setup>
 import type { SysTenant } from "@/models";
-import { Message } from "@/utils/message";
 import { useTenantStore } from "@/stores/modules/tenant";
 import { OrgApplicationAPI } from "@/api/basic/application";
 import BaseInfoForm from "./BaseInfoForm.vue";
@@ -48,7 +47,6 @@ const tenantStore = useTenantStore();
 const message = useMessage();
 
 const confirmDelete = useConfirmDelete(tenantStore.removeTenant, () => {
-  Message.success("操作成功");
   visible.value = false;
   emits("success");
 });
