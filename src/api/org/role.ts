@@ -86,27 +86,6 @@ export function GroupSortAPI(ids: Array<string>): Promise<R<void>> {
   });
 }
 
-export function BindAuthorityAPI(params: RoleBindParams): Promise<R<void>> {
-  return request.put<void>("/api/pms/v1/org/role/bindAuthority", params);
-}
-
-export function GetBindAuthoritiesAPI(
-  id: string,
-  isBind: boolean,
-  condition?: SysAuthority
-): Promise<R<Array<AuthorityTreeNode>>> {
-  if (condition) {
-    filterParams(condition);
-  }
-  return request.get<Array<AuthorityTreeNode>>(
-    `/api/pms/v1/org/role/bindAuthority/${id}`,
-    {
-      isBind,
-      ...condition,
-    }
-  );
-}
-
 export function BindUserAPI(params: RoleBindParams): Promise<R<void>> {
   return request.put<void>("/api/pms/v1/org/role/bindUser", params);
 }

@@ -25,6 +25,10 @@ const tabs = ref([
     id: "角色",
     title: "角色",
   },
+  {
+    id: "权限",
+    title: "权限",
+  },
 ]);
 const go = useGo();
 const onItemClick = (tab: string) => {
@@ -42,6 +46,11 @@ const onItemClick = (tab: string) => {
     case "角色":
       go({
         path: "/org/contacts/role",
+      });
+      break;
+    case "权限":
+      go({
+        path: "/org/contacts/auth",
       });
       break;
   }
