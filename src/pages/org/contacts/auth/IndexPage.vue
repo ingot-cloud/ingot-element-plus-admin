@@ -23,7 +23,7 @@
       </template>
       <template #toolbar>
         <in-button
-          v-if="ops.currentNode.name"
+          v-if="ops.currentNode.name && !isRoleManager(ops.currentNode.code!)"
           type="primary"
           @click="privateAddAuth"
         >
@@ -31,7 +31,10 @@
         </in-button>
       </template>
       <template #actions="{ item }">
-        <in-button-delete @click="privateHandleDelete(item)" />
+        <in-button-delete
+          v-if="!isRoleManager(ops.currentNode.code!)"
+          @click="privateHandleDelete(item)"
+        />
       </template>
     </in-table>
   </in-filter-container>
@@ -51,6 +54,7 @@ import { useOps } from "./useOps";
 import { tableHeaders } from "./table";
 import { BindAuthorityAPI } from "@/api/org/auth";
 import AddAuthDrawer from "./components/AddAuthDrawer.vue";
+import { isRoleManager } from "@/constants/role";
 
 const AddAuthDrawerRef = ref();
 

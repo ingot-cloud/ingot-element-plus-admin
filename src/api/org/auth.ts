@@ -1,7 +1,5 @@
 import request from "@/net";
 import type {
-  SysRoleGroup,
-  SysRole,
   R,
   RoleBindParams,
   SysAuthority,

@@ -7,8 +7,6 @@ import type {
   Page,
   R,
   RoleBindParams,
-  SysAuthority,
-  AuthorityTreeNode,
   Option,
 } from "@/models";
 import { filterParams } from "@/utils/object";
