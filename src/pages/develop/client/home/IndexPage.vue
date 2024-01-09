@@ -35,16 +35,17 @@
       @refresh="paging.exec"
     >
       <template #toolbar>
-        <in-button type="primary" @click="handleCreate()"> 创建 </in-button>
+        <in-button type="primary" @click="handleCreate()">
+          添加客户端
+        </in-button>
       </template>
-      <template #scopes="{ item }">
-        <el-tag
-          style="margin: 1px"
-          v-for="scope in stringToArray(item.scopes)"
-          :key="scope"
-        >
-          {{ scope }}
+      <template #requireProofKey="{ item }">
+        <el-tag :type="item.requireProofKey ? '' : 'danger'">
+          {{ item.requireProofKey ? "是" : "否" }}
         </el-tag>
+      </template>
+      <template #accessTokenTimeToLive="{ item }">
+        <el-tag> {{ item.accessTokenTimeToLive }}秒 </el-tag>
       </template>
       <template #tokenAuthType="{ item }">
         <in-tag :value="tokenAuthMethodEnum.getTagText(item.tokenAuthType)" />
@@ -53,51 +54,23 @@
         <common-status-tag :status="item.status" />
       </template>
       <template #actions="{ item }">
-        <in-button type="primary" text link @click="handleManager(item)">
+        <in-button type="primary" text link @click="handleDetails(item)">
           <template #icon>
-            <i-material-symbols:vpn-key-outline-rounded />
+            <in-icon name="bx:detail" />
           </template>
-          管理
-        </in-button>
-        <common-status-button
-          text
-          link
-          :status="item.status"
-          @click="
-            confirmStatus.exec(item.id, item.status, `客户端(${item.clientId})`)
-          "
-        />
-        <in-button
-          text
-          link
-          type="danger"
-          @click="
-            confirmDelete.exec(item.id, `是否删除客户端(${item.clientId})`)
-          "
-        >
-          <template #icon>
-            <i-ep:delete />
-          </template>
-          删除
+          详情
         </in-button>
       </template>
     </in-table>
   </in-filter-container>
-  <CreateDialog ref="CreateDialogRef" @success="paging.exec" />
+  <EditDrawer ref="EditDrawerRef" @success="paging.exec" />
 </template>
 <script lang="ts" setup>
 import { tableHeaders } from "./table";
 import type { OAuth2RegisteredClient } from "@/models";
 import { useTokenAuthMethodEnum } from "@/models/enums";
-import {
-  ClientPageAPI,
-  UpdateClientAPI,
-  RemoveClientAPI,
-} from "@/api/basic/client";
-
-import CreateDialog from "./CreateDialog.vue";
-import type { API as CreateDialogAPI } from "./CreateDialog.vue";
-import router from "@/router";
+import { ClientPageAPI } from "@/api/basic/client";
+import EditDrawer from "./EditDrawer.vue";
 
 onMounted(() => {
   paging.exec();
@@ -105,35 +78,13 @@ onMounted(() => {
 
 const tokenAuthMethodEnum = useTokenAuthMethodEnum();
 
-const CreateDialogRef = ref<CreateDialogAPI>();
+const EditDrawerRef = ref();
 const paging = usePaging(transformPageAPI(ClientPageAPI));
-const confirmStatus = useConfirmStatus(
-  transformUpdateAPI(UpdateClientAPI),
-  paging.exec
-);
-const confirmDelete = useConfirmDelete(
-  transformDeleteAPI(RemoveClientAPI),
-  paging.exec
-);
 
-const handleCreate = (): void => {
-  CreateDialogRef.value?.show();
+const handleDetails = (item: OAuth2RegisteredClient): void => {
+  EditDrawerRef.value?.show(item);
 };
-
-const handleManager = (params: OAuth2RegisteredClient): void => {
-  router.push({
-    path: `/develop/client/details/${params.id}`,
-  });
-};
-
-const stringToArray = (target: string, split = ",") => {
-  if (!target) {
-    return [];
-  }
-  const arr = target.split(split);
-  if (!arr || arr.length === 0) {
-    return null;
-  }
-  return arr;
+const handleCreate = () => {
+  EditDrawerRef.value?.show();
 };
 </script>

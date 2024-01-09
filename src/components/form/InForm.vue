@@ -10,8 +10,8 @@ defineExpose({
   validate(fn: (valid: boolean) => void) {
     inElForm.value.validate(fn);
   },
-  resetField() {
-    inElForm.value.resetField();
+  resetFields() {
+    inElForm.value.resetFields();
   },
   clearValidate() {
     inElForm.value.clearValidate();
