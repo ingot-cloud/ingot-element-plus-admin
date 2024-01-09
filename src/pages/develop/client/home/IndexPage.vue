@@ -122,7 +122,7 @@ const handleCreate = (): void => {
 
 const handleManager = (params: OAuth2RegisteredClient): void => {
   router.push({
-    path: `/basic/client/details/${params.id}`,
+    path: `/develop/client/details/${params.id}`,
   });
 };
 

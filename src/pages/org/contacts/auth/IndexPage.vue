@@ -41,9 +41,9 @@
 
   <AddAuthDrawer
     ref="AddAuthDrawerRef"
-    :id="ops.currentNode.id"
+    :id="ops.currentNode.id!"
     :bindIds="stretch(ops.records.value)"
-    :title="ops.currentNode.name"
+    :title="ops.currentNode.name!"
     @success="ops.fetchData"
   />
 </template>
