@@ -9,18 +9,15 @@
         :rules="rules"
         :disabled="isEdit && !editFlag"
       >
-        <el-form-item label="客户端ID" prop="clientId">
+        <el-form-item v-if="isEdit" label="客户端ID" prop="clientId">
           <el-input
             :disabled="isEdit"
             v-model="editForm.clientId"
             placeholder="请输入客户端ID"
           ></el-input>
         </el-form-item>
-        <el-form-item v-if="!isEdit" label="客户端秘钥" prop="clientSecret">
-          <el-input
-            v-model="editForm.clientSecret"
-            placeholder="请输入客户端秘钥"
-          ></el-input>
+        <el-form-item v-if="isEdit" label="客户端秘钥" prop="clientSecret">
+          <in-button @click="handleResetSecret">重置秘钥</in-button>
         </el-form-item>
         <el-form-item label="客户端名称" prop="clientName">
           <el-input
@@ -128,9 +125,10 @@
       <in-button type="primary" @click="handleActionButton">确定</in-button>
     </template>
   </in-drawer>
+  <SecretDialog ref="SecretDialogRef" />
 </template>
 <script setup lang="ts">
-import type { OAuth2RegisteredClient } from "@/models";
+import type { OAuth2RegisteredClient, AppSecretVO } from "@/models";
 import {
   useTokenAuthMethodEnum,
   useAuthorizedGrantTypeEnum,
@@ -143,7 +141,9 @@ import {
   UpdateClientAPI,
   CreateClientAPI,
   RemoveClientAPI,
+  ResetClientSecretAPI,
 } from "@/api/basic/client";
+import SecretDialog from "./SecretDialog.vue";
 
 const defaultEditForm: OAuth2RegisteredClient = {
   id: undefined,
@@ -183,6 +183,8 @@ const confirmDelete = useConfirmDelete(
 const authorizedGrantTypeEnum = useAuthorizedGrantTypeEnum();
 const tokenAuthMethodEnum = useTokenAuthMethodEnum();
 const clientAuthMethodEnum = useClientAuthMethodEnum();
+const confirm = useMessageConfirm();
+const SecretDialogRef = ref();
 
 const keys = Object.keys(defaultEditForm).filter((key) => key != "id");
 
@@ -255,7 +257,14 @@ const handleActionButton = () => {
 
       loading.value = true;
       request
-        .then(() => {
+        .then((response) => {
+          // 创建成功，显示秘钥
+          if (!isEdit.value) {
+            SecretDialogRef.value.show(
+              (response.data as AppSecretVO).appId!,
+              (response.data as AppSecretVO).appSecret!
+            );
+          }
           Message.success("操作成功");
           emits("success");
           show.value = false;
@@ -265,6 +274,17 @@ const handleActionButton = () => {
           loading.value = false;
         });
     }
+  });
+};
+
+const handleResetSecret = () => {
+  confirm.warning("是否重置该应用秘钥?").then(() => {
+    ResetClientSecretAPI(id.value).then((response) => {
+      SecretDialogRef.value.show(
+        response.data.appId!,
+        response.data.appSecret!
+      );
+    });
   });
 };
 

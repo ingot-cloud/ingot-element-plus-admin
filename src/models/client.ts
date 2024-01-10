@@ -19,3 +19,8 @@ export interface OAuth2RegisteredClient {
   tokenAuthType?: string;
   status?: CommonStatus;
 }
+
+export interface AppSecretVO {
+  appId?: string;
+  appSecret?: string;
+}

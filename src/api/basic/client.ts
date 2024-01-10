@@ -1,5 +1,5 @@
 import request from "@/net";
-import type { R, Page, OAuth2RegisteredClient } from "@/models";
+import type { R, Page, OAuth2RegisteredClient, AppSecretVO } from "@/models";
 import { filterParams } from "@/utils/object";
 
 /**
@@ -40,9 +40,9 @@ export function GetClientInfoAPI(
  */
 export function CreateClientAPI(
   params: OAuth2RegisteredClient
-): Promise<R<void>> {
+): Promise<R<AppSecretVO>> {
   filterParams(params);
-  return request.post<void>("/api/pms/v1/admin/client", params);
+  return request.post<AppSecretVO>("/api/pms/v1/admin/client", params);
 }
 
 /**
@@ -64,4 +64,15 @@ export function UpdateClientAPI(
  */
 export function RemoveClientAPI(clientId: string): Promise<R<void>> {
   return request.delete<void>(`/api/pms/v1/admin/client/${clientId}`);
+}
+
+/**
+ * 重置秘钥
+ */
+export function ResetClientSecretAPI(
+  clientId: string
+): Promise<R<AppSecretVO>> {
+  return request.put<AppSecretVO>(
+    `/api/pms/v1/admin/client/resetSecret/${clientId}`
+  );
 }
