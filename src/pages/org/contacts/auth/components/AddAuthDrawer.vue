@@ -1,5 +1,5 @@
 <template>
-  <in-drawer :title="title" v-model="show" padding="0" :loading="loading">
+  <in-drawer :title="title" v-model="show" :loading="loading">
     <in-table
       ref="BindTableRef"
       :headers="tableHeaders"
