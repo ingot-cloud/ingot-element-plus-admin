@@ -75,12 +75,19 @@
           :status="item.status"
           @click="ops.handleDisableUser(item)"
         />
+        <in-button link text type="danger" @click="handleResetPwdUser(item)">
+          <template #icon>
+            <in-icon name="carbon:password" />
+          </template>
+          重置密码
+        </in-button>
       </template>
     </in-table>
   </in-filter-container>
 
   <CreateDrawer ref="CreateDrawerRef" @success="ops.fetchUserData" />
   <EditDrawer ref="EditDrawerRef" @success="ops.fetchUserData" />
+  <ResetPwdDialog ref="ResetPwdDialogRef" />
 </template>
 
 <script lang="ts" setup>
@@ -90,12 +97,17 @@ import { useOps } from "./useOps";
 import { tableHeaders } from "./table";
 import CreateDrawer from "./components/CreateDrawer.vue";
 import EditDrawer from "./components/EditDrawer.vue";
+import ResetPwdDialog from "./components/ResetPwdDialog.vue";
+import { UserResetPwdAPI } from "@/api/basic/user";
 
 const ops = useOps();
 
 const CreateDrawerRef = ref();
 const EditDrawerRef = ref();
+const ResetPwdDialogRef = ref();
 const tableRef = ref<TableAPI>();
+const confirm = useMessageConfirm();
+const message = useMessage();
 
 const handleCreateUser = (): void => {
   CreateDrawerRef.value?.show();
@@ -103,6 +115,15 @@ const handleCreateUser = (): void => {
 
 const handleDetailUser = (params: SysUser): void => {
   EditDrawerRef.value.show(params);
+};
+
+const handleResetPwdUser = (params: SysUser): void => {
+  confirm.warning(`是否重置该用户(${params.nickname})密码`).then(() => {
+    UserResetPwdAPI(params.id!).then((response) => {
+      message.success("操作成功");
+      ResetPwdDialogRef.value.show(response.data.random);
+    });
+  });
 };
 
 onMounted(() => {
