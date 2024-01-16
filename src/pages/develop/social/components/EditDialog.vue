@@ -70,7 +70,7 @@ export interface API {
 </script>
 <script lang="ts" setup>
 import type { SysSocialDetails } from "@/models";
-import { useSocialTypeEnumsEnum, SocialTypeEnums } from "@/models/enums";
+import { useSocialTypeEnumsEnum } from "@/models/enums";
 import { Message } from "@/utils/message";
 import { copyParams, getDiff } from "@/utils/object";
 import { CreateSocialAPI, UpdateSocialAPI } from "@/api/basic/social";
@@ -88,7 +88,7 @@ const defaultEditForm: SysSocialDetails = {
   appSecret: undefined,
   redirectUrl: undefined,
   name: undefined,
-  type: SocialTypeEnums.SMS,
+  type: undefined,
   status: undefined,
 };
 
