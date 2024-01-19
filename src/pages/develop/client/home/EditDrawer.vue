@@ -195,9 +195,6 @@ const id = ref();
 
 const rules = {
   clientId: [{ required: true, message: "请输入客户端ID", trigger: "blur" }],
-  clientSecret: [
-    { required: true, message: "请输入客户端秘钥", trigger: "blur" },
-  ],
   clientName: [
     { required: true, message: "请输入客户端名称", trigger: "blur" },
   ],
