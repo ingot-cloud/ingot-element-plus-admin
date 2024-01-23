@@ -83,3 +83,13 @@ export interface UserQueryDTO extends SysUser {
   roleId?: string;
   deptId?: string;
 }
+
+export interface AppUser {
+  id?: string;
+  username?: string;
+  nickname?: string;
+  phone?: string;
+  email?: string;
+  avatar?: string;
+  status?: CommonStatus;
+}
