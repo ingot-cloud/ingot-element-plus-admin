@@ -2,7 +2,11 @@
   <in-dialog title="加入组织" v-model="visible" width="500">
     <in-form ref="JoinFormRef" :model="editForm" :rules="rules">
       <el-form-item label="组织" prop="orgId">
-        <tenant-options w-full v-model="editForm.orgId" />
+        <tenant-options
+          w-full
+          v-model="editForm.orgId"
+          @onChanged="handleTenantChange"
+        />
       </el-form-item>
       <el-form-item label="部门" prop="deptIds">
         <el-tree-select
@@ -72,6 +76,11 @@ const roleStore = useRoleStore();
 const deptStore = useDeptStore();
 const { deptTree } = storeToRefs(deptStore);
 const { roleOrgOptions } = storeToRefs(roleStore);
+
+const handleTenantChange = (orgId: string) => {
+  deptStore.fetchOrgDeptTree(orgId);
+  roleStore.fetchRoleOrgOptions(orgId);
+};
 
 const handleConfirmClick = () => {
   const form = unref(JoinFormRef);
