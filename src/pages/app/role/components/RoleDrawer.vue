@@ -102,7 +102,6 @@ defineProps({
   },
 });
 
-const go = useGo();
 const roleStore = useRoleStore();
 const roleTypeEnum = useOrgTypeEnums();
 
