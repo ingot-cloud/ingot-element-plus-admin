@@ -55,3 +55,6 @@ export interface RoleFilterDTO {
   roleName?: string;
   roleType?: string;
 }
+
+export interface AppRole extends SysRole {}
+export interface AppRoleGroup extends SysRoleGroup {}
