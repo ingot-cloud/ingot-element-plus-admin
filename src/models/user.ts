@@ -93,3 +93,9 @@ export interface AppUser {
   avatar?: string;
   status?: CommonStatus;
 }
+
+export interface AppUserCreateDTO {
+  nickname?: string;
+  phone?: string;
+  avatar?: string;
+}

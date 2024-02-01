@@ -85,9 +85,9 @@
     </in-table>
   </in-filter-container>
 
-  <!-- <CreateDrawer ref="CreateDrawerRef" @success="ops.fetchUserData" />
+  <CreateDrawer ref="CreateDrawerRef" @success="ops.fetchUserData" />
   <EditDrawer ref="EditDrawerRef" @success="ops.fetchUserData" />
-  <ResetPwdDialog ref="ResetPwdDialogRef" /> -->
+  <ResetPwdDialog ref="ResetPwdDialogRef" />
 </template>
 
 <script lang="ts" setup>
@@ -95,10 +95,10 @@ import type { TableAPI } from "@/components/table";
 import type { SysUser } from "@/models";
 import { useOps } from "./useOps";
 import { tableHeaders } from "./table";
-// import CreateDrawer from "./components/CreateDrawer.vue";
-// import EditDrawer from "./components/EditDrawer.vue";
-// import ResetPwdDialog from "./components/ResetPwdDialog.vue";
-import { UserResetPwdAPI } from "@/api/basic/user";
+import CreateDrawer from "./components/CreateDrawer.vue";
+import EditDrawer from "./components/EditDrawer.vue";
+import ResetPwdDialog from "./components/ResetPwdDialog.vue";
+import { UserResetPwdAPI } from "@/api/basic/appUser";
 
 const ops = useOps();
 
