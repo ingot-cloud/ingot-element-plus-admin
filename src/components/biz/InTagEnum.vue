@@ -11,7 +11,7 @@ defineProps({
     type: String,
   },
   enumObj: {
-    type: Object as PropType<EnumObj<string>>,
+    type: Object as PropType<EnumObj<any>>,
     required: true,
   },
 });
