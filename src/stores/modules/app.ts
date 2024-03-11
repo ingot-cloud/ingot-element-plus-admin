@@ -5,9 +5,13 @@ import type { ComponentSize } from "@/layouts/widgets/cmp-size/types";
  * 全局配置
  */
 export const useAppStore = defineStore("app", () => {
+  const now = new Date();
   const app = reactive<AppStore>({
     title: import.meta.env.VITE_APP_TITLE,
-    copyright: import.meta.env.VITE_APP_COPYRIGHT,
+    copyright: import.meta.env.VITE_APP_COPYRIGHT.replace(
+      "{0}",
+      now.getFullYear() + ""
+    ),
     login: {
       clientId: import.meta.env.VITE_APP_LOGIN_CLIENT_ID,
       scope: import.meta.env.VITE_APP_LOGIN_SCOPE,
