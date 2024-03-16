@@ -95,9 +95,6 @@ export const useAuthStore = defineStore(
      */
     const logout = (ignoreRevokeAPI?: boolean): Promise<void> => {
       return new Promise((resolve) => {
-        if (!ignoreRevokeAPI) {
-          RevokeTokenAPI(getAccessToken.value);
-        }
         updateToken({
           accessToken: undefined,
           tokenType: undefined,
@@ -106,6 +103,20 @@ export const useAuthStore = defineStore(
           scope: undefined,
         });
         useUserInfoStore().clear();
+
+        if (!ignoreRevokeAPI) {
+          Promise.race([
+            RevokeTokenAPI(getAccessToken.value),
+            new Promise<any>((r) => {
+              // 最多等待退出接口1500ms
+              setTimeout(() => r(1), 1500);
+            }),
+          ]).then(() => {
+            resolve();
+          });
+          return;
+        }
+
         resolve();
       });
     };
