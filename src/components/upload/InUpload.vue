@@ -42,8 +42,14 @@
       </div>
     </template>
   </el-upload>
-  <el-dialog v-model="dialogVisible" flex items-center justify-center>
-    <img w-full :src="dialogImageUrl" alt="" />
+  <el-dialog
+    v-model="dialogVisible"
+    flex
+    items-center
+    justify-center
+    fullscreen
+  >
+    <img style="height: 80vh" :src="dialogImageUrl" alt="" />
   </el-dialog>
 </template>
 <script lang="ts" setup>
