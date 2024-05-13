@@ -1,58 +1,57 @@
 <template>
-  <in-drawer :title="title" v-model="show" :loading="loading">
-    <in-table
-      ref="BindTableRef"
-      :headers="tableHeaders"
-      :data="records"
-      :selection="editBatch"
-      :row-key="TreeListKeyAndProps.key"
-      :tree-props="TreeListKeyAndProps.props"
-      :selectable="selectable"
-      @refresh="fetchData"
-      @selectionChange="onSelectChanged"
-    >
-      <template #toolbar>
-        <div v-if="!editBatch">
-          <in-button type="primary" @click="editBatch = true">
-            批量绑定
-          </in-button>
-        </div>
-        <div v-else>
+  <in-drawer :title="title" v-model="show" :loading="loading" padding="0">
+    <div m-t-10px>
+      <in-table
+        ref="BindTableRef"
+        :headers="tableHeaders"
+        :data="records"
+        :selection="editBatch"
+        :selectable="selectable"
+        @refresh="fetchData"
+        @selectionChange="onSelectChanged"
+      >
+        <template #toolbar>
+          <div v-if="!editBatch">
+            <in-button m-l-10px type="primary" @click="editBatch = true">
+              批量绑定
+            </in-button>
+          </div>
+          <div v-else>
+            <in-button
+              type="danger"
+              :disabled="selectData.length === 0"
+              @click="handleBatchBind"
+            >
+              绑定
+            </in-button>
+            <in-button @click="cancelEditBatch"> 取消 </in-button>
+          </div>
+        </template>
+        <template #status="{ item }">
+          <common-status-tag :status="item.status" />
+        </template>
+        <template #actions="{ item }">
           <in-button
-            type="danger"
-            :disabled="selectData.length === 0"
-            @click="handleBatchBind"
+            link
+            text
+            type="primary"
+            @click="handleBind(item)"
+            :disabled="!selectable(item)"
           >
+            <template #icon>
+              <i-mdi:relative-scale />
+            </template>
             绑定
           </in-button>
-          <in-button @click="cancelEditBatch"> 取消 </in-button>
-        </div>
-      </template>
-      <template #status="{ item }">
-        <common-status-tag :status="item.status" />
-      </template>
-      <template #actions="{ item }">
-        <in-button
-          link
-          text
-          type="primary"
-          @click="handleBind(item)"
-          :disabled="!selectable(item)"
-        >
-          <template #icon>
-            <i-mdi:relative-scale />
-          </template>
-          绑定
-        </in-button>
-      </template>
-    </in-table>
+        </template>
+      </in-table>
+    </div>
   </in-drawer>
 </template>
 <script lang="ts" setup>
 import type { PropType } from "vue";
 import type { TableHeaderRecord } from "@/components/table";
 import type { AuthorityTreeNode } from "@/models";
-import { TreeListKeyAndProps } from "@/models";
 import { OrgAuthList, BindAuthorityAPI } from "@/api/org/auth";
 
 const tableHeaders: Array<TableHeaderRecord> = [
