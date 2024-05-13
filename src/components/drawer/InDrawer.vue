@@ -1,5 +1,5 @@
 <template>
-  <el-drawer class="in-drawer" direction="rtl">
+  <el-drawer class="in-drawer" direction="rtl" :close-on-click-modal="false">
     <template #header>
       <div v-if="slots.header">
         <slot name="header" />
