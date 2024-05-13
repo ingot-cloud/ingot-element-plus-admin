@@ -47,18 +47,21 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     prop: "sort",
     width: "80",
     align: "center",
+    hide: true,
   },
   {
     label: "隐藏菜单",
     prop: "hidden",
     width: "100",
     align: "center",
+    hide: true,
   },
   {
     label: "隐藏面包屑",
     prop: "hideBreadcrumb",
     width: "100",
     align: "center",
+    hide: true,
   },
   {
     label: "是否缓存",
@@ -73,6 +76,12 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     width: "100",
     align: "center",
     hide: true,
+  },
+  {
+    label: "组织类型",
+    prop: "orgType",
+    width: "80",
+    align: "center",
   },
   {
     label: "状态",

@@ -51,6 +51,9 @@
           {{ item.props ? "是" : "否" }}
         </el-tag>
       </template>
+      <template #orgType="{ item }">
+        <in-tag-enum :value="item.orgType" :enumObj="orgType" />
+      </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status" />
       </template>
@@ -77,7 +80,11 @@
 </template>
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue";
-import { getMenuTypeIcon, useMenuTypeEnum } from "@/models/enums/menuEnums";
+import {
+  getMenuTypeIcon,
+  useMenuTypeEnum,
+  useOrgTypeEnums,
+} from "@/models/enums";
 import { tableHeaders } from "./table";
 import type { MenuTreeNode, SysMenu, AuthorityTreeNode } from "@/models";
 import { GetMenuTreeAPI } from "@/api/basic/menu";
@@ -95,6 +102,8 @@ const expandRowKeys = ref<Array<string>>([]);
 const selectData = ref<Array<MenuTreeNode>>([]);
 const authorityStore = useAuthorityStore();
 const authorityData = ref<Array<AuthorityTreeNode>>();
+
+const orgType = useOrgTypeEnums();
 
 const fetchData = () => {
   loading.value = true;

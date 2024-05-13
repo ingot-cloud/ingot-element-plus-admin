@@ -22,5 +22,6 @@ export interface SysMenu {
   hidden?: boolean;
   hideBreadcrumb?: boolean;
   props?: boolean;
+  orgType?: string;
   status?: CommonStatus;
 }

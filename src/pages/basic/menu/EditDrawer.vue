@@ -23,6 +23,15 @@
           />
         </el-form-item>
 
+        <el-form-item label="组织类型" prop="orgType">
+          <in-select
+            w-full
+            v-model="editForm.orgType"
+            placeholder="请选择类型"
+            :options="orgTypeEnums.getOptions()"
+          />
+        </el-form-item>
+
         <el-form-item prop="name" label="菜单名称">
           <el-input
             v-model="editForm.name"
@@ -234,6 +243,7 @@ import {
   CommonStatusEnumExtArray,
   MenuType,
   useMenuTypeEnum,
+  useOrgTypeEnums,
 } from "@/models/enums";
 import { CreateMenuAPI, UpdateMenuAPI, RemoveMenuAPI } from "@/api/basic/menu";
 import { Message } from "@/utils/message";
@@ -242,6 +252,7 @@ import { copyParams, getDiff } from "@/utils/object";
 const rules = {
   name: [{ required: true, message: "请输入菜单名称", trigger: "blur" }],
   menuType: [{ required: true, message: "请选择菜单类型", trigger: "blur" }],
+  orgType: [{ required: true, message: "请选择组织类型", trigger: "blur" }],
   path: [{ required: true, message: "请输入菜单url", trigger: "blur" }],
   viewPath: [{ required: true, message: "请输入视图路径", trigger: "blur" }],
 };
@@ -264,9 +275,11 @@ const defaultEditForm: SysMenu = {
   hidden: false,
   hideBreadcrumb: false,
   props: false,
+  orgType: undefined,
   status: CommonStatus.Enable,
 };
 
+const orgTypeEnums = useOrgTypeEnums();
 const menuTypeEnum = useMenuTypeEnum();
 
 const emits = defineEmits(["success"]);
