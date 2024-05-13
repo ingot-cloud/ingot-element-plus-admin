@@ -24,6 +24,7 @@
       ref="tableRef"
       :headers="tableHeaders"
       :expandRowKeys="groupList.map((item) => item.value)"
+      rowKey="customId"
       @refresh="refreshData"
     >
       <template #title> 角色管理 </template>
@@ -95,7 +96,7 @@ const refreshData = () => {
         item.children = item.children?.map((child) => {
           return {
             ...child,
-            customId: `r${item.id}`,
+            customId: `r${child.id}`,
           };
         });
         return {
@@ -105,7 +106,7 @@ const refreshData = () => {
       });
       groupList.value = roleTree.value.map((item) => {
         return {
-          value: item.id!,
+          value: `g${item.id}`,
           label: item.name!,
         };
       });
