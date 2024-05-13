@@ -111,13 +111,7 @@
             搜索icon
           </div>
         </el-form-item>
-        <el-form-item v-if="!isButton()" label="路由名称">
-          <el-input
-            v-model="editForm.routeName"
-            placeholder="请输入路由名称"
-            clearable
-          ></el-input>
-        </el-form-item>
+
         <el-form-item prop="status" label="状态">
           <el-radio-group v-model="editForm.status">
             <el-radio-button :label="CommonStatus.Enable">
@@ -169,6 +163,25 @@
         v-model="moreOptionsFlag"
       />
       <div p-20px v-if="moreOptionsFlag">
+        <el-form-item v-if="!isButton()" label="路由名称">
+          <el-input
+            v-model="editForm.routeName"
+            placeholder="请输入路由名称"
+            clearable
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          v-if="!isButton() && moreOptionsFlag"
+          prop="sort"
+          label="排序"
+        >
+          <el-input
+            v-model="editForm.sort"
+            placeholder="请输入排序序号"
+            type="number"
+            clearable
+          ></el-input>
+        </el-form-item>
         <el-row :gutter="20" v-if="!isButton() && moreOptionsFlag">
           <el-col :span="12">
             <el-form-item prop="cache" label="是否缓存">
@@ -202,18 +215,6 @@
                 <el-radio-button :label="true"> 是 </el-radio-button>
                 <el-radio-button :label="false"> 否 </el-radio-button>
               </el-radio-group>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row :gutter="20" v-if="!isButton() && moreOptionsFlag">
-          <el-col :span="12">
-            <el-form-item prop="sort" label="排序">
-              <el-input
-                v-model="editForm.sort"
-                placeholder="请输入排序序号"
-                type="number"
-                clearable
-              ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
