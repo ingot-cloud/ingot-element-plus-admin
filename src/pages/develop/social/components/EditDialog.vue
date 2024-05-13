@@ -1,52 +1,34 @@
 <template>
-  <in-dialog :title="title" v-model="visible">
-    <el-form
-      ref="editFormRef"
-      label-width="120px"
-      label-position="right"
-      :model="editForm"
-      :rules="rules"
-    >
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="AppID" prop="appId">
-            <el-input
-              v-model="editForm.appId"
-              clearable
-              placeholder="请输入AppID"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="AppSecret" prop="appSecret">
-            <el-input
-              v-model="editForm.appSecret"
-              clearable
-              placeholder="请输入AppSecret"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="社交类型" prop="type">
-            <in-select
-              w-full
-              v-model="editForm.type"
-              :options="socialTypeEnumsEnum.getOptions()"
-            />
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="社交名称" prop="name">
-            <el-input
-              v-model="editForm.name"
-              clearable
-              placeholder="请输入社交名称"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
+  <in-drawer :title="title" v-model="visible">
+    <in-form ref="editFormRef" :model="editForm" :rules="rules">
+      <el-form-item label="AppID" prop="appId">
+        <el-input
+          v-model="editForm.appId"
+          clearable
+          placeholder="请输入AppID"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="AppSecret" prop="appSecret">
+        <el-input
+          v-model="editForm.appSecret"
+          clearable
+          placeholder="请输入AppSecret"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="社交类型" prop="type">
+        <in-select
+          w-full
+          v-model="editForm.type"
+          :options="socialTypeEnumsEnum.getOptions()"
+        />
+      </el-form-item>
+      <el-form-item label="社交名称" prop="name">
+        <el-input
+          v-model="editForm.name"
+          clearable
+          placeholder="请输入社交名称"
+        ></el-input>
+      </el-form-item>
       <el-form-item label="重定向URL">
         <el-input
           v-model="editForm.redirectUrl"
@@ -54,13 +36,13 @@
           placeholder="请输入重定向URL"
         ></el-input>
       </el-form-item>
-    </el-form>
+    </in-form>
     <template #footer>
       <in-button :loading="loading" type="primary" @click="handleConfirmClick">
         确定
       </in-button>
     </template>
-  </in-dialog>
+  </in-drawer>
 </template>
 <script lang="ts">
 import type { SysSocialDetails as P } from "@/models";

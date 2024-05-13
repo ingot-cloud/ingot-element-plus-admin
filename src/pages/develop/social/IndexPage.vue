@@ -36,7 +36,7 @@
       @refresh="refreshData"
     >
       <template #toolbar>
-        <in-button type="primary" @click="handleCreate"> 新增 </in-button>
+        <in-button type="primary" @click="handleCreate"> 添加配置 </in-button>
       </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status"></common-status-tag>
