@@ -91,18 +91,7 @@ const refreshData = () => {
     .fetchRoleGroupList(filter.value)
     .then((data) => {
       loading.value = false;
-      roleTree.value = data.map((item) => {
-        item.children = item.children?.map((child) => {
-          return {
-            ...child,
-            customId: `r${item.id}`,
-          };
-        });
-        return {
-          ...item,
-          customId: `g${item.id}`,
-        };
-      });
+      roleTree.value = data;
       groupList.value = roleTree.value.map((item) => {
         return {
           value: item.id!,
