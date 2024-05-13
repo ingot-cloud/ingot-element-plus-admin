@@ -1,5 +1,30 @@
 <template>
-  <in-container>
+  <in-filter-container>
+    <template #top>
+      <in-filter-item>
+        <in-with-label title="组织类型">
+          <in-select
+            style="width: 200px"
+            v-model="filter.orgTypeText"
+            placeholder="请选择类型"
+            :options="orgTypeEnums.getOptions()"
+          />
+        </in-with-label>
+        <template #rightActions>
+          <in-button
+            @click="
+              filter.orgTypeText = undefined;
+              fetchData();
+            "
+          >
+            重置
+          </in-button>
+          <in-button type="primary" @in-click="fetchData" :loading="loading">
+            搜索
+          </in-button>
+        </template>
+      </in-filter-item>
+    </template>
     <in-table
       :loading="loading"
       :data="menuData"
@@ -15,7 +40,7 @@
       </template>
       <template #menuType="{ item }">
         <Icon mr-2 :icon="getMenuTypeIcon(item.menuType)" />
-        {{ menuTypeEnum.getTagText(item.menuType).text }}
+        {{ menuTypeEnums.getTagText(item.menuType).text }}
       </template>
       <template #path="{ item }">
         <in-copy-tag :text="item.path" />
@@ -52,7 +77,7 @@
         </el-tag>
       </template>
       <template #orgType="{ item }">
-        <in-tag-enum :value="item.orgType" :enumObj="orgType" />
+        <in-tag-enum :value="item.orgType" :enumObj="orgTypeEnums" />
       </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status" />
@@ -70,7 +95,7 @@
         </in-button>
       </template>
     </in-table>
-  </in-container>
+  </in-filter-container>
   <EditDrawer
     ref="EditDrawerRef"
     :selectData="selectData"
@@ -86,13 +111,20 @@ import {
   useOrgTypeEnums,
 } from "@/models/enums";
 import { tableHeaders } from "./table";
-import type { MenuTreeNode, SysMenu, AuthorityTreeNode } from "@/models";
+import type {
+  MenuTreeNode,
+  SysMenu,
+  AuthorityTreeNode,
+  MenuFilterDTO,
+} from "@/models";
 import { GetMenuTreeAPI } from "@/api/basic/menu";
 import EditDrawer from "./EditDrawer.vue";
 import type { TableAPI } from "@/components/table";
 import { useAuthorityStore } from "@/stores/modules/authority";
 
-const menuTypeEnum = useMenuTypeEnum();
+const menuTypeEnums = useMenuTypeEnum();
+const authorityStore = useAuthorityStore();
+const orgTypeEnums = useOrgTypeEnums();
 
 const EditDrawerRef = ref();
 const tableRef = ref<TableAPI>();
@@ -100,14 +132,12 @@ const loading = ref(false);
 const menuData = ref<Array<MenuTreeNode>>([]);
 const expandRowKeys = ref<Array<string>>([]);
 const selectData = ref<Array<MenuTreeNode>>([]);
-const authorityStore = useAuthorityStore();
 const authorityData = ref<Array<AuthorityTreeNode>>();
-
-const orgType = useOrgTypeEnums();
+const filter = ref<MenuFilterDTO>({});
 
 const fetchData = () => {
   loading.value = true;
-  GetMenuTreeAPI()
+  GetMenuTreeAPI(filter.value)
     .then((response) => {
       loading.value = false;
       const data = response.data;

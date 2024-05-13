@@ -1,5 +1,5 @@
 import request from "@/net";
-import type { R, MenuTreeNode, SysMenu } from "@/models";
+import type { R, MenuTreeNode, SysMenu, MenuFilterDTO } from "@/models";
 import { filterParams } from "@/utils/object";
 
 /**
@@ -14,8 +14,16 @@ export function GetUserMenuAPI(): Promise<R<Array<MenuTreeNode>>> {
  * 获取Menu tree
  * @returns
  */
-export function GetMenuTreeAPI(): Promise<R<Array<MenuTreeNode>>> {
-  return request.get<Array<MenuTreeNode>>("/api/pms/v1/admin/menu/tree");
+export function GetMenuTreeAPI(
+  filter?: MenuFilterDTO
+): Promise<R<Array<MenuTreeNode>>> {
+  if (filter) {
+    filterParams(filter);
+  }
+  return request.get<Array<MenuTreeNode>>(
+    "/api/pms/v1/admin/menu/tree",
+    filter
+  );
 }
 
 /**

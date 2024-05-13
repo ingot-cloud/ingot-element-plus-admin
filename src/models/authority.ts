@@ -14,3 +14,7 @@ export interface SysAuthority {
   remark?: string;
   createdAt?: string;
 }
+
+export interface AuthorityFilterDTO extends SysAuthority {
+  orgTypeText?: string;
+}

@@ -1,4 +1,8 @@
-import type { AuthorityTreeNode, SysAuthority } from "@/models";
+import type {
+  AuthorityTreeNode,
+  SysAuthority,
+  AuthorityFilterDTO,
+} from "@/models";
 import {
   GetAuthorityTreeAPI,
   CreateAuthorityAPI,
@@ -9,15 +13,10 @@ import {
 export const useAuthorityStore = defineStore("authority", () => {
   const expandedKeys = ref<Array<string>>([]);
   const authorityTree = ref<Array<AuthorityTreeNode>>([]);
-  const needUpdate = ref(false);
 
-  const fetchAuthorityTree = () => {
+  const fetchAuthorityTree = (filter?: AuthorityFilterDTO) => {
     return new Promise<Array<AuthorityTreeNode>>((resolve, reject) => {
-      if (!needUpdate.value && authorityTree.value.length !== 0) {
-        resolve(authorityTree.value);
-        return;
-      }
-      GetAuthorityTreeAPI()
+      GetAuthorityTreeAPI(filter)
         .then((response) => {
           const data = response.data;
           data.forEach((item) => {
@@ -26,7 +25,6 @@ export const useAuthorityStore = defineStore("authority", () => {
             }
           });
 
-          needUpdate.value = false;
           authorityTree.value = data.slice();
           resolve(data);
         })
@@ -39,7 +37,6 @@ export const useAuthorityStore = defineStore("authority", () => {
     return new Promise<void>((resolve, reject) => {
       CreateAuthorityAPI(params)
         .then(() => {
-          needUpdate.value = true;
           resolve();
         })
         .catch(() => {
@@ -51,7 +48,6 @@ export const useAuthorityStore = defineStore("authority", () => {
     return new Promise<void>((resolve, reject) => {
       UpdateAuthorityAPI(params)
         .then(() => {
-          needUpdate.value = true;
           resolve();
         })
         .catch(() => {
@@ -63,7 +59,6 @@ export const useAuthorityStore = defineStore("authority", () => {
     return new Promise<void>((resolve, reject) => {
       RemoveAuthorityAPI(id)
         .then(() => {
-          needUpdate.value = true;
           resolve();
         })
         .catch(() => {

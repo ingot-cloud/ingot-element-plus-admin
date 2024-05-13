@@ -1,14 +1,25 @@
 import request from "@/net";
-import type { R, SysAuthority, AuthorityTreeNode } from "@/models";
+import type {
+  R,
+  SysAuthority,
+  AuthorityTreeNode,
+  AuthorityFilterDTO,
+} from "@/models";
 import { filterParams } from "@/utils/object";
 
 /**
  * 获取权限分页信息
  * @returns
  */
-export function GetAuthorityTreeAPI(): Promise<R<Array<AuthorityTreeNode>>> {
+export function GetAuthorityTreeAPI(
+  filter?: AuthorityFilterDTO
+): Promise<R<Array<AuthorityTreeNode>>> {
+  if (filter) {
+    filterParams(filter);
+  }
   return request.get<Array<AuthorityTreeNode>>(
-    "/api/pms/v1/admin/authority/tree"
+    "/api/pms/v1/admin/authority/tree",
+    filter
   );
 }
 

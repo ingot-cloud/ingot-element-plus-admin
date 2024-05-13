@@ -69,6 +69,7 @@ import type {
   MenuTreeNode,
   ApplicationPageItemVO,
 } from "@/models";
+import { OrgTypeEnums } from "@/models/enums";
 import EditDrawer from "./EditDrawer.vue";
 import type { TableAPI } from "@/components/table";
 import { GetMenuTreeAPI } from "@/api/basic/menu";
@@ -82,10 +83,13 @@ import { useAuthorityStore } from "@/stores/modules/authority";
 
 onMounted(() => {
   paging.exec();
-  authorityStore.fetchAuthorityTree().then((data) => {
-    authorityData.value = data;
-  });
-  GetMenuTreeAPI().then((response) => {
+  // 只获取组织类型的数据
+  authorityStore
+    .fetchAuthorityTree({ orgTypeText: OrgTypeEnums.Tenant })
+    .then((data) => {
+      authorityData.value = data;
+    });
+  GetMenuTreeAPI({ orgTypeText: OrgTypeEnums.Tenant }).then((response) => {
     const data = response.data;
     menuData.value = data;
   });

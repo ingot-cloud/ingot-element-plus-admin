@@ -25,3 +25,7 @@ export interface SysMenu {
   orgType?: string;
   status?: CommonStatus;
 }
+
+export interface MenuFilterDTO extends SysMenu {
+  orgTypeText?: string;
+}
