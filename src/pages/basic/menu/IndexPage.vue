@@ -46,7 +46,7 @@
         <in-copy-tag :text="item.path" />
       </template>
       <template #authorityCode="{ item }">
-        <in-copy-tag :text="item.authorityCode" />
+        <in-copy-tag :text="item.authorityCode || '-'" />
       </template>
       <template #icon="{ item }">
         <in-icon
@@ -75,6 +75,9 @@
         <el-tag :type="item.props ? 'danger' : 'success'">
           {{ item.props ? "是" : "否" }}
         </el-tag>
+      </template>
+      <template #linkType="{ item }">
+        <in-tag-enum :value="item.linkType" :enumObj="menuLinkTypeEnums" />
       </template>
       <template #orgType="{ item }">
         <in-tag-enum :value="item.orgType" :enumObj="orgTypeEnums" />
@@ -109,6 +112,7 @@ import {
   getMenuTypeIcon,
   useMenuTypeEnum,
   useOrgTypeEnums,
+  useMenuLinkTypeEnum,
 } from "@/models/enums";
 import { tableHeaders } from "./table";
 import type {
@@ -125,6 +129,7 @@ import { useAuthorityStore } from "@/stores/modules/authority";
 const menuTypeEnums = useMenuTypeEnum();
 const authorityStore = useAuthorityStore();
 const orgTypeEnums = useOrgTypeEnums();
+const menuLinkTypeEnums = useMenuLinkTypeEnum();
 
 const EditDrawerRef = ref();
 const tableRef = ref<TableAPI>();

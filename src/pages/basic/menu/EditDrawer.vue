@@ -8,6 +8,7 @@
             w-full
             v-model="editForm.menuType"
             :options="menuTypeEnum.getOptions()"
+            @change="privateOnMenuTypeChange"
           />
         </el-form-item>
         <el-form-item label="上级菜单">
@@ -32,6 +33,15 @@
           />
         </el-form-item>
 
+        <el-form-item label="链接类型" prop="linkType" v-if="isMenu()">
+          <in-select
+            w-full
+            v-model="editForm.linkType"
+            placeholder="请选择类型"
+            :options="menuLinkTypeEnum.getOptions()"
+          />
+        </el-form-item>
+
         <el-form-item prop="name" label="菜单名称">
           <el-input
             v-model="editForm.name"
@@ -40,13 +50,23 @@
           ></el-input>
         </el-form-item>
 
-        <el-form-item prop="path" label="菜单路由">
+        <el-form-item prop="path" label="菜单路由" v-if="isInnerLink()">
           <el-input
             v-model="editForm.path"
             placeholder="请输入菜单路由"
             clearable
           ></el-input>
         </el-form-item>
+
+        <el-form-item v-else label="外部链接" prop="viewPath">
+          <el-input
+            v-model="editForm.viewPath"
+            placeholder="请输入外部链接 eg. https://www.baidu.com"
+            clearable
+          >
+          </el-input>
+        </el-form-item>
+
         <el-form-item label="重定向路由" v-if="isDirectory()">
           <el-input
             v-model="editForm.redirect"
@@ -54,6 +74,7 @@
             clearable
           ></el-input>
         </el-form-item>
+
         <el-form-item label="权限编码">
           <el-tree-select
             w-full
@@ -125,7 +146,7 @@
       </div>
 
       <in-form-group-title
-        v-if="!isButton()"
+        v-if="!isButton() && isInnerLink()"
         title="视图高级选项"
         v-model="editForm.customViewPath"
       />
@@ -245,6 +266,8 @@ import {
   MenuType,
   useMenuTypeEnum,
   useOrgTypeEnums,
+  MenuLinkType,
+  useMenuLinkTypeEnum,
 } from "@/models/enums";
 import { CreateMenuAPI, UpdateMenuAPI, RemoveMenuAPI } from "@/api/basic/menu";
 import { Message } from "@/utils/message";
@@ -256,6 +279,7 @@ const rules = {
   orgType: [{ required: true, message: "请选择组织类型", trigger: "blur" }],
   path: [{ required: true, message: "请输入菜单url", trigger: "blur" }],
   viewPath: [{ required: true, message: "请输入视图路径", trigger: "blur" }],
+  linkType: [{ required: true, message: "请选择链接类型", trigger: "blur" }],
 };
 
 const defaultEditForm: SysMenu = {
@@ -276,12 +300,14 @@ const defaultEditForm: SysMenu = {
   hidden: false,
   hideBreadcrumb: false,
   props: false,
+  linkType: MenuLinkType.Inner,
   orgType: undefined,
   status: CommonStatus.Enable,
 };
 
 const orgTypeEnums = useOrgTypeEnums();
 const menuTypeEnum = useMenuTypeEnum();
+const menuLinkTypeEnum = useMenuLinkTypeEnum();
 
 const emits = defineEmits(["success"]);
 defineProps({
@@ -319,11 +345,18 @@ const isDirectory = () => {
   return editForm.menuType == MenuType.Directory;
 };
 
-// const isMenu = () => {
-//   return editForm.menuType == MenuType.Menu;
-// };
+const isMenu = () => {
+  return editForm.menuType == MenuType.Menu;
+};
 const isButton = () => {
   return editForm.menuType == MenuType.Button;
+};
+const isInnerLink = () => {
+  return editForm.linkType == MenuLinkType.Inner;
+};
+
+const privateOnMenuTypeChange = () => {
+  editForm.linkType = MenuLinkType.Inner;
 };
 
 const privateOnRemoveClick = () => {

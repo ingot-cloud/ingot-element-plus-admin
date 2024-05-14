@@ -23,3 +23,15 @@ export function getMenuTypeIcon(type: MenuType): string {
       return "mdi:button-outline";
   }
 }
+
+export enum MenuLinkType {
+  Inner = "0",
+  Outer = "1",
+}
+export const MenuLinkTypeEnumExtArray = toEnumExtArray(MenuLinkType, [
+  newTagText("内部链接", "success"),
+  newTagText("外部链接", "warning"),
+]);
+export const useMenuLinkTypeEnum = () => {
+  return useEnum(MenuLinkTypeEnumExtArray);
+};

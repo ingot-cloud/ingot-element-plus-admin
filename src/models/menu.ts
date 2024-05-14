@@ -23,6 +23,7 @@ export interface SysMenu {
   hideBreadcrumb?: boolean;
   props?: boolean;
   orgType?: string;
+  linkType?: string;
   status?: CommonStatus;
 }
 

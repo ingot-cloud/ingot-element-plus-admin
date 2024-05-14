@@ -78,6 +78,12 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     hide: true,
   },
   {
+    label: "链接类型",
+    prop: "linkType",
+    width: "80",
+    align: "center",
+  },
+  {
     label: "组织类型",
     prop: "orgType",
     width: "80",
