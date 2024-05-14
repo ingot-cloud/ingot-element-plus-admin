@@ -24,6 +24,7 @@ export interface SysMenu {
   props?: boolean;
   orgType?: string;
   linkType?: string;
+  linkUrl?: string;
   status?: CommonStatus;
 }
 

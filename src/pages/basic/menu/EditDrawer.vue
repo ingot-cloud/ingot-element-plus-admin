@@ -58,9 +58,9 @@
           ></el-input>
         </el-form-item>
 
-        <el-form-item v-else label="外部链接" prop="viewPath">
+        <el-form-item v-else label="外部链接" prop="linkUrl">
           <el-input
-            v-model="editForm.viewPath"
+            v-model="editForm.linkUrl"
             placeholder="请输入外部链接 eg. https://www.baidu.com"
             clearable
           >
@@ -150,7 +150,10 @@
         title="视图高级选项"
         v-model="editForm.customViewPath"
       />
-      <div p-20px v-if="editForm.customViewPath">
+      <div
+        p-20px
+        v-if="!isButton() && isDefaultLink() && editForm.customViewPath"
+      >
         <el-form-item
           v-if="editForm.customViewPath && !isButton()"
           label="视图路径"
@@ -183,7 +186,7 @@
         title="其他高级选项"
         v-model="moreOptionsFlag"
       />
-      <div p-20px v-if="moreOptionsFlag">
+      <div p-20px v-if="!isButton() && moreOptionsFlag">
         <el-form-item v-if="!isButton()" label="路由名称">
           <el-input
             v-model="editForm.routeName"
@@ -259,7 +262,7 @@
 import { ClickOutside as vClickOutside } from "element-plus";
 import type { SysMenu } from "@/models";
 import { TreeKeyAndProps } from "@/models";
-import { LayoutOptions } from "@/router";
+import { LayoutOptions, PageLayoutViewPath } from "@/router";
 import {
   CommonStatus,
   CommonStatusEnumExtArray,
@@ -280,6 +283,7 @@ const rules = {
   path: [{ required: true, message: "请输入菜单url", trigger: "blur" }],
   viewPath: [{ required: true, message: "请输入视图路径", trigger: "blur" }],
   linkType: [{ required: true, message: "请选择链接类型", trigger: "blur" }],
+  linkUrl: [{ required: true, message: "请输入链接URL", trigger: "blur" }],
 };
 
 const defaultEditForm: SysMenu = {
@@ -301,6 +305,7 @@ const defaultEditForm: SysMenu = {
   hideBreadcrumb: false,
   props: false,
   linkType: MenuLinkType.Default,
+  linkUrl: undefined,
   orgType: undefined,
   status: CommonStatus.Enable,
 };
@@ -368,6 +373,20 @@ const privateOnConfirmClick = () => {
   form.validate((valid: boolean) => {
     if (valid) {
       let request;
+
+      // 如果选择了非默认链接类型，那么设置customViewPath为true修改viewPath
+      if (editForm.linkType !== MenuLinkType.Default) {
+        editForm.customViewPath = true;
+        switch (editForm.linkType) {
+          case MenuLinkType.IFrame:
+            editForm.viewPath = PageLayoutViewPath.IFRAME;
+            break;
+          case MenuLinkType.External:
+            editForm.viewPath = PageLayoutViewPath.EXTERNAL;
+            break;
+        }
+      }
+
       if (edit.value) {
         const params = getDiff<SysMenu>(rawForm, editForm);
         if (Object.keys(params).length === 0) {

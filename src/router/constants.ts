@@ -8,6 +8,8 @@ export const NotFound = {
 export enum PageLayoutViewPath {
   MAIN = "@/layouts/InAppLayout.vue",
   SIMPLE = "@/layouts/InSimpleLayout.vue",
+  IFRAME = "@/layouts/InIframeLayout.vue",
+  EXTERNAL = "@/layouts/InExternalLayout.vue",
 }
 export enum PageName {
   REDIRECT = "Redirect",
@@ -30,14 +32,24 @@ export enum RedirectPageField {
  */
 export const LAYOUT_MAIN = () => import(PageLayoutViewPath.MAIN);
 export const LAYOUT_SIMPLE = () => import(PageLayoutViewPath.SIMPLE);
+export const LAYOUT_IFRAME = () => import(PageLayoutViewPath.IFRAME);
+export const LAYOUT_EXTERNAL = () => import(PageLayoutViewPath.EXTERNAL);
 export const LayoutOptions: Array<Option> = [
   {
-    label: "主要布局",
+    label: "标准视图",
     value: PageLayoutViewPath.MAIN,
   },
   {
-    label: "简单布局",
+    label: "路由视图",
     value: PageLayoutViewPath.SIMPLE,
+  },
+  {
+    label: "内嵌链接",
+    value: PageLayoutViewPath.IFRAME,
+  },
+  {
+    label: "外部链接",
+    value: PageLayoutViewPath.EXTERNAL,
   },
 ];
 
@@ -49,6 +61,8 @@ Object.keys(dynamicViewsModules).forEach((key) => {
 });
 dynamicViewsModules[PageLayoutViewPath.MAIN] = LAYOUT_MAIN;
 dynamicViewsModules[PageLayoutViewPath.SIMPLE] = LAYOUT_SIMPLE;
+dynamicViewsModules[PageLayoutViewPath.IFRAME] = LAYOUT_IFRAME;
+dynamicViewsModules[PageLayoutViewPath.EXTERNAL] = LAYOUT_EXTERNAL;
 
 export const importComponent = (viewPath: string) => {
   return dynamicViewsModules[viewPath];

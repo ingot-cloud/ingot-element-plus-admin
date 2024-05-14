@@ -1,7 +1,7 @@
 import type { RouteRecordRaw } from "vue-router";
 import type { MenuRouteRecord } from "@/layouts";
 import type { MenuTreeNode } from "@/models";
-import { MenuType } from "@/models/enums";
+import { MenuType, MenuLinkType } from "@/models/enums";
 import { importComponent, NotFound } from "@/router/constants";
 
 /**
@@ -73,16 +73,21 @@ const transformMenuItem = (route: RouteRecordRaw, menu: MenuTreeNode) => {
 };
 
 const menuToRoute = (menu: MenuTreeNode) => {
+  const meta: any = {
+    title: menu.name,
+    icon: menu.icon,
+    hideMenu: menu.hidden,
+    hideBreadcrumb: menu.hideBreadcrumb,
+  };
+  if (menu.linkType !== MenuLinkType.Default) {
+    meta.linkURL = menu.linkUrl;
+  }
+
   return {
     path: menu.path as string,
     name: menu.routeName,
     redirect: menu.redirect,
-    meta: {
-      title: menu.name,
-      icon: menu.icon,
-      hideMenu: menu.hidden,
-      hideBreadcrumb: menu.hideBreadcrumb,
-    },
+    meta,
     component: importComponent(menu.viewPath as string),
     props: menu.props,
     children: [],

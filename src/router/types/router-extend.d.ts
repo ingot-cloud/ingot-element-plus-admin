@@ -35,6 +35,10 @@ declare module "vue-router" {
      * 是否手动处理全局loading
      */
     manualCloseGlobalLoading?: boolean;
+    /**
+     * 链接url
+     */
+    linkURL?: string;
   }
 
   interface _RouteLocationBase {
