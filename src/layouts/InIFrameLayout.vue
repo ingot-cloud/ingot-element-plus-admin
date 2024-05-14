@@ -66,7 +66,7 @@ watch(
       current = {
         path: route.fullPath,
         url: route.meta.linkURL!,
-        loading: false,
+        loading: true,
       };
       urlArray.value.push(current);
     }
