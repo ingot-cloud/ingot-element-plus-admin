@@ -1,5 +1,6 @@
 <template>
-  <!-- <iframe
+  <in-container>
+    <!-- <iframe
     :src="v.meta.isLink"
     :key="v.path"
     frameborder="0"
@@ -10,5 +11,7 @@
     v-show="getRoutePath === v.path"
     ref="iframeRef"
   /> -->
-  内嵌页面
+    内嵌页面1
+    <div>a</div>
+  </in-container>
 </template>

@@ -8,8 +8,8 @@ export const NotFound = {
 export enum PageLayoutViewPath {
   MAIN = "@/layouts/InAppLayout.vue",
   SIMPLE = "@/layouts/InSimpleLayout.vue",
-  IFRAME = "@/layouts/InIframeLayout.vue",
-  EXTERNAL = "@/layouts/InExternalLayout.vue",
+  IFRAME = "@/layouts/InIFrameLayout.vue",
+  EXTERNAL = "@/layouts/InExtLinkLayout.vue",
 }
 export enum PageName {
   REDIRECT = "Redirect",

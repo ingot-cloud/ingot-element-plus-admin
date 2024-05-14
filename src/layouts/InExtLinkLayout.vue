@@ -1,1 +1,3 @@
-<template>外部链接</template>
+<template>
+  <in-container> 外部链接 </in-container>
+</template>
