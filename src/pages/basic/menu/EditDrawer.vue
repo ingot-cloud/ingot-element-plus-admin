@@ -50,7 +50,7 @@
           ></el-input>
         </el-form-item>
 
-        <el-form-item prop="path" label="菜单路由" v-if="isInnerLink()">
+        <el-form-item prop="path" label="菜单路由" v-if="isDefaultLink()">
           <el-input
             v-model="editForm.path"
             placeholder="请输入菜单路由"
@@ -146,7 +146,7 @@
       </div>
 
       <in-form-group-title
-        v-if="!isButton() && isInnerLink()"
+        v-if="!isButton() && isDefaultLink()"
         title="视图高级选项"
         v-model="editForm.customViewPath"
       />
@@ -300,7 +300,7 @@ const defaultEditForm: SysMenu = {
   hidden: false,
   hideBreadcrumb: false,
   props: false,
-  linkType: MenuLinkType.Inner,
+  linkType: MenuLinkType.Default,
   orgType: undefined,
   status: CommonStatus.Enable,
 };
@@ -351,12 +351,12 @@ const isMenu = () => {
 const isButton = () => {
   return editForm.menuType == MenuType.Button;
 };
-const isInnerLink = () => {
-  return editForm.linkType == MenuLinkType.Inner;
+const isDefaultLink = () => {
+  return editForm.linkType == MenuLinkType.Default;
 };
 
 const privateOnMenuTypeChange = () => {
-  editForm.linkType = MenuLinkType.Inner;
+  editForm.linkType = MenuLinkType.Default;
 };
 
 const privateOnRemoveClick = () => {

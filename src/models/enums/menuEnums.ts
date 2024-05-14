@@ -25,12 +25,14 @@ export function getMenuTypeIcon(type: MenuType): string {
 }
 
 export enum MenuLinkType {
-  Inner = "0",
-  Outer = "1",
+  Default = "0",
+  IFrame = "1",
+  External = "2",
 }
 export const MenuLinkTypeEnumExtArray = toEnumExtArray(MenuLinkType, [
-  newTagText("内部链接", "success"),
-  newTagText("外部链接", "warning"),
+  newTagText("正常链接", "success"),
+  newTagText("内嵌链接", "warning"),
+  newTagText("外部链接", "danger"),
 ]);
 export const useMenuLinkTypeEnum = () => {
   return useEnum(MenuLinkTypeEnumExtArray);
