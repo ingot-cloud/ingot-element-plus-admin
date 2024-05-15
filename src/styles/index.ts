@@ -5,4 +5,5 @@ import "./dark/el-css-vars.css";
 import "./dark/base-vars.css";
 import "./base-vars.css";
 import "./transition.css";
+import "./waves.css";
 import "./main.css";
