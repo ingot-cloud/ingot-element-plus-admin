@@ -141,6 +141,8 @@ export const useAuthStore = defineStore(
  * 用户信息
  */
 export const useUserInfoStore = defineStore("security.user", () => {
+  const permissions = usePermissions();
+
   const defaultUser = {
     user: undefined,
     roles: [],
@@ -175,7 +177,7 @@ export const useUserInfoStore = defineStore("security.user", () => {
       UserInfoAPI()
         .then((response) => {
           Object.assign(userInfo, response.data);
-          usePermissions().updateRoles(response.data.roles);
+          permissions.updateRoles(response.data.roles);
           resolve(response.data);
         })
         .catch((e) => {
