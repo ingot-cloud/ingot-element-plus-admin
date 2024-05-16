@@ -34,6 +34,7 @@ function generateVerifier(length: number): string {
 }
 
 /** Generate a PKCE code challenge from a code verifier
+ * crypto.subtle.digest方法只有在https环境下或者localhost下才可以使用
  * @param code_verifier
  * @returns The base64 url encoded code challenge
  */
