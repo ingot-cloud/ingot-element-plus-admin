@@ -1,3 +1,4 @@
+import * as CryptoJS from "crypto-js";
 /**
  * Creates an array of length `size` of random bytes
  * @param size
@@ -11,7 +12,7 @@ function getRandomValues(size: number) {
  * @param size The desired length of the string
  * @returns The random string
  */
-function random(size: number) {
+export function random(size: number) {
   const mask =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~";
   let result = "";
@@ -50,6 +51,15 @@ export async function generateChallenge(code_verifier: string) {
     .replace(/=/g, "");
 }
 
+// CryptoJS实现
+export async function generateChallengeByCryptoJS(code_verifier: string) {
+  const hash = CryptoJS.SHA256(code_verifier);
+  return CryptoJS.enc.Base64.stringify(hash)
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
+}
+
 /** Generate a PKCE challenge pair
  * @param length Length of the verifer (between 43-128). Defaults to 43.
  * @returns PKCE challenge pair
@@ -65,7 +75,7 @@ export default async function pkceChallenge(length?: number): Promise<{
   }
 
   const verifier = generateVerifier(length);
-  const challenge = await generateChallenge(verifier);
+  const challenge = await generateChallengeByCryptoJS(verifier);
 
   return {
     code_verifier: verifier,
@@ -82,6 +92,6 @@ export async function verifyChallenge(
   code_verifier: string,
   expectedChallenge: string
 ) {
-  const actualChallenge = await generateChallenge(code_verifier);
+  const actualChallenge = await generateChallengeByCryptoJS(code_verifier);
   return actualChallenge === expectedChallenge;
 }
