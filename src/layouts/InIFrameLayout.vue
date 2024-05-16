@@ -78,7 +78,9 @@ watch(
       IFrameRef.value.forEach((v: HTMLElement) => {
         if (v.dataset.url === fullPath) {
           v.onload = () => {
-            if (current.loading) current.loading = false;
+            if (current && current.loading) {
+              current.loading = false;
+            }
           };
         }
       });
