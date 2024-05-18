@@ -34,6 +34,10 @@ export function OrgApplicationAPI(
   );
 }
 
+export function SyncApplication(id: string) {
+  return Http.put<void>(`/api/pms/v1/admin/application/sync/${id}`);
+}
+
 export function CreateAppAPI(params: SysApplication) {
   return Http.post<void>("/api/pms/v1/admin/application", params);
 }

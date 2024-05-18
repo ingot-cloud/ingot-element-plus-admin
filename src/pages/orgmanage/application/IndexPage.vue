@@ -43,6 +43,19 @@
         <common-status-tag :status="item.status" />
       </template>
       <template #actions="{ item }">
+        <in-button
+          link
+          text
+          type="warning"
+          @click="handleSyncApplication(item)"
+        >
+          <template #icon>
+            <el-icon>
+              <in-icon name="material-symbols:sync" />
+            </el-icon>
+          </template>
+          同步
+        </in-button>
         <common-status-button
           text
           link
@@ -78,6 +91,7 @@ import {
   UpdateAppStatusAPI,
   UpdateAppDefaultAPI,
   RemoveAppAPI,
+  SyncApplication,
 } from "@/api/basic/application";
 import { useAuthorityStore } from "@/stores/modules/authority";
 
@@ -112,6 +126,19 @@ const menuData = ref<Array<MenuTreeNode>>([]);
 
 const handleCreate = (): void => {
   EditDrawerRef.value?.show();
+};
+
+const handleSyncApplication = (params: ApplicationPageItemVO) => {
+  confirm.warning("是否同步改应用信息到所有组织?").then(() => {
+    paging.loading.value = true;
+    SyncApplication(params.id!)
+      .then(() => {
+        paging.loading.value = false;
+      })
+      .catch(() => {
+        paging.loading.value = false;
+      });
+  });
 };
 
 const handleDefaultChange = (params: ApplicationPageItemVO) => {
