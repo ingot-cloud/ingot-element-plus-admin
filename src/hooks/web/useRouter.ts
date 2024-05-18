@@ -7,7 +7,7 @@ import {
 } from "@/router";
 
 export const useRedirect = (
-  path = String(PagePath.HOME),
+  path = String(PagePath.ROOT),
   redirectType = String(RedirectPageType.PATH)
 ) => {
   const { currentRoute, replace } = useRouter();

@@ -2,7 +2,7 @@ import type { RouteRecordRaw } from "vue-router";
 import type { MenuRouteRecord } from "@/layouts";
 import type { MenuTreeNode } from "@/models";
 import { MenuType, MenuLinkType } from "@/models/enums";
-import { importComponent, NotFound } from "@/router/constants";
+import { importComponent, NotFound, PagePath } from "@/router/constants";
 
 /**
  * 生成侧栏菜单
@@ -53,6 +53,12 @@ export const transformMenu = (
       result.push(route);
     });
 
+  // 根默认重定向到第0个路径
+  result.push({
+    path: PagePath.ROOT,
+    redirect: result[0].path,
+    meta: { hideMenu: true, hideBreadcrumb: true },
+  });
   // 最后加入404视图
   result.push(NotFound);
   return result;

@@ -1,10 +1,5 @@
 import type { RouteRecordRaw } from "vue-router";
-import {
-  LAYOUT_MAIN,
-  PageName,
-  PagePath,
-  RedirectPageField,
-} from "@/router/constants";
+import { LAYOUT_MAIN, PageName, RedirectPageField } from "@/router/constants";
 
 /**
  * 公共路由
@@ -29,22 +24,6 @@ export const commonRoutes: Array<RouteRecordRaw> = [
           hideMenu: true,
           hideBreadcrumb: true,
         },
-      },
-    ],
-  },
-  {
-    path: "/",
-    redirect: PagePath.HOME,
-    component: LAYOUT_MAIN,
-    children: [
-      {
-        path: PagePath.HOME,
-        meta: {
-          title: "首页",
-          icon: "codicon:home",
-          isAffix: true,
-        },
-        component: () => import("@/pages/dashboard/IndexPage.vue"),
       },
     ],
   },

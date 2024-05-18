@@ -43,7 +43,7 @@ export const useAppStore = defineStore("app", () => {
 export const useAppStateStore = defineStore(
   "app.state",
   () => {
-    const menuOpenStatus = ref(false);
+    const menuOpenStatus = ref(true);
     const componentSize = ref<ComponentSize>("default");
     const showTabs = ref(false);
     const showBreadcrumb = ref(true);

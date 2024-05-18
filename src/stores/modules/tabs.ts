@@ -131,9 +131,9 @@ export const useTabsStore = defineStore(
     const closeAllTabs = (path: string) => {
       tabs.value = tabs.value.filter((item) => !item.close);
       const go = useGo(router);
-      // 所有都关闭后，重定向到home
+      // 所有都关闭后，重定向到root
       if (tabs.value.length === 0) {
-        go(PagePath.HOME, true);
+        go(PagePath.ROOT, true);
       } else {
         const idx = tabs.value.findIndex((item) => item.path === path);
         if (idx > -1) {

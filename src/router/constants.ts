@@ -15,7 +15,7 @@ export enum PageName {
   REDIRECT = "Redirect",
 }
 export enum PagePath {
-  HOME = "/home",
+  ROOT = "/",
 }
 export enum RedirectPageType {
   NAME = "name",

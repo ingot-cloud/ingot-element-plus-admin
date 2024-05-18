@@ -45,10 +45,7 @@
         </div>
       </template>
       <template #actions="{ item }">
-        <in-button-delete
-          v-if="userOps.currentNode.type !== OrgTypeEnums.Custom"
-          @click="privateHandleDelete(item)"
-        />
+        <in-button-delete @click="privateHandleDelete(item)" />
       </template>
     </in-table>
   </in-filter-container>
@@ -62,7 +59,6 @@ import { useUserOps } from "./useUserOps";
 import { tableHeaders } from "./table";
 import AddMemberDialog from "./components/AddMemberDialog.vue";
 import { BindUserAPI } from "@/api/org/role";
-import { OrgTypeEnums } from "@/models/enums";
 
 const AddMemberDialogRef = ref();
 const userOps = useUserOps();

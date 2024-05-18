@@ -45,7 +45,11 @@
       </el-form-item>
     </el-form>
     <template #footer>
-      <in-button v-if="isEdit" type="success" @click="handleBindCommand">
+      <in-button
+        v-if="isEdit && editForm.type == OrgTypeEnums.System"
+        type="success"
+        @click="handleBindCommand"
+      >
         关联权限
       </in-button>
       <common-status-button
@@ -73,7 +77,7 @@ import type { RoleGroupItemVO, Option } from "@/models";
 import { useRoleStore } from "@/stores/modules/role";
 import { Message } from "@/utils/message";
 import { copyParamsWithKeys, getDiffWithIgnore } from "@/utils/object";
-import { useOrgTypeEnums } from "@/models/enums";
+import { useOrgTypeEnums, OrgTypeEnums } from "@/models/enums";
 
 const rawForm = {
   id: undefined,
