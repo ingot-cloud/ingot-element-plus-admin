@@ -118,19 +118,12 @@ import {
   useMenuLinkTypeEnum,
 } from "@/models/enums";
 import { tableHeaders } from "./table";
-import type {
-  MenuTreeNode,
-  SysMenu,
-  AuthorityTreeNode,
-  MenuFilterDTO,
-} from "@/models";
+import type { MenuTreeNode, SysMenu, MenuFilterDTO } from "@/models";
 import { GetMenuTreeAPI } from "@/api/basic/menu";
 import EditDrawer from "./EditDrawer.vue";
 import type { TableAPI } from "@/components/table";
-import { useAuthorityStore } from "@/stores/modules/authority";
 
 const menuTypeEnums = useMenuTypeEnum();
-const authorityStore = useAuthorityStore();
 const orgTypeEnums = useOrgTypeEnums();
 const menuLinkTypeEnums = useMenuLinkTypeEnum();
 
