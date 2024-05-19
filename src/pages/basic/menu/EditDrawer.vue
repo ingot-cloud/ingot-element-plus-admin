@@ -24,7 +24,12 @@
           />
         </el-form-item>
 
-        <el-form-item label="组织类型" prop="orgType">
+        <!-- 1.创建时候可以显示组织类型 2.不存在上级菜单那么不显示-->
+        <el-form-item
+          v-if="!edit && !editForm.pid"
+          label="组织类型"
+          prop="orgType"
+        >
           <in-select
             w-full
             v-model="editForm.orgType"
@@ -75,17 +80,11 @@
           ></el-input>
         </el-form-item>
 
-        <el-form-item label="权限编码">
-          <el-tree-select
-            w-full
-            clearable
-            v-model="editForm.authorityId"
-            :data="authorityData"
-            :node-key="TreeKeyAndProps.nodeKey"
-            :value-key="TreeKeyAndProps.nodeKey"
-            :props="TreeKeyAndProps.props"
-            :check-strictly="true"
-          />
+        <el-form-item prop="cache" label="是否开启权限">
+          <el-radio-group v-model="editForm.enableAuthority">
+            <el-radio-button :label="true"> 是 </el-radio-button>
+            <el-radio-button :label="false"> 否 </el-radio-button>
+          </el-radio-group>
         </el-form-item>
 
         <el-form-item v-if="!isButton()" prop="icon" label="菜单icon">
@@ -292,6 +291,7 @@ const defaultEditForm: SysMenu = {
   name: undefined,
   menuType: MenuType.Directory,
   path: undefined,
+  enableAuthority: false,
   authorityId: undefined,
   authorityCode: undefined,
   routeName: undefined,
@@ -317,9 +317,6 @@ const menuLinkTypeEnum = useMenuLinkTypeEnum();
 const emits = defineEmits(["success"]);
 defineProps({
   selectData: {
-    type: Array,
-  },
-  authorityData: {
     type: Array,
   },
 });

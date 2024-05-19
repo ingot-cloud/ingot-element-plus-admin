@@ -10,6 +10,7 @@ export interface SysMenu {
   name?: string;
   menuType?: string;
   path?: string;
+  enableAuthority?: boolean;
   authorityId?: string;
   authorityCode?: string;
   routeName?: string;

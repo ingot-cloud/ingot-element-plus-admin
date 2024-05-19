@@ -46,7 +46,11 @@
         <in-copy-tag :text="item.path" />
       </template>
       <template #authorityCode="{ item }">
-        <in-copy-tag :text="item.authorityCode || '-'" />
+        <in-copy-tag
+          v-if="item.enableAuthority"
+          :text="item.authorityCode || '-'"
+        />
+        <el-tag v-else>未开启</el-tag>
       </template>
       <template #icon="{ item }">
         <in-icon
@@ -102,7 +106,6 @@
   <EditDrawer
     ref="EditDrawerRef"
     :selectData="selectData"
-    :authorityData="authorityData"
     @success="fetchData"
   />
 </template>
@@ -137,7 +140,6 @@ const loading = ref(false);
 const menuData = ref<Array<MenuTreeNode>>([]);
 const expandRowKeys = ref<Array<string>>([]);
 const selectData = ref<Array<MenuTreeNode>>([]);
-const authorityData = ref<Array<AuthorityTreeNode>>();
 const filter = ref<MenuFilterDTO>({});
 
 const fetchData = () => {
@@ -169,8 +171,5 @@ const showEditDialog = (params?: SysMenu | string) => {
 
 onMounted(() => {
   fetchData();
-  authorityStore.fetchAuthorityTree().then((data) => {
-    authorityData.value = data;
-  });
 });
 </script>
