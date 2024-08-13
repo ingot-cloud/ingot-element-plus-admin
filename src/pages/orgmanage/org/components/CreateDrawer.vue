@@ -28,13 +28,6 @@
           placeholder="请输入管理员手机号"
         ></el-input>
       </el-form-item>
-      <el-form-item label="管理员名称" prop="nickname">
-        <el-input
-          v-model="editForm.nickname"
-          clearable
-          placeholder="请输入管理员名称"
-        ></el-input>
-      </el-form-item>
     </el-form>
     <template #footer>
       <in-button type="primary" @click="handleActionButton">确定</in-button>
@@ -49,11 +42,10 @@ import { copyParamsWithKeys } from "@/utils/object";
 const rawForm = {
   avatar: undefined,
   name: undefined,
-  nickname: undefined,
   phone: undefined,
 };
 
-const keys = ["avatar", "name", "nickname", "phone"];
+const keys = ["avatar", "name", "phone"];
 
 const title = ref("");
 const show = ref(false);
@@ -62,7 +54,6 @@ const rules = {
   avatar: [{ required: true, message: "请上传logo", trigger: "blur" }],
   name: [{ required: true, message: "请输入组织", trigger: "blur" }],
   phone: [{ required: true, message: "请输入管理员手机号", trigger: "blur" }],
-  nickname: [{ required: true, message: "请输入管理员名称", trigger: "blur" }],
 };
 
 const emits = defineEmits(["success"]);
