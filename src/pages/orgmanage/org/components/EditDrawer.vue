@@ -78,6 +78,10 @@ const handleConfirmClick = () => {
           message.warning("数据未修改");
         });
       break;
+    default:
+      loading.value = false;
+      visible.value = false;
+      break;
   }
 };
 
