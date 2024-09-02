@@ -129,7 +129,7 @@ const handleCreate = (): void => {
 };
 
 const handleSyncApplication = (params: ApplicationPageItemVO) => {
-  confirm.warning("是否同步改应用信息到所有组织?").then(() => {
+  confirm.warning("是否同步该应用信息到所有组织?").then(() => {
     paging.loading.value = true;
     SyncApplication(params.id!)
       .then(() => {
