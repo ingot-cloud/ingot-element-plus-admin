@@ -104,4 +104,3 @@ const privateHandleDelete = (item: any) => {
   font-size: 17px;
 }
 </style>
-./useOps
