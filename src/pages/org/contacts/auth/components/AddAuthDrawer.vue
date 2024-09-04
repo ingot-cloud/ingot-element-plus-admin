@@ -1,5 +1,11 @@
 <template>
-  <in-drawer :title="title" v-model="show" :loading="loading" padding="0">
+  <in-drawer
+    :title="title"
+    v-model="show"
+    :loading="loading"
+    padding="0"
+    size="50%"
+  >
     <div m-t-10px>
       <in-table
         ref="BindTableRef"
@@ -27,8 +33,8 @@
             <in-button @click="cancelEditBatch"> 取消 </in-button>
           </div>
         </template>
-        <template #status="{ item }">
-          <common-status-tag :status="item.status" />
+        <template #code="{ item }">
+          <in-copy-tag :text="item.code" />
         </template>
         <template #actions="{ item }">
           <in-button
@@ -56,14 +62,20 @@ import { OrgAuthList, BindAuthorityAPI } from "@/api/org/auth";
 
 const tableHeaders: Array<TableHeaderRecord> = [
   {
-    label: "权限名称",
+    label: "权限",
+    prop: "code",
+  },
+  {
+    label: "名称",
     prop: "name",
+    width: "120px",
   },
   {
     label: "操作",
     prop: "actions",
     fixed: "right",
     align: "center",
+    width: "100px",
   },
 ];
 

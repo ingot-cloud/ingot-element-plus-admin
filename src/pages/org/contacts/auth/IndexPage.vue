@@ -30,6 +30,9 @@
           添加权限
         </in-button>
       </template>
+      <template #code="{ item }">
+        <in-copy-tag :text="item.code" />
+      </template>
       <template #actions="{ item }">
         <in-button-delete
           v-if="!isRoleManager(ops.currentNode.code!)"
