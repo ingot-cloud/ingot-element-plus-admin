@@ -53,15 +53,40 @@ export const transformMenu = (
       result.push(route);
     });
 
-  // 根默认重定向到第0个路径
+  // 设置跟重定向
   result.push({
     path: PagePath.ROOT,
-    redirect: result[0].path,
+    redirect: findEntryPath(menus),
     meta: { hideMenu: true, hideBreadcrumb: true },
   });
   // 最后加入404视图
   result.push(NotFound);
   return result;
+};
+
+/**
+ * 查询入口路径
+ */
+const findEntryPath = (menus: Array<MenuTreeNode>): string => {
+  if (!menus || menus.length == 0) {
+    return "/";
+  }
+  const menu = menus[0];
+  switch (menu.menuType) {
+    case MenuType.Button:
+      // eslint-disable-next-line no-case-declarations
+      const temp = menus.slice();
+      temp.shift();
+      return findEntryPath(temp);
+    case MenuType.Directory:
+      if (menu.children && menu.children.length > 0) {
+        return findEntryPath(menu.children);
+      }
+      break;
+    case MenuType.Menu:
+      return menu.path as string;
+  }
+  return "/";
 };
 
 const transformMenuItem = (route: RouteRecordRaw, menu: MenuTreeNode) => {
