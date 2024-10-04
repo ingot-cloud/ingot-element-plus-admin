@@ -11,7 +11,7 @@ import type { TabItem } from "./types";
 import { tabsRootContextKey } from "./constants";
 import { useOrderedChildren } from "element-plus";
 
-const emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits(["update:modelValue", "change"]);
 const props = defineProps({
   modelValue: {
     type: String,
@@ -23,6 +23,7 @@ const tabs = ref<Array<TabItem>>([]);
 const headerValue = computed<string>({
   set(v) {
     emits("update:modelValue", v);
+    emits("change", v);
     currentName.value = v;
   },
   get() {

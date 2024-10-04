@@ -17,7 +17,7 @@
 import type { TabItem } from "./types";
 import type { PropType } from "vue";
 
-const emits = defineEmits(["update:modelValue", "changed"]);
+const emits = defineEmits(["update:modelValue", "change"]);
 const props = defineProps({
   modelValue: {
     type: String,
@@ -32,7 +32,7 @@ const onItemClick = (id: string) => {
     return;
   }
   emits("update:modelValue", id);
-  emits("changed", id);
+  emits("change", id);
 };
 </script>
 <style scoped lang="postcss">

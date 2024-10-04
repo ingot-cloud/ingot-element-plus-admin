@@ -2,7 +2,7 @@
   <in-biz-tabs-header
     :modelValue="selectTab"
     :tabs="tabs"
-    @changed="onItemClick"
+    @change="onItemClick"
   />
 </template>
 <script lang="ts" setup>
