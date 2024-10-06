@@ -8,7 +8,7 @@
       :key="item.path"
       :to="item.path"
     >
-      <div flex items-center class="h-[var(--in-menu-icon-size)]">
+      <div flex items-center class="h-[var(--in-breadcrumb-height)]">
         <in-icon
           v-if="item.icon"
           :name="item.icon"

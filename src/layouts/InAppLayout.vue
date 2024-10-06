@@ -52,6 +52,7 @@ const { cacheNames } = storeToRefs(useRouterStore());
 
 .el-container {
   @apply bg-[var(--in-bg-color-page)];
+  height: calc(100vh - var(--in-app-bar-height));
 }
 
 .el-main {

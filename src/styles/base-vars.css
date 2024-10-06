@@ -8,6 +8,8 @@
   --in-menu-base-level-padding: 16px;
 
   --in-breadcrumb-icon-size: 16px;
+  --in-breadcrumb-height: 24px;
+  --in-copyright-hieght: 25px;
 
   --in-tabs-height: 26px;
   --in-tabs-font-size: 12px;
@@ -22,7 +24,7 @@
 
 :root {
   --in-menu-bg-color: white;
-  --in-menu-bg-hover-color: rgba(126,134,142,.16);
+  --in-menu-bg-hover-color: rgba(126, 134, 142, 0.16);
   --in-menu-text-color: #171a1d;
   --in-menu-text-active-color: var(--el-color-primary);
   --in-menu-item-font-size: 14px;
@@ -40,7 +42,7 @@
   --in-text-color-primary: var(--el-text-color-primary);
   --in-text-color-secondary: var(--el-text-color-secondary);
   --in-box-shadow: var(--el-box-shadow);
-  
+
   --in-bg-color: var(--el-bg-color);
   --in-bg-color-page: var(--el-bg-color-page);
   --in-bg-color-mute: #f2f2f2;
@@ -59,5 +61,5 @@
 }
 
 :root:root {
-  --el-border-color: rgba(126,134,142,.16);
+  --el-border-color: rgba(126, 134, 142, 0.16);
 }
