@@ -59,6 +59,9 @@
           {{ item.nickname }}
         </div>
       </template>
+      <template #username="{ item }">
+        <in-copy-tag :text="item.username" />
+      </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status" />
       </template>
