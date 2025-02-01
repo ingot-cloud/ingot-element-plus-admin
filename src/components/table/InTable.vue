@@ -140,10 +140,8 @@ watch(
   }
 );
 
-const headersEnable = ref(
-  props.headers.filter(
-    (item: TableHeaderRecord) => !item.hide
-  ) as Array<TableHeaderRecord>
+const headersEnable = ref<Array<TableHeaderRecord>>(
+  props.headers.filter((item: TableHeaderRecord) => !item.hide)
 );
 
 const current = ref(props.page.current);
