@@ -1,51 +1,54 @@
 <template>
-  <in-drawer :title="node.name" v-model="isShow" size="30%">
-    <in-table
-      ref="bindTable"
-      :headers="headers"
-      :data="records"
-      :selection="editBatch"
-      :row-key="TreeListKeyAndProps.key"
-      :tree-props="TreeListKeyAndProps.props"
-      :selectable="selectable"
-      @refresh="fetchData"
-      @selectionChange="onSelectChanged"
-    >
-      <template #toolbar>
-        <div v-if="!editBatch">
-          <in-button type="primary" @click="editBatch = true">
-            批量绑定
-          </in-button>
-        </div>
-        <div v-else>
+  <in-drawer :title="node.name" v-model="isShow" padding="0" size="30%">
+    <div m-t-10px>
+      <in-table
+        ref="bindTable"
+        :headers="headers"
+        :data="records"
+        :selection="editBatch"
+        :row-key="TreeListKeyAndProps.key"
+        :tree-props="TreeListKeyAndProps.props"
+        :selectable="selectable"
+        @refresh="fetchData"
+        @selectionChange="onSelectChanged"
+      >
+        <template #toolbar>
+          <div v-if="!editBatch">
+            <in-button m-l-10px type="primary" @click="editBatch = true">
+              批量绑定
+            </in-button>
+          </div>
+          <div v-else>
+            <in-button
+              m-l-10px
+              type="danger"
+              :disabled="selectData.length === 0"
+              @click="handleBatchBind"
+            >
+              绑定
+            </in-button>
+            <in-button @click="cancelEditBatch"> 取消 </in-button>
+          </div>
+        </template>
+        <template #code="{ item }">
+          <in-copy-tag :text="item.code" />
+        </template>
+        <template #actions="{ item }">
           <in-button
-            type="danger"
-            :disabled="selectData.length === 0"
-            @click="handleBatchBind"
+            link
+            text
+            type="primary"
+            @click="handleBind(item)"
+            :disabled="!selectable(item)"
           >
+            <template #icon>
+              <i-mdi:relative-scale />
+            </template>
             绑定
           </in-button>
-          <in-button @click="cancelEditBatch"> 取消 </in-button>
-        </div>
-      </template>
-      <template #code="{ item }">
-        <in-copy-tag :text="item.code" />
-      </template>
-      <template #actions="{ item }">
-        <in-button
-          link
-          text
-          type="primary"
-          @click="handleBind(item)"
-          :disabled="!selectable(item)"
-        >
-          <template #icon>
-            <i-mdi:relative-scale />
-          </template>
-          绑定
-        </in-button>
-      </template>
-    </in-table>
+        </template>
+      </in-table>
+    </div>
   </in-drawer>
 </template>
 <script lang="ts" setup>

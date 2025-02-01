@@ -4,7 +4,7 @@
     v-model="show"
     :loading="loading"
     padding="0"
-    size="50%"
+    size="30%"
   >
     <div m-t-10px>
       <in-table
@@ -24,6 +24,7 @@
           </div>
           <div v-else>
             <in-button
+              m-l-10px
               type="danger"
               :disabled="selectData.length === 0"
               @click="handleBatchBind"
