@@ -28,6 +28,10 @@
         <span class="title">搜索栏</span>
         <el-switch v-model="appStateStore.showSearch" />
       </div>
+      <div class="in-global-setting-item">
+        <span class="title">水印</span>
+        <el-switch v-model="appStateStore.showWatermark" />
+      </div>
     </div>
   </in-drawer>
 </template>

@@ -1,5 +1,6 @@
 import type { AppStore } from "../types";
 import type { ComponentSize } from "@/layouts/widgets/cmp-size/types";
+import { parseBoolean } from "@/utils";
 
 /**
  * 全局配置
@@ -43,12 +44,49 @@ export const useAppStore = defineStore("app", () => {
 export const useAppStateStore = defineStore(
   "app.state",
   () => {
-    const menuOpenStatus = ref(true);
-    const componentSize = ref<ComponentSize>("default");
-    const showTabs = ref(false);
-    const showBreadcrumb = ref(true);
-    const showCopyright = ref(true);
-    const showSearch = ref(true);
+    const menuOpenStatus = ref<boolean | undefined>(undefined);
+    const componentSize = ref<ComponentSize | undefined>(undefined);
+    const showTabs = ref<boolean | undefined>(undefined);
+    const showBreadcrumb = ref<boolean | undefined>(undefined);
+    const showCopyright = ref<boolean | undefined>(undefined);
+    const showSearch = ref<boolean | undefined>(undefined);
+    const showWatermark = ref<boolean | undefined>(undefined);
+    onMounted(() => {
+      if (menuOpenStatus.value === undefined) {
+        menuOpenStatus.value = parseBoolean(
+          import.meta.env.VITE_APP_SETTINGS_SHOW_MENU
+        );
+      }
+      if (componentSize.value === undefined) {
+        componentSize.value = import.meta.env
+          .VITE_APP_SETTINGS_COMPONENT_SIZE as ComponentSize;
+      }
+      if (showTabs.value === undefined) {
+        showTabs.value = parseBoolean(
+          import.meta.env.VITE_APP_SETTINGS_SHOW_TABS
+        );
+      }
+      if (showBreadcrumb.value === undefined) {
+        showBreadcrumb.value = parseBoolean(
+          import.meta.env.VITE_APP_SETTINGS_SHOW_BREADCRUMB
+        );
+      }
+      if (showCopyright.value === undefined) {
+        showCopyright.value = parseBoolean(
+          import.meta.env.VITE_APP_SETTINGS_SHOW_COPYRIGHT
+        );
+      }
+      if (showSearch.value === undefined) {
+        showSearch.value = parseBoolean(
+          import.meta.env.VITE_APP_SETTINGS_SHOW_SEARCH
+        );
+      }
+      if (showWatermark.value === undefined) {
+        showWatermark.value = parseBoolean(
+          import.meta.env.VITE_APP_SETTINGS_SHOW_WATERMARK
+        );
+      }
+    });
 
     const getMenuOpened = computed(() => {
       return menuOpenStatus.value;
@@ -65,6 +103,9 @@ export const useAppStateStore = defineStore(
     const getShowSearch = computed(() => {
       return showSearch.value;
     });
+    const getShowWatermark = computed(() => {
+      return showWatermark.value;
+    });
 
     const toggleMenu = () => {
       menuOpenStatus.value = !menuOpenStatus.value;
@@ -80,11 +121,13 @@ export const useAppStateStore = defineStore(
       showBreadcrumb,
       showCopyright,
       showSearch,
+      showWatermark,
       getMenuOpened,
       getShowTabs,
       getShowBreadcrumb,
       getShowCopyright,
       getShowSearch,
+      getShowWatermark,
       toggleMenu,
       changeComponentSize,
     };
@@ -92,7 +135,15 @@ export const useAppStateStore = defineStore(
   {
     persist: {
       storage: localStorage,
-      paths: ["menuOpenStatus", "componentSize", "showTabs", "showBreadcrumb"],
+      paths: [
+        "menuOpenStatus",
+        "componentSize",
+        "showTabs",
+        "showBreadcrumb",
+        "showCopyright",
+        "showSearch",
+        "showWatermark",
+      ],
     },
   }
 );
