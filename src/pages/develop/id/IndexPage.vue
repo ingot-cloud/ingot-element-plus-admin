@@ -1,6 +1,6 @@
 <template>
   <in-filter-container>
-    <template #top>
+    <template #header>
       <in-filter-item>
         <in-with-label title="业务标签">
           <el-input

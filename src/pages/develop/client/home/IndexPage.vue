@@ -1,6 +1,6 @@
 <template>
   <in-filter-container>
-    <template #top>
+    <template #header>
       <div flex flex-row justify-between>
         <in-with-label title="客户端ID">
           <el-input

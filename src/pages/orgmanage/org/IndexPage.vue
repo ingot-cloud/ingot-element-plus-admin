@@ -1,6 +1,6 @@
 <template>
   <in-filter-container>
-    <template #top>
+    <template #header>
       <in-filter-item>
         <in-with-label title="组织名称">
           <el-input
