@@ -37,13 +37,30 @@
 </template>
 <script setup lang="ts">
 import { useAppStateStore } from "@/stores/modules/app";
+import { useUserInfoStore } from "@/stores/modules/auth";
+import watermark from "@/utils/watermark";
 
 const appStateStore = useAppStateStore();
+const userInfoStore = useUserInfoStore();
 const drawer = ref(false);
 
 const onClick = () => {
   drawer.value = true;
 };
+
+watch(
+  () => appStateStore.showWatermark,
+  (val) => {
+    if (val) {
+      watermark.set(userInfoStore.getUsername!);
+    } else {
+      watermark.del();
+    }
+  },
+  {
+    immediate: true,
+  }
+);
 </script>
 <style scoped lang="postcss">
 .in-global-setting {

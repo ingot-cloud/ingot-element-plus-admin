@@ -151,7 +151,7 @@ export const useUserInfoStore = defineStore("security.user", () => {
   const userInfo = reactive<UserInfo>(defaultUser);
 
   const getUsername = computed(() => {
-    return userInfo.user ? userInfo.user.nickname : "欢迎登录";
+    return userInfo.user ? userInfo.user.nickname : "未登录";
   });
   const getAvatar = computed(() => {
     return userInfo.user ? userInfo.user.avatar : "";
