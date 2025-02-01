@@ -7,7 +7,7 @@ import type {
   RoleFilterDTO,
   R,
   RoleBindParams,
-  SysAuthority,
+  AuthorityFilterDTO,
   AuthorityTreeNode,
   Option,
 } from "@/models";
@@ -89,7 +89,7 @@ export function BindAuthorityAPI(params: RoleBindParams): Promise<R<void>> {
 export function GetBindAuthoritiesAPI(
   id: string,
   isBind: boolean,
-  condition?: SysAuthority
+  condition?: AuthorityFilterDTO
 ): Promise<R<Array<AuthorityTreeNode>>> {
   if (condition) {
     filterParams(condition);

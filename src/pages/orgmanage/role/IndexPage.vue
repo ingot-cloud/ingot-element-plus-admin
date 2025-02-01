@@ -24,11 +24,13 @@ import { tableHeaders } from "./table";
 import { GetBindAuthoritiesAPI, BindAuthorityAPI } from "@/api/basic/role";
 import type {
   SysAuthority,
+  AuthorityFilterDTO,
   R,
   RoleBindParams,
   AuthorityTreeNode,
   RoleGroupItemVO,
 } from "@/models";
+import { OrgTypeEnums } from "@/models/enums";
 import UnbindView from "./components/UnbindView.vue";
 
 const id = ref("");
@@ -51,9 +53,12 @@ const bindBatchConfirmMessage = "是否绑定所选权限?";
 const fetchDataFn = (
   id: string,
   isBind: boolean,
-  condition?: SysAuthority
+  condition?: AuthorityFilterDTO
 ): Promise<R<Array<AuthorityTreeNode>>> => {
-  return GetBindAuthoritiesAPI(id, isBind, condition);
+  return GetBindAuthoritiesAPI(id, isBind, {
+    ...condition,
+    orgTypeText: OrgTypeEnums.Tenant,
+  });
 };
 const bindFn = (bindParams: RoleBindParams): Promise<R<void>> => {
   return BindAuthorityAPI(bindParams);

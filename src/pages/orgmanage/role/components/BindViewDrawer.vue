@@ -1,5 +1,5 @@
 <template>
-  <in-drawer :title="node.name" v-model="isShow" size="50%">
+  <in-drawer :title="node.name" v-model="isShow" size="30%">
     <in-table
       ref="bindTable"
       :headers="headers"
@@ -28,8 +28,8 @@
           <in-button @click="cancelEditBatch"> 取消 </in-button>
         </div>
       </template>
-      <template #status="{ item }">
-        <common-status-tag :status="item.status" />
+      <template #code="{ item }">
+        <in-copy-tag :text="item.code" />
       </template>
       <template #actions="{ item }">
         <in-button
