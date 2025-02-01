@@ -52,7 +52,9 @@ watch(
   () => appStateStore.showWatermark,
   (val) => {
     if (val) {
-      watermark.set(userInfoStore.getUsername!);
+      watermark.set(
+        `${userInfoStore.getUsername!}@${userInfoStore.getSensitivePhone}`
+      );
     } else {
       watermark.del();
     }

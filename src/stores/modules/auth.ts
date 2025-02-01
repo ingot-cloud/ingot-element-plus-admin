@@ -153,6 +153,13 @@ export const useUserInfoStore = defineStore("security.user", () => {
   const getUsername = computed(() => {
     return userInfo.user ? userInfo.user.nickname : "未登录";
   });
+  const getSensitivePhone = computed(() => {
+    return userInfo.user
+      ? `${userInfo.user.phone?.slice(0, 3)}****${userInfo.user.phone?.slice(
+          -4
+        )}`
+      : "";
+  });
   const getAvatar = computed(() => {
     return userInfo.user ? userInfo.user.avatar : "";
   });
@@ -189,6 +196,7 @@ export const useUserInfoStore = defineStore("security.user", () => {
   return {
     userInfo,
     getUsername,
+    getSensitivePhone,
     getAvatar,
     getRoles,
     getUserInfoWhetherExist,
