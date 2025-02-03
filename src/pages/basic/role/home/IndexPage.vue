@@ -69,7 +69,7 @@ import { tableHeaders } from "./table";
 import type { RoleGroupItemVO, Option, RoleFilterDTO } from "@/models";
 import type { TableAPI } from "@/components/table";
 import { useRoleStore } from "@/stores/modules/role";
-import { useOrgTypeEnums } from "@/models/enums";
+import { useOrgTypeEnums, OrgTypeEnums } from "@/models/enums";
 import RoleDrawer from "../components/RoleDrawer.vue";
 import RoleGroupDrawer from "../components/RoleGroupDrawer.vue";
 
@@ -77,7 +77,8 @@ const RoleDrawerRef = ref();
 const RoleGroupDrawerRef = ref();
 const tableRef = ref<TableAPI>();
 
-const filter = ref<RoleFilterDTO>({});
+// 系统角色
+const filter = ref<RoleFilterDTO>({ roleType: OrgTypeEnums.System });
 const roleTree = ref<Array<RoleGroupItemVO>>([]);
 const groupList = ref<Array<Option>>([]);
 
