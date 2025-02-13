@@ -5,11 +5,6 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     prop: "code",
   },
   {
-    label: "名称",
-    prop: "name",
-    width: "120px",
-  },
-  {
     label: "操作",
     prop: "actions",
     fixed: "right",

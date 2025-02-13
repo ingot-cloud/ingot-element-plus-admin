@@ -31,13 +31,20 @@
         </in-button>
       </template>
       <template #code="{ item }">
-        <in-copy-tag :text="item.code" />
+        <div flex flex-row gap-2>
+          <div>{{ item.name }}</div>
+          <in-copy-tag :text="item.code" />
+        </div>
       </template>
       <template #actions="{ item }">
-        <in-button-delete
+        <in-button
           v-if="!isRoleManager(ops.currentNode.code!)"
+          type="danger"
           @click="privateHandleDelete(item)"
-        />
+        >
+          解绑
+        </in-button>
+        <div v-else>-</div>
       </template>
     </in-table>
   </in-filter-container>
