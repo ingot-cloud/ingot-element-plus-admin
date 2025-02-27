@@ -18,7 +18,7 @@
       <el-form-item label="类型" prop="type">
         <in-select
           w-full
-          :disabled="isEdit"
+          disabled
           v-model="editForm.type"
           placeholder="请选择类型"
           :options="roleTypeEnum.getOptions()"
@@ -39,12 +39,12 @@ import type { RoleGroupItemVO } from "@/models";
 import { useRoleStore } from "@/stores/modules/role";
 import { Message } from "@/utils/message";
 import { copyParamsWithKeys, getDiffWithIgnore } from "@/utils/object";
-import { useOrgTypeEnums } from "@/models/enums";
+import { useOrgTypeEnums, OrgTypeEnums } from "@/models/enums";
 
 const rawForm = {
   id: undefined,
   name: undefined,
-  type: undefined,
+  type: OrgTypeEnums.System,
 };
 
 const keys = ["id", "name", "type"];
@@ -55,7 +55,6 @@ const id = ref();
 
 const rules = {
   name: [{ required: true, message: "请输入角色组名称", trigger: "blur" }],
-  type: [{ required: true, message: "请选择类型", trigger: "blur" }],
 };
 
 const emits = defineEmits(["success"]);

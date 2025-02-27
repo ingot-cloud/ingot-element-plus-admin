@@ -36,12 +36,21 @@
       <el-form-item label="类型" prop="type">
         <in-select
           w-full
-          :disabled="isEdit"
+          disabled
           v-model="editForm.type"
           placeholder="请选择类型"
           :options="roleTypeEnum.getOptions()"
           clearable
         />
+      </el-form-item>
+      <el-form-item v-if="isEdit" label="权限">
+        <div flex flex-wrap gap-2 flex-row>
+          <in-tag
+            v-for="authority in bindAuthorities"
+            :key="authority.id"
+            :value="{ text: authority.name }"
+          />
+        </div>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -50,7 +59,7 @@
         type="success"
         @click="handleBindCommand"
       >
-        关联权限
+        编辑权限
       </in-button>
       <common-status-button
         v-if="isEdit"
@@ -70,20 +79,22 @@
       <in-button type="primary" @click="handleActionButton">确定</in-button>
     </template>
   </in-drawer>
+  <BindAuthDialog ref="bindAuthDialogRef" @success="fetchBindAuthorities" />
 </template>
 <script setup lang="ts">
 import type { PropType } from "vue";
-import type { RoleGroupItemVO, Option } from "@/models";
+import type { RoleGroupItemVO, Option, AuthorityTreeNode } from "@/models";
 import { useRoleStore } from "@/stores/modules/role";
 import { Message } from "@/utils/message";
 import { copyParamsWithKeys, getDiffWithIgnore } from "@/utils/object";
 import { useOrgTypeEnums, OrgTypeEnums } from "@/models/enums";
-
+import { GetBindAuthoritiesAPI } from "@/api/basic/role";
+import BindAuthDialog from "./BindAuthDialog.vue";
 const rawForm = {
   id: undefined,
   name: undefined,
   groupId: undefined,
-  type: undefined,
+  type: OrgTypeEnums.System,
   code: undefined,
   status: undefined,
 };
@@ -92,13 +103,13 @@ const keys = ["id", "name", "groupId", "code", "status", "type"];
 
 const title = ref("");
 const show = ref(false);
+const bindAuthDialogRef = ref();
 const id = ref();
-
+const bindAuthorities = ref<Array<AuthorityTreeNode>>([]);
 const rules = {
   name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
   groupId: [{ required: true, message: "请选择角色组", trigger: "blur" }],
   code: [{ required: true, message: "请输入角色编码", trigger: "blur" }],
-  type: [{ required: true, message: "请选择类型", trigger: "blur" }],
 };
 
 const emits = defineEmits(["success"]);
@@ -109,7 +120,6 @@ defineProps({
   },
 });
 
-const go = useGo();
 const roleStore = useRoleStore();
 const roleTypeEnum = useOrgTypeEnums();
 
@@ -128,16 +138,26 @@ const confirmDelete = useConfirmDelete(roleStore.removeRole, () => {
   emits("success");
 });
 
-const handleBindCommand = (): void => {
-  const type = "bindauthority";
-  const roleId = editForm.id;
+const stretch = (tree: Array<any>): Array<string> => {
+  let ids: Array<string> = [];
 
-  go({
-    path: `/basic/role/${type}/${roleId}`,
-    query: {
-      name: editForm.name,
-    },
+  tree.forEach((item) => {
+    ids.push(item.id as string);
+    if (item.children) {
+      ids = ids.concat(stretch(item.children));
+    }
   });
+
+  return ids;
+};
+
+const handleBindCommand = (): void => {
+  const roleId = editForm.id;
+  bindAuthDialogRef.value.show(
+    roleId,
+    editForm.name,
+    stretch(bindAuthorities.value)
+  );
 };
 
 const handleRemoveClick = () => {
@@ -176,6 +196,12 @@ const handleActionButton = () => {
   });
 };
 
+const fetchBindAuthorities = () => {
+  GetBindAuthoritiesAPI(id.value!, true).then((res) => {
+    bindAuthorities.value = res.data;
+  });
+};
+
 defineExpose({
   show(data?: RoleGroupItemVO) {
     isEdit.value = Boolean(data);
@@ -189,6 +215,7 @@ defineExpose({
         id.value = data?.id!;
         copyParamsWithKeys(editForm, data!, keys);
         copyParamsWithKeys(rawEditForm, data!, keys);
+        fetchBindAuthorities();
       } else {
         title.value = "新增角色";
         copyParamsWithKeys(editForm, rawForm, keys);

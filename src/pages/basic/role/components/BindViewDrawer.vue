@@ -1,19 +1,6 @@
 <template>
   <in-drawer :title="title" v-model="isShow" direction="ltr" size="50%">
     <in-filter-container :showBacktop="false">
-      <template #top>
-        <in-filter-item>
-          <in-with-label :title="filterRecord.title">
-            <el-input
-              clearable
-              v-model="queryCondition[`${filterRecord.key}`]"
-              :placeholder="filterRecord.placeholder"
-            ></el-input>
-          </in-with-label>
-          <in-button type="primary" @click="fetchData"> 搜索 </in-button>
-          <template #rightActions> </template>
-        </in-filter-item>
-      </template>
       <in-table
         ref="bindTable"
         :headers="headers"

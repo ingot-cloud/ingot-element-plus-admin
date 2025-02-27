@@ -35,6 +35,11 @@
           添加角色组
         </in-button>
       </template>
+      <template #name="{ item }">
+        <in-button text link @click="handleEdit(item)">
+          {{ item.name }}
+        </in-button>
+      </template>
       <template #code="{ item }">
         <el-tag>
           {{ item.code || "-" }}
