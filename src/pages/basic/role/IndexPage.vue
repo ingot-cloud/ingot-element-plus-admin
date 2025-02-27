@@ -75,8 +75,8 @@ import type { RoleGroupItemVO, Option, RoleFilterDTO } from "@/models";
 import type { TableAPI } from "@/components/table";
 import { useRoleStore } from "@/stores/modules/role";
 import { useOrgTypeEnums, OrgTypeEnums } from "@/models/enums";
-import RoleDrawer from "../components/RoleDrawer.vue";
-import RoleGroupDrawer from "../components/RoleGroupDrawer.vue";
+import RoleDrawer from "./components/RoleDrawer.vue";
+import RoleGroupDrawer from "./components/RoleGroupDrawer.vue";
 
 const RoleDrawerRef = ref();
 const RoleGroupDrawerRef = ref();

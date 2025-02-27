@@ -38,6 +38,11 @@
           添加菜单
         </in-button>
       </template>
+      <template #name="{ item }">
+        <in-button text link @click="showEditDialog(item)">
+          {{ item.name }}
+        </in-button>
+      </template>
       <template #menuType="{ item }">
         <Icon mr-2 :icon="getMenuTypeIcon(item.menuType)" />
         {{ menuTypeEnums.getTagText(item.menuType).text }}
