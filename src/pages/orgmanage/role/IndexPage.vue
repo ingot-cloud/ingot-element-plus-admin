@@ -6,62 +6,20 @@
       </div>
     </template>
 
-    <UnbindView
-      ref="UnbindViewRef"
-      :table-headers="tableHeaders"
-      :bind-single-confirm-message="bindSingleConfirmMessage"
-      :bind-batch-confirm-message="bindBatchConfirmMessage"
-      :unbind-single-confirm-message="unbindSingleConfirmMessage"
-      :unbind-batch-confirm-message="unbindBatchConfirmMessage"
-      :fetch-data-fn="fetchDataFn"
-      :bind-fn="bindFn"
-    ></UnbindView>
+    <AuthorityView ref="AuthorityViewRef" />
   </in-filter-container>
 </template>
 <script lang="ts" setup>
 import LeftContent from "./components/LeftContent.vue";
-import { tableHeaders } from "./table";
-import { GetBindAuthoritiesAPI, BindAuthorityAPI } from "@/api/basic/role";
-import type {
-  SysAuthority,
-  AuthorityFilterDTO,
-  R,
-  RoleBindParams,
-  AuthorityTreeNode,
-  RoleGroupItemVO,
-} from "@/models";
-import { OrgTypeEnums } from "@/models/enums";
-import UnbindView from "./components/UnbindView.vue";
+import type { RoleGroupItemVO } from "@/models";
+import AuthorityView from "./components/AuthorityView.vue";
 
 const id = ref("");
-const UnbindViewRef = ref();
+const AuthorityViewRef = ref();
 
 const handleTreeNodeClick = (node: RoleGroupItemVO): void => {
   id.value = node.id!;
-  UnbindViewRef.value.setCurrentNode(node);
-};
-
-const unbindSingleConfirmMessage = (item: SysAuthority) => {
-  return `是否解绑权限:${item.name}`;
-};
-const bindSingleConfirmMessage = (item: SysAuthority) => {
-  return `是否绑定权限:${item.name}`;
-};
-const unbindBatchConfirmMessage = "是否解绑所选权限?";
-const bindBatchConfirmMessage = "是否绑定所选权限?";
-
-const fetchDataFn = (
-  id: string,
-  isBind: boolean,
-  condition?: AuthorityFilterDTO
-): Promise<R<Array<AuthorityTreeNode>>> => {
-  return GetBindAuthoritiesAPI(id, isBind, {
-    ...condition,
-    orgTypeText: OrgTypeEnums.Tenant,
-  });
-};
-const bindFn = (bindParams: RoleBindParams): Promise<R<void>> => {
-  return BindAuthorityAPI(bindParams);
+  AuthorityViewRef.value.setCurrentNode(node);
 };
 </script>
 <style scoped lang="postcss">

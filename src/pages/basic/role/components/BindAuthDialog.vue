@@ -9,8 +9,8 @@
           show-checkbox
           :props="TreeKeyAndProps.props"
           :node-key="TreeKeyAndProps.nodeKey"
-          :default-expanded-keys="selectedIds"
-          :default-checked-keys="selectedIds"
+          :default-expanded-keys="defaultSelectedIds"
+          :default-checked-keys="defaultSelectedIds"
           @check-change="onCheckChange"
         />
       </div>
@@ -41,7 +41,7 @@ const title = ref("");
 const id = ref("");
 const data = ref<Array<AuthorityTreeNode>>([]);
 const selectedIds = ref<Array<string>>([]);
-const rawSelectIds = ref<Array<string>>([]);
+const defaultSelectedIds = ref<Array<string>>([]);
 
 const message = useMessage();
 
@@ -99,12 +99,11 @@ const handleActionButton = () => {
 
 defineExpose({
   show(idIn: string, titleIn: string, selectedIdsIn: Array<string>) {
-    console.log(selectedIdsIn);
     id.value = idIn;
     isShow.value = true;
     title.value = titleIn;
     selectedIds.value = selectedIdsIn;
-    rawSelectIds.value = selectedIdsIn;
+    defaultSelectedIds.value = selectedIdsIn;
     nextTick(() => {
       fetchData(id.value);
     });
