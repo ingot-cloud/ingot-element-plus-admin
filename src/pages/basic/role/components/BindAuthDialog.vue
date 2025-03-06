@@ -47,10 +47,9 @@ const message = useMessage();
 
 const onCheckChange = (
   node: AuthorityTreeNode,
-  isChecked: boolean,
-  childChecked: boolean
+  isChecked: boolean
+  // childChecked: boolean
 ) => {
-  console.log(node.name, isChecked, childChecked);
   const selectId = node.id!;
   selectedIds.value = isChecked
     ? [...selectedIds.value, selectId]

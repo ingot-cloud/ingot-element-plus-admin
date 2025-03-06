@@ -1,170 +1,125 @@
 <template>
   <in-drawer
     :title="title"
-    v-model="show"
+    v-model="isShow"
     :loading="loading"
     padding="0"
     size="30%"
   >
-    <div m-t-10px>
-      <in-table
-        ref="BindTableRef"
-        :headers="tableHeaders"
-        :data="records"
-        :selection="editBatch"
-        :selectable="selectable"
-        @refresh="fetchData"
-        @selectionChange="onSelectChanged"
+    <in-filter-container :showBacktop="false">
+      <div class="auth-content">
+        <in-tree
+          ref="treeRef"
+          v-loading="loading"
+          :data="data"
+          show-checkbox
+          :props="TreeKeyAndProps.props"
+          :node-key="TreeKeyAndProps.nodeKey"
+          :default-expanded-keys="defaultSelectedIds"
+          :default-checked-keys="defaultSelectedIds"
+          @check-change="onCheckChange"
+        />
+      </div>
+    </in-filter-container>
+    <template #footer>
+      <in-button @click="isShow = false"> 取消 </in-button>
+      <in-button
+        type="primary"
+        :loading="btnLoading"
+        @click="handleActionButton"
       >
-        <template #toolbar>
-          <div v-if="!editBatch">
-            <in-button m-l-10px type="primary" @click="editBatch = true">
-              批量绑定
-            </in-button>
-          </div>
-          <div v-else>
-            <in-button
-              m-l-10px
-              type="danger"
-              :disabled="selectData.length === 0"
-              @click="handleBatchBind"
-            >
-              绑定
-            </in-button>
-            <in-button @click="cancelEditBatch"> 取消 </in-button>
-          </div>
-        </template>
-        <template #code="{ item }">
-          <in-copy-tag :text="item.code" />
-        </template>
-        <template #actions="{ item }">
-          <in-button
-            link
-            text
-            type="primary"
-            @click="handleBind(item)"
-            :disabled="!selectable(item)"
-          >
-            <template #icon>
-              <i-mdi:relative-scale />
-            </template>
-            绑定
-          </in-button>
-        </template>
-      </in-table>
-    </div>
+        确定
+      </in-button>
+    </template>
   </in-drawer>
 </template>
 <script lang="ts" setup>
-import type { PropType } from "vue";
-import type { TableHeaderRecord } from "@/components/table";
-import type { AuthorityTreeNode } from "@/models";
+import { TreeKeyAndProps, AuthorityTreeNode } from "@/models";
 import { OrgAuthList, BindAuthorityAPI } from "@/api/org/auth";
 
-const tableHeaders: Array<TableHeaderRecord> = [
-  {
-    label: "权限",
-    prop: "code",
-  },
-  {
-    label: "名称",
-    prop: "name",
-    width: "120px",
-  },
-  {
-    label: "操作",
-    prop: "actions",
-    fixed: "right",
-    align: "center",
-    width: "100px",
-  },
-];
+const emit = defineEmits(["success"]);
 
-const BindTableRef = ref();
-
+const treeRef = ref();
+const isShow = ref(false);
 const loading = ref(false);
-const show = ref(false);
-const editBatch = ref(false);
-const records = ref<Array<AuthorityTreeNode>>([]);
-const selectData = ref<Array<AuthorityTreeNode>>([]);
+const btnLoading = ref(false);
+const title = ref("");
+const id = ref("");
+const data = ref<Array<AuthorityTreeNode>>([]);
+const selectedIds = ref<Array<string>>([]);
+const defaultSelectedIds = ref<Array<string>>([]);
 
 const message = useMessage();
-const confirm = useMessageConfirm();
 
-const emits = defineEmits(["success"]);
-
-const props = defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-  bindIds: {
-    type: Array as PropType<Array<string>>,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-});
-
-const selectable = (row: any) => {
-  return !props.bindIds.includes(row.id as string);
+const onCheckChange = (
+  node: AuthorityTreeNode,
+  isChecked: boolean
+  // childChecked: boolean
+) => {
+  const selectId = node.id!;
+  selectedIds.value = isChecked
+    ? [...selectedIds.value, selectId]
+    : selectedIds.value.filter((id) => id !== selectId);
 };
-
-const cancelEditBatch = () => {
-  editBatch.value = false;
-  BindTableRef.value.clearSelection();
-};
-
-const onSelectChanged = (selection: Array<any>) => {
-  selectData.value = selection;
-};
-
-const handleBind = (item: AuthorityTreeNode) => {
-  confirm.warning(`是否绑定权限${item.name}`).then(() => {
-    BindAuthorityAPI({ id: props.id, bindIds: [item.id as string] }).then(
-      () => {
-        message.success("操作成功");
-        emits("success");
-        fetchData();
-      }
-    );
-  });
-};
-
-const handleBatchBind = () => {
-  confirm.warning(`是否绑定权限选择的权限`).then(() => {
-    const bindIds = selectData.value.map((item) => item.id as string);
-    BindAuthorityAPI({ id: props.id, bindIds }).then(() => {
-      message.success("操作成功");
-      emits("success");
-      fetchData();
-    });
-  });
-};
-
 const fetchData = () => {
   loading.value = true;
   OrgAuthList()
-    .then((response) => {
+    .then((res) => {
+      data.value = res.data;
       loading.value = false;
-      nextTick(() => {
-        records.value = response.data;
-      });
     })
     .catch(() => {
       loading.value = false;
-      nextTick(() => {
-        records.value = [];
-      });
+    });
+};
+
+const handleActionButton = () => {
+  const checkedNodes = treeRef.value.getCheckedNodes();
+  const realSelectIds = checkedNodes.map((node: any) => node.id);
+
+  // 如果当前选中的节点父节点也选中，那么不需要绑定当前节点
+  const bindIds = checkedNodes
+    .filter((node: any) => {
+      return !realSelectIds.some((id: any) => id === node.pid);
+    })
+    .map((node: any) => {
+      return node.id;
+    });
+  // 过滤权限，如果父节点是选中状态，那么不需要绑定当前节点，并且孙子节点等都不需要
+  btnLoading.value = true;
+  BindAuthorityAPI({
+    id: id.value,
+    bindIds,
+  })
+    .then(() => {
+      message.success("操作成功");
+      btnLoading.value = false;
+      isShow.value = false;
+      emit("success");
+    })
+    .catch(() => {
+      btnLoading.value = false;
     });
 };
 
 defineExpose({
-  show() {
-    show.value = true;
-    fetchData();
+  show(idIn: string, titleIn: string, selectedIdsIn: Array<string>) {
+    id.value = idIn;
+    isShow.value = true;
+    title.value = titleIn;
+    selectedIds.value = selectedIdsIn;
+    defaultSelectedIds.value = selectedIdsIn;
+    nextTick(() => {
+      fetchData();
+    });
   },
 });
 </script>
+<style lang="postcss" scoped>
+.auth-content {
+  --el-fill-color-blank: rgba(23, 26, 29, 0.03);
+  @apply max-h-50vh overflow-y-auto;
+  background-color: rgba(23, 26, 29, 0.03);
+  border-radius: 12px;
+}
+</style>

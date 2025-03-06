@@ -22,6 +22,11 @@
           {{ deptRoleScopeEnum.getTagText(item.scope).text }}
         </el-tag>
       </template>
+      <template #name="{ item }">
+        <in-button link text @click="handleEdit(item)">
+          {{ item.name }}
+        </in-button>
+      </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status" />
       </template>

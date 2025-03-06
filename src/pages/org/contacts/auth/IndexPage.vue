@@ -27,7 +27,7 @@
           type="primary"
           @click="privateAddAuth"
         >
-          添加权限
+          编辑权限
         </in-button>
       </template>
       <template #code="{ item }">
@@ -36,40 +36,21 @@
           <in-copy-tag :text="item.code" />
         </div>
       </template>
-      <template #actions="{ item }">
-        <in-button
-          v-if="!isRoleManager(ops.currentNode.code!)"
-          type="danger"
-          @click="privateHandleDelete(item)"
-        >
-          解绑
-        </in-button>
-        <div v-else>-</div>
-      </template>
     </in-table>
   </in-filter-container>
 
-  <AddAuthDrawer
-    ref="AddAuthDrawerRef"
-    :id="ops.currentNode.id!"
-    :bindIds="stretch(ops.records.value)"
-    :title="ops.currentNode.name!"
-    @success="ops.fetchData"
-  />
+  <AddAuthDrawer ref="AddAuthDrawerRef" @success="ops.fetchData" />
 </template>
 <script lang="ts" setup>
 import ContactsTabs from "@/pages/org/contacts/components/ContactsTabs.vue";
 import LeftContent from "./components/LeftContent.vue";
 import { useOps } from "./useOps";
 import { tableHeaders } from "./table";
-import { BindAuthorityAPI } from "@/api/org/auth";
 import AddAuthDrawer from "./components/AddAuthDrawer.vue";
 import { isRoleManager } from "@/constants/role";
 
 const AddAuthDrawerRef = ref();
-
 const ops = useOps();
-const confirm = useMessageConfirm();
 
 const stretch = (tree: Array<any>): Array<string> => {
   let ids: Array<string> = [];
@@ -85,19 +66,11 @@ const stretch = (tree: Array<any>): Array<string> => {
 };
 
 const privateAddAuth = () => {
-  AddAuthDrawerRef.value.show();
-};
-const privateHandleDelete = (item: any) => {
-  confirm
-    .warning(`角色(${ops.currentNode.name})是否取消绑定权限(${item.name})`)
-    .then(() => {
-      BindAuthorityAPI({
-        id: ops.currentNode.id,
-        removeIds: [item.id],
-      }).then(() => {
-        ops.fetchData();
-      });
-    });
+  AddAuthDrawerRef.value.show(
+    ops.currentNode.id,
+    ops.currentNode.name,
+    stretch(ops.records.value)
+  );
 };
 </script>
 <style scoped lang="postcss">
