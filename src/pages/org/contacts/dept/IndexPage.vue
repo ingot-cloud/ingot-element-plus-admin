@@ -23,7 +23,12 @@
         </el-tag>
       </template>
       <template #name="{ item }">
-        <in-button link text @click="handleEdit(item)">
+        <in-button
+          :disabled="item.mainFlag"
+          link
+          text
+          @click="handleEdit(item)"
+        >
           {{ item.name }}
         </in-button>
       </template>

@@ -27,18 +27,7 @@
         ></el-input>
       </el-form-item>
 
-      <el-form-item prop="scope" label="权限范围">
-        <el-radio-group v-model="editForm.scope">
-          <el-radio-button :label="DeptRoleScope.Current">
-            {{ deptRoleScopeEnum.getTagText(DeptRoleScope.Current).text }}
-          </el-radio-button>
-          <el-radio-button :label="DeptRoleScope.CurrentChild">
-            {{ deptRoleScopeEnum.getTagText(DeptRoleScope.CurrentChild).text }}
-          </el-radio-button>
-        </el-radio-group>
-      </el-form-item>
-
-      <el-form-item prop="status" label="状态">
+      <el-form-item prop="status" label="状态" v-if="edit">
         <el-radio-group v-model="editForm.status">
           <el-radio-button :label="CommonStatus.Enable">
             {{ statusEnum.getTagText(CommonStatus.Enable).text }}
@@ -47,14 +36,6 @@
             {{ statusEnum.getTagText(CommonStatus.Lock).text }}
           </el-radio-button>
         </el-radio-group>
-      </el-form-item>
-      <el-form-item prop="sort" label="排序">
-        <el-input
-          v-model="editForm.sort"
-          placeholder="请输入排序序号"
-          type="number"
-          clearable
-        ></el-input>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -65,12 +46,7 @@
   </in-drawer>
 </template>
 <script setup lang="ts">
-import {
-  DeptRoleScope,
-  useDeptRoleScopeEnum,
-  CommonStatus,
-  CommonStatusEnumExtArray,
-} from "@/models/enums";
+import { CommonStatus, CommonStatusEnumExtArray } from "@/models/enums";
 import { TreeKeyAndProps } from "@/models";
 import type { SysDept } from "@/models";
 import { useDeptStore } from "@/stores/modules/org/dept";
@@ -81,7 +57,6 @@ const defaultEditForm: SysDept = {
   id: undefined,
   pid: undefined,
   name: undefined,
-  scope: DeptRoleScope.Current,
   sort: 999,
   status: CommonStatus.Enable,
 };
@@ -90,8 +65,6 @@ const rules = {
   pid: [{ required: true, message: "请选择上级菜单", trigger: "blur" }],
   name: [{ required: true, message: "请输入部门名称", trigger: "blur" }],
 };
-
-const deptRoleScopeEnum = useDeptRoleScopeEnum();
 
 const emits = defineEmits(["success"]);
 defineProps({

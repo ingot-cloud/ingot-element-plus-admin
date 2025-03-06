@@ -6,10 +6,6 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     prop: "name",
   },
   {
-    label: "权限范围",
-    prop: "scope",
-  },
-  {
     label: "状态",
     prop: "status",
   },
