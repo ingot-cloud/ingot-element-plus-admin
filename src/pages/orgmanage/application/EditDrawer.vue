@@ -17,18 +17,6 @@
           :check-strictly="true"
         />
       </el-form-item>
-      <el-form-item label="权限" prop="authorityId">
-        <el-tree-select
-          w-full
-          clearable
-          v-model="editForm.authorityId"
-          :data="authorityData"
-          :node-key="TreeKeyAndProps.nodeKey"
-          :value-key="TreeKeyAndProps.nodeKey"
-          :props="TreeKeyAndProps.props"
-          :check-strictly="true"
-        />
-      </el-form-item>
       <el-form-item label="默认应用">
         <el-switch v-model="editForm.defaultApp" />
       </el-form-item>
@@ -49,7 +37,6 @@ import { CreateAppAPI } from "@/api/basic/application";
 
 const rules = {
   menuId: [{ required: true, message: "请选择菜单", trigger: "blur" }],
-  authorityId: [{ required: true, message: "请选择权限", trigger: "blur" }],
 };
 
 const defaultEditForm: SysApplication = {
