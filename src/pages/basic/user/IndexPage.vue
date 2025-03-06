@@ -56,7 +56,9 @@
             :src="item.avatar"
             fit="cover"
           />
-          {{ item.nickname }}
+          <in-button text link @click="handleDetailUser(item)">
+            {{ item.nickname }}
+          </in-button>
         </div>
       </template>
       <template #username="{ item }">

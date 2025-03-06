@@ -47,7 +47,9 @@
             :src="item.avatar"
             fit="cover"
           />
-          {{ item.name }}
+          <in-button text link @click="handleEdit(item)">
+            {{ item.name }}
+          </in-button>
         </div>
       </template>
       <template #code="{ item }">
