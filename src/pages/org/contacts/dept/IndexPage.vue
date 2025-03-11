@@ -17,11 +17,6 @@
       <template #toolbar>
         <in-button type="primary" @click="handleEdit()"> 添加部门 </in-button>
       </template>
-      <template #scope="{ item }">
-        <el-tag>
-          {{ deptRoleScopeEnum.getTagText(item.scope).text }}
-        </el-tag>
-      </template>
       <template #name="{ item }">
         <in-button
           :disabled="item.mainFlag"
@@ -31,6 +26,20 @@
         >
           {{ item.name }}
         </in-button>
+      </template>
+      <template #managerUsers="{ item }">
+        <div
+          flex
+          flex-row
+          gap-2
+          flex-wrap
+          v-if="item.managerUsers && item.managerUsers.length > 0"
+        >
+          <el-tag v-for="(it, index) in item.managerUsers" :key="index">
+            {{ it.nickname }}
+          </el-tag>
+        </div>
+        <el-tag v-else> - </el-tag>
       </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status" />
@@ -84,11 +93,9 @@ import ContactsTabs from "@/pages/org/contacts/components/ContactsTabs.vue";
 import { tableHeaders } from "./table";
 import type { SysDept } from "@/models";
 import { useDeptStore } from "@/stores/modules/org/dept";
-import { useDeptRoleScopeEnum } from "@/models/enums";
 import { useUserInfoStore } from "@/stores/modules/auth";
 import EditDrawer from "./components/EditDrawer.vue";
 
-const deptRoleScopeEnum = useDeptRoleScopeEnum();
 const loading = ref(false);
 const userInforStore = useUserInfoStore();
 const deptStore = useDeptStore();

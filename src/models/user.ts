@@ -99,3 +99,9 @@ export interface AppUserCreateDTO {
   phone?: string;
   avatar?: string;
 }
+
+export interface SimpleUserVO {
+  id?: string;
+  nickname?: string;
+  avatar?: string;
+}

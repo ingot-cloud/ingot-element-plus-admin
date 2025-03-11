@@ -1,4 +1,5 @@
-import type { CommonStatus, DeptRoleScope } from "./enums";
+import type { CommonStatus } from "./enums";
+import type { SimpleUserVO } from "./user";
 
 /**
  * 部门树节点
@@ -6,13 +7,13 @@ import type { CommonStatus, DeptRoleScope } from "./enums";
 export interface DeptTreeNode {
   // 部门名称
   name?: string;
-  scope?: DeptRoleScope;
   sort?: number;
   mainFlag?: boolean;
   status?: CommonStatus;
   id?: string;
   pid?: string;
   children?: Array<DeptTreeNode>;
+  managerUsers?: Array<SimpleUserVO>;
 }
 
 /**
@@ -24,6 +25,10 @@ export interface SysDept {
   name?: string;
   sort?: number;
   status?: CommonStatus;
+}
+
+export interface DeptWithManagerVO extends SysDept {
+  managerUsers?: Array<SimpleUserVO>;
 }
 
 export const RootDept: DeptTreeNode = {
