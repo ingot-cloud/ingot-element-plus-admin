@@ -59,7 +59,7 @@
           <template #icon>
             <i-carbon:parent-child />
           </template>
-          添加子部门
+          添加部门
         </in-button>
         <in-button
           v-if="!item.mainFlag"
