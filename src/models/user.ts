@@ -12,6 +12,7 @@ export interface UserPageItemVO {
   nickname?: string;
   phone?: string;
   email?: string;
+  avatar?: string;
   status?: CommonStatus;
   createdAt: string;
 }

@@ -31,6 +31,10 @@ export interface DeptWithManagerVO extends SysDept {
   managerUsers?: Array<SimpleUserVO>;
 }
 
+export interface DeptWithManagerDTO extends SysDept {
+  managerUserIds?: Array<string>;
+}
+
 export const RootDept: DeptTreeNode = {
   id: "0",
   name: "根部门",

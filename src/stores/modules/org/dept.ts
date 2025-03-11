@@ -1,4 +1,4 @@
-import type { DeptTreeNode, SysDept } from "@/models";
+import type { DeptTreeNode, DeptWithManagerDTO } from "@/models";
 import {
   DeptTreeAPI,
   CreateDeptAPI,
@@ -31,7 +31,7 @@ export const useDeptStore = defineStore("org.dept", () => {
         });
     });
   };
-  const createDept = (params: SysDept) => {
+  const createDept = (params: DeptWithManagerDTO) => {
     return new Promise<void>((resolve, reject) => {
       CreateDeptAPI(params)
         .then(() => {
@@ -42,7 +42,7 @@ export const useDeptStore = defineStore("org.dept", () => {
         });
     });
   };
-  const updateDept = (params: SysDept) => {
+  const updateDept = (params: DeptWithManagerDTO) => {
     return new Promise<void>((resolve, reject) => {
       UpdateDeptAPI(params)
         .then(() => {

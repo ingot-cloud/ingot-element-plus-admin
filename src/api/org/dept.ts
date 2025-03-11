@@ -1,5 +1,5 @@
 import Http from "@/net";
-import type { DeptTreeNode, SysDept, R } from "@/models";
+import type { DeptTreeNode, DeptWithManagerDTO, R } from "@/models";
 
 /**
  * 获取部门树结构
@@ -11,14 +11,14 @@ export function DeptTreeAPI(): Promise<R<Array<DeptTreeNode>>> {
 /**
  * 创建部门
  */
-export function CreateDeptAPI(params: SysDept): Promise<R<void>> {
+export function CreateDeptAPI(params: DeptWithManagerDTO): Promise<R<void>> {
   return Http.post("/api/pms/v1/org/dept", params);
 }
 
 /**
  * 更新部门信息
  */
-export function UpdateDeptAPI(params: SysDept): Promise<R<void>> {
+export function UpdateDeptAPI(params: DeptWithManagerDTO): Promise<R<void>> {
   return Http.put("/api/pms/v1/org/dept", params);
 }
 

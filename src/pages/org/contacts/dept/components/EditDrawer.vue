@@ -28,24 +28,45 @@
       </el-form-item>
 
       <el-form-item prop="" label="部门主管">
-        <el-input-tag
+        <el-select
           v-model="editForm.managerUsers"
-          tag-type="primary"
-          tag-effect="plain"
+          multiple
+          filterable
+          remote
+          reserve-keyword
           placeholder="部门主管"
+          :remote-method="queryData"
+          :loading="queryLoading"
         >
-          <template #tag="{ value }">
+          <template #label="{ value }">
             <div flex flex-row items-center gap-2>
               <el-image
                 v-if="value.avatar"
-                class="w-30px h-30px"
+                class="w-20px h-20px"
                 :src="value.avatar"
                 fit="cover"
               />
-              <span>{{ value.name }}</span>
+              <span>{{ value.nickname }}</span>
             </div>
           </template>
-        </el-input-tag>
+
+          <el-option
+            v-for="item in userList"
+            :key="item.id"
+            :label="item.nickname"
+            :value="item"
+          >
+            <div flex flex-row items-center gap-2>
+              <el-image
+                v-if="item.avatar"
+                class="w-20px h-20px"
+                :src="item.avatar"
+                fit="cover"
+              />
+              <span>{{ item.nickname }}</span>
+            </div>
+          </el-option>
+        </el-select>
       </el-form-item>
 
       <el-form-item prop="status" label="状态" v-if="edit">
@@ -69,18 +90,28 @@
 <script setup lang="ts">
 import { CommonStatus, CommonStatusEnumExtArray } from "@/models/enums";
 import { TreeKeyAndProps } from "@/models";
-import type { DeptWithManagerVO } from "@/models";
+import type {
+  DeptWithManagerVO,
+  SimpleUserVO,
+  DeptWithManagerDTO,
+} from "@/models";
 import { useDeptStore } from "@/stores/modules/org/dept";
+import { UserPageAPI } from "@/api/org/user";
 import { Message } from "@/utils/message";
 import { copyParams, getDiff } from "@/utils/object";
 
-const defaultEditForm: DeptWithManagerVO = {
+interface DeptWithManager extends DeptWithManagerDTO {
+  managerUsers?: Array<SimpleUserVO>;
+}
+
+const defaultEditForm: DeptWithManager = {
   id: undefined,
   pid: undefined,
   name: undefined,
   sort: 999,
   status: CommonStatus.Enable,
   managerUsers: [],
+  managerUserIds: [],
 };
 
 const rules = {
@@ -95,16 +126,20 @@ defineProps({
   },
 });
 
-const statusEnum = useEnum(CommonStatusEnumExtArray);
-const deptStore = useDeptStore();
-const editFormRef = ref();
-const editForm = reactive(Object.assign({}, defaultEditForm));
-const rawForm: DeptWithManagerVO = {};
-const loading = ref(false);
-const title = ref("");
 const edit = ref(false);
 const canEditPid = ref(false);
 const visible = ref(false);
+const loading = ref(false);
+const queryLoading = ref(false);
+
+const statusEnum = useEnum(CommonStatusEnumExtArray);
+const deptStore = useDeptStore();
+const editFormRef = ref();
+
+const title = ref("");
+const editForm = reactive(Object.assign({}, defaultEditForm));
+const rawForm: DeptWithManagerVO = {};
+const userList = ref<Array<SimpleUserVO>>([]);
 
 const handleConfirmClick = () => {
   const form = unref(editFormRef);
@@ -112,15 +147,14 @@ const handleConfirmClick = () => {
     if (valid) {
       let request;
       if (edit.value) {
-        const params = getDiff<DeptWithManagerVO>(rawForm, editForm);
-        if (Object.keys(params).length === 0) {
-          Message.warning("未改变数据");
-          return;
-        }
+        const params = getDiff<DeptWithManagerDTO>(rawForm, editForm);
         params.id = rawForm.id;
+        params.managerUserIds = editForm.managerUsers?.map((item) => item.id!);
         request = deptStore.updateDept(params);
       } else {
-        request = deptStore.createDept(Object.assign({}, toRaw(editForm)));
+        const params = Object.assign({}, toRaw(editForm));
+        params.managerUserIds = editForm.managerUsers?.map((item) => item.id!);
+        request = deptStore.createDept(params);
       }
 
       loading.value = true;
@@ -135,6 +169,23 @@ const handleConfirmClick = () => {
           loading.value = false;
         });
     }
+  });
+};
+
+const queryData = (nickname: string) => {
+  if (!nickname || nickname.length == 0) {
+    return;
+  }
+  queryLoading.value = true;
+  UserPageAPI({ current: 1, size: 100 }, { nickname }).then((response) => {
+    queryLoading.value = false;
+    userList.value = response.data.records!.map((item) => {
+      return {
+        id: item.userId,
+        nickname: item.nickname,
+        avatar: item.avatar,
+      };
+    });
   });
 };
 
