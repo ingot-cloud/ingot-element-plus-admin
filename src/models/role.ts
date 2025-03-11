@@ -7,6 +7,7 @@ export interface RolePageItemVO {
   groupName: string;
   code: string;
   type: string;
+  filterDept?: boolean;
   status: CommonStatus;
   createdAt: string;
 }
@@ -24,6 +25,7 @@ export interface SysRole {
   name?: string;
   code?: string;
   type?: string;
+  filterDept?: boolean;
   status?: CommonStatus;
 }
 
@@ -41,6 +43,7 @@ export interface RoleGroupItemVO {
   isGroup?: boolean;
   groupId?: string;
   type?: string;
+  filterDept?: boolean;
   children?: Array<RoleGroupItemVO>;
 }
 

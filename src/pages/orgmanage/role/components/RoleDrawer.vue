@@ -32,6 +32,12 @@
           placeholder="请输入角色编码"
         ></el-input>
       </el-form-item>
+      <el-form-item prop="filterDept" label="部门角色">
+        <el-radio-group v-model="editForm.filterDept">
+          <el-radio-button :label="true"> 是 </el-radio-button>
+          <el-radio-button :label="false"> 否 </el-radio-button>
+        </el-radio-group>
+      </el-form-item>
     </el-form>
     <template #footer>
       <common-status-button
@@ -66,10 +72,11 @@ const rawForm = {
   name: undefined,
   groupId: undefined,
   code: undefined,
+  filterDept: false,
   status: undefined,
 };
 
-const keys = ["id", "name", "groupId", "code", "status"];
+const keys = ["id", "name", "groupId", "code", "filterDept", "status"];
 
 const title = ref("");
 const show = ref(false);
