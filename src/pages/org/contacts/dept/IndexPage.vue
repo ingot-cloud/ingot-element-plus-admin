@@ -43,7 +43,7 @@
             {{ it.nickname }}
           </el-tag>
         </div>
-        <el-tag v-else> - </el-tag>
+        <el-tag v-else type="info"> 暂无 </el-tag>
       </template>
       <template #status="{ item }">
         <common-status-tag :status="item.status" />
