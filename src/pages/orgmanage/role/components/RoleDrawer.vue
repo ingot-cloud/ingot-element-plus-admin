@@ -34,8 +34,8 @@
       </el-form-item>
       <el-form-item prop="filterDept" label="部门角色">
         <el-radio-group v-model="editForm.filterDept">
-          <el-radio-button :label="true"> 是 </el-radio-button>
-          <el-radio-button :label="false"> 否 </el-radio-button>
+          <el-radio-button :value="true"> 是 </el-radio-button>
+          <el-radio-button :value="false"> 否 </el-radio-button>
         </el-radio-group>
       </el-form-item>
     </el-form>

@@ -19,7 +19,7 @@ export const toEnumExtArray = (
 export const useEnum = <T>(arr: Array<EnumExt<T>>): EnumObj<T> => {
   const getTagText = (
     value: T,
-    defaultValue: TagText = { text: "无", tag: "" }
+    defaultValue: TagText = { text: "无", tag: "primary" }
   ): TagText => {
     return arr.find((item) => item.value == value) || defaultValue;
   };

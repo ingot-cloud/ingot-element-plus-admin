@@ -35,7 +35,11 @@
           flex-wrap
           v-if="item.managerUsers && item.managerUsers.length > 0"
         >
-          <el-tag v-for="(it, index) in item.managerUsers" :key="index">
+          <el-tag
+            v-for="(it, index) in item.managerUsers"
+            type="primary"
+            :key="index"
+          >
             {{ it.nickname }}
           </el-tag>
         </div>
@@ -91,7 +95,7 @@
 <script lang="ts" setup>
 import ContactsTabs from "@/pages/org/contacts/components/ContactsTabs.vue";
 import { tableHeaders } from "./table";
-import type { SysDept } from "@/models";
+import type { DeptWithManagerVO } from "@/models";
 import { useDeptStore } from "@/stores/modules/org/dept";
 import { useUserInfoStore } from "@/stores/modules/auth";
 import EditDrawer from "./components/EditDrawer.vue";
@@ -121,7 +125,7 @@ const fetchData = () => {
 
 const confirmDelete = useConfirmDelete(deptStore.removeDept, fetchData);
 
-const handleEdit = (data?: SysDept | string) => {
+const handleEdit = (data?: DeptWithManagerVO | string) => {
   EditDrawerRef.value.show(data || deptTree.value[0].id);
 };
 

@@ -82,8 +82,8 @@
 
         <el-form-item prop="cache" label="是否开启权限">
           <el-radio-group v-model="editForm.enableAuthority">
-            <el-radio-button :label="true"> 是 </el-radio-button>
-            <el-radio-button :label="false"> 否 </el-radio-button>
+            <el-radio-button :value="true"> 是 </el-radio-button>
+            <el-radio-button :value="false"> 否 </el-radio-button>
           </el-radio-group>
         </el-form-item>
 
@@ -134,10 +134,10 @@
 
         <el-form-item prop="status" label="状态">
           <el-radio-group v-model="editForm.status">
-            <el-radio-button :label="CommonStatus.Enable">
+            <el-radio-button :value="CommonStatus.Enable">
               {{ statusEnum.getTagText(CommonStatus.Enable).text }}
             </el-radio-button>
-            <el-radio-button :label="CommonStatus.Lock">
+            <el-radio-button :value="CommonStatus.Lock">
               {{ statusEnum.getTagText(CommonStatus.Lock).text }}
             </el-radio-button>
           </el-radio-group>
@@ -209,16 +209,16 @@
           <el-col :span="12">
             <el-form-item prop="cache" label="是否缓存">
               <el-radio-group v-model="editForm.isCache">
-                <el-radio-button :label="true"> 是 </el-radio-button>
-                <el-radio-button :label="false"> 否 </el-radio-button>
+                <el-radio-button :value="true"> 是 </el-radio-button>
+                <el-radio-button :value="false"> 否 </el-radio-button>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item prop="hidden" label="隐藏菜单">
               <el-radio-group v-model="editForm.hidden">
-                <el-radio-button :label="true"> 是 </el-radio-button>
-                <el-radio-button :label="false"> 否 </el-radio-button>
+                <el-radio-button :value="true"> 是 </el-radio-button>
+                <el-radio-button :value="false"> 否 </el-radio-button>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -227,16 +227,16 @@
           <el-col :span="12">
             <el-form-item prop="hideBreadcrumb" label="隐藏面包屑">
               <el-radio-group v-model="editForm.hideBreadcrumb">
-                <el-radio-button :label="true"> 是 </el-radio-button>
-                <el-radio-button :label="false"> 否 </el-radio-button>
+                <el-radio-button :value="true"> 是 </el-radio-button>
+                <el-radio-button :value="false"> 否 </el-radio-button>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item prop="props" label="匹配props">
               <el-radio-group v-model="editForm.props">
-                <el-radio-button :label="true"> 是 </el-radio-button>
-                <el-radio-button :label="false"> 否 </el-radio-button>
+                <el-radio-button :value="true"> 是 </el-radio-button>
+                <el-radio-button :value="false"> 否 </el-radio-button>
               </el-radio-group>
             </el-form-item>
           </el-col>

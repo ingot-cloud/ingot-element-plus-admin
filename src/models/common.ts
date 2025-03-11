@@ -1,6 +1,6 @@
 import { CommonStatus } from "./enums";
 
-export type ElTagType = "" | "success" | "warning" | "info" | "danger";
+export type ElTagType = "primary" | "success" | "warning" | "info" | "danger";
 
 export interface EnumObj<T> {
   getTagText: (value: T, defaultValue?: TagText) => TagText;
@@ -18,7 +18,7 @@ export interface EnumExt<T = string> extends TagText {
 export const newEnumExt = <T>(
   value: T,
   text: string,
-  tag: ElTagType = "",
+  tag: ElTagType = "primary",
   oppositeValue?: T
 ): EnumExt<T> => {
   return {
@@ -34,7 +34,7 @@ export interface TagText {
   text: string;
 }
 
-export const newTagText = (text: string, tag: ElTagType = "") => {
+export const newTagText = (text: string, tag: ElTagType = "primary") => {
   return {
     text,
     tag,

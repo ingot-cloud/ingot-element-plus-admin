@@ -1,6 +1,6 @@
 <template>
   <in-drawer :title="title" v-model="visible">
-    <el-form
+    <in-form
       ref="editFormRef"
       label-width="80px"
       :model="editForm"
@@ -27,17 +27,38 @@
         ></el-input>
       </el-form-item>
 
+      <el-form-item prop="" label="部门主管">
+        <el-input-tag
+          v-model="editForm.managerUsers"
+          tag-type="primary"
+          tag-effect="plain"
+          placeholder="部门主管"
+        >
+          <template #tag="{ value }">
+            <div flex flex-row items-center gap-2>
+              <el-image
+                v-if="value.avatar"
+                class="w-30px h-30px"
+                :src="value.avatar"
+                fit="cover"
+              />
+              <span>{{ value.name }}</span>
+            </div>
+          </template>
+        </el-input-tag>
+      </el-form-item>
+
       <el-form-item prop="status" label="状态" v-if="edit">
         <el-radio-group v-model="editForm.status">
-          <el-radio-button :label="CommonStatus.Enable">
+          <el-radio-button :value="CommonStatus.Enable">
             {{ statusEnum.getTagText(CommonStatus.Enable).text }}
           </el-radio-button>
-          <el-radio-button :label="CommonStatus.Lock">
+          <el-radio-button :value="CommonStatus.Lock">
             {{ statusEnum.getTagText(CommonStatus.Lock).text }}
           </el-radio-button>
         </el-radio-group>
       </el-form-item>
-    </el-form>
+    </in-form>
     <template #footer>
       <in-button :loading="loading" type="primary" @click="handleConfirmClick">
         确定
@@ -48,17 +69,18 @@
 <script setup lang="ts">
 import { CommonStatus, CommonStatusEnumExtArray } from "@/models/enums";
 import { TreeKeyAndProps } from "@/models";
-import type { SysDept } from "@/models";
+import type { DeptWithManagerVO } from "@/models";
 import { useDeptStore } from "@/stores/modules/org/dept";
 import { Message } from "@/utils/message";
 import { copyParams, getDiff } from "@/utils/object";
 
-const defaultEditForm: SysDept = {
+const defaultEditForm: DeptWithManagerVO = {
   id: undefined,
   pid: undefined,
   name: undefined,
   sort: 999,
   status: CommonStatus.Enable,
+  managerUsers: [],
 };
 
 const rules = {
@@ -77,7 +99,7 @@ const statusEnum = useEnum(CommonStatusEnumExtArray);
 const deptStore = useDeptStore();
 const editFormRef = ref();
 const editForm = reactive(Object.assign({}, defaultEditForm));
-const rawForm: SysDept = {};
+const rawForm: DeptWithManagerVO = {};
 const loading = ref(false);
 const title = ref("");
 const edit = ref(false);
@@ -90,7 +112,7 @@ const handleConfirmClick = () => {
     if (valid) {
       let request;
       if (edit.value) {
-        const params = getDiff<SysDept>(rawForm, editForm);
+        const params = getDiff<DeptWithManagerVO>(rawForm, editForm);
         if (Object.keys(params).length === 0) {
           Message.warning("未改变数据");
           return;
@@ -116,7 +138,7 @@ const handleConfirmClick = () => {
   });
 };
 
-const show = (data: SysDept | string) => {
+const show = (data: DeptWithManagerVO | string) => {
   visible.value = true;
 
   // 重置数据
