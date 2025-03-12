@@ -6,6 +6,7 @@
     :loading="loading"
     placeholder="请输入组织名称"
     no-data-text="未搜索到组织"
+    clearable
     @change="privateOnTenantChanged"
   >
     <el-option
@@ -87,6 +88,7 @@ const privateOnTenantChanged = (value: string) => {
     word-break: break-all;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
+    line-clamp: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 14px;

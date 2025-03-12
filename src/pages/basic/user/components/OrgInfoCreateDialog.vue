@@ -10,6 +10,7 @@
       </el-form-item>
       <el-form-item label="部门" prop="deptIds">
         <el-tree-select
+          :disabled="!editForm.orgId"
           w-full
           multiple
           v-model="editForm.deptIds"
@@ -22,6 +23,7 @@
       </el-form-item>
       <el-form-item label="角色" prop="roleIds">
         <in-select
+          :disabled="!editForm.orgId"
           w-full
           v-model="editForm.roleIds"
           placeholder="请选择角色"
@@ -78,6 +80,9 @@ const { deptTree } = storeToRefs(deptStore);
 const { roleOrgOptions } = storeToRefs(roleStore);
 
 const handleTenantChange = (orgId: string) => {
+  if (!orgId) {
+    return;
+  }
   deptStore.fetchOrgDeptTree(orgId);
   roleStore.fetchRoleOrgOptions(orgId);
 };
