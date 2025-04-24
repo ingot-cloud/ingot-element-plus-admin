@@ -18,7 +18,6 @@
 <style lang="postcss" scoped>
 .error-page {
   background: #f0f2f5;
-  margin-top: -30px;
   height: 100%;
   display: flex;
   align-items: center;

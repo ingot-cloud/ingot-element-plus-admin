@@ -8,17 +8,38 @@
       <h1>403</h1>
       <div class="desc">抱歉，你无权访问该页面</div>
       <div class="actions">
-        <router-link :to="{ path: '/' }">
-          <el-button type="primary">返回首页</el-button>
-        </router-link>
+        <el-button type="primary" @click="handleAction">
+          {{ buttonText }}
+        </el-button>
       </div>
     </div>
   </div>
 </template>
+<script setup lang="ts">
+import { useRouterStore } from "@/stores/modules/router";
+
+import { logoutAndReload } from "@/utils/security";
+const { menus } = storeToRefs(useRouterStore());
+const buttonText = computed(() => {
+  return menus.value.length > 0 ? "返回首页" : "重新登录";
+});
+const go = useGo();
+const handleAction = () => {
+  if (menus.value.length > 0) {
+    go(
+      {
+        path: "/",
+      },
+      true
+    );
+  } else {
+    logoutAndReload();
+  }
+};
+</script>
 <style lang="postcss" scoped>
 .error-page {
   background: #f0f2f5;
-  margin-top: -30px;
   height: 100%;
   display: flex;
   align-items: center;

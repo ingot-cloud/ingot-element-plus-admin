@@ -68,8 +68,9 @@ export const transformMenu = (
  * 查询入口路径
  */
 const findEntryPath = (menus: Array<MenuTreeNode>): string => {
+  // 如果菜单不存在，那么代表没有权限，重定向到403
   if (!menus || menus.length == 0) {
-    return "/";
+    return "/403";
   }
   const menu = menus[0];
   switch (menu.menuType) {
