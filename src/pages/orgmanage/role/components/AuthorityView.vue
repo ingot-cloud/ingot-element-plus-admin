@@ -6,12 +6,9 @@
     @refresh="refresh"
   >
     <template #title> {{ currentNode.name || "请选择角色" }} </template>
+    <template #subtitle>预设角色默认权限，创建新组织时生效</template>
     <template #toolbar>
-      <in-button
-        :disabled="!currentNode.id"
-        type="primary"
-        @click="handleBindCommand()"
-      >
+      <in-button type="primary" @click="handleBindCommand()">
         编辑权限
       </in-button>
     </template>
@@ -73,6 +70,7 @@ const refresh = () => {
 defineExpose({
   setCurrentNode(node: RoleGroupItemVO) {
     currentNode.value = node;
+    console.log(currentNode.value);
     fetchData(currentNode.value.id!);
   },
 });
