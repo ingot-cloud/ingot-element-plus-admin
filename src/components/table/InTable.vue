@@ -3,10 +3,15 @@
     flex
     flex-col
     gap-10px
-    :class="{ 'm-b-10px': !hideSetting || slot.title || slot.toolbar }"
+    :class="{
+      'm-b-10px': !hideSetting || slot.title || slot.toolbar || slot.subtitle,
+    }"
   >
     <div v-if="slot.title" class="title">
       <slot name="title"> </slot>
+    </div>
+    <div v-if="slot.subtitle" class="subtitle">
+      <slot name="subtitle"> </slot>
     </div>
     <div flex flex-row justify-between items-center>
       <div flex justify-center items-center gap-1>
@@ -212,5 +217,10 @@ defineExpose({
   color: #171a1d;
   font-weight: 600;
   font-size: 17px;
+}
+.subtitle {
+  color: rgba(23, 26, 29, 0.6);
+  font-size: 14px;
+  line-height: 20px;
 }
 </style>
