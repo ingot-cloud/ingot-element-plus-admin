@@ -29,7 +29,10 @@
 </template>
 <script lang="ts" setup>
 import { TreeKeyAndProps, AuthorityTreeNode } from "@/models";
-import { GetBindAuthoritiesAPI, BindAuthorityAPI } from "@/api/basic/role";
+import {
+  GetBindAuthoritiesAPI,
+  OrgRoleBindDefaultAuthoritiesAPI,
+} from "@/api/basic/role";
 import { OrgTypeEnums } from "@/models/enums";
 
 const emit = defineEmits(["success"]);
@@ -48,10 +51,9 @@ const message = useMessage();
 
 const onCheckChange = (
   node: AuthorityTreeNode,
-  isChecked: boolean,
-  childChecked: boolean
+  isChecked: boolean
+  // childChecked: boolean
 ) => {
-  console.log(node.name, isChecked, childChecked);
   const selectId = node.id!;
   selectedIds.value = isChecked
     ? [...selectedIds.value, selectId]
@@ -85,7 +87,7 @@ const handleActionButton = () => {
     });
   // 过滤权限，如果父节点是选中状态，那么不需要绑定当前节点，并且孙子节点等都不需要
   btnLoading.value = true;
-  BindAuthorityAPI({
+  OrgRoleBindDefaultAuthoritiesAPI({
     id: id.value,
     bindIds,
   })

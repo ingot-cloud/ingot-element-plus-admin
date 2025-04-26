@@ -86,6 +86,15 @@ export function BindAuthorityAPI(params: RoleBindParams): Promise<R<void>> {
   return request.put<void>("/api/pms/v1/admin/role/bindAuthority", params);
 }
 
+export function OrgRoleBindDefaultAuthoritiesAPI(
+  params: RoleBindParams
+): Promise<R<void>> {
+  return request.put<void>(
+    "/api/pms/v1/admin/role/orgRoleBindDefaultAuthority",
+    params
+  );
+}
+
 export function GetBindAuthoritiesAPI(
   id: string,
   isBind: boolean,
