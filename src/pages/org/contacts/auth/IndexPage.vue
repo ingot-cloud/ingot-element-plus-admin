@@ -10,7 +10,16 @@
       </div>
     </template>
 
+    <div class="default-role-bg-container" v-if="!ops.currentNode.name">
+      <img
+        class="default-role-bg"
+        src="/resource/images/role_default_bg.jpg"
+        alt=""
+      />
+    </div>
+
     <in-table
+      v-else
       hide-setting
       :loading="ops.loading.value"
       :data="ops.records.value"
@@ -82,5 +91,14 @@ const privateAddAuth = () => {
   color: #171a1d;
   font-weight: 600;
   font-size: 17px;
+}
+.default-role-bg-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & .default-role-bg {
+    width: 80%;
+    height: auto;
+  }
 }
 </style>
