@@ -17,7 +17,7 @@
     "axios": "^1.2.1",
     "beautify-qrcode": "^1.0.3",
     "crypto-js": "^4.1.1",
-    "element-plus": "^2.9.6",
+    "element-plus": "^2.9.8",
     "js-cookie": "^3.0.1",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.28",

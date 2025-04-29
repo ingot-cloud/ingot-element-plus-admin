@@ -9,8 +9,21 @@ import type {
   UserOrgInfoVO,
   UserOrgEditDTO,
   ResetPwdVO,
+  SimpleUserWithPhoneVO,
 } from "@/models";
 import { filterParams } from "@/utils/object";
+
+/**
+ * 根据手机号获取用户列表
+ */
+export function SearchByPhone(phone: string) {
+  return request.get<Array<SimpleUserWithPhoneVO>>(
+    `/api/pms/v1/admin/user/searchByPhone`,
+    {
+      phone,
+    }
+  );
+}
 
 /**
  * 用户分页信息

@@ -106,3 +106,7 @@ export interface SimpleUserVO {
   nickname?: string;
   avatar?: string;
 }
+
+export interface SimpleUserWithPhoneVO extends SimpleUserVO {
+  phone?: string;
+}

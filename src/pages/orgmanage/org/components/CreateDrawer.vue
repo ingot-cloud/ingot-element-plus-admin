@@ -22,11 +22,11 @@
         ></el-input>
       </el-form-item>
       <el-form-item label="管理员手机号" prop="phone">
-        <el-input
+        <BizSearchUserByPhone
           v-model="editForm.phone"
           clearable
           placeholder="请输入管理员手机号"
-        ></el-input>
+        />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -35,6 +35,7 @@
   </in-drawer>
 </template>
 <script setup lang="ts">
+import BizSearchUserByPhone from "@/components/biz/search-user-by-phone/BizSearchUserByPhone.vue";
 import { useTenantStore } from "@/stores/modules/tenant";
 import { Message } from "@/utils/message";
 import { copyParamsWithKeys } from "@/utils/object";
