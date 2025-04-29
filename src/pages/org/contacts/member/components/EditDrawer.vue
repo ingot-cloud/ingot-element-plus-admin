@@ -24,16 +24,7 @@
       </el-form-item>
 
       <el-form-item label="部门" prop="deptIds">
-        <el-tree-select
-          w-full
-          v-model="editForm.deptIds"
-          multiple
-          :data="deptTree"
-          :node-key="TreeKeyAndProps.nodeKey"
-          :value-key="TreeKeyAndProps.nodeKey"
-          :props="TreeKeyAndProps.props"
-          :check-strictly="true"
-        />
+        <BizDeptSelect w-full multiple v-model="editForm.deptIds" clearable />
       </el-form-item>
 
       <el-form-item label="手机号" prop="phone">
@@ -60,10 +51,9 @@
 <script setup lang="ts">
 import type { UserPageItemVO } from "@/models";
 import { UpdateUserAPI, UserProfileAPI, CreateUserAPI } from "@/api/org/user";
-import { TreeKeyAndProps } from "@/models";
-import { useDeptStore } from "@/stores/modules/org/dept";
 import { Message } from "@/utils/message";
 import { copyParamsWithKeys, getDiffWithIgnore } from "@/utils/object";
+import BizDeptSelect from "@/components/biz/dept-select/BizDeptSelect.vue";
 
 const rawForm = {
   id: undefined,
@@ -88,9 +78,6 @@ const rules = {
 };
 
 const emits = defineEmits(["success"]);
-
-const deptStore = useDeptStore();
-const { deptTree } = storeToRefs(deptStore);
 
 const editFormRef = ref();
 const editForm = reactive(Object.assign({}, rawForm));
@@ -143,10 +130,6 @@ const fetchData = (id: string) => {
       loading.value = false;
     });
 };
-
-onMounted(() => {
-  deptStore.fetchDeptTree();
-});
 
 defineExpose({
   show(data?: UserPageItemVO) {

@@ -24,6 +24,21 @@
           :disabled="isEdit"
         />
       </el-form-item>
+      <el-form-item label="数据权限" prop="scopeType">
+        <in-select
+          w-full
+          v-model="editForm.scopeType"
+          placeholder="请选择数据权限"
+          :options="useDataScope.getOptions()"
+        />
+      </el-form-item>
+      <el-form-item
+        label="数据范围"
+        prop="scopes"
+        v-if="editForm.scopeType === DataScopeTypeEnum.CUSTOM"
+      >
+        <BizDeptSelect w-full multiple v-model="editForm.scopes" clearable />
+      </el-form-item>
     </el-form>
     <template #footer>
       <in-button type="primary" @click="handleActionButton">确定</in-button>
@@ -36,14 +51,18 @@ import type { RoleGroupItemVO, Option } from "@/models";
 import { useRoleStore } from "@/stores/modules/org/role";
 import { Message } from "@/utils/message";
 import { copyParamsWithKeys, getDiffWithIgnore } from "@/utils/object";
+import { useDataScopeTypeEnum, DataScopeTypeEnum } from "@/models/enums";
+import BizDeptSelect from "@/components/biz/dept-select/BizDeptSelect.vue";
 
 const rawForm = {
   id: undefined,
   name: undefined,
   groupId: undefined,
+  scopeType: undefined,
+  scopes: [],
 };
 
-const keys = ["name", "groupId"];
+const keys = ["name", "groupId", "scopeType", "scopes"];
 
 const title = ref("");
 const show = ref(false);
@@ -52,6 +71,8 @@ const id = ref();
 const rules = {
   name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
   groupId: [{ required: true, message: "请选择角色组", trigger: "blur" }],
+  scopeType: [{ required: true, message: "请选择数据权限", trigger: "blur" }],
+  scopes: [{ required: true, message: "请选择数据范围", trigger: "blur" }],
 };
 
 const emits = defineEmits(["success"]);
@@ -63,6 +84,7 @@ defineProps({
 });
 
 const roleStore = useRoleStore();
+const useDataScope = useDataScopeTypeEnum();
 
 const editFormRef = ref();
 const editForm = reactive(Object.assign({}, rawForm));
@@ -106,6 +128,7 @@ defineExpose({
   show(data?: RoleGroupItemVO) {
     isEdit.value = Boolean(data);
     show.value = true;
+    console.log("data", data);
     nextTick(() => {
       const form = unref(editFormRef);
       form.resetFields();

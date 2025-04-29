@@ -1,5 +1,5 @@
 export * from "./commonEnums";
-export * from "./deptEnums";
+export * from "./datascopeEnums";
 export * from "./storageEnums";
 export * from "./clientEnums";
 export * from "./menuEnums";

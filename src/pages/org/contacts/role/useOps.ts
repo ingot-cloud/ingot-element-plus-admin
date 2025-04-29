@@ -6,7 +6,7 @@ import type {
 import { UserPageAPI, UpdateUserAPI, RemoveUserAPI } from "@/api/org/user";
 import { copyParams } from "@/utils/object";
 
-export const useUserOps = () => {
+export const useOps = () => {
   const paging = usePaging(transformPageAPI(UserPageAPI));
   const confirmStatus = useConfirmStatus(
     transformUpdateAPI(UpdateUserAPI),

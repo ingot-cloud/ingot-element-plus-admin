@@ -6,11 +6,11 @@
 
     <template #left>
       <div w-260px>
-        <LeftContent @onNodeClick="userOps.handleTreeNodeClick" />
+        <LeftContent @onNodeClick="ops.handleTreeNodeClick" />
       </div>
     </template>
 
-    <div class="default-role-bg-container" v-if="!userOps.currentNode.name">
+    <div class="default-role-bg-container" v-if="!ops.currentNode.name">
       <img
         class="default-role-bg"
         src="/resource/images/role_default_bg.jpg"
@@ -21,21 +21,21 @@
     <in-table
       v-else
       hide-setting
-      :loading="userOps.loading.value"
-      :data="userOps.pageInfo.records"
+      :loading="ops.loading.value"
+      :data="ops.pageInfo.records"
       :headers="tableHeaders"
-      :page="userOps.pageInfo"
+      :page="ops.pageInfo"
       ref="tableRef"
-      @refresh="userOps.fetchUserData"
-      @handleSizeChange="userOps.fetchUserData"
-      @handleCurrentChange="userOps.fetchUserData"
+      @refresh="ops.fetchUserData"
+      @handleSizeChange="ops.fetchUserData"
+      @handleCurrentChange="ops.fetchUserData"
     >
       <template #title>
-        {{ userOps.currentNode.name || "请选择角色" }}
+        {{ ops.currentNode.name || "请选择角色" }}
       </template>
       <template #toolbar>
         <in-button
-          v-if="userOps.currentNode.name"
+          v-if="ops.currentNode.name"
           type="primary"
           @click="privateAddMember"
         >
@@ -59,33 +59,31 @@
     </in-table>
   </in-filter-container>
 
-  <AddMemberDialog ref="AddMemberDialogRef" @success="userOps.fetchUserData" />
+  <AddMemberDialog ref="AddMemberDialogRef" @success="ops.fetchUserData" />
 </template>
 <script lang="ts" setup>
 import ContactsTabs from "@/pages/org/contacts/components/ContactsTabs.vue";
 import LeftContent from "./components/LeftContent.vue";
-import { useUserOps } from "./useUserOps";
+import { useOps } from "./useOps";
 import { tableHeaders } from "./table";
 import AddMemberDialog from "./components/AddMemberDialog.vue";
 import { BindUserAPI } from "@/api/org/role";
 
 const AddMemberDialogRef = ref();
-const userOps = useUserOps();
+const ops = useOps();
 const confirm = useMessageConfirm();
 const privateAddMember = () => {
-  AddMemberDialogRef.value.show(userOps.currentNode);
+  AddMemberDialogRef.value.show(ops.currentNode);
 };
 const privateHandleDelete = (item: any) => {
   confirm
-    .warning(
-      `是否将成员(${item.nickname})移除角色(${userOps.currentNode.name})`
-    )
+    .warning(`是否将成员(${item.nickname})移除角色(${ops.currentNode.name})`)
     .then(() => {
       BindUserAPI({
-        id: userOps.currentNode.id,
+        id: ops.currentNode.id,
         removeIds: [item.userId],
       }).then(() => {
-        userOps.fetchUserData();
+        ops.fetchUserData();
       });
     });
 };

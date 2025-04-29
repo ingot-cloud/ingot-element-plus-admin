@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BizDeptSelect: typeof import('./src/components/biz/dept-select/BizDeptSelect.vue')['default']
     BizSearchUserByPhone: typeof import('./src/components/biz/search-user-by-phone/BizSearchUserByPhone.vue')['default']
     CommonStatusButton: typeof import('./src/components/biz/CommonStatusButton.vue')['default']
     CommonStatusTag: typeof import('./src/components/biz/CommonStatusTag.vue')['default']
