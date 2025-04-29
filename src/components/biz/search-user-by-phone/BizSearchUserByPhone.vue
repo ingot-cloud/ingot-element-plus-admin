@@ -61,8 +61,13 @@ const props = {
 const emits = defineEmits(["onChanged"]);
 
 const remoteMethod = (query: string) => {
-  // 查询手机号长度大于等于7位的时候才出发查询
-  if (query && query.length >= 7) {
+  if (!query) {
+    options.value = [];
+    return;
+  }
+
+  // 如果是以1开头的手机号，长度大于等于7位的时候才进行查询
+  if ((query.startsWith("1") && query.length >= 7) || !query.startsWith("1")) {
     loading.value = true;
     SearchByPhone(query)
       .then((response) => {
@@ -86,15 +91,13 @@ const remoteMethod = (query: string) => {
           },
         ];
       });
-  } else if (query && query.length >= 1) {
+  } else {
     options.value = [
       {
         phone: query,
         nickname: query,
       },
     ];
-  } else {
-    options.value = [];
   }
 };
 
