@@ -28,7 +28,12 @@ const currentNode = ref<RoleGroupItemVO>({});
 const handleTreeNodeClick = (node: RoleGroupItemVO): void => {
   id.value = node.id!;
   currentNode.value = node;
-  AuthorityViewRef.value.setCurrentNode(node);
+
+  nextTick(() => {
+    if (StatusCanEditAuthority.value) {
+      AuthorityViewRef.value.setCurrentNode(node);
+    }
+  });
 };
 
 const StatusCanEditAuthority = computed(() => {

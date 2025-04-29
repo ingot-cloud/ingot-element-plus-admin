@@ -138,7 +138,6 @@ const privateHandleExpanded = (
   value: boolean
 ) => {
   list.forEach((item) => {
-    console.log(item, roleTreeRef.value.getNode(item.id));
     const node = roleTreeRef.value.getNode(item.id);
     node.expanded = value;
     if (node.parent) {

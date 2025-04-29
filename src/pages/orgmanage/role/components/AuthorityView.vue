@@ -70,7 +70,6 @@ const refresh = () => {
 defineExpose({
   setCurrentNode(node: RoleGroupItemVO) {
     currentNode.value = node;
-    console.log(currentNode.value);
     fetchData(currentNode.value.id!);
   },
 });
