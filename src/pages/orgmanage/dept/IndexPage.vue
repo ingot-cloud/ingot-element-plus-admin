@@ -94,7 +94,6 @@ import { tableHeaders } from "./table";
 import type { DeptWithManagerVO, DeptTreeNode } from "@/models";
 import { DeptTreeAPI, RemoveDeptAPI } from "@/api/basic/dept";
 import EditDrawer from "./components/EditDrawer.vue";
-import { de } from "element-plus/es/locale";
 
 const loading = ref(false);
 const deptTree = ref<Array<DeptTreeNode>>([]);
