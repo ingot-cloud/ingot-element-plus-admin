@@ -38,6 +38,21 @@
           <el-radio-button :value="false"> 否 </el-radio-button>
         </el-radio-group>
       </el-form-item>
+      <el-form-item label="数据权限" prop="scopeType">
+        <in-select
+          w-full
+          v-model="editForm.scopeType"
+          placeholder="请选择数据权限"
+          :options="useDataScope.getOptions()"
+        />
+      </el-form-item>
+      <el-form-item
+        label="数据范围"
+        prop="scopes"
+        v-if="editForm.scopeType === DataScopeTypeEnum.CUSTOM"
+      >
+        <BizDeptSelect w-full multiple v-model="editForm.scopes" clearable />
+      </el-form-item>
     </el-form>
     <template #footer>
       <common-status-button
@@ -65,6 +80,7 @@ import type { RoleGroupItemVO, Option } from "@/models";
 import { useRoleStore } from "@/stores/modules/role";
 import { Message } from "@/utils/message";
 import { copyParamsWithKeys, getDiffWithIgnore } from "@/utils/object";
+import { useDataScopeTypeEnum, DataScopeTypeEnum } from "@/models/enums";
 import { OrgTypeEnums } from "@/models/enums";
 
 const rawForm = {
@@ -74,9 +90,20 @@ const rawForm = {
   code: undefined,
   filterDept: false,
   status: undefined,
+  scopeType: undefined,
+  scopes: [],
 };
 
-const keys = ["id", "name", "groupId", "code", "filterDept", "status"];
+const keys = [
+  "id",
+  "name",
+  "groupId",
+  "code",
+  "filterDept",
+  "status",
+  "scopeType",
+  "scopes",
+];
 
 const title = ref("");
 const show = ref(false);
@@ -86,6 +113,8 @@ const rules = {
   name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
   groupId: [{ required: true, message: "请选择角色组", trigger: "blur" }],
   code: [{ required: true, message: "请输入角色编码", trigger: "blur" }],
+  scopeType: [{ required: true, message: "请选择数据权限", trigger: "blur" }],
+  scopes: [{ required: true, message: "请选择数据范围", trigger: "blur" }],
 };
 
 const emits = defineEmits(["success"]);
@@ -97,6 +126,7 @@ defineProps({
 });
 
 const roleStore = useRoleStore();
+const useDataScope = useDataScopeTypeEnum();
 
 const editFormRef = ref();
 const editForm = reactive(Object.assign({}, rawForm));
