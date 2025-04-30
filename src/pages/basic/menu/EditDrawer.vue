@@ -439,6 +439,8 @@ defineExpose({
         edit.value = false;
         canEditPid.value = false;
         editForm.pid = data;
+        // 添加子菜单默认类型为菜单
+        editForm.menuType = MenuType.Menu;
       } else {
         if (data.authorityId === "0") {
           data.authorityId = undefined;
@@ -453,6 +455,7 @@ defineExpose({
       title.value = "添加菜单";
       edit.value = false;
       canEditPid.value = true;
+      editForm.menuType = MenuType.Directory;
     }
   },
 });
