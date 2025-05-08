@@ -47,6 +47,9 @@ dependencies:
   vue-router:
     specifier: ^4.1.6
     version: 4.2.4(vue@3.3.4)
+  vue3-tree-org:
+    specifier: ^4.2.2
+    version: 4.2.2(vue@3.3.4)
 
 devDependencies:
   '@iconify-json/bi':
@@ -1748,6 +1751,11 @@ packages:
     resolution: {integrity: sha512-XgZ0pFcakEUlbwQEVNg3+QAis1FyTL3Qel9FYy8pSkQqoG3PNoT0bOCQtOXcOkur21r2Eq2kI+IE+gsmAEVlYw==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /core-js@3.42.0:
+    resolution: {integrity: sha512-Sz4PP4ZA+Rq4II21qkNqOEDTDrCvcANId3xpIgB34NDkWc3UduWj2dqEtN9yZIq8Dk3HyPI33x9sqqU5C8sr0g==}
+    requiresBuild: true
+    dev: false
 
   /cors@2.8.5:
     resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
@@ -5411,6 +5419,15 @@ packages:
       semver: 7.5.4
       typescript: 4.7.4
     dev: true
+
+  /vue3-tree-org@4.2.2(vue@3.3.4):
+    resolution: {integrity: sha512-AG2SykyD6dw0jIyqBm8iuF9j9GWli6KrwudxR1RjULCCBTDFsoNm7MmP/weKT7wowN/sPk+e2RsnvEJMw2OJMw==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      core-js: 3.42.0
+      vue: 3.3.4
+    dev: false
 
   /vue@3.3.4:
     resolution: {integrity: sha512-VTyEYn3yvIeY1Py0WaYGZsXnz3y5UnGi62GjVEqvEGPl6nxbOrCXbVOTQWBEJUqAyTUk2uJ5JLVnYJ6ZzGbrSw==}
