@@ -10,6 +10,10 @@ export const tableHeaders: Array<TableHeaderRecord> = [
     prop: "managerUsers",
   },
   {
+    label: "部门人数",
+    prop: "memberCount",
+  },
+  {
     label: "状态",
     prop: "status",
   },

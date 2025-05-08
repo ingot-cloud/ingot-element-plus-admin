@@ -29,6 +29,10 @@ const tabs = ref([
     id: "权限",
     title: "权限",
   },
+  {
+    id: "组织架构",
+    title: "组织架构",
+  },
 ]);
 const go = useGo();
 const onItemClick = (tab: string) => {
@@ -51,6 +55,11 @@ const onItemClick = (tab: string) => {
     case "权限":
       go({
         path: "/org/contacts/auth",
+      });
+      break;
+    case "组织架构":
+      go({
+        path: "/org/contacts/orgstructure",
       });
       break;
   }

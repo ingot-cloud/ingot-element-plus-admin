@@ -14,6 +14,7 @@ export interface DeptTreeNode {
   pid?: string;
   children?: Array<DeptTreeNode>;
   managerUsers?: Array<SimpleUserVO>;
+  memberCount?: string;
 }
 
 /**

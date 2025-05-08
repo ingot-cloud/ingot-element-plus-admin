@@ -337,7 +337,6 @@ const visible = ref(false);
 const confirmDelete = useConfirmDelete(
   transformDeleteAPI(RemoveMenuAPI),
   () => {
-    Message.success("操作成功");
     visible.value = false;
     emits("success");
   }

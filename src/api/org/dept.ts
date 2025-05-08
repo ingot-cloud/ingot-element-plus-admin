@@ -8,6 +8,10 @@ export function DeptTreeAPI(): Promise<R<Array<DeptTreeNode>>> {
   return Http.get<Array<DeptTreeNode>>("/api/pms/v1/org/dept/tree");
 }
 
+export function DeptTree2API(): Promise<R<Array<DeptTreeNode>>> {
+  return Http.get<Array<DeptTreeNode>>("/api/pms/v1/org/dept/tree2");
+}
+
 /**
  * 创建部门
  */
