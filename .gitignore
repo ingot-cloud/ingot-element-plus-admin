@@ -28,6 +28,10 @@ coverage
 *.sln
 *.sw?
 
+*.tsbuildinfo
 
 .local_env
 .pnpm-store
+
+test-results/
+playwright-report/

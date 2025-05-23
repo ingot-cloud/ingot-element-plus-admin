@@ -3,6 +3,11 @@
     "Vue.volar",
     "antfu.unocss",
     "antfu.iconify",
-    "antfu.goto-alias"
-  ],
+    "antfu.goto-alias",
+    "vitest.explorer",
+    "ms-playwright.playwright",
+    "dbaeumer.vscode-eslint",
+    "EditorConfig.EditorConfig",
+    "esbenp.prettier-vscode"
+  ]
 }

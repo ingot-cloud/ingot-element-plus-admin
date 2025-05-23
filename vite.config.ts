@@ -1,70 +1,75 @@
-import { fileURLToPath, URL } from "node:url";
+import { fileURLToPath, URL } from 'node:url'
 
-import { defineConfig, loadEnv } from "vite";
-import vue from "@vitejs/plugin-vue";
+import { defineConfig, loadEnv } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import vueDevTools from 'vite-plugin-vue-devtools'
 
-import { createHtmlPlugin } from "vite-plugin-html";
-import postcssNesting from "postcss-nesting";
-import AutoImport from "unplugin-auto-import/vite";
-import Components from "unplugin-vue-components/vite";
-import Icons from "unplugin-icons/vite";
-import IconsResolver from "unplugin-icons/resolver";
-import { FileSystemIconLoader } from "unplugin-icons/loaders";
-import Unocss from "unocss/vite";
-import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
-import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
-import path from "path";
-import TopLevelAwait from "vite-plugin-top-level-await";
+import { createHtmlPlugin } from 'vite-plugin-html'
+import postcssNesting from 'postcss-nesting'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+import { FileSystemIconLoader } from 'unplugin-icons/loaders'
+import Unocss from 'unocss/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import path from 'path'
+import TopLevelAwait from 'vite-plugin-top-level-await'
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode, command, ssrBuild }) => {
+// 参数 { mode, command, ssrBuild }
+export default defineConfig(({ mode }) => {
   const getViteEnv = (target: string) => {
-    return loadEnv(mode, process.cwd())[target];
-  };
+    return loadEnv(mode, process.cwd())[target]
+  }
   return {
     plugins: [
       vue(),
+      vueJsx(),
+      vueDevTools(),
       createHtmlPlugin({
         inject: {
           data: {
             //将环境变量 VITE_APP_TITLE 赋值给 title 方便 html页面使用 title 获取系统标题
-            title: getViteEnv("VITE_APP_TITLE"),
+            title: getViteEnv('VITE_APP_TITLE'),
           },
         },
       }),
       createSvgIconsPlugin({
         // 指定需要缓存的图标文件夹
-        iconDirs: [path.resolve(process.cwd(), "src/assets/icons")],
+        iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
         // 指定symbolId格式
-        symbolId: "ingot-[dir]-[name]",
+        symbolId: 'ingot-[dir]-[name]',
       }),
       // https://github.com/antfu/unplugin-auto-import
       AutoImport({
-        imports: ["vue", "vue/macros", "vue-router", "@vueuse/core", "pinia"],
-        dirs: ["./src/hooks/**"],
-        dts: "./auto-imports.d.ts",
+        imports: ['vue', 'vue/macros', 'vue-router', '@vueuse/core', 'pinia'],
+        dirs: ['./src/hooks/**'],
+        dts: './auto-imports.d.ts',
         vueTemplate: true,
         resolvers: [ElementPlusResolver()],
       }),
       // https://github.com/antfu/vite-plugin-components
       Components({
-        dts: "./components.d.ts",
-        dirs: ["./src/components", "./src/layouts"],
+        dts: './components.d.ts',
+        dirs: ['./src/components', './src/layouts'],
         resolvers: [
           ElementPlusResolver(),
           IconsResolver({
-            prefix: "i",
-            customCollections: ["ingot"],
+            prefix: 'i',
+            customCollections: ['ingot'],
           }),
         ],
       }),
       // https://github.com/antfu/unplugin-icons
       Icons({
         autoInstall: true,
-        compiler: "vue3",
-        defaultClass: "inline",
+        compiler: 'vue3',
+        defaultClass: 'inline',
         customCollections: {
-          ingot: FileSystemIconLoader("./src/assets/icons"),
+          ingot: FileSystemIconLoader('./src/assets/icons'),
         },
       }),
       // https://github.com/unocss/unocss
@@ -73,9 +78,9 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
     ],
     resolve: {
       alias: {
-        "@": fileURLToPath(new URL("./src", import.meta.url)),
-        "@cmps": fileURLToPath(new URL("./src/components", import.meta.url)),
-        "@models": fileURLToPath(new URL("./src/models", import.meta.url)),
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+        '@cmps': fileURLToPath(new URL('./src/components', import.meta.url)),
+        '@models': fileURLToPath(new URL('./src/models', import.meta.url)),
       },
     },
     css: {
@@ -84,29 +89,29 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
       },
     },
     server: {
-      host: "0.0.0.0",
+      host: '0.0.0.0',
       port: 5798,
       proxy: {
-        "/api": {
-          target: "http://localhost:7980",
+        '/api': {
+          target: 'http://localhost:7980',
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, "/"),
+          rewrite: (path) => path.replace(/^\/api/, '/'),
         },
       },
     },
     build: {
-      outDir: "dist",
+      outDir: 'dist',
       rollupOptions: {
         // input: {
         //   entry: resolve(__dirname, "index.html"),
         //   // login: resolve(__dirname, "src/views/login/index.html"),
         // },
         output: {
-          chunkFileNames: "static/js/[name]-[hash].js",
-          entryFileNames: "static/js/[name]-[hash].js",
-          assetFileNames: "static/[ext]/[name]-[hash].[ext]",
+          chunkFileNames: 'static/js/[name]-[hash].js',
+          entryFileNames: 'static/js/[name]-[hash].js',
+          assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
         },
       },
     },
-  };
-});
+  }
+})
