@@ -2,7 +2,7 @@ import type { InternalAxiosRequestConfig, AxiosError } from "axios";
 import { useAuthStore } from "@/stores/modules/auth";
 
 export const onRequestFulfilled = (
-  config: InternalAxiosRequestConfig
+  config: InternalAxiosRequestConfig,
 ): InternalAxiosRequestConfig => {
   config.headers = config.headers || {};
   if (!config.permit) {

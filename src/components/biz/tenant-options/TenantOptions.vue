@@ -9,20 +9,10 @@
     clearable
     @change="privateOnTenantChanged"
   >
-    <el-option
-      v-for="item in options"
-      :key="item.id"
-      :label="item.name"
-      :value="item.id!"
-    >
+    <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id!">
       <div class="tenant-item">
         <div class="avatar">
-          <el-image
-            v-if="item.avatar"
-            :src="item.avatar"
-            class="h-full w-full"
-            fit="cover"
-          />
+          <el-image v-if="item.avatar" :src="item.avatar" class="h-full w-full" fit="cover" />
         </div>
         <div class="name">
           {{ item.name }}

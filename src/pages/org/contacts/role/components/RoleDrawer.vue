@@ -9,11 +9,7 @@
       :rules="rules"
     >
       <el-form-item label="角色名称" prop="name">
-        <el-input
-          v-model="editForm.name"
-          clearable
-          placeholder="请输入角色名称"
-        ></el-input>
+        <el-input v-model="editForm.name" clearable placeholder="请输入角色名称"></el-input>
       </el-form-item>
       <el-form-item label="角色组" prop="groupId">
         <in-select

@@ -24,24 +24,13 @@
       </template>
       <template #avatar="{ item }">
         <div flex flex-row items-center gap-2>
-          <el-image
-            v-if="item.avatar"
-            class="w-30px h-30px"
-            :src="item.avatar"
-            fit="cover"
-          />
+          <el-image v-if="item.avatar" class="w-30px h-30px" :src="item.avatar" fit="cover" />
           {{ item.nickname }}
         </div>
       </template>
     </in-table>
     <template #footer>
-      <in-button
-        type="primary"
-        @click="onConfirmClick"
-        :loading="confirmLoading"
-      >
-        确定
-      </in-button>
+      <in-button type="primary" @click="onConfirmClick" :loading="confirmLoading"> 确定 </in-button>
     </template>
   </in-dialog>
 </template>

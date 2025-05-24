@@ -11,28 +11,19 @@ import type {
 import { filterParams } from "@/utils/object";
 
 export function RoleOrgOptionsAPI(orgId: string) {
-  return request.get<Array<Option<string>>>(
-    `/api/pms/v1/admin/appRole/options/${orgId}`
-  );
+  return request.get<Array<Option<string>>>(`/api/pms/v1/admin/appRole/options/${orgId}`);
 }
 
-export function RoleGroupListAPI(
-  filter?: RoleFilterDTO
-): Promise<R<Array<RoleGroupItemVO>>> {
+export function RoleGroupListAPI(filter?: RoleFilterDTO): Promise<R<Array<RoleGroupItemVO>>> {
   if (filter) {
     filterParams(filter);
   }
-  return request.get<Array<RoleGroupItemVO>>(
-    "/api/pms/v1/admin/appRole/group/list",
-    {
-      ...filter,
-    }
-  );
+  return request.get<Array<RoleGroupItemVO>>("/api/pms/v1/admin/appRole/group/list", {
+    ...filter,
+  });
 }
 
-export function RoleListAPI(
-  condition?: AppRole
-): Promise<R<Array<RolePageItemVO>>> {
+export function RoleListAPI(condition?: AppRole): Promise<R<Array<RolePageItemVO>>> {
   if (condition) {
     filterParams(condition);
   }

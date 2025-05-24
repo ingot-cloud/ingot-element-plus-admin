@@ -2,10 +2,7 @@ export const useIconsCollection = () => {
   const files = import.meta.glob("@/assets/icons/*.svg", { eager: true });
 
   return Object.keys(files).map(
-    (fileName) =>
-      `ingot:${fileName
-        .substring("/src/assets/icons/".length)
-        .replaceAll(".svg", "")}`
+    (fileName) => `ingot:${fileName.substring("/src/assets/icons/".length).replaceAll(".svg", "")}`,
   );
 };
 

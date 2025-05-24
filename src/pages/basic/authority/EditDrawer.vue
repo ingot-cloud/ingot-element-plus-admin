@@ -1,10 +1,5 @@
 <template>
-  <in-drawer
-    :title="title"
-    v-model="visible"
-    @close="loading = false"
-    width="40%"
-  >
+  <in-drawer :title="title" v-model="visible" @close="loading = false" width="40%">
     <in-form ref="editFormRef" class="form" :model="editForm" :rules="rules">
       <el-form-item label="上级权限">
         <el-tree-select
@@ -54,12 +49,8 @@
       </el-form-item>
     </in-form>
     <template #footer>
-      <in-button v-if="edit" type="danger" @click="handleRemoveClick">
-        删除
-      </in-button>
-      <in-button :loading="loading" type="primary" @click="handleConfirmClick">
-        确定
-      </in-button>
+      <in-button v-if="edit" type="danger" @click="handleRemoveClick"> 删除 </in-button>
+      <in-button :loading="loading" type="primary" @click="handleConfirmClick"> 确定 </in-button>
     </template>
   </in-drawer>
 </template>
@@ -75,11 +66,7 @@ import { TreeKeyAndProps } from "@/models";
 import { useAuthorityStore } from "@/stores/modules/authority";
 import { useOrgTypeEnums } from "@/models/enums";
 import { Message } from "@/utils/message";
-import {
-  copyParams,
-  copyParamsWithKeys,
-  getDiffWithIgnore,
-} from "@/utils/object";
+import { copyParams, copyParamsWithKeys, getDiffWithIgnore } from "@/utils/object";
 
 const rules = {
   name: [{ required: true, message: "请输入权限名称", trigger: "blur" }],

@@ -12,10 +12,7 @@
         </div>
       </template>
       <template #actions="{ item }">
-        <el-switch
-          v-model="item.statusBoolean"
-          :before-change="handleStatusChange(item)"
-        />
+        <el-switch v-model="item.statusBoolean" :before-change="handleStatusChange(item)" />
       </template>
     </in-table>
   </div>
@@ -58,9 +55,7 @@ const handleStatusChange = (params: AppItem) => {
         .then(() => {
           UpdateOrgAppStatusAPI(params.tenantId!, {
             id: params.id,
-            status: params.statusBoolean
-              ? CommonStatus.Lock
-              : CommonStatus.Enable,
+            status: params.statusBoolean ? CommonStatus.Lock : CommonStatus.Enable,
           })
             .then(() => {
               resolve(true);

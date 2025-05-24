@@ -1,12 +1,4 @@
-import {
-  isNull,
-  getType,
-  isArray,
-  isBoolean,
-  isNumber,
-  isString,
-  isObject,
-} from "./index";
+import { isNull, getType, isArray, isBoolean, isNumber, isString, isObject } from "./index";
 
 /**
  * 判断两个对象是否相等
@@ -66,11 +58,7 @@ export function getDiff<T extends object>(raw: T, edit: T): T {
  * @param ignore 忽略的key
  * @returns T
  */
-export function getDiffWithIgnore<T extends object>(
-  raw: T,
-  edit: T,
-  ignore?: Array<string>
-): T {
+export function getDiffWithIgnore<T extends object>(raw: T, edit: T, ignore?: Array<string>): T {
   const result = {};
   const keys = Object.entries(raw);
   keys.forEach(([k, v]) => {
@@ -123,7 +111,7 @@ export function hasConditionParams(condition?: object): boolean {
 export function copyParams<To extends object, From extends object>(
   to: To,
   from: From,
-  filterNull?: boolean
+  filterNull?: boolean,
 ): void {
   const keys = Object.keys(from);
   copyParamsWithKeys(to, from, keys, filterNull);
@@ -136,7 +124,7 @@ export function copyParamsWithKeys<To extends object, From extends object>(
   to: To,
   from: From,
   keys: Array<string>,
-  filterNull?: boolean
+  filterNull?: boolean,
 ): void {
   let tmpValue;
   keys.forEach((key) => {
@@ -165,7 +153,7 @@ export function copyParamsWithoutKeys<To extends object, From extends object>(
   to: To,
   from: From,
   ignoreKeys: Array<string>,
-  filterNull?: boolean
+  filterNull?: boolean,
 ): void {
   const keys = Object.keys(from).filter((key) => {
     return !ignoreKeys.includes(key);
@@ -179,11 +167,7 @@ export function copyParamsWithoutKeys<To extends object, From extends object>(
  * @param source
  * @param ignoreKeys
  */
-export function assignIgnoreKeys<T extends {}, U>(
-  target: T,
-  source: U,
-  ignoreKeys: Array<string>
-) {
+export function assignIgnoreKeys<T extends {}, U>(target: T, source: U, ignoreKeys: Array<string>) {
   const middle = Object.assign({}, source);
   ignoreKeys.forEach((key) => {
     Reflect.deleteProperty(middle, key);

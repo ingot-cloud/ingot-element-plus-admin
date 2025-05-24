@@ -8,7 +8,7 @@ import type { BindSetupParams, BindSetupReturn } from "../types";
  * @returns
  */
 export const useBind = <T extends OptionIDEntity>(
-  params: BindSetupParams<T>
+  params: BindSetupParams<T>,
 ): BindSetupReturn<T> => {
   const headers = ref(params.tableHeaders.slice());
   const editBatch = ref(false);

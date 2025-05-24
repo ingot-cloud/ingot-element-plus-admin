@@ -31,7 +31,7 @@ export const useLoginStore = defineStore(
   {
     persist: {
       storage: localStorage,
-      paths: ["state", "codeVerifier"],
+      pick: ["state", "codeVerifier"],
     },
-  }
+  },
 );

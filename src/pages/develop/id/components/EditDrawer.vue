@@ -10,34 +10,18 @@
         ></el-input>
       </el-form-item>
       <el-form-item label="初始化ID" prop="maxId">
-        <el-input
-          v-model="editForm.maxId"
-          clearable
-          placeholder="请输入初始化ID"
-        ></el-input>
+        <el-input v-model="editForm.maxId" clearable placeholder="请输入初始化ID"></el-input>
       </el-form-item>
       <el-form-item label="ID步长" prop="step">
-        <el-input
-          v-model="editForm.step"
-          clearable
-          placeholder="请输入ID步长"
-        ></el-input>
+        <el-input v-model="editForm.step" clearable placeholder="请输入ID步长"></el-input>
       </el-form-item>
       <el-form-item label="描述">
-        <el-input
-          v-model="editForm.description"
-          clearable
-          placeholder="请输入描述"
-        ></el-input>
+        <el-input v-model="editForm.description" clearable placeholder="请输入描述"></el-input>
       </el-form-item>
     </in-form>
     <template #footer>
-      <in-button v-if="edit" type="danger" @click="handleRemoveClick">
-        删除
-      </in-button>
-      <in-button :loading="loading" type="primary" @click="handleConfirmClick">
-        确定
-      </in-button>
+      <in-button v-if="edit" type="danger" @click="handleRemoveClick"> 删除 </in-button>
+      <in-button :loading="loading" type="primary" @click="handleConfirmClick"> 确定 </in-button>
     </template>
   </in-drawer>
 </template>

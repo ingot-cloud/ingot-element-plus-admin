@@ -8,9 +8,7 @@
     <in-fullscreen />
     <in-global-setting />
 
-    <span
-      class="h-[var(--in-app-bar-icon-size)] w-1px bg-[hsla(0,0%,100%,.16)]"
-    ></span>
+    <span class="h-[var(--in-app-bar-icon-size)] w-1px bg-[hsla(0,0%,100%,.16)]"></span>
 
     <in-user-dropdown />
   </div>

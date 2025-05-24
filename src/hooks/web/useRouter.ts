@@ -1,14 +1,9 @@
 import type { Router, RouteLocationRaw } from "vue-router";
-import {
-  PageName,
-  PagePath,
-  RedirectPageType,
-  RedirectPageField,
-} from "@/router";
+import { PageName, PagePath, RedirectPageType, RedirectPageField } from "@/router";
 
 export const useRedirect = (
   path = String(PagePath.ROOT),
-  redirectType = String(RedirectPageType.PATH)
+  redirectType = String(RedirectPageType.PATH),
 ) => {
   const { currentRoute, replace } = useRouter();
 
@@ -68,9 +63,7 @@ export const useRefreshPage = (router?: Router) => {
         params[RedirectPageField.TYPE] = RedirectPageType.PATH;
         params[RedirectPageField.PATH] = fullPath;
       }
-      replace({ name: PageName.REDIRECT, params, query }).then(() =>
-        resolve(true)
-      );
+      replace({ name: PageName.REDIRECT, params, query }).then(() => resolve(true));
     });
   };
 };

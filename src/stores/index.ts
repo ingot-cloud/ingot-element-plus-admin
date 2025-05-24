@@ -5,7 +5,7 @@ const pinia = createPinia();
 pinia.use(
   createPersistedState({
     key: (id) => `__ingot__${id}`,
-  })
+  }),
 );
 
 export default pinia;

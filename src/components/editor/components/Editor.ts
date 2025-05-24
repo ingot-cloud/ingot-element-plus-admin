@@ -28,12 +28,7 @@ const defaultPlugins =
 
 type EditorOptions = Parameters<TinyMCE["init"]>[0];
 
-const renderInline = (
-  ce: any,
-  id: string,
-  elementRef: Ref<Element | null>,
-  tagName?: string
-) =>
+const renderInline = (ce: any, id: string, elementRef: Ref<Element | null>, tagName?: string) =>
   ce(tagName ? tagName : "div", {
     id,
     ref: elementRef,
@@ -54,8 +49,7 @@ export const Editor = defineComponent({
     const element: Ref<Element | null> = ref(null);
     let vueEditor: any = null;
     const elementId: string = props.id || uuid("tiny-vue");
-    const inlineEditor: boolean =
-      (props.init && props.init.inline) || props.inline;
+    const inlineEditor: boolean = (props.init && props.init.inline) || props.inline;
     const modelBind = !!ctx.attrs["onUpdate:modelValue"];
     let mounting = true;
     const initialValue: string = props.initialValue ? props.initialValue : "";
@@ -97,7 +91,7 @@ export const Editor = defineComponent({
         setup: (editor: TinyMCEEditor) => {
           vueEditor = editor;
           editor.on("init", (e: EditorEvent<any>) =>
-            initEditor(e, props, ctx, editor, modelValue, content)
+            initEditor(e, props, ctx, editor, modelValue, content),
           );
           if (typeof conf.setup === "function") {
             conf.setup(editor);
@@ -137,8 +131,7 @@ export const Editor = defineComponent({
         //   : props.tinymceScriptSrc;
         // 使用本地文件
         const scriptSrc =
-          (import.meta.env.VITE_PUBLIC_PATH || "/") +
-          "resource/tinymce/tinymce.min.js";
+          (import.meta.env.VITE_PUBLIC_PATH || "/") + "resource/tinymce/tinymce.min.js";
         ScriptLoader.load(element.value.ownerDocument, scriptSrc, initWrapper);
       }
     });

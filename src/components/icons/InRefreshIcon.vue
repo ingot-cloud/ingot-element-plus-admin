@@ -1,9 +1,6 @@
 <template>
   <el-icon>
-    <i-ep:refresh-right
-      @click="privateOnRefreshClick"
-      :class="[!ready ? 'do-refresh' : '']"
-    />
+    <i-ep:refresh-right @click="privateOnRefreshClick" :class="[!ready ? 'do-refresh' : '']" />
   </el-icon>
 </template>
 <script lang="ts" setup>

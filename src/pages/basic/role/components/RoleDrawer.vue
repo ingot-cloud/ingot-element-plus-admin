@@ -9,11 +9,7 @@
       :rules="rules"
     >
       <el-form-item label="角色名称" prop="name">
-        <el-input
-          v-model="editForm.name"
-          clearable
-          placeholder="请输入角色名称"
-        ></el-input>
+        <el-input v-model="editForm.name" clearable placeholder="请输入角色名称"></el-input>
       </el-form-item>
       <el-form-item label="角色组" prop="groupId">
         <in-select
@@ -48,7 +44,7 @@
           <in-tag
             v-for="authority in bindAuthorities"
             :key="authority.id"
-            :value="{ text: authority.name }"
+            :value="{ text: authority.name!, tag: 'info' }"
           />
         </div>
       </el-form-item>
@@ -64,18 +60,10 @@
       <common-status-button
         v-if="isEdit"
         :status="editForm.status"
-        @click="
-          confirmStatus.exec(
-            editForm.id!,
-            editForm.status!,
-            `角色(${editForm.name})`
-          )
-        "
+        @click="confirmStatus.exec(editForm.id!, editForm.status!, `角色(${editForm.name})`)"
       >
       </common-status-button>
-      <in-button v-if="isEdit" type="danger" @click="handleRemoveClick">
-        删除
-      </in-button>
+      <in-button v-if="isEdit" type="danger" @click="handleRemoveClick"> 删除 </in-button>
       <in-button type="primary" @click="handleActionButton">确定</in-button>
     </template>
   </in-drawer>
@@ -153,11 +141,7 @@ const stretch = (tree: Array<any>): Array<string> => {
 
 const handleBindCommand = (): void => {
   const roleId = editForm.id;
-  bindAuthDialogRef.value.show(
-    roleId,
-    editForm.name,
-    stretch(bindAuthorities.value)
-  );
+  bindAuthDialogRef.value.show(roleId, editForm.name, stretch(bindAuthorities.value));
 };
 
 const handleRemoveClick = () => {

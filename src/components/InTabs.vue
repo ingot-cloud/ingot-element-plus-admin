@@ -102,7 +102,7 @@ watch(
   },
   {
     immediate: true,
-  }
+  },
 );
 
 const handleTabClick = (tabItem: TabsPaneContext) => {

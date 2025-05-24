@@ -5,9 +5,7 @@
       <div class="wrapper">
         <div class="content">
           <h1>即将离开{{ appStore.app.title }}</h1>
-          <p class="info">
-            您即将离开{{ appStore.app.title }}，请注意您的帐号和财产安全。
-          </p>
+          <p class="info">您即将离开{{ appStore.app.title }}，请注意您的帐号和财产安全。</p>
           <p class="link">{{ targetUrl }}</p>
         </div>
         <div class="actions">
@@ -40,7 +38,7 @@ watch(
   },
   {
     immediate: true,
-  }
+  },
 );
 </script>
 <style lang="postcss" setup>

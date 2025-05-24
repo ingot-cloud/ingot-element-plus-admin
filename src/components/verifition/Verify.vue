@@ -10,10 +10,7 @@
           <i class="iconfont icon-close"></i>
         </span>
       </div>
-      <div
-        :style="{ padding: mode == 'pop' ? '15px' : '0' }"
-        class="verifybox-bottom"
-      >
+      <div :style="{ padding: mode == 'pop' ? '15px' : '0' }" class="verifybox-bottom">
         <!-- 验证码容器 -->
         <component
           :is="componentType"
@@ -40,11 +37,11 @@
  * @description 分发验证码使用
  * */
 import { computed, ref, toRefs, watchEffect, defineAsyncComponent } from "vue";
-const VerifySlide = defineAsyncComponent(() =>
-  import("@/components/verifition/verify/VerifySlide.vue")
+const VerifySlide = defineAsyncComponent(
+  () => import("@/components/verifition/verify/VerifySlide.vue"),
 );
-const VerifyPoints = defineAsyncComponent(() =>
-  import("@/components/verifition/verify/VerifyPoints.vue")
+const VerifyPoints = defineAsyncComponent(
+  () => import("@/components/verifition/verify/VerifyPoints.vue"),
 );
 
 export default {

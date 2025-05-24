@@ -8,10 +8,7 @@ const options = {
   once: true,
 };
 
-function callback(
-  entries: IntersectionObserverEntry[],
-  observer: IntersectionObserver
-) {
+function callback(entries: IntersectionObserverEntry[], observer: IntersectionObserver) {
   entries.forEach((entry) => {
     if (entry.intersectionRatio <= 0) return;
     const img = entry.target as HTMLImageElement;

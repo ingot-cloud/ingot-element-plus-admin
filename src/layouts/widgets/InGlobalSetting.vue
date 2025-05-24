@@ -52,16 +52,14 @@ watch(
   () => appStateStore.showWatermark,
   (val) => {
     if (val) {
-      watermark.set(
-        `${userInfoStore.getUsername!}@${userInfoStore.getSensitivePhone}`
-      );
+      watermark.set(`${userInfoStore.getUsername!}@${userInfoStore.getSensitivePhone}`);
     } else {
       watermark.del();
     }
   },
   {
     immediate: true,
-  }
+  },
 );
 </script>
 <style scoped lang="postcss">

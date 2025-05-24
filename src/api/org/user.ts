@@ -14,17 +14,12 @@ import { AES } from "@/utils/encrypt";
 /**
  * 初始化密码
  */
-export function InitPwdAPI(
-  params: UserPasswordDTO
-): Promise<R<Page<UserPageItemVO>>> {
+export function InitPwdAPI(params: UserPasswordDTO): Promise<R<Page<UserPageItemVO>>> {
   const afterEncrypt = AES({
     data: params,
     keys: ["password", "newPassword"],
   });
-  return request.put<Page<UserPageItemVO>>(
-    "/api/pms/v1/org/user/initFixPwd",
-    afterEncrypt
-  );
+  return request.put<Page<UserPageItemVO>>("/api/pms/v1/org/user/initFixPwd", afterEncrypt);
 }
 
 /**
@@ -43,7 +38,7 @@ export function FixPasswordAPI(params: UserPasswordDTO): Promise<R> {
  */
 export function UserPageAPI(
   page: Page,
-  condition?: UserQueryDTO
+  condition?: UserQueryDTO,
 ): Promise<R<Page<UserPageItemVO>>> {
   if (condition) {
     filterParams(condition);

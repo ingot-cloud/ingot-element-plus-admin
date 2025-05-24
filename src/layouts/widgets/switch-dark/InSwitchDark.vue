@@ -32,7 +32,8 @@ const toggleDark = useToggle(isDark);
   box-sizing: border-box;
   background: var(--in-bg-color-mute);
   cursor: pointer;
-  transition: border-color var(--in-transition-duration),
+  transition:
+    border-color var(--in-transition-duration),
     background-color var(--in-transition-duration);
 
   &:hover {
@@ -47,7 +48,8 @@ const toggleDark = useToggle(isDark);
     background-color: var(--in-bg-color);
     transform: translateX(0);
     color: var(--in-text-color-light);
-    transition: border-color var(--in-transition-duration),
+    transition:
+      border-color var(--in-transition-duration),
       background-color var(--in-transition-duration),
       transform var(--in-transition-duration);
   }
@@ -77,7 +79,8 @@ const toggleDark = useToggle(isDark);
 
 .in-switch-dark-dark-icon,
 .in-switch-dark-light-icon {
-  transition: color var(--in-transition-duration),
+  transition:
+    color var(--in-transition-duration),
     opacity var(--in-transition-duration);
 }
 

@@ -9,18 +9,11 @@
       :rules="rules"
     >
       <el-form-item label="头像">
-        <in-common-upload-avatar
-          dir="public/user/avatar"
-          v-model="editForm.avatar"
-        />
+        <in-common-upload-avatar dir="public/user/avatar" v-model="editForm.avatar" />
       </el-form-item>
 
       <el-form-item label="名称" prop="nickname">
-        <el-input
-          v-model="editForm.nickname"
-          clearable
-          placeholder="请输入名称"
-        ></el-input>
+        <el-input v-model="editForm.nickname" clearable placeholder="请输入名称"></el-input>
       </el-form-item>
 
       <el-form-item label="部门" prop="deptIds">
@@ -28,19 +21,11 @@
       </el-form-item>
 
       <el-form-item label="手机号" prop="phone">
-        <el-input
-          v-model="editForm.phone"
-          clearable
-          placeholder="请输入手机号"
-        ></el-input>
+        <el-input v-model="editForm.phone" clearable placeholder="请输入手机号"></el-input>
       </el-form-item>
 
       <el-form-item label="email" prop="email">
-        <el-input
-          v-model="editForm.email"
-          clearable
-          placeholder="请输入email"
-        ></el-input>
+        <el-input v-model="editForm.email" clearable placeholder="请输入email"></el-input>
       </el-form-item>
     </el-form>
     <template #footer>

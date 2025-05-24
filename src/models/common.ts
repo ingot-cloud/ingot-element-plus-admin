@@ -19,7 +19,7 @@ export const newEnumExt = <T>(
   value: T,
   text: string,
   tag: ElTagType = "primary",
-  oppositeValue?: T
+  oppositeValue?: T,
 ): EnumExt<T> => {
   return {
     value,
@@ -52,9 +52,7 @@ export interface ButtonStatusParams {
   icon: string;
 }
 
-export function getDisableButtonParams(
-  status: CommonStatus
-): ButtonStatusParams {
+export function getDisableButtonParams(status: CommonStatus): ButtonStatusParams {
   switch (status) {
     case CommonStatus.Enable:
       return {

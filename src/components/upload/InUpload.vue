@@ -14,23 +14,12 @@
     <el-icon><i:material-symbols:add /></el-icon>
     <template #file="{ file }">
       <div>
-        <img
-          class="el-upload-list__item-thumbnail"
-          :src="handleImageSrc(file)"
-          alt=""
-        />
+        <img class="el-upload-list__item-thumbnail" :src="handleImageSrc(file)" alt="" />
         <span class="el-upload-list__item-actions">
-          <span
-            class="el-upload-list__item-preview"
-            @click="handlePictureCardPreview(file)"
-          >
+          <span class="el-upload-list__item-preview" @click="handlePictureCardPreview(file)">
             <el-icon><i:teenyicons:zoom-in-outline /></el-icon>
           </span>
-          <span
-            v-if="!disabled"
-            class="el-upload-list__item-delete"
-            @click="handleRemove(file)"
-          >
+          <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleRemove(file)">
             <el-icon><i:material-symbols:delete /></el-icon>
           </span>
         </span>
@@ -42,24 +31,13 @@
       </div>
     </template>
   </el-upload>
-  <el-dialog
-    v-model="dialogVisible"
-    flex
-    items-center
-    justify-center
-    fullscreen
-  >
+  <el-dialog v-model="dialogVisible" flex items-center justify-center fullscreen>
     <img style="height: 80vh" :src="dialogImageUrl" alt="" />
   </el-dialog>
 </template>
 <script lang="ts" setup>
 import type { PropType } from "vue";
-import type {
-  UploadFile,
-  UploadUserFile,
-  UploadFiles,
-  UploadRequestOptions,
-} from "element-plus";
+import type { UploadFile, UploadUserFile, UploadFiles, UploadRequestOptions } from "element-plus";
 import type { UploadAPIFn } from "./types";
 import { Message } from "@/utils/message";
 import { isString } from "@/utils";
@@ -129,7 +107,7 @@ watch(
   },
   {
     immediate: true,
-  }
+  },
 );
 
 const changeFileList = () => {
@@ -154,15 +132,9 @@ const changeFileList = () => {
 
   innerChange.value = true;
   if (props.limit === 1) {
-    emits(
-      "update:modelValue",
-      innerFileList.value[0] ? innerFileList.value[0].url : ""
-    );
+    emits("update:modelValue", innerFileList.value[0] ? innerFileList.value[0].url : "");
   } else {
-    emits(
-      "update:modelValue",
-      innerFileList.value.map((item) => item.url) || []
-    );
+    emits("update:modelValue", innerFileList.value.map((item) => item.url) || []);
   }
 };
 const uploadRequest = (options: UploadRequestOptions): Promise<unknown> => {
@@ -189,11 +161,7 @@ const handlePictureCardPreview = (file: UploadFile) => {
   dialogImageUrl.value = file.url!;
   dialogVisible.value = true;
 };
-const handleUploadSuccess = (
-  res: any,
-  file: UploadFile,
-  fileList: UploadFiles
-) => {
+const handleUploadSuccess = (res: any, file: UploadFile, fileList: UploadFiles) => {
   innerFileList.value = fileList;
   changeFileList();
 };

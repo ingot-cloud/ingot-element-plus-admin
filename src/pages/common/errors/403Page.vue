@@ -1,9 +1,6 @@
 <template>
   <div class="error-page">
-    <div
-      class="img"
-      style="background-image: url('/resource/images/403.svg')"
-    ></div>
+    <div class="img" style="background-image: url(&quot;/resource/images/403.svg&quot;)"></div>
     <div class="content">
       <h1>403</h1>
       <div class="desc">抱歉，你无权访问该页面</div>
@@ -30,7 +27,7 @@ const handleAction = () => {
       {
         path: "/",
       },
-      true
+      true,
     );
   } else {
     logoutAndReload();

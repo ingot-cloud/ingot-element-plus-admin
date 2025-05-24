@@ -52,7 +52,7 @@ export function authDirective(app: App) {
       const userAuths = [...permissions.roles, ...permissions.authorities];
 
       const result = reqAuths.every((auth: string) =>
-        userAuths.some((v: string) => auth.startsWith(v))
+        userAuths.some((v: string) => auth.startsWith(v)),
       );
       if (result) {
         return;

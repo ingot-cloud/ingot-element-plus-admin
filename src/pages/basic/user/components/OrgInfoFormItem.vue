@@ -10,12 +10,7 @@
     </in-form-group-title>
 
     <div p-20px>
-      <in-form
-        :ref="FormRef"
-        :model="editForm"
-        :rules="rules"
-        :disabled="!editFlag"
-      >
+      <in-form :ref="FormRef" :model="editForm" :rules="rules" :disabled="!editFlag">
         <el-form-item label="部门" prop="deptIds">
           <el-tree-select
             w-full
@@ -50,13 +45,7 @@
 </template>
 <script setup lang="ts">
 import type { PropType } from "vue";
-import type {
-  UserOrgInfoVO,
-  UserOrgEditDTO,
-  SysTenant,
-  DeptTreeNode,
-  Option,
-} from "@/models";
+import type { UserOrgInfoVO, UserOrgEditDTO, SysTenant, DeptTreeNode, Option } from "@/models";
 import { UserOrgEditAPI, UserOrgLeaveAPI } from "@/api/basic/user";
 import { TreeKeyAndProps } from "@/models";
 import { copyParams, getDiffWithIgnore } from "@/utils/object";

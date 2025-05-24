@@ -11,14 +11,8 @@
           ></el-input>
         </in-with-label>
         <div>
-          <in-button @click="paging.condition.clientId = undefined">
-            重置
-          </in-button>
-          <in-button
-            type="primary"
-            :loading="paging.loading.value"
-            @in-click="paging.exec"
-          >
+          <in-button @click="paging.condition.clientId = undefined"> 重置 </in-button>
+          <in-button type="primary" :loading="paging.loading.value" @in-click="paging.exec">
             搜索
           </in-button>
         </div>
@@ -35,9 +29,7 @@
       @refresh="paging.exec"
     >
       <template #toolbar>
-        <in-button type="primary" @click="handleCreate()">
-          添加客户端
-        </in-button>
+        <in-button type="primary" @click="handleCreate()"> 添加客户端 </in-button>
       </template>
       <template #requireProofKey="{ item }">
         <el-tag :type="item.requireProofKey ? '' : 'danger'">

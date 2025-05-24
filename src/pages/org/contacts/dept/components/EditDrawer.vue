@@ -1,11 +1,6 @@
 <template>
   <in-drawer :title="title" v-model="visible">
-    <in-form
-      ref="editFormRef"
-      label-width="80px"
-      :model="editForm"
-      :rules="rules"
-    >
+    <in-form ref="editFormRef" label-width="80px" :model="editForm" :rules="rules">
       <el-form-item prop="pid" label="上级部门">
         <el-tree-select
           w-full
@@ -20,11 +15,7 @@
       </el-form-item>
 
       <el-form-item prop="name" label="部门名称">
-        <el-input
-          v-model="editForm.name"
-          placeholder="请输入部门名称"
-          clearable
-        ></el-input>
+        <el-input v-model="editForm.name" placeholder="请输入部门名称" clearable></el-input>
       </el-form-item>
 
       <el-form-item prop="" label="部门主管">
@@ -40,29 +31,14 @@
         >
           <template #label="{ value }">
             <div flex flex-row items-center gap-2>
-              <el-image
-                v-if="value.avatar"
-                class="w-20px h-20px"
-                :src="value.avatar"
-                fit="cover"
-              />
+              <el-image v-if="value.avatar" class="w-20px h-20px" :src="value.avatar" fit="cover" />
               <span>{{ value.nickname }}</span>
             </div>
           </template>
 
-          <el-option
-            v-for="item in userList"
-            :key="item.id"
-            :label="item.nickname"
-            :value="item"
-          >
+          <el-option v-for="item in userList" :key="item.id" :label="item.nickname" :value="item">
             <div flex flex-row items-center gap-2>
-              <el-image
-                v-if="item.avatar"
-                class="w-20px h-20px"
-                :src="item.avatar"
-                fit="cover"
-              />
+              <el-image v-if="item.avatar" class="w-20px h-20px" :src="item.avatar" fit="cover" />
               <span>{{ item.nickname }}</span>
             </div>
           </el-option>
@@ -81,20 +57,14 @@
       </el-form-item>
     </in-form>
     <template #footer>
-      <in-button :loading="loading" type="primary" @click="handleConfirmClick">
-        确定
-      </in-button>
+      <in-button :loading="loading" type="primary" @click="handleConfirmClick"> 确定 </in-button>
     </template>
   </in-drawer>
 </template>
 <script setup lang="ts">
 import { CommonStatus, CommonStatusEnumExtArray } from "@/models/enums";
 import { TreeKeyAndProps } from "@/models";
-import type {
-  DeptWithManagerVO,
-  SimpleUserVO,
-  DeptWithManagerDTO,
-} from "@/models";
+import type { DeptWithManagerVO, SimpleUserVO, DeptWithManagerDTO } from "@/models";
 import { useDeptStore } from "@/stores/modules/org/dept";
 import { UserPageAPI } from "@/api/org/user";
 import { Message } from "@/utils/message";

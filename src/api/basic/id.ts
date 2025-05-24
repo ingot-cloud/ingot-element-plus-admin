@@ -6,10 +6,7 @@ import { filterParams } from "@/utils/object";
  * 获取分页信息
  * @returns
  */
-export function IdPageAPI(
-  page: Page,
-  condition?: BizLeafAlloc
-): Promise<R<Page<BizLeafAlloc>>> {
+export function IdPageAPI(page: Page, condition?: BizLeafAlloc): Promise<R<Page<BizLeafAlloc>>> {
   if (condition) {
     filterParams(condition);
   }

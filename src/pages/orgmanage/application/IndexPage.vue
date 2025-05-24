@@ -26,10 +26,7 @@
       </template>
       <template #defaultApp="{ item }">
         <div flex flex-row items-center gap-2>
-          <el-switch
-            v-model="item.defaultApp"
-            :before-change="handleDefaultChange(item)"
-          />
+          <el-switch v-model="item.defaultApp" :before-change="handleDefaultChange(item)" />
           <in-tag
             :value="
               item.defaultApp
@@ -43,12 +40,7 @@
         <common-status-tag :status="item.status" />
       </template>
       <template #actions="{ item }">
-        <in-button
-          link
-          text
-          type="warning"
-          @click="handleSyncApplication(item)"
-        >
+        <in-button link text type="warning" @click="handleSyncApplication(item)">
           <template #icon>
             <el-icon>
               <in-icon name="material-symbols:sync" />
@@ -60,9 +52,7 @@
           text
           link
           :status="item.status"
-          @click="
-            confirmStatus.exec(item.id, item.status, `应用(${item.menuName})`)
-          "
+          @click="confirmStatus.exec(item.id, item.status, `应用(${item.menuName})`)"
         />
         <in-button-delete @click="handleRemove(item)">删除</in-button-delete>
       </template>
@@ -77,11 +67,7 @@
 </template>
 <script lang="ts" setup>
 import { tableHeaders } from "./table";
-import type {
-  AuthorityTreeNode,
-  MenuTreeNode,
-  ApplicationPageItemVO,
-} from "@/models";
+import type { AuthorityTreeNode, MenuTreeNode, ApplicationPageItemVO } from "@/models";
 import { OrgTypeEnums } from "@/models/enums";
 import EditDrawer from "./EditDrawer.vue";
 import type { TableAPI } from "@/components/table";
@@ -98,11 +84,9 @@ import { useAuthorityStore } from "@/stores/modules/authority";
 onMounted(() => {
   paging.exec();
   // 只获取组织类型的数据
-  authorityStore
-    .fetchAuthorityTree({ orgTypeText: OrgTypeEnums.Tenant })
-    .then((data) => {
-      authorityData.value = data;
-    });
+  authorityStore.fetchAuthorityTree({ orgTypeText: OrgTypeEnums.Tenant }).then((data) => {
+    authorityData.value = data;
+  });
   GetMenuTreeAPI({ orgTypeText: OrgTypeEnums.Tenant }).then((response) => {
     const data = response.data;
     menuData.value = data;
@@ -112,10 +96,7 @@ onMounted(() => {
 const message = useMessage();
 const confirm = useMessageConfirm();
 const paging = usePaging(transformPageAPI(ApplicationPageAPI));
-const confirmStatus = useConfirmStatus(
-  transformUpdateAPI(UpdateAppStatusAPI),
-  () => paging.exec()
-);
+const confirmStatus = useConfirmStatus(transformUpdateAPI(UpdateAppStatusAPI), () => paging.exec());
 
 const EditDrawerRef = ref();
 const tableRef = ref<TableAPI>();

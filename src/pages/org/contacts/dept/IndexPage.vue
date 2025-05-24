@@ -18,28 +18,13 @@
         <in-button type="primary" @click="handleEdit()"> 添加部门 </in-button>
       </template>
       <template #name="{ item }">
-        <in-button
-          :disabled="item.mainFlag"
-          link
-          text
-          @click="handleEdit(item)"
-        >
+        <in-button :disabled="item.mainFlag" link text @click="handleEdit(item)">
           {{ item.name }}
         </in-button>
       </template>
       <template #managerUsers="{ item }">
-        <div
-          flex
-          flex-row
-          gap-2
-          flex-wrap
-          v-if="item.managerUsers && item.managerUsers.length > 0"
-        >
-          <el-tag
-            v-for="(it, index) in item.managerUsers"
-            type="primary"
-            :key="index"
-          >
+        <div flex flex-row gap-2 flex-wrap v-if="item.managerUsers && item.managerUsers.length > 0">
+          <el-tag v-for="(it, index) in item.managerUsers" type="primary" :key="index">
             {{ it.nickname }}
           </el-tag>
         </div>
@@ -49,25 +34,13 @@
         <common-status-tag :status="item.status" />
       </template>
       <template #actions="{ item }">
-        <in-button
-          v-if="!item.mainFlag"
-          type="primary"
-          text
-          link
-          @click="handleEdit(item.id)"
-        >
+        <in-button v-if="!item.mainFlag" type="primary" text link @click="handleEdit(item.id)">
           <template #icon>
             <i-carbon:parent-child />
           </template>
           添加部门
         </in-button>
-        <in-button
-          v-if="!item.mainFlag"
-          type="primary"
-          text
-          link
-          @click="handleEdit(item)"
-        >
+        <in-button v-if="!item.mainFlag" type="primary" text link @click="handleEdit(item)">
           <template #icon>
             <i-ep:edit />
           </template>

@@ -10,9 +10,6 @@ export function UploadAPI(params: UploadRequestParams): Promise<R<OSSResult>> {
   const formData = new FormData();
   formData.append("file", params.file);
   formData.append("fileName", params.fileName);
-  formData.append(
-    "bucketName",
-    storeToRefs(useAppStore()).app.value.bucketName
-  );
+  formData.append("bucketName", storeToRefs(useAppStore()).app.value.bucketName);
   return Http.post<OSSResult>("/api/pms/v1/oss/upload", formData);
 }

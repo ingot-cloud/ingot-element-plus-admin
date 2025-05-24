@@ -6,10 +6,7 @@ import type {
   InternalAxiosRequestConfig,
 } from "axios";
 import { onRequestFulfilled, onRequestRejected } from "./interceptor/request";
-import {
-  onResponseFulfilled,
-  onResponseRejected,
-} from "./interceptor/response";
+import { onResponseFulfilled, onResponseRejected } from "./interceptor/response";
 import type { R } from "@/models/net";
 import NProgress from "@/components/nprogress";
 import CancelManager from "./cancel";
@@ -20,8 +17,7 @@ class Http {
     this.instance = axios.create({
       baseURL: import.meta.env.VITE_APP_NET_BASE_URL || undefined,
       timeout: import.meta.env.VITE_APP_NET_DEFAULT_TIMEOUT || 10_000,
-      timeoutErrorMessage:
-        import.meta.env.VITE_APP_NET_DEFAULT_TIMEOUT_MESSAGE || undefined,
+      timeoutErrorMessage: import.meta.env.VITE_APP_NET_DEFAULT_TIMEOUT_MESSAGE || undefined,
     });
 
     // default interceptors
@@ -33,7 +29,7 @@ class Http {
       },
       (error: AxiosError) => {
         return onRequestRejected(error);
-      }
+      },
     );
     this.instance.interceptors.response.use(
       (response: AxiosResponse<R>) => {
@@ -45,7 +41,7 @@ class Http {
         NProgress.done();
         CancelManager.removeRequest(error.config);
         return onResponseRejected(error);
-      }
+      },
     );
   }
 
@@ -53,11 +49,7 @@ class Http {
     return this.instance.request(config);
   }
 
-  get<T = any>(
-    url: string,
-    params?: any,
-    config?: AxiosRequestConfig
-  ): Promise<R<T>> {
+  get<T = any>(url: string, params?: any, config?: AxiosRequestConfig): Promise<R<T>> {
     config = config || {};
     if (params) {
       config.params = Object.assign({}, config.params, params);
@@ -65,11 +57,7 @@ class Http {
     return this.instance.get<T, R<T>>(url, config);
   }
 
-  delete<T = any>(
-    url: string,
-    params?: any,
-    config?: AxiosRequestConfig
-  ): Promise<R<T>> {
+  delete<T = any>(url: string, params?: any, config?: AxiosRequestConfig): Promise<R<T>> {
     config = config || {};
     if (params) {
       config.data = Object.assign({}, config.data, params);
@@ -77,27 +65,15 @@ class Http {
     return this.instance.delete<T, R<T>>(url, config);
   }
 
-  post<T = any>(
-    url: string,
-    params?: any,
-    config?: AxiosRequestConfig
-  ): Promise<R<T>> {
+  post<T = any>(url: string, params?: any, config?: AxiosRequestConfig): Promise<R<T>> {
     return this.instance.post<T, R<T>>(url, params, config);
   }
 
-  put<T = any>(
-    url: string,
-    params?: any,
-    config?: AxiosRequestConfig
-  ): Promise<R<T>> {
+  put<T = any>(url: string, params?: any, config?: AxiosRequestConfig): Promise<R<T>> {
     return this.instance.put<T, R<T>>(url, params, config);
   }
 
-  patch<T = any>(
-    url: string,
-    params?: any,
-    config?: AxiosRequestConfig
-  ): Promise<R<T>> {
+  patch<T = any>(url: string, params?: any, config?: AxiosRequestConfig): Promise<R<T>> {
     return this.instance.patch<T, R<T>>(url, params, config);
   }
 
@@ -109,27 +85,15 @@ class Http {
     return this.instance.options<T, R<T>>(url, config);
   }
 
-  postForm<T = any>(
-    url: string,
-    params?: any,
-    config?: AxiosRequestConfig
-  ): Promise<R<T>> {
+  postForm<T = any>(url: string, params?: any, config?: AxiosRequestConfig): Promise<R<T>> {
     return this.instance.postForm(url, params, config);
   }
 
-  putForm<T = any>(
-    url: string,
-    params?: any,
-    config?: AxiosRequestConfig
-  ): Promise<R<T>> {
+  putForm<T = any>(url: string, params?: any, config?: AxiosRequestConfig): Promise<R<T>> {
     return this.instance.putForm(url, params, config);
   }
 
-  patchForm<T = any>(
-    url: string,
-    params?: any,
-    config?: AxiosRequestConfig
-  ): Promise<R<T>> {
+  patchForm<T = any>(url: string, params?: any, config?: AxiosRequestConfig): Promise<R<T>> {
     return this.instance.patchForm(url, params, config);
   }
 }

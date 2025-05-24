@@ -42,12 +42,11 @@ html.dark {
   --el-color-info-light-8: #2d2d2f;
   --el-color-info-light-9: #202121;
   --el-color-info-dark-2: #a6a9ad;
-  --el-box-shadow: 0px 12px 32px 4px rgba(0, 0, 0, 0.36),
-    0px 8px 20px rgba(0, 0, 0, 0.72);
+  --el-box-shadow: 0px 12px 32px 4px rgba(0, 0, 0, 0.36), 0px 8px 20px rgba(0, 0, 0, 0.72);
   --el-box-shadow-light: 0px 0px 12px rgba(0, 0, 0, 0.72);
   --el-box-shadow-lighter: 0px 0px 6px rgba(0, 0, 0, 0.72);
-  --el-box-shadow-dark: 0px 16px 48px 16px rgba(0, 0, 0, 0.72),
-    0px 12px 32px #000000, 0px 8px 16px -8px #000000;
+  --el-box-shadow-dark:
+    0px 16px 48px 16px rgba(0, 0, 0, 0.72), 0px 12px 32px #000000, 0px 8px 16px -8px #000000;
   --el-bg-color-page: #0a0a0a;
   --el-bg-color: #141414;
   --el-bg-color-overlay: #1d1e1f;

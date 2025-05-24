@@ -6,18 +6,9 @@
           <div class="rect" />
           <div class="title">二维码配置</div>
         </div>
-        <el-form
-          ref="editFormRef"
-          class="form"
-          label-width="100px"
-          :model="editForm"
-        >
+        <el-form ref="editFormRef" class="form" label-width="100px" :model="editForm">
           <el-form-item label="二维码样式">
-            <in-select
-              w-full
-              v-model="editForm.type"
-              :options="qrcodeTypeEnum.getOptions()"
-            />
+            <in-select w-full v-model="editForm.type" :options="qrcodeTypeEnum.getOptions()" />
           </el-form-item>
           <el-form-item label="容错率">
             <in-select
@@ -26,20 +17,14 @@
               :options="correctLevelEnum.getOptions()"
             />
           </el-form-item>
-          <el-form-item
-            label="码点样式"
-            v-if="editForm.type == QrcodeType.Line"
-          >
+          <el-form-item label="码点样式" v-if="editForm.type == QrcodeType.Line">
             <in-select
               w-full
               v-model="editForm.lineOptionsType"
               :options="lineOptionsTypeEnum.getOptions()"
             />
           </el-form-item>
-          <el-form-item
-            label="码点样式"
-            v-if="editForm.type == QrcodeType.Round"
-          >
+          <el-form-item label="码点样式" v-if="editForm.type == QrcodeType.Round">
             <in-select
               w-full
               v-model="editForm.roundOptionsType"
@@ -54,11 +39,7 @@
             />
           </el-form-item>
           <el-form-item label="码点大小">
-            <el-input
-              type="number"
-              v-model="editForm.size"
-              placeholder="请输入码点大小"
-            ></el-input>
+            <el-input type="number" v-model="editForm.size" placeholder="请输入码点大小"></el-input>
           </el-form-item>
           <el-form-item label="透明度">
             <el-input
@@ -114,12 +95,8 @@
       <in-qrcode :options="editForm" ref="QrcodeRef" />
 
       <div flex flex-row>
-        <in-button type="primary" @click="handleDownload(true)">
-          下载SVG
-        </in-button>
-        <in-button type="primary" @click="handleDownload(false)">
-          下载图片
-        </in-button>
+        <in-button type="primary" @click="handleDownload(true)"> 下载SVG </in-button>
+        <in-button type="primary" @click="handleDownload(false)"> 下载图片 </in-button>
       </div>
     </div>
   </in-filter-container>
@@ -174,13 +151,7 @@ const handleDownload = (isSvg: boolean) => {
   if (isSvg) {
     saveSvg(`${editForm.type}`, QrcodeRef.value.getValue());
   } else {
-    saveImg(
-      `${editForm.type}`,
-      QrcodeRef.value.getValue(),
-      editForm.width,
-      editForm.height,
-      "png"
-    );
+    saveImg(`${editForm.type}`, QrcodeRef.value.getValue(), editForm.width, editForm.height, "png");
   }
 };
 </script>

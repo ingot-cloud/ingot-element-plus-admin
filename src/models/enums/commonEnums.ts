@@ -16,9 +16,7 @@ export const CommonStatusEnumExtArray = [
 ];
 
 export function getCommonStatusToggle(status: CommonStatus): CommonStatus {
-  return status === CommonStatus.Enable
-    ? CommonStatus.Lock
-    : CommonStatus.Enable;
+  return status === CommonStatus.Enable ? CommonStatus.Lock : CommonStatus.Enable;
 }
 
 export function getCommonStatusActionDesc(status: CommonStatus): string {

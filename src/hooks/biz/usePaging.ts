@@ -1,18 +1,12 @@
 import type { R, Page, PageChangeParams, EnumObj } from "@/models";
 import type { CommonStatus } from "@/models/enums";
-import {
-  getCommonStatusActionDesc,
-  getCommonStatusToggle,
-} from "@/models/enums";
+import { getCommonStatusActionDesc, getCommonStatusToggle } from "@/models/enums";
 import { Confirm, Message } from "@/utils/message";
 
 /**
  * 分页接口
  */
-export type FetchPageAPI<T, C> = (
-  page: Page,
-  condition?: C
-) => Promise<R<Page<T>>>;
+export type FetchPageAPI<T, C> = (page: Page, condition?: C) => Promise<R<Page<T>>>;
 
 /**
  * 删除记录接口
@@ -44,9 +38,7 @@ export type UpdateRecordFn<T> = (record: T) => Promise<void>;
  */
 export type ActionCallbackFn = (params?: PageChangeParams) => void;
 
-export const transformPageAPI = <T, C>(
-  api: FetchPageAPI<T, C>
-): FetchPageFn<T, C> => {
+export const transformPageAPI = <T, C>(api: FetchPageAPI<T, C>): FetchPageFn<T, C> => {
   return (page: Page, condition?: C) => {
     return new Promise((resolve, reject) => {
       api(page, condition)
@@ -70,9 +62,7 @@ export const transformDeleteAPI = (api: DeleteRecordAPI): DeleteRecordFn => {
   };
 };
 
-export const transformUpdateAPI = <T>(
-  api: UpdateRecordAPI<T>
-): UpdateRecordFn<T> => {
+export const transformUpdateAPI = <T>(api: UpdateRecordAPI<T>): UpdateRecordFn<T> => {
   return (record: T) => {
     return new Promise((resolve, reject) => {
       api(record)
@@ -87,9 +77,7 @@ export const transformUpdateAPI = <T>(
 /**
  * 分页
  */
-export const usePaging = <Record, Condition>(
-  fetchPageFn: FetchPageFn<Record, Condition>
-) => {
+export const usePaging = <Record, Condition>(fetchPageFn: FetchPageFn<Record, Condition>) => {
   const loading = ref<boolean>(false);
   const condition = reactive({}) as Condition;
   const pageInfo = reactive<Page<Record>>({
@@ -133,10 +121,7 @@ export const usePaging = <Record, Condition>(
 /**
  * 确认删除
  */
-export const useConfirmDelete = (
-  deleteRecord: DeleteRecordFn,
-  callback?: ActionCallbackFn
-) => {
+export const useConfirmDelete = (deleteRecord: DeleteRecordFn, callback?: ActionCallbackFn) => {
   const exec = (id: string, message: string) => {
     Confirm.warning(message).then(() => {
       deleteRecord(id).then(() => {
@@ -158,7 +143,7 @@ export const useConfirmDelete = (
  */
 export const useConfirmUpdate = <Record>(
   updateRecord: UpdateRecordFn<Record>,
-  callback?: ActionCallbackFn
+  callback?: ActionCallbackFn,
 ) => {
   const exec = (params: Record, message: string) => {
     Confirm.warning(message).then(() => {
@@ -186,13 +171,11 @@ export interface StatusRecord<T> {
  */
 export const useConfirmStatus = (
   updateRecord: UpdateRecordFn<StatusRecord<CommonStatus>>,
-  callback?: ActionCallbackFn
+  callback?: ActionCallbackFn,
 ) => {
   const exec = (id: string, status: CommonStatus, opsTragetText: string) => {
     Confirm.warning(
-      `是否${getCommonStatusActionDesc(
-        getCommonStatusToggle(status)
-      )}${opsTragetText}`
+      `是否${getCommonStatusActionDesc(getCommonStatusToggle(status))}${opsTragetText}`,
     ).then(() => {
       updateRecord({ id, status: getCommonStatusToggle(status) }).then(() => {
         Message.success("操作成功");
@@ -210,14 +193,9 @@ export const useConfirmStatus = (
 
 export const useConfirmStatus2 = (
   updateRecord: UpdateRecordFn<StatusRecord<string>>,
-  callback?: ActionCallbackFn
+  callback?: ActionCallbackFn,
 ) => {
-  const exec = (
-    id: string,
-    status: string,
-    opsTragetText: string,
-    enumObj: EnumObj<string>
-  ) => {
+  const exec = (id: string, status: string, opsTragetText: string, enumObj: EnumObj<string>) => {
     const oppositeValue = enumObj.getOpposite(status);
     const oppositeText = enumObj.getTagText(oppositeValue).text;
     Confirm.warning(`是否${oppositeText}${opsTragetText}`).then(() => {

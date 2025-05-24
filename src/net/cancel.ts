@@ -45,12 +45,9 @@ class CancelManager {
   }
 
   getUrl(config: AxiosRequestConfig) {
-    return [
-      config.method,
-      config.url,
-      qs.stringify(config.data),
-      qs.stringify(config.params),
-    ].join("&");
+    return [config.method, config.url, qs.stringify(config.data), qs.stringify(config.params)].join(
+      "&",
+    );
   }
 }
 

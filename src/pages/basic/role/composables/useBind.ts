@@ -8,7 +8,7 @@ import type { BindSetupParams, BindSetupReturn } from "../types";
  * @returns
  */
 export const useBind = <T extends OptionIDEntity>(
-  params: BindSetupParams<T>
+  params: BindSetupParams<T>,
 ): BindSetupReturn<T> => {
   const headers = ref(params.tableHeaders.slice());
   const editBatch = ref(false);
@@ -22,11 +22,9 @@ export const useBind = <T extends OptionIDEntity>(
    * 获取已绑定数据
    */
   const fetchData = () => {
-    params
-      .fetchData(params.id, true, toRaw(queryCondition) as T)
-      .then((response) => {
-        records.value = response.data;
-      });
+    params.fetchData(params.id, true, toRaw(queryCondition) as T).then((response) => {
+      records.value = response.data;
+    });
   };
 
   /**
@@ -34,14 +32,12 @@ export const useBind = <T extends OptionIDEntity>(
    */
   const handleUnbind = (item: T) => {
     Confirm.warning(params.singleConfirmMessage(item)).then(() => {
-      params
-        .bind({ id: params.id, removeIds: [item.id as string] })
-        .then(() => {
-          Message.success("操作成功");
-          fetchData();
-          // 更新未绑定数据
-          bindView.value?.fetchData();
-        });
+      params.bind({ id: params.id, removeIds: [item.id as string] }).then(() => {
+        Message.success("操作成功");
+        fetchData();
+        // 更新未绑定数据
+        bindView.value?.fetchData();
+      });
     });
   };
 

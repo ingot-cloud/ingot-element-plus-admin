@@ -1,10 +1,5 @@
 import request from "@/net";
-import type {
-  R,
-  RoleBindParams,
-  SysAuthority,
-  AuthorityTreeNode,
-} from "@/models";
+import type { R, RoleBindParams, SysAuthority, AuthorityTreeNode } from "@/models";
 import { filterParams } from "@/utils/object";
 
 export function OrgAuthList() {
@@ -17,15 +12,12 @@ export function BindAuthorityAPI(params: RoleBindParams): Promise<R<void>> {
 
 export function GetBindAuthoritiesAPI(
   id: string,
-  condition?: SysAuthority
+  condition?: SysAuthority,
 ): Promise<R<Array<AuthorityTreeNode>>> {
   if (condition) {
     filterParams(condition);
   }
-  return request.get<Array<AuthorityTreeNode>>(
-    `/api/pms/v1/org/auth/bindAuthority/${id}`,
-    {
-      ...condition,
-    }
-  );
+  return request.get<Array<AuthorityTreeNode>>(`/api/pms/v1/org/auth/bindAuthority/${id}`, {
+    ...condition,
+  });
 }

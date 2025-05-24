@@ -1,21 +1,11 @@
-import type {
-  RoleGroupItemVO,
-  PageChangeParams,
-  UserPageItemVO,
-} from "@/models";
+import type { RoleGroupItemVO, PageChangeParams, UserPageItemVO } from "@/models";
 import { UserPageAPI, UpdateUserAPI, RemoveUserAPI } from "@/api/org/user";
 import { copyParams } from "@/utils/object";
 
 export const useUserOps = () => {
   const paging = usePaging(transformPageAPI(UserPageAPI));
-  const confirmStatus = useConfirmStatus(
-    transformUpdateAPI(UpdateUserAPI),
-    paging.exec
-  );
-  const confirmDelete = useConfirmDelete(
-    transformDeleteAPI(RemoveUserAPI),
-    paging.exec
-  );
+  const confirmStatus = useConfirmStatus(transformUpdateAPI(UpdateUserAPI), paging.exec);
+  const confirmDelete = useConfirmDelete(transformDeleteAPI(RemoveUserAPI), paging.exec);
   const currentNode = reactive<RoleGroupItemVO>({});
 
   /**
@@ -56,11 +46,7 @@ export const useUserOps = () => {
    * 禁用、启用
    */
   const handleDisableUser = (params: UserPageItemVO): void => {
-    confirmStatus.exec(
-      params.userId,
-      params.status!,
-      `用户(${params.username})`
-    );
+    confirmStatus.exec(params.userId, params.status!, `用户(${params.username})`);
   };
 
   return {

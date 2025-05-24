@@ -1,13 +1,6 @@
 <template>
-  <el-breadcrumb
-    :separator-icon="IconArrowRight"
-    v-if="breadcrumbList.length > 1"
-  >
-    <el-breadcrumb-item
-      v-for="item in breadcrumbList"
-      :key="item.path"
-      :to="item.path"
-    >
+  <el-breadcrumb :separator-icon="IconArrowRight" v-if="breadcrumbList.length > 1">
+    <el-breadcrumb-item v-for="item in breadcrumbList" :key="item.path" :to="item.path">
       <div flex items-center class="h-[var(--in-breadcrumb-height)]">
         <in-icon
           v-if="item.icon"
@@ -30,9 +23,7 @@ const breadcrumbList = computed(() => {
   return getBreadcrumbList(route.matched);
 });
 
-const getBreadcrumbList = (
-  matched: Array<RouteLocationMatched>
-): Array<BreadCrumbRecord> => {
+const getBreadcrumbList = (matched: Array<RouteLocationMatched>): Array<BreadCrumbRecord> => {
   const list: Array<BreadCrumbRecord> = [];
 
   matched
@@ -62,11 +53,7 @@ const getBreadcrumbList = (
   // 如果是重定向到child的菜单，并且这个菜单的children只有1个
   // 那么将其删掉，只保留child即可
   const path = list[cLen - 1].path;
-  if (
-    cLen > 1 &&
-    list[cLen - 2].redirect === path &&
-    list[cLen - 2].children?.length === 1
-  ) {
+  if (cLen > 1 && list[cLen - 2].redirect === path && list[cLen - 2].children?.length === 1) {
     // 避免删除后icon丢失，赋值父级cion
     list[cLen - 1].icon = list[cLen - 2].icon;
     list.splice(cLen - 2, 1);

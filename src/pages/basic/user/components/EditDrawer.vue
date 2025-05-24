@@ -1,10 +1,5 @@
 <template>
-  <in-drawer
-    :title="user.nickname"
-    v-model="visible"
-    padding="0"
-    :loading="loading"
-  >
+  <in-drawer :title="user.nickname" v-model="visible" padding="0" :loading="loading">
     <in-biz-tabs v-model="currentTab">
       <in-biz-tab-panel title="基础信息" :name="TabNameBase">
         <BaseInfoForm ref="BaseInfoFormRef" />
@@ -17,18 +12,10 @@
       <div v-if="currentTab === TabNameBase">
         <in-button @click="visible = false">取消</in-button>
         <in-button type="danger" @click="handleRemoveClick">删除</in-button>
-        <in-button
-          :loading="loading"
-          type="primary"
-          @click="handleConfirmClick"
-        >
-          确定
-        </in-button>
+        <in-button :loading="loading" type="primary" @click="handleConfirmClick"> 确定 </in-button>
       </div>
       <div v-else>
-        <in-button type="primary" @click="handleAddOrgClick">
-          添加组织
-        </in-button>
+        <in-button type="primary" @click="handleAddOrgClick"> 添加组织 </in-button>
       </div>
     </template>
   </in-drawer>
@@ -52,14 +39,11 @@ const user = ref<SysUser>({});
 const visible = ref(false);
 const loading = ref(false);
 const message = useMessage();
-const confirmDelete = useConfirmDelete(
-  transformDeleteAPI(RemoveUserAPI),
-  () => {
-    visible.value = false;
-    message.success("操作成功");
-    emits("success");
-  }
-);
+const confirmDelete = useConfirmDelete(transformDeleteAPI(RemoveUserAPI), () => {
+  visible.value = false;
+  message.success("操作成功");
+  emits("success");
+});
 
 const handleAddOrgClick = () => {
   OrgInfoFormRef.value.addOrg(user.value.id!);

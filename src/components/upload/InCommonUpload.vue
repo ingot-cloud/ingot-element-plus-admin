@@ -13,9 +13,7 @@ const props = defineProps({
 });
 
 const commonApi = (params: UploadRequestParams) => {
-  params.fileName = props.dir
-    ? `${props.dir}/${params.fileName}`
-    : params.fileName;
+  params.fileName = props.dir ? `${props.dir}/${params.fileName}` : params.fileName;
   return UploadAPI(params);
 };
 </script>

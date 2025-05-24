@@ -8,7 +8,7 @@ import { filterParams } from "@/utils/object";
  */
 export function SocialPageAPI(
   page: Page,
-  condition?: SysSocialDetails
+  condition?: SysSocialDetails,
 ): Promise<R<Page<SysSocialDetails>>> {
   if (condition) {
     filterParams(condition);

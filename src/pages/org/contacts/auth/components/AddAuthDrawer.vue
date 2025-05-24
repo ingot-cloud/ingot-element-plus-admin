@@ -1,11 +1,5 @@
 <template>
-  <in-drawer
-    :title="title"
-    v-model="isShow"
-    :loading="loading"
-    padding="0"
-    size="30%"
-  >
+  <in-drawer :title="title" v-model="isShow" :loading="loading" padding="0" size="30%">
     <in-filter-container :showBacktop="false">
       <div class="auth-content">
         <in-tree
@@ -23,18 +17,12 @@
     </in-filter-container>
     <template #footer>
       <in-button @click="isShow = false"> 取消 </in-button>
-      <in-button
-        type="primary"
-        :loading="btnLoading"
-        @click="handleActionButton"
-      >
-        确定
-      </in-button>
+      <in-button type="primary" :loading="btnLoading" @click="handleActionButton"> 确定 </in-button>
     </template>
   </in-drawer>
 </template>
 <script lang="ts" setup>
-import { TreeKeyAndProps, AuthorityTreeNode } from "@/models";
+import { TreeKeyAndProps, type AuthorityTreeNode } from "@/models";
 import { OrgAuthList, BindAuthorityAPI } from "@/api/org/auth";
 
 const emit = defineEmits(["success"]);
@@ -53,7 +41,7 @@ const message = useMessage();
 
 const onCheckChange = (
   node: AuthorityTreeNode,
-  isChecked: boolean
+  isChecked: boolean,
   // childChecked: boolean
 ) => {
   const selectId = node.id!;

@@ -1,10 +1,5 @@
 import type { DeptTreeNode, DeptWithManagerDTO } from "@/models";
-import {
-  DeptTreeAPI,
-  CreateDeptAPI,
-  UpdateDeptAPI,
-  RemoveDeptAPI,
-} from "@/api/org/dept";
+import { DeptTreeAPI, CreateDeptAPI, UpdateDeptAPI, RemoveDeptAPI } from "@/api/org/dept";
 
 export const useDeptStore = defineStore("org.dept", () => {
   const expandedKeys = ref<Array<string>>([]);

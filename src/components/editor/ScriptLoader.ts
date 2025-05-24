@@ -29,12 +29,7 @@ interface ScriptLoader {
 const CreateScriptLoader = (): ScriptLoader => {
   let state: IStateObj = createState();
 
-  const injectScriptTag = (
-    scriptId: string,
-    doc: Document,
-    url: string,
-    callback: CallbackFn
-  ) => {
+  const injectScriptTag = (scriptId: string, doc: Document, url: string, callback: CallbackFn) => {
     const scriptTag = doc.createElement("script");
     scriptTag.referrerPolicy = "origin";
     scriptTag.type = "application/javascript";

@@ -9,11 +9,7 @@
       :rules="rules"
     >
       <el-form-item label="角色名称" prop="name">
-        <el-input
-          v-model="editForm.name"
-          clearable
-          placeholder="请输入角色名称"
-        ></el-input>
+        <el-input v-model="editForm.name" clearable placeholder="请输入角色名称"></el-input>
       </el-form-item>
       <el-form-item label="角色组" prop="groupId">
         <in-select
@@ -58,18 +54,10 @@
       <common-status-button
         v-if="isEdit"
         :status="editForm.status"
-        @click="
-          confirmStatus.exec(
-            editForm.id!,
-            editForm.status!,
-            `角色(${editForm.name})`
-          )
-        "
+        @click="confirmStatus.exec(editForm.id!, editForm.status!, `角色(${editForm.name})`)"
       >
       </common-status-button>
-      <in-button v-if="isEdit" type="danger" @click="handleRemoveClick">
-        删除
-      </in-button>
+      <in-button v-if="isEdit" type="danger" @click="handleRemoveClick"> 删除 </in-button>
       <in-button type="primary" @click="handleActionButton">确定</in-button>
     </template>
   </in-drawer>
@@ -94,16 +82,7 @@ const rawForm = {
   scopes: [],
 };
 
-const keys = [
-  "id",
-  "name",
-  "groupId",
-  "code",
-  "filterDept",
-  "status",
-  "scopeType",
-  "scopes",
-];
+const keys = ["id", "name", "groupId", "code", "filterDept", "status", "scopeType", "scopes"];
 
 const title = ref("");
 const show = ref(false);

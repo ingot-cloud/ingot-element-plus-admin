@@ -2,11 +2,7 @@ import type { RouteRecordRaw } from "vue-router";
 import type { MenuRouteRecord } from "@/layouts";
 import { default as routes } from "@/router/routes";
 import { GetUserMenuAPI } from "@/api/basic/menu";
-import {
-  generateMenus,
-  transformMenu,
-  cacheRoutes,
-} from "@/router/helper/route";
+import { generateMenus, transformMenu, cacheRoutes } from "@/router/helper/route";
 import { usePermissions } from "./auth";
 
 export const useRouterStore = defineStore("router", () => {

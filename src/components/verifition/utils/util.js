@@ -99,11 +99,4 @@ export const _code_chars = [
   "Z",
 ];
 export const _code_color1 = ["#fffff0", "#f0ffff", "#f0fff0", "#fff0f0"];
-export const _code_color2 = [
-  "#FF0033",
-  "#006699",
-  "#993366",
-  "#FF9900",
-  "#66CC66",
-  "#FF33CC",
-];
+export const _code_color2 = ["#FF0033", "#006699", "#993366", "#FF9900", "#66CC66", "#FF33CC"];

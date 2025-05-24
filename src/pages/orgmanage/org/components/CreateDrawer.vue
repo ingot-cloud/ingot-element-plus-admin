@@ -9,24 +9,13 @@
       :rules="rules"
     >
       <el-form-item label="Logo" prop="avatar">
-        <in-common-upload-avatar
-          dir="public/user/avatar"
-          v-model="editForm.avatar"
-        />
+        <in-common-upload-avatar dir="public/user/avatar" v-model="editForm.avatar" />
       </el-form-item>
       <el-form-item label="组织名称" prop="name">
-        <el-input
-          v-model="editForm.name"
-          clearable
-          placeholder="请输入组织名称"
-        ></el-input>
+        <el-input v-model="editForm.name" clearable placeholder="请输入组织名称"></el-input>
       </el-form-item>
       <el-form-item label="管理员手机号" prop="phone">
-        <BizSearchUserByPhone
-          v-model="editForm.phone"
-          clearable
-          placeholder="请输入管理员手机号"
-        />
+        <BizSearchUserByPhone v-model="editForm.phone" clearable placeholder="请输入管理员手机号" />
       </el-form-item>
     </el-form>
     <template #footer>

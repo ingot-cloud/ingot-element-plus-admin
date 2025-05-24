@@ -6,7 +6,7 @@ import type { BindSetupParams, UnbindSetupReturn } from "../types";
  * 未绑定数据视图
  */
 export const useUnbind = <T extends OptionIDEntity>(
-  params: BindSetupParams<T>
+  params: BindSetupParams<T>,
 ): UnbindSetupReturn<T> => {
   const isShow = ref(false);
   const headers = ref(Object.assign([], params.tableHeaders));
@@ -18,24 +18,20 @@ export const useUnbind = <T extends OptionIDEntity>(
   const node = ref<RoleGroupItemVO>({});
 
   const fetchData = () => {
-    params
-      .fetchData(node.value.id!, false, toRaw(queryCondition) as T)
-      .then((response) => {
-        records.value = response.data;
-      });
+    params.fetchData(node.value.id!, false, toRaw(queryCondition) as T).then((response) => {
+      records.value = response.data;
+    });
   };
 
   const handleBind = (item: T) => {
     Confirm.warning(params.singleConfirmMessage(item)).then(() => {
-      params
-        .bind({ id: node.value.id!, bindIds: [item.id as string] })
-        .then(() => {
-          Message.success("操作成功");
-          if (params.emit) {
-            params.emit("dataChanged");
-          }
-          fetchData();
-        });
+      params.bind({ id: node.value.id!, bindIds: [item.id as string] }).then(() => {
+        Message.success("操作成功");
+        if (params.emit) {
+          params.emit("dataChanged");
+        }
+        fetchData();
+      });
     });
   };
 

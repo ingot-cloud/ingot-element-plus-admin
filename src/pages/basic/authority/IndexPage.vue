@@ -19,9 +19,7 @@
           >
             重置
           </in-button>
-          <in-button type="primary" @in-click="fetchData" :loading="loading">
-            搜索
-          </in-button>
+          <in-button type="primary" @in-click="fetchData" :loading="loading"> 搜索 </in-button>
         </template>
       </in-filter-item>
     </template>
@@ -60,26 +58,16 @@
           text
           link
           :status="item.status"
-          @click="
-            confirmStatus.exec(item.id, item.status, `权限(${item.name})`)
-          "
+          @click="confirmStatus.exec(item.id, item.status, `权限(${item.name})`)"
         />
       </template>
     </in-table>
   </in-filter-container>
-  <EditDrawer
-    ref="EditDrawerRef"
-    :selectData="selectData"
-    @success="fetchData"
-  />
+  <EditDrawer ref="EditDrawerRef" :selectData="selectData" @success="fetchData" />
 </template>
 <script lang="ts" setup>
 import { tableHeaders } from "./table";
-import type {
-  SysAuthority,
-  AuthorityTreeNode,
-  AuthorityFilterDTO,
-} from "@/models";
+import type { SysAuthority, AuthorityTreeNode, AuthorityFilterDTO } from "@/models";
 import { useOrgTypeEnums } from "@/models/enums";
 import EditDrawer from "./EditDrawer.vue";
 import type { TableAPI } from "@/components/table";
@@ -112,10 +100,7 @@ const fetchData = (): void => {
     .catch(() => (loading.value = false));
 };
 
-const confirmStatus = useConfirmStatus(
-  authorityStore.updateAuthority,
-  fetchData
-);
+const confirmStatus = useConfirmStatus(authorityStore.updateAuthority, fetchData);
 
 const handleCreate = (): void => {
   EditDrawerRef.value?.show();

@@ -8,18 +8,15 @@ import { filterParams } from "@/utils/object";
  */
 export function ClientPageAPI(
   page: Page,
-  condition?: OAuth2RegisteredClient
+  condition?: OAuth2RegisteredClient,
 ): Promise<R<Page<OAuth2RegisteredClient>>> {
   if (condition) {
     filterParams(condition);
   }
-  return request.get<Page<OAuth2RegisteredClient>>(
-    "/api/pms/v1/admin/client/page",
-    {
-      ...page,
-      ...condition,
-    }
-  );
+  return request.get<Page<OAuth2RegisteredClient>>("/api/pms/v1/admin/client/page", {
+    ...page,
+    ...condition,
+  });
 }
 
 /**
@@ -27,9 +24,7 @@ export function ClientPageAPI(
  * @param id ID
  * @returns
  */
-export function GetClientInfoAPI(
-  id: string
-): Promise<R<OAuth2RegisteredClient>> {
+export function GetClientInfoAPI(id: string): Promise<R<OAuth2RegisteredClient>> {
   return request.get<OAuth2RegisteredClient>(`/api/pms/v1/admin/client/${id}`);
 }
 
@@ -38,9 +33,7 @@ export function GetClientInfoAPI(
  * @param params 参数
  * @returns
  */
-export function CreateClientAPI(
-  params: OAuth2RegisteredClient
-): Promise<R<AppSecretVO>> {
+export function CreateClientAPI(params: OAuth2RegisteredClient): Promise<R<AppSecretVO>> {
   filterParams(params);
   return request.post<AppSecretVO>("/api/pms/v1/admin/client", params);
 }
@@ -50,9 +43,7 @@ export function CreateClientAPI(
  * @param params 参数
  * @returns
  */
-export function UpdateClientAPI(
-  params: OAuth2RegisteredClient
-): Promise<R<void>> {
+export function UpdateClientAPI(params: OAuth2RegisteredClient): Promise<R<void>> {
   filterParams(params);
   return request.put<void>("/api/pms/v1/admin/client", params);
 }
@@ -69,10 +60,6 @@ export function RemoveClientAPI(clientId: string): Promise<R<void>> {
 /**
  * 重置秘钥
  */
-export function ResetClientSecretAPI(
-  clientId: string
-): Promise<R<AppSecretVO>> {
-  return request.put<AppSecretVO>(
-    `/api/pms/v1/admin/client/resetSecret/${clientId}`
-  );
+export function ResetClientSecretAPI(clientId: string): Promise<R<AppSecretVO>> {
+  return request.put<AppSecretVO>(`/api/pms/v1/admin/client/resetSecret/${clientId}`);
 }

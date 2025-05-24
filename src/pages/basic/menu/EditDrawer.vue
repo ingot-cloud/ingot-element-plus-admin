@@ -25,11 +25,7 @@
         </el-form-item>
 
         <!-- 1.创建时候可以显示组织类型 2.不存在上级菜单那么不显示-->
-        <el-form-item
-          v-if="!edit && !editForm.pid"
-          label="组织类型"
-          prop="orgType"
-        >
+        <el-form-item v-if="!edit && !editForm.pid" label="组织类型" prop="orgType">
           <in-select
             w-full
             v-model="editForm.orgType"
@@ -48,19 +44,11 @@
         </el-form-item>
 
         <el-form-item prop="name" label="菜单名称">
-          <el-input
-            v-model="editForm.name"
-            placeholder="请输入菜单名称"
-            clearable
-          ></el-input>
+          <el-input v-model="editForm.name" placeholder="请输入菜单名称" clearable></el-input>
         </el-form-item>
 
         <el-form-item prop="path" label="菜单路由" v-if="isDefaultLink()">
-          <el-input
-            v-model="editForm.path"
-            placeholder="请输入菜单路由"
-            clearable
-          ></el-input>
+          <el-input v-model="editForm.path" placeholder="请输入菜单路由" clearable></el-input>
         </el-form-item>
 
         <el-form-item v-else label="外部链接" prop="linkUrl">
@@ -73,11 +61,7 @@
         </el-form-item>
 
         <el-form-item label="重定向路由" v-if="isDirectory()">
-          <el-input
-            v-model="editForm.redirect"
-            placeholder="请输入重定向路由"
-            clearable
-          ></el-input>
+          <el-input v-model="editForm.redirect" placeholder="请输入重定向路由" clearable></el-input>
         </el-form-item>
 
         <el-form-item prop="cache" label="是否开启权限">
@@ -88,11 +72,7 @@
         </el-form-item>
 
         <el-form-item v-if="!isButton()" prop="icon" label="菜单icon">
-          <el-input
-            v-model="editForm.icon"
-            placeholder="请输入icon名称"
-            clearable
-          >
+          <el-input v-model="editForm.icon" placeholder="请输入icon名称" clearable>
             <template #append>
               <div
                 ref="iconButtonRef"
@@ -125,9 +105,7 @@
           </el-popover>
           <div>
             可以通过
-            <a href="https://icon-sets.iconify.design/?query=" target="_blank">
-              iconify
-            </a>
+            <a href="https://icon-sets.iconify.design/?query=" target="_blank"> iconify </a>
             搜索icon
           </div>
         </el-form-item>
@@ -149,21 +127,13 @@
         title="视图高级选项"
         v-model="editForm.customViewPath"
       />
-      <div
-        p-20px
-        v-if="!isButton() && isDefaultLink() && editForm.customViewPath"
-      >
+      <div p-20px v-if="!isButton() && isDefaultLink() && editForm.customViewPath">
         <el-form-item
           v-if="editForm.customViewPath && !isButton()"
           label="视图路径"
           prop="viewPath"
         >
-          <el-input
-            v-model="editForm.viewPath"
-            placeholder="请输入视图路径"
-            clearable
-          >
-          </el-input>
+          <el-input v-model="editForm.viewPath" placeholder="请输入视图路径" clearable> </el-input>
         </el-form-item>
         <el-form-item
           v-if="editForm.customViewPath && !isButton() && isDirectory()"
@@ -180,24 +150,12 @@
         </el-form-item>
       </div>
 
-      <in-form-group-title
-        v-if="!isButton()"
-        title="其他高级选项"
-        v-model="moreOptionsFlag"
-      />
+      <in-form-group-title v-if="!isButton()" title="其他高级选项" v-model="moreOptionsFlag" />
       <div p-20px v-if="!isButton() && moreOptionsFlag">
         <el-form-item v-if="!isButton()" label="路由名称">
-          <el-input
-            v-model="editForm.routeName"
-            placeholder="请输入路由名称"
-            clearable
-          ></el-input>
+          <el-input v-model="editForm.routeName" placeholder="请输入路由名称" clearable></el-input>
         </el-form-item>
-        <el-form-item
-          v-if="!isButton() && moreOptionsFlag"
-          prop="sort"
-          label="排序"
-        >
+        <el-form-item v-if="!isButton() && moreOptionsFlag" prop="sort" label="排序">
           <el-input
             v-model="editForm.sort"
             placeholder="请输入排序序号"
@@ -244,16 +202,8 @@
       </div>
     </in-form>
     <template #footer>
-      <in-button v-if="edit" type="danger" @click="privateOnRemoveClick">
-        删除
-      </in-button>
-      <in-button
-        :loading="loading"
-        type="primary"
-        @click="privateOnConfirmClick"
-      >
-        确定
-      </in-button>
+      <in-button v-if="edit" type="danger" @click="privateOnRemoveClick"> 删除 </in-button>
+      <in-button :loading="loading" type="primary" @click="privateOnConfirmClick"> 确定 </in-button>
     </template>
   </in-drawer>
 </template>
@@ -334,13 +284,10 @@ const edit = ref(false);
 const canEditPid = ref(false);
 const visible = ref(false);
 
-const confirmDelete = useConfirmDelete(
-  transformDeleteAPI(RemoveMenuAPI),
-  () => {
-    visible.value = false;
-    emits("success");
-  }
-);
+const confirmDelete = useConfirmDelete(transformDeleteAPI(RemoveMenuAPI), () => {
+  visible.value = false;
+  emits("success");
+});
 
 const isDirectory = () => {
   return editForm.menuType == MenuType.Directory;

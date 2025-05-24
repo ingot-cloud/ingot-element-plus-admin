@@ -1,8 +1,4 @@
-import type {
-  AuthorityTreeNode,
-  SysAuthority,
-  AuthorityFilterDTO,
-} from "@/models";
+import type { AuthorityTreeNode, SysAuthority, AuthorityFilterDTO } from "@/models";
 import {
   GetAuthorityTreeAPI,
   CreateAuthorityAPI,

@@ -5,9 +5,7 @@
         <div m-r-10px>密码:</div>
         <in-copy-tag :text="passwordValue"></in-copy-tag>
       </div>
-      <div font-400 style="font-size: 12px; color: #bbbbbb">
-        *提示:点击即可复制
-      </div>
+      <div font-400 style="font-size: 12px; color: #bbbbbb">*提示:点击即可复制</div>
     </div>
 
     <template #footer>

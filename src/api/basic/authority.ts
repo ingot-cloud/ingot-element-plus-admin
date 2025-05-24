@@ -1,10 +1,5 @@
 import request from "@/net";
-import type {
-  R,
-  SysAuthority,
-  AuthorityTreeNode,
-  AuthorityFilterDTO,
-} from "@/models";
+import type { R, SysAuthority, AuthorityTreeNode, AuthorityFilterDTO } from "@/models";
 import { filterParams } from "@/utils/object";
 
 /**
@@ -12,15 +7,12 @@ import { filterParams } from "@/utils/object";
  * @returns
  */
 export function GetAuthorityTreeAPI(
-  filter?: AuthorityFilterDTO
+  filter?: AuthorityFilterDTO,
 ): Promise<R<Array<AuthorityTreeNode>>> {
   if (filter) {
     filterParams(filter);
   }
-  return request.get<Array<AuthorityTreeNode>>(
-    "/api/pms/v1/admin/authority/tree",
-    filter
-  );
+  return request.get<Array<AuthorityTreeNode>>("/api/pms/v1/admin/authority/tree", filter);
 }
 
 /**

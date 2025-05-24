@@ -14,16 +14,11 @@ export function GetUserMenuAPI(): Promise<R<Array<MenuTreeNode>>> {
  * 获取Menu tree
  * @returns
  */
-export function GetMenuTreeAPI(
-  filter?: MenuFilterDTO
-): Promise<R<Array<MenuTreeNode>>> {
+export function GetMenuTreeAPI(filter?: MenuFilterDTO): Promise<R<Array<MenuTreeNode>>> {
   if (filter) {
     filterParams(filter);
   }
-  return request.get<Array<MenuTreeNode>>(
-    "/api/pms/v1/admin/menu/tree",
-    filter
-  );
+  return request.get<Array<MenuTreeNode>>("/api/pms/v1/admin/menu/tree", filter);
 }
 
 /**

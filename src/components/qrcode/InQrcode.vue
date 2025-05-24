@@ -4,12 +4,7 @@
 <script setup lang="ts">
 import type { CustomOptions, Options } from "./exported";
 import type { PropType } from "vue";
-import {
-  QrcodeType,
-  encodeData,
-  rendererLine,
-  rendererRound,
-} from "./exported";
+import { QrcodeType, encodeData, rendererLine, rendererRound } from "./exported";
 import { copyParamsWithoutKeys, copyParamsWithKeys } from "@/utils/object";
 
 const props = defineProps({
@@ -37,7 +32,7 @@ watch(
       targetOptions,
       raw,
       [...optionsKeys, "type", "lineOptionsType", "roundOptionsType"],
-      true
+      true,
     );
     switch (customOptions.type) {
       case QrcodeType.Line:
@@ -57,7 +52,7 @@ watch(
   {
     immediate: true,
     deep: true,
-  }
+  },
 );
 
 defineExpose({

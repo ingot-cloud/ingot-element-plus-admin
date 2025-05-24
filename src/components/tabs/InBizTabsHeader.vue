@@ -38,7 +38,9 @@ const onItemClick = (id: string) => {
 <style scoped lang="postcss">
 .contacts-tab-list {
   @apply flex flex-row;
-  transition: transform 0.3s, -webkit-transform 0.3s;
+  transition:
+    transform 0.3s,
+    -webkit-transform 0.3s;
   padding-left: 12px;
   padding-right: 12px;
 

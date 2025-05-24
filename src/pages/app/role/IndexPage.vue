@@ -12,9 +12,7 @@
         </in-with-label>
         <template #rightActions>
           <in-button @click="filter.roleName = undefined"> 重置 </in-button>
-          <in-button type="primary" @in-click="refreshData" :loading="loading">
-            搜索
-          </in-button>
+          <in-button type="primary" @in-click="refreshData" :loading="loading"> 搜索 </in-button>
         </template>
       </in-filter-item>
     </template>
@@ -28,12 +26,8 @@
     >
       <template #title> 角色管理 </template>
       <template #toolbar>
-        <in-button type="primary" @click="handleCreate(false)">
-          添加角色
-        </in-button>
-        <in-button type="primary" @click="handleCreate(true)">
-          添加角色组
-        </in-button>
+        <in-button type="primary" @click="handleCreate(false)"> 添加角色 </in-button>
+        <in-button type="primary" @click="handleCreate(true)"> 添加角色组 </in-button>
       </template>
       <template #code="{ item }">
         <el-tag>
@@ -56,11 +50,7 @@
       </template>
     </in-table>
 
-    <RoleDrawer
-      ref="RoleDrawerRef"
-      :groupList="groupList"
-      @success="refreshData"
-    />
+    <RoleDrawer ref="RoleDrawerRef" :groupList="groupList" @success="refreshData" />
     <RoleGroupDrawer ref="RoleGroupDrawerRef" @success="refreshData" />
   </in-filter-container>
 </template>

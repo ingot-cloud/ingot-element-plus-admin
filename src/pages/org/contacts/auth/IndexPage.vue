@@ -11,11 +11,7 @@
     </template>
 
     <div class="default-role-bg-container" v-if="!ops.currentNode.name">
-      <img
-        class="default-role-bg"
-        src="/resource/images/role_default_bg.jpg"
-        alt=""
-      />
+      <img class="default-role-bg" src="/resource/images/role_default_bg.jpg" alt="" />
     </div>
 
     <in-table
@@ -75,11 +71,7 @@ const stretch = (tree: Array<any>): Array<string> => {
 };
 
 const privateAddAuth = () => {
-  AddAuthDrawerRef.value.show(
-    ops.currentNode.id,
-    ops.currentNode.name,
-    stretch(ops.records.value)
-  );
+  AddAuthDrawerRef.value.show(ops.currentNode.id, ops.currentNode.name, stretch(ops.records.value));
 };
 </script>
 <style scoped lang="postcss">

@@ -8,11 +8,7 @@
 
     <AuthorityView ref="AuthorityViewRef" v-if="StatusCanEditAuthority" />
     <div class="default-role-bg-container" v-else>
-      <img
-        class="default-role-bg"
-        src="/resource/images/role_default_bg.jpg"
-        alt=""
-      />
+      <img class="default-role-bg" src="/resource/images/role_default_bg.jpg" alt="" />
     </div>
   </in-filter-container>
 </template>

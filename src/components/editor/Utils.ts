@@ -76,13 +76,12 @@ const validEvents = [
 ];
 
 const isValidKey = (key: string) =>
-  validEvents.map((event) => event.toLowerCase()).indexOf(key.toLowerCase()) !==
-  -1;
+  validEvents.map((event) => event.toLowerCase()).indexOf(key.toLowerCase()) !== -1;
 
 const bindHandlers = (
   initEvent: EditorEvent<any>,
   listeners: Record<string, any>,
-  editor: TinyMCEEditor
+  editor: TinyMCEEditor,
 ): void => {
   Object.keys(listeners)
     .filter(isValidKey)
@@ -92,9 +91,7 @@ const bindHandlers = (
         if (key === "onInit") {
           handler(initEvent, editor);
         } else {
-          editor.on(key.substring(2), (e: EditorEvent<any>) =>
-            handler(e, editor)
-          );
+          editor.on(key.substring(2), (e: EditorEvent<any>) => handler(e, editor));
         }
       }
     });
@@ -104,12 +101,10 @@ const bindModelHandlers = (
   props: IPropTypes,
   ctx: SetupContext,
   editor: TinyMCEEditor,
-  modelValue: Ref<any>
+  modelValue: Ref<any>,
 ) => {
   const modelEvents = props.modelEvents ? props.modelEvents : null;
-  const normalizedEvents = Array.isArray(modelEvents)
-    ? modelEvents.join(" ")
-    : modelEvents;
+  const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(" ") : modelEvents;
 
   watch(modelValue, (val: string, prevVal: string) => {
     if (
@@ -122,15 +117,9 @@ const bindModelHandlers = (
     }
   });
 
-  editor.on(
-    normalizedEvents ? normalizedEvents : "change input undo redo",
-    () => {
-      ctx.emit(
-        "update:modelValue",
-        editor.getContent({ format: props.outputFormat })
-      );
-    }
-  );
+  editor.on(normalizedEvents ? normalizedEvents : "change input undo redo", () => {
+    ctx.emit("update:modelValue", editor.getContent({ format: props.outputFormat }));
+  });
 };
 
 const initEditor = (
@@ -139,7 +128,7 @@ const initEditor = (
   ctx: SetupContext,
   editor: TinyMCEEditor,
   modelValue: Ref<any>,
-  content: () => string
+  content: () => string,
 ) => {
   editor.setContent(content());
   if (ctx.attrs["onUpdate:modelValue"]) {
@@ -172,9 +161,8 @@ const normalizePluginArray = (plugins?: string | string[]): string[] => {
 
 const mergePlugins = (
   initPlugins: string | string[] | undefined,
-  inputPlugins?: string | string[]
-) =>
-  normalizePluginArray(initPlugins).concat(normalizePluginArray(inputPlugins));
+  inputPlugins?: string | string[],
+) => normalizePluginArray(initPlugins).concat(normalizePluginArray(inputPlugins));
 
 const isNullOrUndefined = (value: any): value is null | undefined =>
   value === null || value === undefined;

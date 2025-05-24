@@ -2,45 +2,23 @@
   <in-drawer :title="title" v-model="visible">
     <in-form ref="editFormRef" :model="editForm" :rules="rules">
       <el-form-item label="AppID" prop="appId">
-        <el-input
-          v-model="editForm.appId"
-          clearable
-          placeholder="请输入AppID"
-        ></el-input>
+        <el-input v-model="editForm.appId" clearable placeholder="请输入AppID"></el-input>
       </el-form-item>
       <el-form-item label="AppSecret" prop="appSecret">
-        <el-input
-          v-model="editForm.appSecret"
-          clearable
-          placeholder="请输入AppSecret"
-        ></el-input>
+        <el-input v-model="editForm.appSecret" clearable placeholder="请输入AppSecret"></el-input>
       </el-form-item>
       <el-form-item label="社交类型" prop="type">
-        <in-select
-          w-full
-          v-model="editForm.type"
-          :options="socialTypeEnumsEnum.getOptions()"
-        />
+        <in-select w-full v-model="editForm.type" :options="socialTypeEnumsEnum.getOptions()" />
       </el-form-item>
       <el-form-item label="社交名称" prop="name">
-        <el-input
-          v-model="editForm.name"
-          clearable
-          placeholder="请输入社交名称"
-        ></el-input>
+        <el-input v-model="editForm.name" clearable placeholder="请输入社交名称"></el-input>
       </el-form-item>
       <el-form-item label="重定向URL">
-        <el-input
-          v-model="editForm.redirectUrl"
-          clearable
-          placeholder="请输入重定向URL"
-        ></el-input>
+        <el-input v-model="editForm.redirectUrl" clearable placeholder="请输入重定向URL"></el-input>
       </el-form-item>
     </in-form>
     <template #footer>
-      <in-button :loading="loading" type="primary" @click="handleConfirmClick">
-        确定
-      </in-button>
+      <in-button :loading="loading" type="primary" @click="handleConfirmClick"> 确定 </in-button>
     </template>
   </in-drawer>
 </template>

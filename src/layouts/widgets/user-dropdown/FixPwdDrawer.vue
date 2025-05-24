@@ -1,12 +1,6 @@
 <template>
   <in-drawer title="修改密码" v-model="visible">
-    <el-form
-      ref="EditFormRef"
-      class="form"
-      label-width="80px"
-      :model="editForm"
-      :rules="rules"
-    >
+    <el-form ref="EditFormRef" class="form" label-width="80px" :model="editForm" :rules="rules">
       <el-form-item prop="password" label="原始密码">
         <el-input
           v-model="editForm.password"
@@ -36,9 +30,7 @@
       </el-form-item>
     </el-form>
     <template #footer>
-      <in-button :loading="loading" type="primary" @click="handleConfirmClick">
-        确定
-      </in-button>
+      <in-button :loading="loading" type="primary" @click="handleConfirmClick"> 确定 </in-button>
     </template>
   </in-drawer>
 </template>
@@ -49,9 +41,7 @@ import { Message } from "@/utils/message";
 const rules = {
   password: [{ required: true, message: "请输入密码", trigger: "blur" }],
   newPassword: [{ required: true, message: "请输入新密码", trigger: "blur" }],
-  confirmPassword: [
-    { required: true, message: "请确认新密码", trigger: "blur" },
-  ],
+  confirmPassword: [{ required: true, message: "请确认新密码", trigger: "blur" }],
 };
 
 interface EditForm {

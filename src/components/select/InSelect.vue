@@ -7,12 +7,7 @@
     :clearable="clearable"
     @change="privateOnChanged"
   >
-    <el-option
-      v-for="item in options"
-      :key="item.value"
-      :label="item.label"
-      :value="item.value"
-    />
+    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
   </el-select>
 </template>
 <script lang="ts" setup>
@@ -39,9 +34,8 @@ watch(
       return;
     }
     customChange = true;
-    selectModel.value =
-      props.split && nValue ? (nValue as string).split(props.split) : nValue;
-  }
+    selectModel.value = props.split && nValue ? (nValue as string).split(props.split) : nValue;
+  },
 );
 
 // 监控 selectModel，如果内部选择发生改变，则改变modelValue值
@@ -51,10 +45,7 @@ watch(selectModel, (nValue) => {
     return;
   }
   selectChange = true;
-  emits(
-    "update:modelValue",
-    props.split ? (nValue as []).join(props.split) : nValue
-  );
+  emits("update:modelValue", props.split ? (nValue as []).join(props.split) : nValue);
 });
 
 const privateOnChanged = (value: any) => {

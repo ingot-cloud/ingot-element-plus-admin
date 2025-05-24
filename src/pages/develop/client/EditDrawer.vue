@@ -79,10 +79,7 @@
             :options="tokenAuthMethodEnum.getOptions()"
           />
         </el-form-item>
-        <el-form-item
-          label="刷新Token失效时间(单位秒)"
-          v-if="grantRefreshToken"
-        >
+        <el-form-item label="刷新Token失效时间(单位秒)" v-if="grantRefreshToken">
           <el-input
             v-model="editForm.refreshTokenTimeToLive"
             clearable
@@ -114,13 +111,7 @@
       <common-status-button
         v-if="isEdit"
         :status="editForm.status"
-        @click="
-          confirmStatus.exec(
-            id!,
-            editForm.status!,
-            `客户端(${editForm.clientId})`
-          )
-        "
+        @click="confirmStatus.exec(id!, editForm.status!, `客户端(${editForm.clientId})`)"
       />
       <in-button type="primary" @click="handleActionButton">确定</in-button>
     </template>
@@ -165,20 +156,14 @@ const defaultEditForm: OAuth2RegisteredClient = {
   status: undefined,
 };
 
-const confirmStatus = useConfirmStatus(
-  transformUpdateAPI(UpdateClientAPI),
-  () => {
-    emits("success");
-  }
-);
+const confirmStatus = useConfirmStatus(transformUpdateAPI(UpdateClientAPI), () => {
+  emits("success");
+});
 
-const confirmDelete = useConfirmDelete(
-  transformDeleteAPI(RemoveClientAPI),
-  () => {
-    emits("success");
-    show.value = false;
-  }
-);
+const confirmDelete = useConfirmDelete(transformDeleteAPI(RemoveClientAPI), () => {
+  emits("success");
+  show.value = false;
+});
 
 const authorizedGrantTypeEnum = useAuthorizedGrantTypeEnum();
 const tokenAuthMethodEnum = useTokenAuthMethodEnum();
@@ -195,18 +180,12 @@ const id = ref();
 
 const rules = {
   clientId: [{ required: true, message: "请输入客户端ID", trigger: "blur" }],
-  clientName: [
-    { required: true, message: "请输入客户端名称", trigger: "blur" },
-  ],
-  scopes: [
-    { required: true, message: "请输入客户端访问范围", trigger: "blur" },
-  ],
+  clientName: [{ required: true, message: "请输入客户端名称", trigger: "blur" }],
+  scopes: [{ required: true, message: "请输入客户端访问范围", trigger: "blur" }],
   clientAuthenticationMethods: [
     { required: true, message: "请选择客户端认证方式", trigger: "blur" },
   ],
-  authorizationGrantTypes: [
-    { required: true, message: "请选择客户端授权类型", trigger: "blur" },
-  ],
+  authorizationGrantTypes: [{ required: true, message: "请选择客户端授权类型", trigger: "blur" }],
 };
 
 const emits = defineEmits(["success"]);
@@ -220,18 +199,14 @@ const isEdit = ref(false);
 const grantRefreshToken = computed(() => {
   return (
     editForm.authorizationGrantTypes &&
-    (editForm.authorizationGrantTypes as string).indexOf(
-      AuthorizedGrantType.RefreshToken
-    ) > -1
+    (editForm.authorizationGrantTypes as string).indexOf(AuthorizedGrantType.RefreshToken) > -1
   );
 });
 
 const grantCode = computed(() => {
   return (
     editForm.authorizationGrantTypes &&
-    (editForm.authorizationGrantTypes as string).indexOf(
-      AuthorizedGrantType.Code
-    ) > -1
+    (editForm.authorizationGrantTypes as string).indexOf(AuthorizedGrantType.Code) > -1
   );
 });
 
@@ -259,7 +234,7 @@ const handleActionButton = () => {
           if (!isEdit.value) {
             SecretDialogRef.value.show(
               (response.data as AppSecretVO).appId!,
-              (response.data as AppSecretVO).appSecret!
+              (response.data as AppSecretVO).appSecret!,
             );
           }
           Message.success("操作成功");
@@ -277,10 +252,7 @@ const handleActionButton = () => {
 const handleResetSecret = () => {
   confirm.warning("是否重置该应用秘钥?").then(() => {
     ResetClientSecretAPI(id.value).then((response) => {
-      SecretDialogRef.value.show(
-        response.data.appId!,
-        response.data.appSecret!
-      );
+      SecretDialogRef.value.show(response.data.appId!, response.data.appSecret!);
     });
   });
 };

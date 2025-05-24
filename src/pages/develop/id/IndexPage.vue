@@ -12,14 +12,8 @@
           ></el-input>
         </in-with-label>
         <template #rightActions>
-          <in-button @click="paging.condition.bizTag = undefined">
-            重置
-          </in-button>
-          <in-button
-            type="primary"
-            @in-click="refreshData"
-            :loading="paging.loading.value"
-          >
+          <in-button @click="paging.condition.bizTag = undefined"> 重置 </in-button>
+          <in-button type="primary" @in-click="refreshData" :loading="paging.loading.value">
             搜索
           </in-button>
         </template>

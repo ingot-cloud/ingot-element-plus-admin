@@ -19,9 +19,7 @@
           >
             重置
           </in-button>
-          <in-button type="primary" @in-click="fetchData" :loading="loading">
-            搜索
-          </in-button>
+          <in-button type="primary" @in-click="fetchData" :loading="loading"> 搜索 </in-button>
         </template>
       </in-filter-item>
     </template>
@@ -34,9 +32,7 @@
     >
       <template #title> 菜单管理 </template>
       <template #toolbar>
-        <in-button type="primary" @click="showEditDialog()">
-          添加菜单
-        </in-button>
+        <in-button type="primary" @click="showEditDialog()"> 添加菜单 </in-button>
       </template>
       <template #name="{ item }">
         <in-button text link @click="showEditDialog(item)">
@@ -51,10 +47,7 @@
         <in-copy-tag :text="item.path" />
       </template>
       <template #authorityCode="{ item }">
-        <in-copy-tag
-          v-if="item.enableAuthority"
-          :text="item.authorityCode || '-'"
-        />
+        <in-copy-tag v-if="item.enableAuthority" :text="item.authorityCode || '-'" />
         <el-tag v-else>未开启</el-tag>
       </template>
       <template #icon="{ item }">
@@ -108,11 +101,7 @@
       </template>
     </in-table>
   </in-filter-container>
-  <EditDrawer
-    ref="EditDrawerRef"
-    :selectData="selectData"
-    @success="fetchData"
-  />
+  <EditDrawer ref="EditDrawerRef" :selectData="selectData" @success="fetchData" />
 </template>
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue";

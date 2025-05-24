@@ -6,7 +6,7 @@
  *
  */
 
-const getGlobal = (): any => (typeof window !== "undefined" ? window : global);
+const getGlobal = (): any => (typeof window !== "undefined" ? window : globalThis);
 
 const getTinymce = () => {
   const global = getGlobal();

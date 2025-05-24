@@ -130,23 +130,23 @@ watch(
   () => props.page.size,
   (value) => {
     size.value = value;
-  }
+  },
 );
 watch(
   () => props.page.current,
   (value) => {
     current.value = value;
-  }
+  },
 );
 watch(
   () => props.page.total,
   (value) => {
     total.value = value;
-  }
+  },
 );
 
 const headersEnable = ref<Array<TableHeaderRecord>>(
-  props.headers.filter((item: TableHeaderRecord) => !item.hide)
+  props.headers.filter((item: TableHeaderRecord) => !item.hide),
 );
 
 const current = ref(props.page.current);
@@ -183,7 +183,7 @@ const privateExpandChange = (row: any, expandedRows: any) => {
 };
 const privateOnHeaderChanged = (value: Array<String>) => {
   headersEnable.value = props.headers.filter((item: TableHeaderRecord) =>
-    value.includes(item.prop as string)
+    value.includes(item.prop as string),
   );
 };
 const privateOnRefreshClick = () => {

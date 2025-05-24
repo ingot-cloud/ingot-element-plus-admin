@@ -19,11 +19,7 @@
 </template>
 <script lang="ts" setup>
 import type { PropType } from "vue";
-import type {
-  UploadFile,
-  UploadFiles,
-  UploadRequestOptions,
-} from "element-plus";
+import type { UploadFile, UploadFiles, UploadRequestOptions } from "element-plus";
 import type { UploadAPIFn } from "./types";
 import { Message } from "@/utils/message";
 import { Plus } from "@element-plus/icons-vue";
@@ -71,7 +67,7 @@ watch(
   },
   {
     immediate: true,
-  }
+  },
 );
 
 const uploadRequest = (options: UploadRequestOptions): Promise<unknown> => {
@@ -80,11 +76,7 @@ const uploadRequest = (options: UploadRequestOptions): Promise<unknown> => {
     fileName: options.file.name,
   });
 };
-const handleUploadSuccess = (
-  res: any,
-  file: UploadFile,
-  fileList: UploadFiles
-) => {
+const handleUploadSuccess = (res: any, file: UploadFile, fileList: UploadFiles) => {
   emits("update:modelValue", res.data.url);
 };
 const handleUploadError = (error: Error) => {

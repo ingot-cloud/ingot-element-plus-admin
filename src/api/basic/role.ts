@@ -14,32 +14,23 @@ import type {
 import { filterParams } from "@/utils/object";
 
 export function RoleOrgOptionsAPI(orgId: string) {
-  return request.get<Array<Option<string>>>(
-    `/api/pms/v1/admin/role/options/${orgId}`
-  );
+  return request.get<Array<Option<string>>>(`/api/pms/v1/admin/role/options/${orgId}`);
 }
 
 export function RoleOptionsAPI() {
   return request.get<Array<Option<string>>>("/api/pms/v1/admin/role/options");
 }
 
-export function RoleGroupListAPI(
-  filter?: RoleFilterDTO
-): Promise<R<Array<RoleGroupItemVO>>> {
+export function RoleGroupListAPI(filter?: RoleFilterDTO): Promise<R<Array<RoleGroupItemVO>>> {
   if (filter) {
     filterParams(filter);
   }
-  return request.get<Array<RoleGroupItemVO>>(
-    "/api/pms/v1/admin/role/group/list",
-    {
-      ...filter,
-    }
-  );
+  return request.get<Array<RoleGroupItemVO>>("/api/pms/v1/admin/role/group/list", {
+    ...filter,
+  });
 }
 
-export function RoleListAPI(
-  condition?: SysRole
-): Promise<R<Array<RolePageItemVO>>> {
+export function RoleListAPI(condition?: SysRole): Promise<R<Array<RolePageItemVO>>> {
   if (condition) {
     filterParams(condition);
   }
@@ -86,28 +77,20 @@ export function BindAuthorityAPI(params: RoleBindParams): Promise<R<void>> {
   return request.put<void>("/api/pms/v1/admin/role/bindAuthority", params);
 }
 
-export function OrgRoleBindDefaultAuthoritiesAPI(
-  params: RoleBindParams
-): Promise<R<void>> {
-  return request.put<void>(
-    "/api/pms/v1/admin/role/orgRoleBindDefaultAuthority",
-    params
-  );
+export function OrgRoleBindDefaultAuthoritiesAPI(params: RoleBindParams): Promise<R<void>> {
+  return request.put<void>("/api/pms/v1/admin/role/orgRoleBindDefaultAuthority", params);
 }
 
 export function GetBindAuthoritiesAPI(
   id: string,
   isBind: boolean,
-  condition?: AuthorityFilterDTO
+  condition?: AuthorityFilterDTO,
 ): Promise<R<Array<AuthorityTreeNode>>> {
   if (condition) {
     filterParams(condition);
   }
-  return request.get<Array<AuthorityTreeNode>>(
-    `/api/pms/v1/admin/role/bindAuthority/${id}`,
-    {
-      isBind,
-      ...condition,
-    }
-  );
+  return request.get<Array<AuthorityTreeNode>>(`/api/pms/v1/admin/role/bindAuthority/${id}`, {
+    isBind,
+    ...condition,
+  });
 }

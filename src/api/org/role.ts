@@ -15,9 +15,7 @@ export function RoleOptionsAPI() {
   return request.get<Array<Option<string>>>("/api/pms/v1/org/role/options");
 }
 
-export function RoleGroupListAPI(
-  filter?: RoleFilterDTO
-): Promise<R<Array<SysRoleGroup>>> {
+export function RoleGroupListAPI(filter?: RoleFilterDTO): Promise<R<Array<SysRoleGroup>>> {
   if (filter) {
     filterParams(filter);
   }
@@ -26,9 +24,7 @@ export function RoleGroupListAPI(
   });
 }
 
-export function RoleListAPI(
-  condition?: SysRole
-): Promise<R<Array<RolePageItemVO>>> {
+export function RoleListAPI(condition?: SysRole): Promise<R<Array<RolePageItemVO>>> {
   if (condition) {
     filterParams(condition);
   }
@@ -37,10 +33,7 @@ export function RoleListAPI(
   });
 }
 
-export function RolePageAPI(
-  page: Page,
-  condition?: SysRole
-): Promise<R<Page<RolePageItemVO>>> {
+export function RolePageAPI(page: Page, condition?: SysRole): Promise<R<Page<RolePageItemVO>>> {
   if (condition) {
     filterParams(condition);
   }

@@ -1,10 +1,5 @@
 import { createVNode, getCurrentInstance, render } from "vue";
-import type {
-  AppContext,
-  Component,
-  ComponentPublicInstance,
-  VNode,
-} from "vue";
+import type { AppContext, Component, ComponentPublicInstance, VNode } from "vue";
 
 export interface Options {
   visible?: boolean;
@@ -38,7 +33,7 @@ const initInstance = <T extends Component>(
   Component: T,
   props: Options,
   container: HTMLElement,
-  appContext: AppContext | null = null
+  appContext: AppContext | null = null,
 ) => {
   const vNode = createVNode(Component, props);
   vNode.appContext = appContext;
@@ -48,9 +43,7 @@ const initInstance = <T extends Component>(
   return vNode;
 };
 
-export const useCommandComponent = <T extends Component>(
-  Component: T
-): CommandComponent => {
+export const useCommandComponent = <T extends Component>(Component: T): CommandComponent => {
   const appContext = getCurrentInstance()?.appContext;
   // 补丁：Component中获取当前组件树的provides
   if (appContext) {

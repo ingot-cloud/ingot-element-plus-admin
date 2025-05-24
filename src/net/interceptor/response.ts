@@ -44,7 +44,7 @@ const axiosResponseToR = (response?: AxiosResponse<R>): R => {
  */
 const bizResponseFailureHandler = (
   config: AxiosRequestConfig,
-  response = UnknownResponse
+  response = UnknownResponse,
 ): Promise<R> => {
   // 如果手动处理，则直接返回
   if (config.manualProcessingFailure) {
@@ -117,15 +117,8 @@ export const onResponseFulfilled = (response: AxiosResponse<R>): Promise<R> => {
  */
 export const onResponseRejected = (error: AxiosError<R>): Promise<R> => {
   // 异常响应，并且响应结果为String那么退出登录
-  if (
-    error.code === "ERR_BAD_RESPONSE" &&
-    error.response &&
-    isString(error.response.data)
-  ) {
+  if (error.code === "ERR_BAD_RESPONSE" && error.response && isString(error.response.data)) {
     logoutAndReload(true);
   }
-  return bizResponseFailureHandler(
-    error.config || {},
-    axiosResponseToR(error.response)
-  );
+  return bizResponseFailureHandler(error.config || {}, axiosResponseToR(error.response));
 };

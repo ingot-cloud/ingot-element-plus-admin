@@ -55,8 +55,7 @@ export const LayoutOptions: Array<Option> = [
 
 const dynamicViewsModules = import.meta.glob("@/pages/**/*.vue");
 Object.keys(dynamicViewsModules).forEach((key) => {
-  dynamicViewsModules[`@${key.substring("/src".length)}`] =
-    dynamicViewsModules[key];
+  dynamicViewsModules[`@${key.substring("/src".length)}`] = dynamicViewsModules[key];
   delete dynamicViewsModules[key];
 });
 dynamicViewsModules[PageLayoutViewPath.MAIN] = LAYOUT_MAIN;

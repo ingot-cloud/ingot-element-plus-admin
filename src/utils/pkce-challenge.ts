@@ -13,8 +13,7 @@ function getRandomValues(size: number) {
  * @returns The random string
  */
 export function random(size: number) {
-  const mask =
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~";
+  const mask = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~";
   let result = "";
   const randomUints = getRandomValues(size);
   for (let i = 0; i < size; i++) {
@@ -39,10 +38,7 @@ function generateVerifier(length: number): string {
  * @returns The base64 url encoded code challenge
  */
 export async function generateChallenge(code_verifier: string) {
-  const buffer = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(code_verifier)
-  );
+  const buffer = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(code_verifier));
   // Generate base64url string
   // btoa is deprecated in Node.js but is used here for web browser compatibility
   // (which has no good replacement yet, see also https://github.com/whatwg/html/issues/6811)
@@ -89,10 +85,7 @@ export default async function pkceChallenge(length?: number): Promise<{
  * @param expectedChallenge The code challenge to verify
  * @returns True if challenges are equal. False otherwise.
  */
-export async function verifyChallenge(
-  code_verifier: string,
-  expectedChallenge: string
-) {
+export async function verifyChallenge(code_verifier: string, expectedChallenge: string) {
   const actualChallenge = await generateChallengeByCryptoJS(code_verifier);
   return actualChallenge === expectedChallenge;
 }

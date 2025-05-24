@@ -10,12 +10,7 @@
     </in-form-group-title>
 
     <div p-20px>
-      <in-form
-        :ref="FormRef"
-        :model="editForm"
-        :rules="rules"
-        :disabled="!editFlag"
-      >
+      <in-form :ref="FormRef" :model="editForm" :rules="rules" :disabled="!editFlag">
         <el-form-item label="角色" prop="roleIds">
           <in-select
             w-full
@@ -38,12 +33,7 @@
 </template>
 <script setup lang="ts">
 import type { PropType } from "vue";
-import type {
-  UserOrgInfoVO,
-  UserOrgEditDTO,
-  SysTenant,
-  Option,
-} from "@/models";
+import type { UserOrgInfoVO, UserOrgEditDTO, SysTenant, Option } from "@/models";
 import { UserOrgEditAPI, UserOrgLeaveAPI } from "@/api/basic/user";
 import { copyParams, getDiffWithIgnore } from "@/utils/object";
 import { useRoleStore } from "@/stores/modules/appRole";

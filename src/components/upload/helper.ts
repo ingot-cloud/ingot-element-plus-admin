@@ -20,12 +20,7 @@ export function map(raw: any, key: string, targetKey: string) {
   }
 }
 
-export function extract(
-  raw: any,
-  key: string,
-  targetKey: string,
-  isString?: boolean
-) {
+export function extract(raw: any, key: string, targetKey: string, isString?: boolean) {
   const value = Reflect.get(raw, key);
   if (!value) {
     return;
@@ -36,7 +31,7 @@ export function extract(
     Reflect.set(
       raw,
       targetKey,
-      value.map((item: any) => item.url)
+      value.map((item: any) => item.url),
     );
   }
 }

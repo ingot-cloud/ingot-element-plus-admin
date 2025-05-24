@@ -32,9 +32,7 @@ export const useTabsStore = defineStore(
     });
     const getCanCloseOtherTabs = computed(() => {
       const route = useRoute();
-      const size = tabs.value.filter(
-        (item) => item.path !== route.path && item.close
-      ).length;
+      const size = tabs.value.filter((item) => item.path !== route.path && item.close).length;
       return size !== 0;
     });
     const getCanCloseAllTabs = computed(() => {
@@ -59,9 +57,7 @@ export const useTabsStore = defineStore(
      * @param isCurrent 是否为当前tab
      */
     const removeTab = (path: string, isCurrent = true) => {
-      const idx = tabs.value.findIndex(
-        (item) => item.close && item.path === path
-      );
+      const idx = tabs.value.findIndex((item) => item.close && item.path === path);
       if (idx < 0) {
         return;
       }
@@ -119,9 +115,7 @@ export const useTabsStore = defineStore(
      * @param path 当前tab path
      */
     const closeOtherTabs = (path: string) => {
-      tabs.value = tabs.value.filter(
-        (item) => item.path === path || !item.close
-      );
+      tabs.value = tabs.value.filter((item) => item.path === path || !item.close);
     };
 
     /**
@@ -151,9 +145,7 @@ export const useTabsStore = defineStore(
       const route = unref(currentRoute);
       const name = route.name;
 
-      const findTab = Array.from(cacheTabList.value).find(
-        (item) => item === name
-      );
+      const findTab = Array.from(cacheTabList.value).find((item) => item === name);
       if (findTab) {
         cacheTabList.value.delete(findTab);
       }
@@ -179,7 +171,7 @@ export const useTabsStore = defineStore(
   {
     persist: {
       storage: sessionStorage,
-      paths: ["tabs"],
+      pick: ["tabs"],
     },
-  }
+  },
 );

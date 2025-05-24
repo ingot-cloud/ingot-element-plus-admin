@@ -14,10 +14,7 @@ import { filterParams } from "@/utils/object";
 /**
  * 用户分页信息
  */
-export function UserPageAPI(
-  page: Page,
-  condition?: AppUser
-): Promise<R<Page<AppUser>>> {
+export function UserPageAPI(page: Page, condition?: AppUser): Promise<R<Page<AppUser>>> {
   if (condition) {
     filterParams(condition);
   }
@@ -64,9 +61,7 @@ export function RemoveUserAPI(id: string): Promise<R<void>> {
  * 用户组织信息
  */
 export function UserOrgInfoAPI(id: string) {
-  return request.get<Array<UserOrgInfoVO>>(
-    `/api/pms/v1/admin/appUser/orgInfo/${id}`
-  );
+  return request.get<Array<UserOrgInfoVO>>(`/api/pms/v1/admin/appUser/orgInfo/${id}`);
 }
 
 /**

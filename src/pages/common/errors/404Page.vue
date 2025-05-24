@@ -1,9 +1,6 @@
 <template>
   <div class="error-page">
-    <div
-      class="img"
-      style="background-image: url('/resource/images/404.svg')"
-    ></div>
+    <div class="img" style="background-image: url(&quot;/resource/images/404.svg&quot;)"></div>
     <div class="content">
       <h1>404</h1>
       <div class="desc">抱歉，你访问的页面不存在</div>

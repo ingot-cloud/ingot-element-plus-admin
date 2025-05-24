@@ -9,17 +9,11 @@
       :rules="rules"
     >
       <el-form-item label="角色组名称" prop="name">
-        <el-input
-          v-model="editForm.name"
-          clearable
-          placeholder="请输入角色组名称"
-        ></el-input>
+        <el-input v-model="editForm.name" clearable placeholder="请输入角色组名称"></el-input>
       </el-form-item>
     </el-form>
     <template #footer>
-      <in-button v-if="isEdit" type="danger" @click="handleRemoveClick">
-        删除
-      </in-button>
+      <in-button v-if="isEdit" type="danger" @click="handleRemoveClick"> 删除 </in-button>
       <in-button type="primary" @click="handleActionButton">确定</in-button>
     </template>
   </in-drawer>

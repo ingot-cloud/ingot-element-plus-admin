@@ -1,20 +1,14 @@
 <template>
   <div
     class="ingot-menu"
-    :class="[
-      getMenuOpened ? 'w-[var(--in-menu-show)]' : 'w-[var(--in-menu-hide)]',
-    ]"
+    :class="[getMenuOpened ? 'w-[var(--in-menu-show)]' : 'w-[var(--in-menu-hide)]']"
   >
     <div class="menu-header" @click="switchOrg">
       <img class="logo-image" :src="userInforStore.getCurrentOrg?.avatar" />
       <div class="right-box" v-if="getMenuOpened">
         <div class="title">{{ userInforStore.getCurrentOrg?.name }}</div>
         <div class="auth-box" :class="{ authenticated: isAuth }">
-          <in-icon
-            v-if="!isAuth"
-            name="ph:seal-question-duotone"
-            class="icon"
-          ></in-icon>
+          <in-icon v-if="!isAuth" name="ph:seal-question-duotone" class="icon"></in-icon>
           <in-icon v-else name="bx:shield" class="icon"></in-icon>
           <div class="auth">{{ isAuth ? "已认证" : "未认证" }}</div>
         </div>
@@ -30,18 +24,12 @@
         :unique-opened="true"
         router
       >
-        <in-submenu
-          v-for="route in getMenus"
-          :key="route.path"
-          :route="route"
-        />
+        <in-submenu v-for="route in getMenus" :key="route.path" :route="route" />
       </el-menu>
     </el-scrollbar>
     <div
       class="menu-control"
-      :class="[
-        getMenuOpened ? 'w-[var(--in-menu-show)]' : 'w-[var(--in-menu-hide)]',
-      ]"
+      :class="[getMenuOpened ? 'w-[var(--in-menu-show)]' : 'w-[var(--in-menu-hide)]']"
       @click="toggle"
     >
       <div class="content">
@@ -75,8 +63,7 @@ const activePath = computed(() => {
     const matched = route.matched;
     if (matched.length > 1) {
       const parent = matched[matched.length - 2];
-      return parent.children.find((item) => item.path === parent.redirect)
-        ?.path;
+      return parent.children.find((item) => item.path === parent.redirect)?.path;
     }
     return lastActivePath;
   }
@@ -108,8 +95,8 @@ const switchOrg = () => {
   --menu-header-bottom: 12px;
   --menu-control-height: 40px;
   --scrollbar-height: calc(
-    100vh - var(--in-app-bar-height) - var(--menu-header-height) -
-      var(--menu-header-bottom) - var(--menu-control-height)
+    100vh - var(--in-app-bar-height) - var(--menu-header-height) - var(--menu-header-bottom) -
+      var(--menu-control-height)
   );
 
   & .menu-header {

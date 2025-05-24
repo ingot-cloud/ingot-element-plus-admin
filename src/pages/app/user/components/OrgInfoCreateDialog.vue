@@ -2,11 +2,7 @@
   <in-dialog title="加入组织" v-model="visible" width="500">
     <in-form ref="JoinFormRef" :model="editForm" :rules="rules">
       <el-form-item label="组织" prop="orgId">
-        <tenant-options
-          w-full
-          v-model="editForm.orgId"
-          @onChanged="handleTenantChange"
-        />
+        <tenant-options w-full v-model="editForm.orgId" @onChanged="handleTenantChange" />
       </el-form-item>
       <el-form-item label="角色" prop="roleIds">
         <in-select
@@ -20,9 +16,7 @@
       </el-form-item>
     </in-form>
     <template #footer>
-      <in-button :loading="loading" type="primary" @click="handleConfirmClick">
-        确定
-      </in-button>
+      <in-button :loading="loading" type="primary" @click="handleConfirmClick"> 确定 </in-button>
     </template>
   </in-dialog>
 </template>

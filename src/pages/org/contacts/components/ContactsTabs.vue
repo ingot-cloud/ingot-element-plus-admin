@@ -1,9 +1,5 @@
 <template>
-  <in-biz-tabs-header
-    :modelValue="selectTab"
-    :tabs="tabs"
-    @change="onItemClick"
-  />
+  <in-biz-tabs-header :modelValue="selectTab" :tabs="tabs" @change="onItemClick" />
 </template>
 <script lang="ts" setup>
 defineProps({

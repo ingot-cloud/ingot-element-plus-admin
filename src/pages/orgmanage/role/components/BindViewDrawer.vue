@@ -17,22 +17,13 @@
     </in-filter-container>
     <template #footer>
       <in-button @click="isShow = false"> 取消 </in-button>
-      <in-button
-        type="primary"
-        :loading="btnLoading"
-        @click="handleActionButton"
-      >
-        确定
-      </in-button>
+      <in-button type="primary" :loading="btnLoading" @click="handleActionButton"> 确定 </in-button>
     </template>
   </in-drawer>
 </template>
 <script lang="ts" setup>
-import { TreeKeyAndProps, AuthorityTreeNode } from "@/models";
-import {
-  GetBindAuthoritiesAPI,
-  OrgRoleBindDefaultAuthoritiesAPI,
-} from "@/api/basic/role";
+import { TreeKeyAndProps, type AuthorityTreeNode } from "@/models";
+import { GetBindAuthoritiesAPI, OrgRoleBindDefaultAuthoritiesAPI } from "@/api/basic/role";
 import { OrgTypeEnums } from "@/models/enums";
 
 const emit = defineEmits(["success"]);
@@ -51,7 +42,7 @@ const message = useMessage();
 
 const onCheckChange = (
   node: AuthorityTreeNode,
-  isChecked: boolean
+  isChecked: boolean,
   // childChecked: boolean
 ) => {
   const selectId = node.id!;

@@ -43,9 +43,7 @@
           </el-form>
           <el-form-item>
             <div w-full flex flex-row justify-center>
-              <in-button type="primary" @click="handleConfirmClick">
-                确定
-              </in-button>
+              <in-button type="primary" @click="handleConfirmClick"> 确定 </in-button>
             </div>
           </el-form-item>
         </div>
@@ -62,9 +60,7 @@ import { useUserInfoStore } from "@/stores/modules/auth";
 
 const rules = {
   newPassword: [{ required: true, message: "请输入新密码", trigger: "blur" }],
-  confirmPassword: [
-    { required: true, message: "请确认新密码", trigger: "blur" },
-  ],
+  confirmPassword: [{ required: true, message: "请确认新密码", trigger: "blur" }],
 };
 
 interface EditForm {
@@ -101,7 +97,7 @@ const handleConfirmClick = () => {
             {
               path: "/",
             },
-            true
+            true,
           );
         })
         .catch(() => {
@@ -118,7 +114,7 @@ onMounted(() => {
       {
         path: "/",
       },
-      true
+      true,
     );
   }
 });

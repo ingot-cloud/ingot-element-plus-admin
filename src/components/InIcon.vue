@@ -11,9 +11,7 @@ const props = defineProps<{
   name: String | undefined;
 }>();
 
-const isIngotIcon = computed(
-  () => props.name && props.name.startsWith("ingot:")
-);
+const isIngotIcon = computed(() => props.name && props.name.startsWith("ingot:"));
 const icon = computed(() => {
   if (props.name && props.name.startsWith("ingot:")) {
     return props.name.split(":")[1] as string;

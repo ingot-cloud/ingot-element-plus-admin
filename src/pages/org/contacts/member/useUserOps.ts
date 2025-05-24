@@ -4,14 +4,8 @@ import { copyParams } from "@/utils/object";
 
 export const useUserOps = () => {
   const paging = usePaging(transformPageAPI(UserPageAPI));
-  const confirmStatus = useConfirmStatus(
-    transformUpdateAPI(UpdateUserAPI),
-    paging.exec
-  );
-  const confirmDelete = useConfirmDelete(
-    transformDeleteAPI(RemoveUserAPI),
-    paging.exec
-  );
+  const confirmStatus = useConfirmStatus(transformUpdateAPI(UpdateUserAPI), paging.exec);
+  const confirmDelete = useConfirmDelete(transformDeleteAPI(RemoveUserAPI), paging.exec);
   const currentDeptNode = reactive<DeptTreeNode>({});
 
   /**
@@ -52,11 +46,7 @@ export const useUserOps = () => {
    * 禁用、启用
    */
   const handleDisableUser = (params: UserPageItemVO): void => {
-    confirmStatus.exec(
-      params.userId,
-      params.status!,
-      `用户(${params.username})`
-    );
+    confirmStatus.exec(params.userId, params.status!, `用户(${params.username})`);
   };
 
   return {

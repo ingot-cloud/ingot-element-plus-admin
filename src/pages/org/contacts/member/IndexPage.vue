@@ -24,18 +24,11 @@
         <div>{{ userOps.currentDeptNode.name }}</div>
       </template>
       <template #toolbar>
-        <in-button type="primary" :icon="User" @click="handleCreateUser">
-          添加成员
-        </in-button>
+        <in-button type="primary" :icon="User" @click="handleCreateUser"> 添加成员 </in-button>
       </template>
       <template #avatar="{ item }">
         <div flex flex-row items-center gap-2>
-          <el-image
-            v-if="item.avatar"
-            class="w-30px h-30px"
-            :src="item.avatar"
-            fit="cover"
-          />
+          <el-image v-if="item.avatar" class="w-30px h-30px" :src="item.avatar" fit="cover" />
           <in-button link text @click="handleDetailUser(item)">
             {{ item.nickname }}
           </in-button>

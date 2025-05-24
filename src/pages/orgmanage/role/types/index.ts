@@ -18,11 +18,7 @@ export interface FilterRecord {
   placeholder: string;
 }
 export type ConfirmMessageFn<T> = Apply<T, string>;
-export type FetchDataFn<T> = (
-  id: string,
-  isBind: boolean,
-  condition?: T
-) => Promise<R<Array<T>>>;
+export type FetchDataFn<T> = (id: string, isBind: boolean, condition?: T) => Promise<R<Array<T>>>;
 export type BindFn = Apply<RoleBindParams, Promise<R<void>>>;
 export type DoFetchData = Apply<PageChangeParams | boolean, void>;
 

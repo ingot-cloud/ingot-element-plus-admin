@@ -39,7 +39,7 @@ export function wavesDirective(app: App) {
               transform: styles.transform,
               left: styles.left,
               top: styles.top,
-            })
+            }),
           );
           setTimeout(() => {
             elDiv && el.removeChild(elDiv);

@@ -1,16 +1,9 @@
 <template>
-  <in-table
-    ref="bindTable"
-    :headers="tableHeaders"
-    :data="bindAuthorities"
-    @refresh="refresh"
-  >
+  <in-table ref="bindTable" :headers="tableHeaders" :data="bindAuthorities" @refresh="refresh">
     <template #title> {{ currentNode.name || "请选择角色" }} </template>
     <template #subtitle>预设角色默认权限，创建新组织时生效</template>
     <template #toolbar>
-      <in-button type="primary" @click="handleBindCommand()">
-        编辑权限
-      </in-button>
+      <in-button type="primary" @click="handleBindCommand()"> 编辑权限 </in-button>
     </template>
     <template #code="{ item }">
       <div flex flex-row gap-2>
@@ -33,11 +26,7 @@ const currentNode = ref<RoleGroupItemVO>({});
 const bindAuthorities = ref<Array<AuthorityTreeNode>>([]);
 const handleBindCommand = (): void => {
   const roleId = currentNode.value.id!;
-  BindViewDrawerRef.value.show(
-    roleId,
-    currentNode.value.name!,
-    stretch(bindAuthorities.value)
-  );
+  BindViewDrawerRef.value.show(roleId, currentNode.value.name!, stretch(bindAuthorities.value));
 };
 
 const stretch = (tree: Array<any>): Array<string> => {

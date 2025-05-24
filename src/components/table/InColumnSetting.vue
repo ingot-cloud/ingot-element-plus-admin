@@ -1,9 +1,6 @@
 <template>
   <el-icon>
-    <i-ep:setting
-      ref="settingButtonRef"
-      v-click-outside="privateOnSettingClickOutside"
-    />
+    <i-ep:setting ref="settingButtonRef" v-click-outside="privateOnSettingClickOutside" />
     <el-popover
       ref="settingPopoverRef"
       trigger="click"
@@ -65,23 +62,18 @@ nextTick(() => {
   inited.value = true;
 });
 
-const privateOnTableSelectionChange = (
-  selectArray: Array<TableHeaderRecord>
-) => {
+const privateOnTableSelectionChange = (selectArray: Array<TableHeaderRecord>) => {
   if (!inited.value) {
     return;
   }
   emits(
     "onSelectionChange",
-    selectArray.map((item) => item.prop)
+    selectArray.map((item) => item.prop),
   );
 };
 const privateOnResetClick = () => {
   props.data.forEach((item) => {
-    settingTable.value?.toggleRowSelection(
-      item,
-      initShowPropList.includes(item.prop as string)
-    );
+    settingTable.value?.toggleRowSelection(item, initShowPropList.includes(item.prop as string));
   });
 };
 const privateOnSettingClickOutside = () => {

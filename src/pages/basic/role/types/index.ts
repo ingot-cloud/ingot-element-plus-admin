@@ -1,11 +1,6 @@
 import type { Ref } from "vue";
 import type { TableHeaderRecord } from "@/components/table";
-import type {
-  PageChangeParams,
-  RoleBindParams,
-  R,
-  OptionIDEntity,
-} from "@/models";
+import type { PageChangeParams, RoleBindParams, R, OptionIDEntity } from "@/models";
 
 export type Apply<T, R> = (t: T) => R;
 export type Consumer<T> = Apply<T, void>;
@@ -16,11 +11,7 @@ export interface FilterRecord {
   placeholder: string;
 }
 export type ConfirmMessageFn<T> = Apply<T, string>;
-export type FetchDataFn<T> = (
-  id: string,
-  isBind: boolean,
-  condition?: T
-) => Promise<R<Array<T>>>;
+export type FetchDataFn<T> = (id: string, isBind: boolean, condition?: T) => Promise<R<Array<T>>>;
 export type BindFn = Apply<RoleBindParams, Promise<R<void>>>;
 export type DoFetchData = Apply<PageChangeParams | boolean, void>;
 

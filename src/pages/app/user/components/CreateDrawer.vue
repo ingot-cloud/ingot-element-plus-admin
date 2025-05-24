@@ -2,30 +2,17 @@
   <in-drawer title="添加用户" v-model="visible">
     <in-form ref="FormRef" :model="editForm" :rules="rules">
       <el-form-item label="头像">
-        <in-common-upload-avatar
-          dir="public/user/avatar"
-          v-model="editForm.avatar"
-        />
+        <in-common-upload-avatar dir="public/user/avatar" v-model="editForm.avatar" />
       </el-form-item>
       <el-form-item label="姓名" prop="nickname">
-        <el-input
-          v-model="editForm.nickname"
-          clearable
-          placeholder="请输入姓名"
-        ></el-input>
+        <el-input v-model="editForm.nickname" clearable placeholder="请输入姓名"></el-input>
       </el-form-item>
       <el-form-item label="手机号" prop="phone">
-        <el-input
-          v-model="editForm.phone"
-          clearable
-          placeholder="请输入手机号"
-        ></el-input>
+        <el-input v-model="editForm.phone" clearable placeholder="请输入手机号"></el-input>
       </el-form-item>
     </in-form>
     <template #footer>
-      <in-button :loading="loading" type="primary" @click="handleConfirmClick">
-        确定
-      </in-button>
+      <in-button :loading="loading" type="primary" @click="handleConfirmClick"> 确定 </in-button>
     </template>
   </in-drawer>
 </template>

@@ -17,7 +17,7 @@ export const selectProps = {
     default: false,
   },
   options: {
-    type: Array as PropType<Array<Option>>,
+    type: Array as PropType<Array<Option<any>>>,
     default() {
       return [];
     },

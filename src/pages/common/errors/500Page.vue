@@ -1,9 +1,6 @@
 <template>
   <div class="error-page">
-    <div
-      class="img"
-      style="background-image: url('/resource/images/500.svg')"
-    ></div>
+    <div class="img" style="background-image: url(&quot;/resource/images/500.svg&quot;)"></div>
     <div class="content">
       <h1>500</h1>
       <div class="desc">抱歉，服务器出错了</div>

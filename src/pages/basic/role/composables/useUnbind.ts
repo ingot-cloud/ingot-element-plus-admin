@@ -6,7 +6,7 @@ import type { BindSetupParams, UnbindSetupReturn } from "../types";
  * 未绑定数据视图
  */
 export const useUnbind = <T extends OptionIDEntity>(
-  params: BindSetupParams<T>
+  params: BindSetupParams<T>,
 ): UnbindSetupReturn<T> => {
   const isShow = ref(false);
   const headers = ref(Object.assign([], params.tableHeaders));
@@ -17,11 +17,9 @@ export const useUnbind = <T extends OptionIDEntity>(
   const records = ref<Array<any>>([]);
 
   const fetchData = () => {
-    params
-      .fetchData(params.id, false, toRaw(queryCondition) as T)
-      .then((response) => {
-        records.value = response.data;
-      });
+    params.fetchData(params.id, false, toRaw(queryCondition) as T).then((response) => {
+      records.value = response.data;
+    });
   };
 
   const handleBind = (item: T) => {

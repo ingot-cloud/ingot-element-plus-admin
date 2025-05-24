@@ -1,11 +1,6 @@
 <template>
   <div class="dept-filter">
-    <el-input
-      v-model="searchValue"
-      placeholder="搜索部门"
-      :prefix-icon="Search"
-      clearable
-    />
+    <el-input v-model="searchValue" placeholder="搜索部门" :prefix-icon="Search" clearable />
 
     <in-tree
       v-loading="loading"

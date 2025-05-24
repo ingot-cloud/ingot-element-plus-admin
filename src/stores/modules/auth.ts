@@ -102,7 +102,7 @@ export const useAuthStore = defineStore(
             () => {
               resolve(1);
             },
-            ignoreRevokeAPI ? 0 : 1500
+            ignoreRevokeAPI ? 0 : 1500,
           );
         }),
       ]).then(() => {
@@ -132,9 +132,9 @@ export const useAuthStore = defineStore(
   {
     persist: {
       storage: localStorage,
-      paths: ["token"],
+      pick: ["token"],
     },
-  }
+  },
 );
 
 /**
@@ -155,9 +155,7 @@ export const useUserInfoStore = defineStore("security.user", () => {
   });
   const getSensitivePhone = computed(() => {
     return userInfo.user
-      ? `${userInfo.user.phone?.slice(0, 3)}****${userInfo.user.phone?.slice(
-          -4
-        )}`
+      ? `${userInfo.user.phone?.slice(0, 3)}****${userInfo.user.phone?.slice(-4)}`
       : "";
   });
   const getAvatar = computed(() => {
@@ -165,12 +163,8 @@ export const useUserInfoStore = defineStore("security.user", () => {
   });
   const getRoles = computed(() => userInfo.roles);
   const getAllows = computed(() => userInfo.allows);
-  const getCurrentOrg = computed(() =>
-    userInfo.allows.find((item) => item.main)
-  );
-  const getUserInfoWhetherExist = computed(
-    () => userInfo.user && userInfo.user.phone
-  );
+  const getCurrentOrg = computed(() => userInfo.allows.find((item) => item.main));
+  const getUserInfoWhetherExist = computed(() => userInfo.user && userInfo.user.phone);
   const getIsInitPwd = computed(() => {
     return userInfo.user && userInfo.user.initPwd;
   });
@@ -238,10 +232,7 @@ export const usePermissions = defineStore("security.permissions", () => {
   };
 });
 
-const extractPermissionsItem = (
-  permissions: Array<string>,
-  menu: MenuTreeNode
-) => {
+const extractPermissionsItem = (permissions: Array<string>, menu: MenuTreeNode) => {
   menu.children?.forEach((item) => {
     if (item.authorityCode) {
       permissions.push(item.authorityCode);

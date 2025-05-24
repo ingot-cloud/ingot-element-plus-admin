@@ -1,10 +1,5 @@
 <template>
-  <in-drawer
-    :title="title"
-    v-model="visible"
-    @close="loading = false"
-    width="40%"
-  >
+  <in-drawer :title="title" v-model="visible" @close="loading = false" width="40%">
     <in-form ref="editFormRef" class="form" :model="editForm" :rules="rules">
       <el-form-item label="菜单" prop="menuId">
         <el-tree-select
@@ -22,9 +17,7 @@
       </el-form-item>
     </in-form>
     <template #footer>
-      <in-button :loading="loading" type="primary" @click="handleConfirmClick">
-        确定
-      </in-button>
+      <in-button :loading="loading" type="primary" @click="handleConfirmClick"> 确定 </in-button>
     </template>
   </in-drawer>
 </template>

@@ -8,9 +8,7 @@ import { importComponent, NotFound, PagePath } from "@/router/constants";
  * 生成侧栏菜单
  * @param routes 路由表
  */
-export const generateMenus = (
-  routes: Array<RouteRecordRaw>
-): Array<MenuRouteRecord> => {
+export const generateMenus = (routes: Array<RouteRecordRaw>): Array<MenuRouteRecord> => {
   return routes
     .filter((item) => {
       return !item.meta?.hideMenu;
@@ -34,9 +32,7 @@ export const cacheRoutes: Array<string> = [];
  * 菜单转换为路由信息
  * @param menus 菜单
  */
-export const transformMenu = (
-  menus: Array<MenuTreeNode>
-): Array<RouteRecordRaw> => {
+export const transformMenu = (menus: Array<MenuTreeNode>): Array<RouteRecordRaw> => {
   const result: Array<RouteRecordRaw> = [];
   menus
     .filter((item) => {

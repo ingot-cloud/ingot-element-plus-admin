@@ -1,10 +1,4 @@
-import type {
-  SysRole,
-  RolePageItemVO,
-  RoleGroupItemVO,
-  SysRoleGroup,
-  Option,
-} from "@/models";
+import type { SysRole, RolePageItemVO, RoleGroupItemVO, SysRoleGroup, Option } from "@/models";
 import {
   RoleOptionsAPI,
   RoleListAPI,

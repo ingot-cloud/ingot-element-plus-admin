@@ -12,6 +12,5 @@ export interface InBizTabRootContext {
   unregisterPane: (uid: number) => void;
 }
 
-export const tabsRootContextKey: InjectionKey<InBizTabRootContext> = Symbol(
-  "InBizTabRootContextKey"
-);
+export const tabsRootContextKey: InjectionKey<InBizTabRootContext> =
+  Symbol("InBizTabRootContextKey");

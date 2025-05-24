@@ -20,18 +20,11 @@
           </div>
           <div
             class="manager-box"
-            v-if="
-              node.$$data.managerUsers && node.$$data.managerUsers.length > 0
-            "
+            v-if="node.$$data.managerUsers && node.$$data.managerUsers.length > 0"
           >
             <div v-for="(it, index) in node.$$data.managerUsers" :key="index">
               <div flex flex-row items-center gap-1>
-                <el-image
-                  v-if="it.avatar"
-                  class="avatar"
-                  :src="it.avatar"
-                  fit="cover"
-                />
+                <el-image v-if="it.avatar" class="avatar" :src="it.avatar" fit="cover" />
                 <div class="nickname">
                   {{ it.nickname }}
                 </div>

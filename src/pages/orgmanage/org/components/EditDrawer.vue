@@ -10,16 +10,10 @@
     </in-biz-tabs>
 
     <template #footer>
-      <in-button
-        type="danger"
-        v-if="currentTab == TabNameBase"
-        @click="handleRemoveClick"
-      >
+      <in-button type="danger" v-if="currentTab == TabNameBase" @click="handleRemoveClick">
         删除
       </in-button>
-      <in-button :loading="loading" type="primary" @click="handleConfirmClick">
-        确定
-      </in-button>
+      <in-button :loading="loading" type="primary" @click="handleConfirmClick"> 确定 </in-button>
     </template>
   </in-drawer>
 </template>

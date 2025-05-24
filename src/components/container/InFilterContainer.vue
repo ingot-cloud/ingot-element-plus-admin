@@ -33,12 +33,7 @@
     </div>
 
     <!-- 返回顶部按钮 -->
-    <el-backtop
-      v-if="showBacktop"
-      target=".in-filter-container"
-      :right="60"
-      :bottom="60"
-    >
+    <el-backtop v-if="showBacktop" target=".in-filter-container" :right="60" :bottom="60">
       <div flex items-center justify-center>
         <i-material-symbols:vertical-align-top-rounded />
       </div>

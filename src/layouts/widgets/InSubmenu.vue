@@ -28,11 +28,7 @@
         {{ route.title }}
       </span>
     </template>
-    <in-submenu
-      v-for="child in route.children"
-      :key="child.path"
-      :route="child"
-    />
+    <in-submenu v-for="child in route.children" :key="child.path" :route="child" />
   </el-sub-menu>
 </template>
 

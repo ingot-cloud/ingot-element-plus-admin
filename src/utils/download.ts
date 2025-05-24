@@ -22,7 +22,7 @@ export function saveImg(
   content: string,
   width: string,
   height: string,
-  type: MIME_KEY
+  type: MIME_KEY,
 ) {
   if (!MIME[type]) throw "Error image type";
 
@@ -40,8 +40,7 @@ export function saveImg(
   const img = document.createElement("img");
   img.setAttribute(
     "src",
-    "data:image/svg+xml;base64," +
-      btoa(decodeURIComponent(encodeURIComponent(content)))
+    "data:image/svg+xml;base64," + btoa(decodeURIComponent(encodeURIComponent(content))),
   );
 
   return new Promise((resolve) => {

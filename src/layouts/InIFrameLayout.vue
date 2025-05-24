@@ -1,13 +1,7 @@
 <template>
   <in-container ref="ContainerRef">
     <div class="in-frame-layout">
-      <div
-        w-full
-        h-full
-        v-for="item in urlArray"
-        :key="item.path"
-        class="in-frame-box"
-      >
+      <div w-full h-full v-for="item in urlArray" :key="item.path" class="in-frame-box">
         <iframe
           :src="item.url"
           :key="item.path"
@@ -88,7 +82,7 @@ watch(
   },
   {
     immediate: true,
-  }
+  },
 );
 </script>
 <style scoped lang="postcss">

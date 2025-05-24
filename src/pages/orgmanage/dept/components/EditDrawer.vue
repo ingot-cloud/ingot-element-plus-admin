@@ -1,11 +1,6 @@
 <template>
   <in-drawer :title="title" v-model="visible">
-    <in-form
-      ref="editFormRef"
-      label-width="80px"
-      :model="editForm"
-      :rules="rules"
-    >
+    <in-form ref="editFormRef" label-width="80px" :model="editForm" :rules="rules">
       <el-form-item prop="pid" label="上级部门">
         <el-tree-select
           w-full
@@ -20,11 +15,7 @@
       </el-form-item>
 
       <el-form-item prop="name" label="部门名称">
-        <el-input
-          v-model="editForm.name"
-          placeholder="请输入部门名称"
-          clearable
-        ></el-input>
+        <el-input v-model="editForm.name" placeholder="请输入部门名称" clearable></el-input>
       </el-form-item>
 
       <el-form-item prop="status" label="状态" v-if="edit">
@@ -39,9 +30,7 @@
       </el-form-item>
     </in-form>
     <template #footer>
-      <in-button :loading="loading" type="primary" @click="handleConfirmClick">
-        确定
-      </in-button>
+      <in-button :loading="loading" type="primary" @click="handleConfirmClick"> 确定 </in-button>
     </template>
   </in-drawer>
 </template>

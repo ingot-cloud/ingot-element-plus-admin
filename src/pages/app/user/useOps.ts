@@ -3,10 +3,7 @@ import { UserPageAPI, UpdateUserAPI } from "@/api/basic/appUser";
 
 export const useOps = () => {
   const paging = usePaging(transformPageAPI(UserPageAPI));
-  const confirmStatus = useConfirmStatus(
-    transformUpdateAPI(UpdateUserAPI),
-    paging.exec
-  );
+  const confirmStatus = useConfirmStatus(transformUpdateAPI(UpdateUserAPI), paging.exec);
 
   /**
    * 重置过滤条件

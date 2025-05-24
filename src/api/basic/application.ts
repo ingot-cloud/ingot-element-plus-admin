@@ -12,26 +12,19 @@ import { filterParams } from "@/utils/object";
 
 export function ApplicationPageAPI(
   page: Page,
-  condition?: ApplicationFilterDTO
+  condition?: ApplicationFilterDTO,
 ): Promise<R<Page<ApplicationPageItemVO>>> {
   if (condition) {
     filterParams(condition);
   }
-  return Http.get<Page<ApplicationPageItemVO>>(
-    "/api/pms/v1/admin/application/page",
-    {
-      ...page,
-      ...condition,
-    }
-  );
+  return Http.get<Page<ApplicationPageItemVO>>("/api/pms/v1/admin/application/page", {
+    ...page,
+    ...condition,
+  });
 }
 
-export function OrgApplicationAPI(
-  orgId: string
-): Promise<R<Array<ApplicationOrgPageItemVO>>> {
-  return Http.get<Array<ApplicationOrgPageItemVO>>(
-    `/api/pms/v1/admin/application/page/${orgId}`
-  );
+export function OrgApplicationAPI(orgId: string): Promise<R<Array<ApplicationOrgPageItemVO>>> {
+  return Http.get<Array<ApplicationOrgPageItemVO>>(`/api/pms/v1/admin/application/page/${orgId}`);
 }
 
 export function SyncApplication(id: string) {
@@ -54,12 +47,6 @@ export function UpdateAppDefaultAPI(params: SysApplication) {
   return Http.put<void>("/api/pms/v1/admin/application/default", params);
 }
 
-export function UpdateOrgAppStatusAPI(
-  orgId: string,
-  params: SysApplicationTenant
-) {
-  return Http.put<void>(
-    `/api/pms/v1/admin/application/status/org/${orgId}`,
-    params
-  );
+export function UpdateOrgAppStatusAPI(orgId: string, params: SysApplicationTenant) {
+  return Http.put<void>(`/api/pms/v1/admin/application/status/org/${orgId}`, params);
 }

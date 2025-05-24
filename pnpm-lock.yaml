@@ -181,6 +181,9 @@ devDependencies:
   typescript:
     specifier: ~5.8.0
     version: 5.8.3
+  typescript-eslint:
+    specifier: ^8.32.1
+    version: 8.32.1(eslint@9.27.0)(typescript@5.8.3)
   unocss:
     specifier: ^66.1.2
     version: 66.1.2(postcss@8.5.3)(vite@6.3.5)(vue@3.5.14)

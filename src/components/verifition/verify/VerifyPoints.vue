@@ -10,12 +10,7 @@
           'margin-bottom': vSpace + 'px',
         }"
       >
-        <div
-          class="verify-refresh"
-          style="z-index: 3"
-          @click="refresh"
-          v-show="showRefresh"
-        >
+        <div class="verify-refresh" style="z-index: 3" @click="refresh" v-show="showRefresh">
           <i class="iconfont icon-refresh"></i>
         </div>
         <img
@@ -70,14 +65,7 @@
 import { resetSize } from "../utils/util";
 import { aesEncrypt } from "../utils/ase";
 import { reqGet, reqCheck } from "../api/index";
-import {
-  onMounted,
-  reactive,
-  ref,
-  nextTick,
-  toRefs,
-  getCurrentInstance,
-} from "vue";
+import { onMounted, reactive, ref, nextTick, toRefs, getCurrentInstance } from "vue";
 export default {
   name: "VerifyPoints",
   props: {
@@ -173,10 +161,7 @@ export default {
           // var flag = this.comparePos(this.fontPos, this.checkPosArr);
           //发送后端请求
           var captchaVerification = secretKey.value
-            ? aesEncrypt(
-                backToken.value + "---" + JSON.stringify(checkPosArr),
-                secretKey.value
-              )
+            ? aesEncrypt(backToken.value + "---" + JSON.stringify(checkPosArr), secretKey.value)
             : backToken.value + "---" + JSON.stringify(checkPosArr);
           let data = {
             captchaType: captchaType.value,

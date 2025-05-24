@@ -21,11 +21,7 @@
 
         <template #rightActions>
           <in-button @click="ops.resetFilter"> 重置 </in-button>
-          <in-button
-            type="primary"
-            :loading="ops.loading.value"
-            @click="ops.fetchUserData"
-          >
+          <in-button type="primary" :loading="ops.loading.value" @click="ops.fetchUserData">
             搜索
           </in-button>
         </template>
@@ -44,18 +40,11 @@
     >
       <template #title> 系统用户管理 </template>
       <template #toolbar>
-        <in-button type="primary" @click="handleCreateUser">
-          添加用户
-        </in-button>
+        <in-button type="primary" @click="handleCreateUser"> 添加用户 </in-button>
       </template>
       <template #avatar="{ item }">
         <div flex flex-row items-center gap-2>
-          <el-image
-            v-if="item.avatar"
-            class="w-30px h-30px"
-            :src="item.avatar"
-            fit="cover"
-          />
+          <el-image v-if="item.avatar" class="w-30px h-30px" :src="item.avatar" fit="cover" />
           <in-button text link @click="handleDetailUser(item)">
             {{ item.nickname }}
           </in-button>

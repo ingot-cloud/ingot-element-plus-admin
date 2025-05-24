@@ -2,24 +2,12 @@
   <div>
     <in-form-group-title title="基本信息" v-model="editFlag" />
     <div p-20px>
-      <in-form
-        ref="FormRef"
-        :model="editForm"
-        :rules="rules"
-        :disabled="!editFlag"
-      >
+      <in-form ref="FormRef" :model="editForm" :rules="rules" :disabled="!editFlag">
         <el-form-item label="logo">
-          <in-common-upload-avatar
-            dir="public/tenant"
-            v-model="editForm.avatar"
-          />
+          <in-common-upload-avatar dir="public/tenant" v-model="editForm.avatar" />
         </el-form-item>
         <el-form-item label="组织名称" prop="name">
-          <el-input
-            v-model="editForm.name"
-            clearable
-            placeholder="请输入组织名称"
-          ></el-input>
+          <el-input v-model="editForm.name" clearable placeholder="请输入组织名称"></el-input>
         </el-form-item>
         <el-form-item label="组织编码" prop="code">
           <el-input

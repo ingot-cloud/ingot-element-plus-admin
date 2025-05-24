@@ -1,14 +1,6 @@
 <template>
-  <div
-    class="in-container"
-    :style="{ padding: `${padding}`, borderRadius: `${radius}` }"
-  >
-    <el-backtop
-      v-if="showBacktop"
-      target=".in-container"
-      :right="60"
-      :bottom="60"
-    >
+  <div class="in-container" :style="{ padding: `${padding}`, borderRadius: `${radius}` }">
+    <el-backtop v-if="showBacktop" target=".in-container" :right="60" :bottom="60">
       <div flex items-center justify-center>
         <i-material-symbols:vertical-align-top-rounded />
       </div>

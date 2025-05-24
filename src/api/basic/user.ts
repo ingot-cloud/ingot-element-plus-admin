@@ -17,12 +17,9 @@ import { filterParams } from "@/utils/object";
  * 根据手机号获取用户列表
  */
 export function SearchByPhone(phone: string) {
-  return request.get<Array<SimpleUserWithPhoneVO>>(
-    `/api/pms/v1/admin/user/searchByPhone`,
-    {
-      phone,
-    }
-  );
+  return request.get<Array<SimpleUserWithPhoneVO>>(`/api/pms/v1/admin/user/searchByPhone`, {
+    phone,
+  });
 }
 
 /**
@@ -30,7 +27,7 @@ export function SearchByPhone(phone: string) {
  */
 export function UserPageAPI(
   page: Page,
-  condition?: AllOrgUserFilterDTO
+  condition?: AllOrgUserFilterDTO,
 ): Promise<R<Page<SysUser>>> {
   if (condition) {
     filterParams(condition);
@@ -78,9 +75,7 @@ export function RemoveUserAPI(id: string): Promise<R<void>> {
  * 用户组织信息
  */
 export function UserOrgInfoAPI(id: string) {
-  return request.get<Array<UserOrgInfoVO>>(
-    `/api/pms/v1/admin/user/orgInfo/${id}`
-  );
+  return request.get<Array<UserOrgInfoVO>>(`/api/pms/v1/admin/user/orgInfo/${id}`);
 }
 
 /**

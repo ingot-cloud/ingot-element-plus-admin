@@ -5,9 +5,7 @@ class IngotCookie {
   public set(cookie: CookieParams) {
     const { key, value, expires, path } = cookie;
     const finalKey = this.keyWrapper(key);
-    const finalExpires = expires
-      ? expires
-      : import.meta.env.VITE_APP_COOKIE_DEFAULT_EXPIRE_TIME;
+    const finalExpires = expires ? expires : import.meta.env.VITE_APP_COOKIE_DEFAULT_EXPIRE_TIME;
     Cookies.set(finalKey, value, {
       expires: finalExpires / 60 / 60 / 24, // 过期时间单位，秒转为天
       path: path || "/",

@@ -27,10 +27,7 @@
 
     <template #label="{ value }">
       <div class="custom-option-item">
-        <div
-          class="avatar"
-          v-if="options.find((item) => item.phone == value)?.avatar"
-        >
+        <div class="avatar" v-if="options.find((item) => item.phone == value)?.avatar">
           <el-image
             :src="options.find((item) => item.phone == value)?.avatar"
             class="h-full w-full"

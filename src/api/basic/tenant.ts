@@ -21,10 +21,7 @@ export function TenantInfoAPI(id?: string) {
 /**
  * 租户分页信息
  */
-export function TenantPageAPI(
-  page: Page,
-  condition?: SysTenant
-): Promise<R<Page<SysTenant>>> {
+export function TenantPageAPI(page: Page, condition?: SysTenant): Promise<R<Page<SysTenant>>> {
   if (condition) {
     filterParams(condition);
   }

@@ -37,9 +37,7 @@ const active = eagerComputed(() => tabsRoot.currentName.value === props.name);
 const loaded = ref(active.value);
 const paneName = computed(() => props.name);
 const paneTitle = computed(() => props.title);
-const shouldBeRender = eagerComputed(
-  () => !props.lazy || loaded.value || active.value
-);
+const shouldBeRender = eagerComputed(() => !props.lazy || loaded.value || active.value);
 watch(active, (val) => {
   if (val) loaded.value = true;
 });

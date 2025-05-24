@@ -1,11 +1,6 @@
 <template>
   <div class="role-filter">
-    <el-input
-      v-model="searchValue"
-      placeholder="搜索角色"
-      :prefix-icon="Search"
-      clearable
-    />
+    <el-input v-model="searchValue" placeholder="搜索角色" :prefix-icon="Search" clearable />
 
     <div class="action-box">
       <in-button @click="privateHandleCreateGroup">新增角色组</in-button>
@@ -49,11 +44,7 @@
     >
       <template #default="{ node, data }">
         <div class="role-item">
-          <in-icon
-            v-if="data.isGroup"
-            name="mingcute:group-line"
-            class="icon"
-          />
+          <in-icon v-if="data.isGroup" name="mingcute:group-line" class="icon" />
           <in-icon v-else name="tabler:user" class="icon" />
           <span class="text">{{ node.label }}</span>
           <div class="action">
@@ -133,10 +124,7 @@ const fetchData = () => {
 const privateHandleRoleCollapseAction = (value: boolean) => {
   privateHandleExpanded(roleTree.value, value);
 };
-const privateHandleExpanded = (
-  list: Array<RoleGroupItemVO>,
-  value: boolean
-) => {
+const privateHandleExpanded = (list: Array<RoleGroupItemVO>, value: boolean) => {
   list.forEach((item) => {
     const node = roleTreeRef.value.getNode(item.id);
     node.expanded = value;
@@ -164,10 +152,7 @@ const privateOnNodeExpand = (data: any) => {
   defaultExpandedKeys.value.push(data.id);
 };
 const privateOnNodeCollapse = (data: any) => {
-  defaultExpandedKeys.value.splice(
-    defaultExpandedKeys.value.indexOf(data.id),
-    1
-  );
+  defaultExpandedKeys.value.splice(defaultExpandedKeys.value.indexOf(data.id), 1);
 };
 
 const privateHandleCreateGroup = () => {

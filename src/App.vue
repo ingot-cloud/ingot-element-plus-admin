@@ -1,9 +1,5 @@
 <template>
-  <el-config-provider
-    :button="buttonConfig"
-    :size="componentSize"
-    :locale="zhCn"
-  >
+  <el-config-provider :button="buttonConfig" :size="componentSize" :locale="zhCn">
     <router-view />
   </el-config-provider>
 </template>
@@ -24,6 +20,6 @@ watch(
   },
   {
     deep: true,
-  }
+  },
 );
 </script>

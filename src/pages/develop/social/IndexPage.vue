@@ -12,14 +12,8 @@
           ></el-input>
         </in-with-label>
         <template #rightActions>
-          <in-button @click="paging.condition.name = undefined">
-            重置
-          </in-button>
-          <in-button
-            type="primary"
-            @in-click="refreshData"
-            :loading="paging.loading.value"
-          >
+          <in-button @click="paging.condition.name = undefined"> 重置 </in-button>
+          <in-button type="primary" @in-click="refreshData" :loading="paging.loading.value">
             搜索
           </in-button>
         </template>
@@ -52,17 +46,13 @@
           :status="item.status"
           text
           link
-          @click="
-            confirmStatus.exec(item.id, item.status, `社交信息(${item.name})`)
-          "
+          @click="confirmStatus.exec(item.id, item.status, `社交信息(${item.name})`)"
         ></common-status-button>
         <in-button
           type="danger"
           text
           link
-          @click="
-            confirmDelete.exec(item.id, `是否删除社交信息(${item.clientId})`)
-          "
+          @click="confirmDelete.exec(item.id, `是否删除社交信息(${item.clientId})`)"
         >
           <template #icon>
             <i-ep:delete />
@@ -81,23 +71,13 @@ import { tableHeaders } from "./table";
 import EditDialog from "./components/EditDialog.vue";
 import type { API as EditDialogAPI } from "./components/EditDialog.vue";
 import type { TableAPI } from "@/components/table";
-import {
-  SocialPageAPI,
-  UpdateSocialAPI,
-  RemoveSocialAPI,
-} from "@/api/basic/social";
+import { SocialPageAPI, UpdateSocialAPI, RemoveSocialAPI } from "@/api/basic/social";
 
 const editDialog = ref<EditDialogAPI>();
 const tableRef = ref<TableAPI>();
 const paging = usePaging(transformPageAPI(SocialPageAPI));
-const confirmStatus = useConfirmStatus(
-  transformUpdateAPI(UpdateSocialAPI),
-  paging.exec
-);
-const confirmDelete = useConfirmDelete(
-  transformDeleteAPI(RemoveSocialAPI),
-  paging.exec
-);
+const confirmStatus = useConfirmStatus(transformUpdateAPI(UpdateSocialAPI), paging.exec);
+const confirmDelete = useConfirmDelete(transformDeleteAPI(RemoveSocialAPI), paging.exec);
 
 const refreshData = () => {
   paging.exec();

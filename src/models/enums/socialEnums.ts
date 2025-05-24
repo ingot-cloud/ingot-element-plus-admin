@@ -17,5 +17,5 @@ export const SocialTypeEnumsEnumExtArray = [
   newEnumExt(SocialTypeEnums.APP_MINI_PROGRAM, "前台微信小程序", "danger"),
 ];
 export const useSocialTypeEnumsEnum = () => {
-  return useEnum(SocialTypeEnumsEnumExtArray);
+  return useEnum<string>(SocialTypeEnumsEnumExtArray);
 };

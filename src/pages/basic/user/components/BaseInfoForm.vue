@@ -2,38 +2,18 @@
   <div>
     <in-form-group-title title="个人基本信息" v-model="editFlag" />
     <div p-20px>
-      <in-form
-        ref="FormRef"
-        :model="editForm"
-        :rules="rules"
-        :disabled="!editFlag"
-      >
+      <in-form ref="FormRef" :model="editForm" :rules="rules" :disabled="!editFlag">
         <el-form-item label="头像">
-          <in-common-upload-avatar
-            dir="public/user/avatar"
-            v-model="editForm.avatar"
-          />
+          <in-common-upload-avatar dir="public/user/avatar" v-model="editForm.avatar" />
         </el-form-item>
         <el-form-item label="姓名" prop="nickname">
-          <el-input
-            v-model="editForm.nickname"
-            clearable
-            placeholder="请输入姓名"
-          ></el-input>
+          <el-input v-model="editForm.nickname" clearable placeholder="请输入姓名"></el-input>
         </el-form-item>
         <el-form-item label="手机号" prop="phone">
-          <el-input
-            v-model="editForm.phone"
-            clearable
-            placeholder="请输入手机号"
-          ></el-input>
+          <el-input v-model="editForm.phone" clearable placeholder="请输入手机号"></el-input>
         </el-form-item>
         <el-form-item label="email" prop="email">
-          <el-input
-            v-model="editForm.email"
-            clearable
-            placeholder="请输入email"
-          ></el-input>
+          <el-input v-model="editForm.email" clearable placeholder="请输入email"></el-input>
         </el-form-item>
       </in-form>
     </div>

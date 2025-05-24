@@ -9,10 +9,7 @@ export const useAppStore = defineStore("app", () => {
   const now = new Date();
   const app = reactive<AppStore>({
     title: import.meta.env.VITE_APP_TITLE,
-    copyright: import.meta.env.VITE_APP_COPYRIGHT.replace(
-      "{0}",
-      now.getFullYear() + ""
-    ),
+    copyright: import.meta.env.VITE_APP_COPYRIGHT.replace("{0}", now.getFullYear() + ""),
     login: {
       clientId: import.meta.env.VITE_APP_LOGIN_CLIENT_ID,
       scope: import.meta.env.VITE_APP_LOGIN_SCOPE,
@@ -23,8 +20,7 @@ export const useAppStore = defineStore("app", () => {
     netConfig: {
       baseURL: import.meta.env.VITE_APP_NET_BASE_URL || undefined,
       timeout: import.meta.env.VITE_APP_NET_DEFAULT_TIMEOUT || 10_000,
-      timeoutErrorMessage:
-        import.meta.env.VITE_APP_NET_DEFAULT_TIMEOUT_MESSAGE || undefined,
+      timeoutErrorMessage: import.meta.env.VITE_APP_NET_DEFAULT_TIMEOUT_MESSAGE || undefined,
     },
     basicToken: `Basic ${import.meta.env.VITE_APP_BASIC_TOKEN}`,
     bucketName: import.meta.env.VITE_APP_BUCKET_NAME,
@@ -53,38 +49,25 @@ export const useAppStateStore = defineStore(
     const showWatermark = ref<boolean | undefined>(undefined);
     onMounted(() => {
       if (menuOpenStatus.value === undefined) {
-        menuOpenStatus.value = parseBoolean(
-          import.meta.env.VITE_APP_SETTINGS_SHOW_MENU
-        );
+        menuOpenStatus.value = parseBoolean(import.meta.env.VITE_APP_SETTINGS_SHOW_MENU);
       }
       if (componentSize.value === undefined) {
-        componentSize.value = import.meta.env
-          .VITE_APP_SETTINGS_COMPONENT_SIZE as ComponentSize;
+        componentSize.value = import.meta.env.VITE_APP_SETTINGS_COMPONENT_SIZE as ComponentSize;
       }
       if (showTabs.value === undefined) {
-        showTabs.value = parseBoolean(
-          import.meta.env.VITE_APP_SETTINGS_SHOW_TABS
-        );
+        showTabs.value = parseBoolean(import.meta.env.VITE_APP_SETTINGS_SHOW_TABS);
       }
       if (showBreadcrumb.value === undefined) {
-        showBreadcrumb.value = parseBoolean(
-          import.meta.env.VITE_APP_SETTINGS_SHOW_BREADCRUMB
-        );
+        showBreadcrumb.value = parseBoolean(import.meta.env.VITE_APP_SETTINGS_SHOW_BREADCRUMB);
       }
       if (showCopyright.value === undefined) {
-        showCopyright.value = parseBoolean(
-          import.meta.env.VITE_APP_SETTINGS_SHOW_COPYRIGHT
-        );
+        showCopyright.value = parseBoolean(import.meta.env.VITE_APP_SETTINGS_SHOW_COPYRIGHT);
       }
       if (showSearch.value === undefined) {
-        showSearch.value = parseBoolean(
-          import.meta.env.VITE_APP_SETTINGS_SHOW_SEARCH
-        );
+        showSearch.value = parseBoolean(import.meta.env.VITE_APP_SETTINGS_SHOW_SEARCH);
       }
       if (showWatermark.value === undefined) {
-        showWatermark.value = parseBoolean(
-          import.meta.env.VITE_APP_SETTINGS_SHOW_WATERMARK
-        );
+        showWatermark.value = parseBoolean(import.meta.env.VITE_APP_SETTINGS_SHOW_WATERMARK);
       }
     });
 
@@ -135,7 +118,7 @@ export const useAppStateStore = defineStore(
   {
     persist: {
       storage: localStorage,
-      paths: [
+      pick: [
         "menuOpenStatus",
         "componentSize",
         "showTabs",
@@ -145,5 +128,5 @@ export const useAppStateStore = defineStore(
         "showWatermark",
       ],
     },
-  }
+  },
 );

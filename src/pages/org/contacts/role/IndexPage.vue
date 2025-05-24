@@ -11,11 +11,7 @@
     </template>
 
     <div class="default-role-bg-container" v-if="!ops.currentNode.name">
-      <img
-        class="default-role-bg"
-        src="/resource/images/role_default_bg.jpg"
-        alt=""
-      />
+      <img class="default-role-bg" src="/resource/images/role_default_bg.jpg" alt="" />
     </div>
 
     <in-table
@@ -34,22 +30,13 @@
         {{ ops.currentNode.name || "请选择角色" }}
       </template>
       <template #toolbar>
-        <in-button
-          v-if="ops.currentNode.name"
-          type="primary"
-          @click="privateAddMember"
-        >
+        <in-button v-if="ops.currentNode.name" type="primary" @click="privateAddMember">
           添加成员
         </in-button>
       </template>
       <template #avatar="{ item }">
         <div flex flex-row items-center gap-2 justify-start>
-          <el-image
-            v-if="item.avatar"
-            class="w-30px h-30px"
-            :src="item.avatar"
-            fit="cover"
-          />
+          <el-image v-if="item.avatar" class="w-30px h-30px" :src="item.avatar" fit="cover" />
           {{ item.nickname }}
         </div>
       </template>
@@ -76,16 +63,14 @@ const privateAddMember = () => {
   AddMemberDialogRef.value.show(ops.currentNode);
 };
 const privateHandleDelete = (item: any) => {
-  confirm
-    .warning(`是否将成员(${item.nickname})移除角色(${ops.currentNode.name})`)
-    .then(() => {
-      BindUserAPI({
-        id: ops.currentNode.id,
-        removeIds: [item.userId],
-      }).then(() => {
-        ops.fetchUserData();
-      });
+  confirm.warning(`是否将成员(${item.nickname})移除角色(${ops.currentNode.name})`).then(() => {
+    BindUserAPI({
+      id: ops.currentNode.id,
+      removeIds: [item.userId],
+    }).then(() => {
+      ops.fetchUserData();
     });
+  });
 };
 </script>
 <style scoped lang="postcss">

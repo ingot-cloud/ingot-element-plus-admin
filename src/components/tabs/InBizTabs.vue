@@ -37,7 +37,7 @@ watch(
       return;
     }
     currentName.value = value;
-  }
+  },
 );
 
 const {
