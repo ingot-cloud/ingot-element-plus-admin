@@ -36,7 +36,7 @@
     <el-table
       :border="border"
       v-loading="loading"
-      ref="ingotTable"
+      ref="inRadioTable"
       :data="data"
       :stripe="stripe"
       @select-all="privateOnTableSelectAll"
@@ -153,7 +153,7 @@ const headersEnable = ref(
 const current = ref(props.page.current);
 const size = ref(props.page.size);
 const total = ref(props.page.total);
-const ingotTable = ref();
+const inRadioTable = ref();
 const radioValue = ref();
 
 const privateRowClick = (item: any) => {
@@ -196,11 +196,11 @@ defineExpose({
    * 用于多选表格，清空用户的选择
    */
   clearSelection: () => {
-    const table = unref(ingotTable);
+    const table = unref(inRadioTable);
     table.clearSelection();
   },
   toggleRowSelection: (row: any, selected?: boolean) => {
-    const table = unref(ingotTable);
+    const table = unref(inRadioTable);
     table.toggleRowSelection(row, selected);
   },
 });

@@ -93,7 +93,7 @@ export const tableProps = {
     default: false,
   },
   expandRowKeys: {
-    type: Array,
+    type: Array as PropType<string[]>,
     default() {
       return undefined;
     },
