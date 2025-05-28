@@ -41,7 +41,7 @@ export default defineConfig(({ mode }) => {
         // 指定需要缓存的图标文件夹
         iconDirs: [path.resolve(process.cwd(), "src/assets/icons")],
         // 指定symbolId格式
-        symbolId: "ingot-[dir]-[name]",
+        symbolId: `${getViteEnv("VITE_APP_SYMBOL")}-[dir]-[name]`,
       }),
       // https://github.com/antfu/unplugin-auto-import
       AutoImport({
@@ -59,7 +59,7 @@ export default defineConfig(({ mode }) => {
           ElementPlusResolver(),
           IconsResolver({
             prefix: "i",
-            customCollections: ["ingot"],
+            customCollections: [getViteEnv("VITE_APP_SYMBOL")],
           }),
         ],
       }),
@@ -69,7 +69,7 @@ export default defineConfig(({ mode }) => {
         compiler: "vue3",
         defaultClass: "inline",
         customCollections: {
-          ingot: FileSystemIconLoader("./src/assets/icons"),
+          [`${getViteEnv("VITE_APP_SYMBOL")}`]: FileSystemIconLoader("./src/assets/icons"),
         },
       }),
       // https://github.com/unocss/unocss

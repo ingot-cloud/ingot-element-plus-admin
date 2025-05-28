@@ -127,7 +127,7 @@ const qrcodeSize = computed<number>({
   },
 });
 const editForm = reactive({
-  text: "Ingot",
+  text: import.meta.env.VITE_APP_TITLE,
   correctLevel: CorrectLevel.P15,
   width: "400",
   height: "400",

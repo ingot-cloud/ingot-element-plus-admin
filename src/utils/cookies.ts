@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import type { CookieParams } from "@/models/storage";
 
-class IngotCookie {
+class InCookie {
   public set(cookie: CookieParams) {
     const { key, value, expires, path } = cookie;
     const finalKey = this.keyWrapper(key);
@@ -34,4 +34,4 @@ class IngotCookie {
   }
 }
 
-export const CookieManager = new IngotCookie();
+export const CookieManager = new InCookie();

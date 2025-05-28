@@ -1,6 +1,6 @@
 <template>
   <div
-    class="ingot-menu"
+    class="in-menu"
     :class="[getMenuOpened ? 'w-[var(--in-menu-show)]' : 'w-[var(--in-menu-hide)]']"
   >
     <div class="menu-header" @click="switchOrg">
@@ -86,7 +86,7 @@ const switchOrg = () => {
 </script>
 
 <style lang="postcss" scoped>
-.ingot-menu {
+.in-menu {
   @apply flex flex-col h-full transition-width transition-ease transition-duration-300;
   height: calc(100% - var(--in-app-bar-height));
   padding: 8px 8px 0;

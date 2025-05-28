@@ -1,7 +1,7 @@
 import { StoreType } from "@/models/enums/storageEnums";
 import type { StoreParams } from "@/models/storage";
 
-class IngotStore {
+class InStore {
   /**
    * 存储
    */
@@ -118,4 +118,4 @@ class IngotStore {
   }
 }
 
-export const StoreManager = new IngotStore();
+export const StoreManager = new InStore();

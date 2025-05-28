@@ -1,7 +1,7 @@
 import router from "@/router";
 import { useAppStore } from "@/stores/modules/app";
 
-export function useIngotWebTitle() {
+export function useInWebTitle() {
   const appStore = useAppStore();
   nextTick(() => {
     const title: string = appStore.app.title;

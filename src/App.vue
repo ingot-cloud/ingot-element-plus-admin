@@ -16,7 +16,7 @@ const route = useRoute();
 watch(
   () => route.path,
   () => {
-    useIngotWebTitle();
+    useInWebTitle();
   },
   {
     deep: true,
