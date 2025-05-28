@@ -58,7 +58,7 @@
           text
           link
           :status="item.status"
-          @click="confirmStatus.exec(item.id, item.status, `权限(${item.name})`)"
+          @click="confirmStatus.exec(item.id, item.status, `权限(${item.name})`, '操作成功')"
         />
       </template>
     </in-table>

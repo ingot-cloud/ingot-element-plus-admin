@@ -39,14 +39,14 @@ export const useOps = () => {
    * 删除用户
    */
   const handleDeleteUser = (params: UserPageItemVO): void => {
-    confirmDelete.exec(params.userId, `是否删除用户(${params.username})`);
+    confirmDelete.exec(params.userId, `是否删除用户(${params.username})`, "删除成功");
   };
 
   /**
    * 禁用、启用
    */
   const handleDisableUser = (params: UserPageItemVO): void => {
-    confirmStatus.exec(params.userId, params.status!, `用户(${params.username})`);
+    confirmStatus.exec(params.userId, params.status!, `用户(${params.username})`, "操作成功");
   };
 
   return {

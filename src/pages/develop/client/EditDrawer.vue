@@ -104,14 +104,16 @@
       <in-button
         v-if="isEdit"
         type="danger"
-        @click="confirmDelete.exec(id!, `是否删除客户端(${editForm.clientId})`)"
+        @click="confirmDelete.exec(id!, `是否删除客户端(${editForm.clientId})`, '删除成功')"
       >
         删除
       </in-button>
       <common-status-button
         v-if="isEdit"
         :status="editForm.status"
-        @click="confirmStatus.exec(id!, editForm.status!, `客户端(${editForm.clientId})`)"
+        @click="
+          confirmStatus.exec(id!, editForm.status!, `客户端(${editForm.clientId})`, '操作成功')
+        "
       />
       <in-button type="primary" @click="handleActionButton">确定</in-button>
     </template>

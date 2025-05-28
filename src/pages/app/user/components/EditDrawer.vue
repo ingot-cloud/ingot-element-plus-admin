@@ -41,7 +41,6 @@ const loading = ref(false);
 const message = useMessage();
 const confirmDelete = useConfirmDelete(transformDeleteAPI(RemoveUserAPI), () => {
   visible.value = false;
-  message.success("操作成功");
   emits("success");
 });
 
@@ -75,7 +74,7 @@ const handleConfirmClick = () => {
 };
 
 const handleRemoveClick = () => {
-  confirmDelete.exec(user.value.id!, `是否删除用户(${user.value.nickname})`);
+  confirmDelete.exec(user.value.id!, `是否删除用户(${user.value.nickname})`, "删除成功");
 };
 
 const fetchData = () => {

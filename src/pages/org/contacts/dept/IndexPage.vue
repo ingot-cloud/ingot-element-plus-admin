@@ -51,7 +51,7 @@
           text
           link
           v-if="!item.mainFlag"
-          @click="confirmDelete.exec(item.id, `是否删除部门(${item.name})`)"
+          @click="confirmDelete.exec(item.id, `是否删除部门(${item.name})`, '删除成功')"
         >
           <template #icon>
             <i-ep:delete />

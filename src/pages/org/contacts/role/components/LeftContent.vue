@@ -173,9 +173,9 @@ const confirmDeleteGroup = useConfirmDelete(roleStore.removeRoleGroup, fetchData
 const confirmDeleteRole = useConfirmDelete(roleStore.removeRole, fetchData);
 const privateDeleteRoleOrGroup = (params: RoleGroupItemVO) => {
   if (params.isGroup) {
-    confirmDeleteGroup.exec(params.id!, `是否删除角色组:${params.name}`);
+    confirmDeleteGroup.exec(params.id!, `是否删除角色组:${params.name}`, "删除成功");
   } else {
-    confirmDeleteRole.exec(params.id!, `是否删除角色:${params.name}`);
+    confirmDeleteRole.exec(params.id!, `是否删除角色:${params.name}`, "删除成功");
   }
 };
 

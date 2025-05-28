@@ -46,13 +46,13 @@
           :status="item.status"
           text
           link
-          @click="confirmStatus.exec(item.id, item.status, `社交信息(${item.name})`)"
+          @click="confirmStatus.exec(item.id, item.status, `社交信息(${item.name})`, '操作成功')"
         ></common-status-button>
         <in-button
           type="danger"
           text
           link
-          @click="confirmDelete.exec(item.id, `是否删除社交信息(${item.clientId})`)"
+          @click="confirmDelete.exec(item.id, `是否删除社交信息(${item.clientId})`, '删除成功')"
         >
           <template #icon>
             <i-ep:delete />

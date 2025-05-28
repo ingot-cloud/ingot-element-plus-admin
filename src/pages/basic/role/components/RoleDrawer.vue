@@ -60,7 +60,9 @@
       <common-status-button
         v-if="isEdit"
         :status="editForm.status"
-        @click="confirmStatus.exec(editForm.id!, editForm.status!, `角色(${editForm.name})`)"
+        @click="
+          confirmStatus.exec(editForm.id!, editForm.status!, `角色(${editForm.name})`, '操作成功')
+        "
       >
       </common-status-button>
       <in-button v-if="isEdit" type="danger" @click="handleRemoveClick"> 删除 </in-button>
@@ -145,7 +147,7 @@ const handleBindCommand = (): void => {
 };
 
 const handleRemoveClick = () => {
-  confirmDelete.exec(editForm.id!, `是否删除角色(${editForm.name})`);
+  confirmDelete.exec(editForm.id!, `是否删除角色(${editForm.name})`, "删除成功");
 };
 
 const handleActionButton = () => {

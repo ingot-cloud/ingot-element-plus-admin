@@ -56,13 +56,12 @@ const visible = ref(false);
 
 const message = useMessage();
 const confirmDelete = useConfirmDelete(transformDeleteAPI(RemoveIdAPI), () => {
-  message.success("操作成功");
   visible.value = false;
   emits("success");
 });
 
 const handleRemoveClick = () => {
-  confirmDelete.exec(editForm.bizTag!, `是否删除ID(${editForm.bizTag})`);
+  confirmDelete.exec(editForm.bizTag!, `是否删除ID(${editForm.bizTag})`, "删除成功");
 };
 
 const handleConfirmClick = () => {

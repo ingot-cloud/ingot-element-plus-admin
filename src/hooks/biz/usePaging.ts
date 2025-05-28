@@ -122,12 +122,14 @@ export const usePaging = <Record, Condition>(fetchPageFn: FetchPageFn<Record, Co
  * 确认删除
  */
 export const useConfirmDelete = (deleteRecord: DeleteRecordFn, callback?: ActionCallbackFn) => {
-  const exec = (id: string, message: string) => {
+  const exec = (id: string, message: string, successMessage?: string) => {
     Confirm.warning(message).then(() => {
       deleteRecord(id).then(() => {
-        Message.success("操作成功");
         if (callback) {
           callback();
+        }
+        if (successMessage) {
+          Message.success(successMessage);
         }
       });
     });
@@ -145,12 +147,14 @@ export const useConfirmUpdate = <Record>(
   updateRecord: UpdateRecordFn<Record>,
   callback?: ActionCallbackFn,
 ) => {
-  const exec = (params: Record, message: string) => {
+  const exec = (params: Record, message: string, successMessage?: string) => {
     Confirm.warning(message).then(() => {
       updateRecord(params).then(() => {
-        Message.success("操作成功");
         if (callback) {
           callback();
+        }
+        if (successMessage) {
+          Message.success(successMessage);
         }
       });
     });
@@ -173,14 +177,21 @@ export const useConfirmStatus = (
   updateRecord: UpdateRecordFn<StatusRecord<CommonStatus>>,
   callback?: ActionCallbackFn,
 ) => {
-  const exec = (id: string, status: CommonStatus, opsTragetText: string) => {
+  const exec = (
+    id: string,
+    status: CommonStatus,
+    opsTragetText: string,
+    successMessage?: string,
+  ) => {
     Confirm.warning(
       `是否${getCommonStatusActionDesc(getCommonStatusToggle(status))}${opsTragetText}`,
     ).then(() => {
       updateRecord({ id, status: getCommonStatusToggle(status) }).then(() => {
-        Message.success("操作成功");
         if (callback) {
           callback();
+        }
+        if (successMessage) {
+          Message.success(successMessage);
         }
       });
     });
@@ -195,14 +206,22 @@ export const useConfirmStatus2 = (
   updateRecord: UpdateRecordFn<StatusRecord<string>>,
   callback?: ActionCallbackFn,
 ) => {
-  const exec = (id: string, status: string, opsTragetText: string, enumObj: EnumObj<string>) => {
+  const exec = (
+    id: string,
+    status: string,
+    opsTragetText: string,
+    enumObj: EnumObj<string>,
+    successMessage?: string,
+  ) => {
     const oppositeValue = enumObj.getOpposite(status);
     const oppositeText = enumObj.getTagText(oppositeValue).text;
     Confirm.warning(`是否${oppositeText}${opsTragetText}`).then(() => {
       updateRecord({ id, status: oppositeValue }).then(() => {
-        Message.success("操作成功");
         if (callback) {
           callback();
+        }
+        if (successMessage) {
+          Message.success(successMessage);
         }
       });
     });

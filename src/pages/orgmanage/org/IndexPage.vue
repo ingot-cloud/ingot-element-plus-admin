@@ -64,7 +64,7 @@
           :status="item.status"
           text
           link
-          @click="confirmStatus.exec(item.id, item.status, `组织(${item.name})`)"
+          @click="confirmStatus.exec(item.id, item.status, `组织(${item.name})`, '操作成功')"
         />
       </template>
     </in-table>

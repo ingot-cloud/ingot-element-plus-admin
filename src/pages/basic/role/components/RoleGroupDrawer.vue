@@ -68,7 +68,7 @@ const confirmDelete = useConfirmDelete(roleStore.removeRoleGroup, () => {
 });
 
 const handleRemoveClick = () => {
-  confirmDelete.exec(editForm.id!, `是否删除角色组(${editForm.name})`);
+  confirmDelete.exec(editForm.id!, `是否删除角色组(${editForm.name})`, "删除成功");
 };
 
 const handleActionButton = () => {

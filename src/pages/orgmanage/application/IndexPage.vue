@@ -52,7 +52,7 @@
           text
           link
           :status="item.status"
-          @click="confirmStatus.exec(item.id, item.status, `应用(${item.menuName})`)"
+          @click="confirmStatus.exec(item.id, item.status, `应用(${item.menuName})`, '操作成功')"
         />
         <in-button-delete @click="handleRemove(item)">删除</in-button-delete>
       </template>

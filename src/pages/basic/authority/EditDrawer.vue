@@ -104,13 +104,12 @@ const visible = ref(false);
 const authorityStore = useAuthorityStore();
 const authorityTypeEnum = useOrgTypeEnums();
 const confirmDelete = useConfirmDelete(authorityStore.removeAuthority, () => {
-  Message.success("操作成功");
   visible.value = false;
   emits("success");
 });
 
 const handleRemoveClick = () => {
-  confirmDelete.exec(editForm.id!, `是否删除权限(${editForm.name})`);
+  confirmDelete.exec(editForm.id!, `是否删除权限(${editForm.name})`, "删除成功");
 };
 
 const handleConfirmClick = () => {

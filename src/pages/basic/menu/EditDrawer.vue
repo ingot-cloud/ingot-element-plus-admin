@@ -308,7 +308,7 @@ const privateOnMenuTypeChange = () => {
 };
 
 const privateOnRemoveClick = () => {
-  confirmDelete.exec(editForm.id!, `是否删除菜单${editForm.name}`);
+  confirmDelete.exec(editForm.id!, `是否删除菜单${editForm.name}`, "删除成功");
 };
 
 const privateOnConfirmClick = () => {

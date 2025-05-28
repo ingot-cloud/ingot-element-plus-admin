@@ -46,7 +46,7 @@ const confirmDelete = useConfirmDelete(tenantStore.removeTenant, () => {
 });
 
 const handleRemoveClick = () => {
-  confirmDelete.exec(tenant.value.id!, `是否删除组织(${tenant.value.name})`);
+  confirmDelete.exec(tenant.value.id!, `是否删除组织(${tenant.value.name})`, "删除成功");
 };
 
 const handleConfirmClick = () => {
