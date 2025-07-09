@@ -32,7 +32,7 @@
         <in-button type="primary" @click="handleCreate()"> 添加客户端 </in-button>
       </template>
       <template #requireProofKey="{ item }">
-        <el-tag :type="item.requireProofKey ? 'info' : 'danger'">
+        <el-tag :type="item.requireProofKey ? 'primary' : 'danger'">
           {{ item.requireProofKey ? "是" : "否" }}
         </el-tag>
       </template>
