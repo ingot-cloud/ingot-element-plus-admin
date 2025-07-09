@@ -6,16 +6,19 @@
       </slot>
     </div>
     <slot v-if="!hideAction">
-      <div v-if="!editFlag" class="edit" @click="editFlag = true">编辑</div>
-      <div v-else class="cancel" @click="editFlag = false">取消</div>
+      <in-button
+        text
+        size="small"
+        :class="{ edit: !editFlag, cancel: editFlag }"
+        @click="editFlag = !editFlag"
+        >{{ editFlag ? "取消" : "编辑" }}</in-button
+      >
     </slot>
   </div>
 </template>
 <script lang="ts" setup>
-const props = defineProps({
-  modelValue: {
-    type: Boolean,
-  },
+const model = defineModel<boolean>({ required: true });
+defineProps({
   title: {
     type: String,
   },
@@ -24,13 +27,12 @@ const props = defineProps({
     default: false,
   },
 });
-const emits = defineEmits(["update:modelValue"]);
 const editFlag = computed({
   get() {
-    return props.modelValue;
+    return model.value;
   },
   set(value) {
-    emits("update:modelValue", value);
+    model.value = value;
   },
 });
 </script>
