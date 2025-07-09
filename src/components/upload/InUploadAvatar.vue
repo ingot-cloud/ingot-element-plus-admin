@@ -24,11 +24,8 @@ import type { UploadAPIFn } from "./types";
 import { Message } from "@/utils/message";
 import { Plus } from "@element-plus/icons-vue";
 
-const emits = defineEmits(["update:modelValue"]);
+const model = defineModel<string>();
 const props = defineProps({
-  modelValue: {
-    type: String,
-  },
   disabled: {
     type: Boolean,
     default: false,
@@ -52,7 +49,7 @@ const dialogImageUrl = ref("");
 const dialogVisible = ref(false);
 const innerChange = ref(false);
 watch(
-  () => props.modelValue,
+  model,
   (value) => {
     if (innerChange.value) {
       innerChange.value = false;
@@ -77,7 +74,7 @@ const uploadRequest = (options: UploadRequestOptions): Promise<unknown> => {
   });
 };
 const handleUploadSuccess = (res: any, file: UploadFile, fileList: UploadFiles) => {
-  emits("update:modelValue", res.data.url);
+  model.value = res.data.url;
 };
 const handleUploadError = (error: Error) => {
   Message.error(error.message);

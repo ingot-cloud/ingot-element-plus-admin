@@ -42,11 +42,8 @@ import type { UploadAPIFn } from "./types";
 import { Message } from "@/utils/message";
 import { isString } from "@/utils";
 
-const emits = defineEmits(["update:modelValue"]);
+const model = defineModel<string | Array<string>>();
 const props = defineProps({
-  modelValue: {
-    type: [String, Array],
-  },
   disabled: {
     type: Boolean,
     default: false,
@@ -77,7 +74,7 @@ const dialogVisible = ref(false);
 const innerFileList = ref<Array<UploadFile>>([]);
 const innerChange = ref(false);
 watch(
-  () => props.modelValue,
+  model,
   (value) => {
     if (innerChange.value) {
       innerChange.value = false;
@@ -132,9 +129,9 @@ const changeFileList = () => {
 
   innerChange.value = true;
   if (props.limit === 1) {
-    emits("update:modelValue", innerFileList.value[0] ? innerFileList.value[0].url : "");
+    model.value = innerFileList.value[0] ? innerFileList.value[0].url! : "";
   } else {
-    emits("update:modelValue", innerFileList.value.map((item) => item.url) || []);
+    model.value = innerFileList.value.map((item) => item.url!) || [];
   }
 };
 const uploadRequest = (options: UploadRequestOptions): Promise<unknown> => {
