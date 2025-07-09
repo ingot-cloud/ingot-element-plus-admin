@@ -8,6 +8,7 @@
             v-model="filter.orgTypeText"
             placeholder="请选择类型"
             :options="orgTypeEnums.getOptions()"
+            clearable
           />
         </in-with-label>
         <template #rightActions>
