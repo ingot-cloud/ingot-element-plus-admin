@@ -11,34 +11,19 @@ import type { TabItem } from "./types";
 import { tabsRootContextKey } from "./constants";
 import { useOrderedChildren } from "element-plus";
 
-const emits = defineEmits(["update:modelValue", "change"]);
-const props = defineProps({
-  modelValue: {
-    type: String,
-  },
-});
+const model = defineModel<string>({ required: true });
+const emits = defineEmits(["change"]);
 
-const currentName = ref<string>(props.modelValue!);
 const tabs = ref<Array<TabItem>>([]);
 const headerValue = computed<string>({
   set(v) {
-    emits("update:modelValue", v);
     emits("change", v);
-    currentName.value = v;
+    model.value = v;
   },
   get() {
-    return currentName.value;
+    return model.value;
   },
 });
-watch(
-  () => props.modelValue,
-  (value) => {
-    if (!value) {
-      return;
-    }
-    currentName.value = value;
-  },
-);
 
 const {
   children: panes,
@@ -47,7 +32,7 @@ const {
 } = useOrderedChildren<any>(getCurrentInstance()!, "InBizTabPanel");
 
 provide(tabsRootContextKey, {
-  currentName,
+  currentName: model,
   registerPane,
   unregisterPane,
 });

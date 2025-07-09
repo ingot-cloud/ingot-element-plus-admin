@@ -4,7 +4,7 @@
       class="tab"
       v-for="tab in tabs"
       :key="tab.id"
-      :class="{ 'tab-active': modelValue === tab.id }"
+      :class="{ 'tab-active': model === tab.id }"
       @click="onItemClick(tab.id)"
     >
       <div class="inner">
@@ -16,22 +16,18 @@
 <script lang="ts" setup>
 import type { TabItem } from "./types";
 import type { PropType } from "vue";
-
-const emits = defineEmits(["update:modelValue", "change"]);
-const props = defineProps({
-  modelValue: {
-    type: String,
-    required: true,
-  },
+const model = defineModel<string>({ required: true });
+const emits = defineEmits(["change"]);
+defineProps({
   tabs: {
     type: Array as PropType<Array<TabItem>>,
   },
 });
 const onItemClick = (id: string) => {
-  if (props.modelValue === id) {
+  if (model.value === id) {
     return;
   }
-  emits("update:modelValue", id);
+  model.value = id;
   emits("change", id);
 };
 </script>
