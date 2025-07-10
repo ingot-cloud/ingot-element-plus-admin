@@ -11,13 +11,14 @@
         size="small"
         :class="{ edit: !editFlag, cancel: editFlag }"
         @click="editFlag = !editFlag"
-        >{{ editFlag ? "取消" : "编辑" }}</in-button
       >
+        {{ editFlag ? "取消" : "编辑" }}
+      </in-button>
     </slot>
   </div>
 </template>
 <script lang="ts" setup>
-const model = defineModel<boolean>({ required: true });
+const model = defineModel<boolean>();
 defineProps({
   title: {
     type: String,
