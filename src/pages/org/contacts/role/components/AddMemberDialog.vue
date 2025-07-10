@@ -7,7 +7,6 @@
       :headers="tableHeaders"
       :page="paging.pageInfo"
       ref="tableRef"
-      selection
       @refresh="paging.exec"
       @handleSizeChange="paging.exec"
       @handleCurrentChange="paging.exec"
@@ -42,6 +41,10 @@ import { BindUserAPI } from "@/api/org/role";
 const emits = defineEmits(["success"]);
 
 const tableHeaders: Array<TableHeaderRecord> = [
+  {
+    type: "selection",
+    width: "50",
+  },
   {
     label: "名称",
     prop: "avatar",

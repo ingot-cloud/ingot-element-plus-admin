@@ -48,36 +48,6 @@ export const tableProps = {
       return "total, sizes, prev, pager, next, jumper";
     },
   },
-  selection: {
-    type: Boolean,
-    default: false,
-  },
-  selectionProps: {
-    type: Object as PropType<TableHeaderRecord>,
-    default() {
-      return {
-        align: "center",
-        width: "50",
-      };
-    },
-  },
-  selectable: {
-    type: Function as PropType<(row: any, index: number) => boolean>,
-  },
-  index: {
-    type: Boolean,
-    default: false,
-  },
-  indexProps: {
-    type: Object as PropType<TableHeaderRecord>,
-    default() {
-      return {
-        label: "序号",
-        align: "center",
-        width: "50",
-      };
-    },
-  },
   rowKey: {
     type: [String, Function] as PropType<string | ((row: any) => string)>,
     default() {

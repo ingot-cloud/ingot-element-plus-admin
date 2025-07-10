@@ -1,3 +1,5 @@
+import type { TableColumnCtx } from "element-plus/lib/components/table/src/table-column/defaults";
+
 export interface TableAPI {
   clearSelection(): void;
   toggleRowSelection(row: any, selected?: boolean): void;
@@ -5,18 +7,8 @@ export interface TableAPI {
 
 export type TransformItem<In, Out> = (value: In) => Out;
 
-export interface TableHeaderRecord<In = any, Out = any> {
-  label?: string;
-  prop?: string;
+export interface TableHeaderRecord<In = any, Out = any> extends Partial<TableColumnCtx<any>> {
   hide?: boolean;
-  type?: string;
-  width?: string;
-  fixed?: string | boolean;
-  align?: string;
-  sortable?: string | boolean;
-  sortMethod?: (a: any, b: any) => number;
-  sortBy?: string | ((row: In, index: number) => string) | string[];
-  sortOrders?: ("ascending" | "descending" | null)[];
   transform?: TransformItem<In, Out>;
 }
 

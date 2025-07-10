@@ -52,34 +52,7 @@
     :row-key="rowKey"
     :default-sort="defaultSort"
   >
-    <el-table-column
-      v-if="selection"
-      :width="selectionProps.width"
-      :align="selectionProps.align"
-      :selectable="selectable"
-      type="selection"
-    />
-    <el-table-column
-      v-if="index"
-      :width="indexProps.width"
-      :align="indexProps.align"
-      :label="indexProps.label"
-      type="index"
-    />
-
-    <el-table-column
-      v-for="item in headersEnable"
-      :key="item.prop"
-      :label="item.label"
-      :type="item.type || undefined"
-      :width="item.width || undefined"
-      :fixed="item.fixed || undefined"
-      :align="item.align || 'left'"
-      :sortable="item.sortable"
-      :sort-method="item.sortMethod"
-      :sort-by="item.sortBy"
-      :sort-orders="item.sortOrders"
-    >
+    <el-table-column v-for="item in headersEnable" :key="item.prop" v-bind="item">
       <template v-slot="scope" v-if="!item.type">
         <slot :name="item.prop" :item="scope.row" :index="scope.$index">
           {{
@@ -153,12 +126,8 @@ const current = ref(props.page.current);
 const size = ref(props.page.size);
 const total = ref(props.page.total);
 const inTable = ref();
-const radioValue = ref();
 
 const privateRowClick = (item: any) => {
-  if (props.radioKey) {
-    radioValue.value = item[props.radioKey];
-  }
   emits("rowClick", item);
 };
 
