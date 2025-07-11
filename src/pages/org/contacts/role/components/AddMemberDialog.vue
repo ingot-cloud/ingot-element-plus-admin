@@ -13,13 +13,15 @@
       @selectionChange="onSelectChanged"
     >
       <template #toolbar>
-        <el-input
-          v-model="paging.condition.nickname"
-          clearable
-          style="width: 200px"
-          placeholder="请输入名称"
-        ></el-input>
-        <in-button @click="paging.exec" type="primary">搜索</in-button>
+        <div gap-2 flex flex-row items-center m-t-10px>
+          <el-input
+            v-model="paging.condition.nickname"
+            clearable
+            w-200px
+            placeholder="请输入名称"
+          ></el-input>
+          <in-button @click="paging.exec" type="primary">搜索</in-button>
+        </div>
       </template>
       <template #avatar="{ item }">
         <div flex flex-row items-center gap-2>
