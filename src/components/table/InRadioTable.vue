@@ -33,23 +33,10 @@
   </div>
 
   <el-radio-group v-model="radioValue" w-full>
-    <el-table
-      :border="border"
+    <component
+      :is="h(ElTable, { ...$attrs, ...props, ref: tableRef })"
       v-loading="loading"
-      ref="inRadioTable"
-      :data="data"
-      :stripe="stripe"
-      @select-all="privateOnTableSelectAll"
-      @select="privateOnTableSelect"
-      @selection-change="privateOnTableSelectionChange"
-      @row-click="privateRowClick"
-      @expand-change="privateExpandChange"
-      :highlight-current-row="highlightCurrentRow"
-      :default-expand-all="defaultExpandAll"
-      :expand-row-keys="expandRowKeys"
-      :tree-props="treeProps"
-      :row-key="rowKey"
-      :default-sort="defaultSort"
+      @rowClick="privateRowClick"
     >
       <el-table-column v-for="item in headersEnable" :key="item.prop" v-bind="item">
         <template v-slot="scope" v-if="!item.type">
@@ -65,7 +52,7 @@
       <template #empty>
         <el-empty />
       </template>
-    </el-table>
+    </component>
   </el-radio-group>
 
   <div v-if="page && page.total" m-t-20px flex flex-row justify-end items-start>
@@ -84,21 +71,27 @@
 </template>
 <script lang="ts" setup>
 import type { TableHeaderRecord } from "./types";
-import { tableProps } from "./props";
+import { type InTableProps, DefaultProps } from "./props";
 import { useAppStateStore } from "@/stores/modules/app";
+import { ElTable } from "element-plus";
+
+defineOptions({
+  name: "InRadioTable",
+  inheritAttrs: false,
+});
+
 const slot = useSlots();
-const props = defineProps(tableProps);
-const emits = defineEmits([
-  "handleSizeChange",
-  "handleCurrentChange",
-  "select",
-  "selectAll",
-  "selectionChange",
-  "refresh",
-  "rowClick",
-  "expand-change",
-]);
+const props = withDefaults(defineProps<InTableProps>(), DefaultProps);
+const emits = defineEmits(["handleSizeChange", "handleCurrentChange", "refresh"]);
 const { componentSize } = storeToRefs(useAppStateStore());
+
+const headersEnable = ref<Array<TableHeaderRecord>>(
+  props.headers.filter((item: TableHeaderRecord) => !item.hide),
+);
+
+const current = ref(props.page.current);
+const size = ref(props.page.size);
+const total = ref(props.page.total);
 
 watch(
   () => props.page.size,
@@ -119,21 +112,12 @@ watch(
   },
 );
 
-const headersEnable = ref(
-  props.headers.filter((item: TableHeaderRecord) => !item.hide) as Array<TableHeaderRecord>,
-);
-
-const current = ref(props.page.current);
-const size = ref(props.page.size);
-const total = ref(props.page.total);
-const inRadioTable = ref();
 const radioValue = ref();
 
 const privateRowClick = (item: any) => {
   if (props.radioKey) {
     radioValue.value = item[props.radioKey];
   }
-  emits("rowClick", item);
 };
 
 const privateHandleSizeChange = (val: number) => {
@@ -142,18 +126,6 @@ const privateHandleSizeChange = (val: number) => {
 
 const privateHandleCurrentChange = (val: number) => {
   emits("handleCurrentChange", { value: val, type: "current" });
-};
-const privateOnTableSelect = (selection: any, row: any) => {
-  emits("select", selection, row);
-};
-const privateOnTableSelectAll = (selection: any) => {
-  emits("selectAll", selection);
-};
-const privateOnTableSelectionChange = (selection: any) => {
-  emits("selectionChange", selection);
-};
-const privateExpandChange = (row: any, expandedRows: any) => {
-  emits("expand-change", row, expandedRows);
 };
 const privateOnHeaderChanged = (value: Array<String>) => {
   headersEnable.value = props.headers.filter((item: TableHeaderRecord) =>
@@ -164,19 +136,12 @@ const privateOnRefreshClick = () => {
   emits("refresh");
 };
 
-defineExpose({
-  /**
-   * 用于多选表格，清空用户的选择
-   */
-  clearSelection: () => {
-    const table = unref(inRadioTable);
-    table.clearSelection();
-  },
-  toggleRowSelection: (row: any, selected?: boolean) => {
-    const table = unref(inRadioTable);
-    table.toggleRowSelection(row, selected);
-  },
-});
+// 传递table所有方法
+const vm = getCurrentInstance();
+const tableRef = (instance: any) => {
+  vm!.exposed = instance;
+  vm!.exposeProxy = instance;
+};
 </script>
 <style lang="postcss" scoped>
 :deep(th.el-table__cell) {

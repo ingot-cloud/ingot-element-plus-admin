@@ -1,87 +1,58 @@
-import type { PropType } from "vue";
 import type { TableHeaderRecord, TablePage } from "./types";
-import type { Sort } from "element-plus";
 import { TreeListKeyAndProps } from "@/models";
+import { type TableProps } from "element-plus";
 
-export const tableProps = {
-  data: {
-    type: Array,
-    default: () => [],
-  },
-  headers: {
-    type: Object as PropType<Array<TableHeaderRecord>>,
-    default() {
-      return [];
-    },
-  },
-  page: {
-    type: Object as PropType<TablePage>,
-    default() {
-      return {
-        current: 1,
-        size: 20,
-        total: 0,
-      };
-    },
-  },
-  loading: {
-    type: Boolean,
-    default: false,
-  },
-  stripe: {
-    type: Boolean,
-    default: false,
-  },
-  border: {
-    type: Boolean,
-    default: false,
-  },
-  pageSize: {
-    type: Object as PropType<Array<number>>,
-    default() {
-      return [20, 30, 40, 50];
-    },
-  },
-  pageLayout: {
-    type: String,
-    default() {
-      return "total, sizes, prev, pager, next, jumper";
-    },
-  },
-  rowKey: {
-    type: [String, Function] as PropType<string | ((row: any) => string)>,
-    default() {
-      return TreeListKeyAndProps.key;
-    },
-  },
-  highlightCurrentRow: {
-    type: Boolean,
-    default: false,
-  },
-  defaultExpandAll: {
-    type: Boolean,
-    default: false,
-  },
-  expandRowKeys: {
-    type: Array as PropType<string[]>,
-    default() {
-      return undefined;
-    },
-  },
-  treeProps: {
-    type: Object,
-    default() {
-      return TreeListKeyAndProps.props;
-    },
-  },
-  radioKey: {
-    type: String,
-  },
-  defaultSort: {
-    type: Object as PropType<Sort | undefined>,
-  },
-  hideSetting: {
-    type: Boolean,
-    default: false,
-  },
+export interface ExtendTableProps {
+  headers?: Array<TableHeaderRecord>;
+  page?: TablePage;
+  loading?: boolean;
+  radioKey?: string;
+  hideSetting?: boolean;
+  pageSize?: Array<number>;
+  pageLayout?: string;
+}
+
+export type InTableProps = Partial<TableProps<any>> & ExtendTableProps;
+
+export const DefaultProps = {
+  loading: false,
+  hideSetting: false,
+  headers: () => [],
+  page: () => ({
+    current: 1,
+    size: 20,
+    total: 0,
+  }),
+  pageSize: () => [20, 30, 40, 50],
+  pageLayout: () => "total, sizes, prev, pager, next, jumper",
+  // ElTable
+  data: () => [],
+  stripe: false,
+  border: false,
+  fit: true,
+  showHeader: true,
+  highlightCurrentRow: false,
+  defaultExpandAll: false,
+  defaultSort: undefined,
+  tooltipEffect: "dark",
+  tooltipOptions: () => ({
+    enterable: true,
+    placement: "top",
+    showArrow: true,
+    hideAfter: 200,
+    popperOptions: { strategy: "fixed" },
+  }),
+  showSummary: false,
+  sumText: "合计",
+  selectOnIndeterminate: false,
+  indent: 16,
+  lazy: false,
+  treeProps: () => TreeListKeyAndProps.props as any,
+  tableLayout: "fixed" as any,
+  scrollbarAlwaysOn: false,
+  flexible: false,
+  allowDragLastColumn: true,
+  preserveExpandedContent: false,
+  rowKey: TreeListKeyAndProps.key,
+  expandRowKeys: undefined,
 };
