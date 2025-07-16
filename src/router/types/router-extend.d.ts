@@ -1,3 +1,5 @@
+import "vue-router";
+
 // Ensure this file is parsed as a module regardless of dependencies.
 export {};
 
