@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import routes from "@/router/routes";
-import { setupGuard } from "@/router/guard";
+import { guardManager } from "@/router/guard";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,7 +8,7 @@ const router = createRouter({
 });
 
 // 装载guard
-setupGuard(router);
+guardManager.install(router);
 
 export default router;
 export * from "./constants";

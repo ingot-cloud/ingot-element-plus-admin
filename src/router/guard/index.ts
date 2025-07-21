@@ -6,21 +6,27 @@ import { DynamicRouterGuard } from "./dynamicGuard";
 import { GlobalGuard } from "./globalGuard";
 import { EndGuard } from "./endGuard";
 
-const guardList: Array<BaseNavigationGuard> = [
-  new GlobalGuard(),
-  new DynamicRouterGuard(),
-  new UserInfoGuard(),
-  new AuthGuard(),
-  new EndGuard(),
-];
+class GuardManager {
+  private guards: BaseNavigationGuard[] = [];
 
-guardList.sort((l, r) => {
-  return l.order() - r.order();
-});
+  public constructor() {
+    this.guards.push(new GlobalGuard());
+    this.guards.push(new DynamicRouterGuard());
+    this.guards.push(new UserInfoGuard());
+    this.guards.push(new AuthGuard());
+    this.guards.push(new EndGuard());
 
-export const setupGuard = (router: Router) => {
-  // 注册 guard
-  guardList.forEach(async (guard) => {
-    router.beforeEach(guard.proxy(router));
-  });
-};
+    this.guards.sort((l, r) => {
+      return l.order() - r.order();
+    });
+  }
+
+  public install(router: Router) {
+    // 注册 guard
+    this.guards.forEach((guard) => {
+      router.beforeEach(guard.proxy(router));
+    });
+  }
+}
+
+export const guardManager = new GuardManager();
