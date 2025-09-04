@@ -4,11 +4,11 @@ import type {
   AxiosRequestConfig,
   InternalAxiosRequestConfig,
 } from "axios";
-import { Message, Confirm } from "@/utils/message";
+import type { PostFilter } from "@/net/types";
 import type { R } from "@/models/net";
+
+import { Message, Confirm } from "@/utils/message";
 import { StatusCode } from "@/net/status-code";
-// import { useAuthStore } from "@/stores/modules/auth";
-// import Http from "@/net";
 import { logoutAndReload } from "@/utils/security";
 import { isString } from "@/utils";
 
@@ -99,26 +99,26 @@ const bizResponseFailureHandler = (
   return Promise.reject(response);
 };
 
-/**
- * 响应完成拦截器
- * @param response
- */
-export const onResponseFulfilled = (response: AxiosResponse<R>): Promise<R> => {
-  const data = response.data;
-  if (data.code === StatusCode.OK) {
-    return Promise.resolve(axiosResponseToR(response));
+class BizInterceptor implements PostFilter {
+  order(): number {
+    return 10;
   }
-  return bizResponseFailureHandler(response.config, axiosResponseToR(response));
-};
 
-/**
- * 响应拒绝拦截器
- * @param error
- */
-export const onResponseRejected = (error: AxiosError<R>): Promise<R> => {
-  // 异常响应，并且响应结果为String那么退出登录
-  if (error.code === "ERR_BAD_RESPONSE" && error.response && isString(error.response.data)) {
-    logoutAndReload(true);
+  resolved(response: AxiosResponse<R>): AxiosResponse<R> | Promise<AxiosResponse<R>> {
+    const data = response.data;
+    if (data.code === StatusCode.OK) {
+      return Promise.resolve(axiosResponseToR(response));
+    }
+    return bizResponseFailureHandler(response.config, axiosResponseToR(response));
   }
-  return bizResponseFailureHandler(error.config || {}, axiosResponseToR(error.response));
-};
+
+  rejected(error: AxiosError<R>): Promise<R> {
+    // 异常响应，并且响应结果为String那么退出登录
+    if (error.code === "ERR_BAD_RESPONSE" && error.response && isString(error.response.data)) {
+      logoutAndReload(true);
+    }
+    return bizResponseFailureHandler(error.config || {}, axiosResponseToR(error.response));
+  }
+}
+
+export default new BizInterceptor();

@@ -1,10 +1,5 @@
 import type { UserToken, UserInfo } from "@/models/security";
-import {
-  PasswordTokenAPI,
-  RefreshTokenAPI,
-  RevokeTokenAPI,
-  AuthorizeCodeTokenAPI,
-} from "@/api/common/auth";
+import { RefreshTokenAPI, RevokeTokenAPI, AuthorizeCodeTokenAPI } from "@/api/common/auth";
 import { UserInfoAPI } from "@/api/common/user";
 import type { MenuTreeNode } from "@/models";
 /**
@@ -35,32 +30,11 @@ export const useAuthStore = defineStore(
       Object.assign(token, value);
     };
 
-    // 登录
-    const login = ({
-      username,
-      password,
-      code,
-    }: {
-      username: string;
-      password: string;
-      code?: string;
-    }): Promise<void> => {
-      return new Promise((resolve, reject) => {
-        PasswordTokenAPI({
-          username,
-          password,
-          code,
-        })
-          .then((response) => {
-            updateToken(response.data);
-            resolve();
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      });
-    };
-
+    /**
+     * 授权码登录
+     * @param code 授权码
+     * @returns
+     */
     const codeLogin = (code: string): Promise<void> => {
       return new Promise((resolve, reject) => {
         AuthorizeCodeTokenAPI(code)
@@ -123,7 +97,6 @@ export const useAuthStore = defineStore(
       getRefreshToken,
       getOrg,
       updateToken,
-      login,
       codeLogin,
       refreshToken,
       logout,

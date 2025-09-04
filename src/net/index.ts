@@ -1,15 +1,8 @@
-import axios, { AxiosError } from "axios";
-import type {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-  InternalAxiosRequestConfig,
-} from "axios";
-import { onRequestFulfilled, onRequestRejected } from "./interceptor/request";
-import { onResponseFulfilled, onResponseRejected } from "./interceptor/response";
+import axios from "axios";
+import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import type { R } from "@/models/net";
-import NProgress from "@/components/nprogress";
-import CancelManager from "./cancel";
+import RequestInterceptor from "./interceptor/request";
+import ResponseInterceptor from "./interceptor/response";
 
 class Http {
   private instance: AxiosInstance;
@@ -20,29 +13,8 @@ class Http {
       timeoutErrorMessage: import.meta.env.VITE_APP_NET_DEFAULT_TIMEOUT_MESSAGE || undefined,
     });
 
-    // default interceptors
-    this.instance.interceptors.request.use(
-      (config: InternalAxiosRequestConfig) => {
-        NProgress.start();
-        CancelManager.addRequest(config);
-        return onRequestFulfilled(config);
-      },
-      (error: AxiosError) => {
-        return onRequestRejected(error);
-      },
-    );
-    this.instance.interceptors.response.use(
-      (response: AxiosResponse<R>) => {
-        NProgress.done();
-        CancelManager.removeRequest(response.config);
-        return onResponseFulfilled(response);
-      },
-      (error: AxiosError<R>) => {
-        NProgress.done();
-        CancelManager.removeRequest(error.config);
-        return onResponseRejected(error);
-      },
-    );
+    RequestInterceptor.install(this.instance);
+    ResponseInterceptor.install(this.instance);
   }
 
   rawRequest<T = any>(config: AxiosRequestConfig): Promise<R<T>> {
