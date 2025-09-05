@@ -98,6 +98,9 @@ defineExpose({
     visible.value = true;
     currentTab.value = TabNameBase;
     fetchData();
+    nextTick(() => {
+      BaseInfoFormRef.value.init();
+    });
   },
 });
 </script>

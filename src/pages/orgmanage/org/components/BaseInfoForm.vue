@@ -4,7 +4,7 @@
     <div p-20px>
       <in-form ref="FormRef" :model="editForm" :rules="rules" :disabled="!editFlag">
         <el-form-item label="logo">
-          <in-common-upload-avatar dir="public/tenant" v-model="editForm.avatar" />
+          <in-common-upload-avatar dir="tenant" v-model="editForm.avatar" />
         </el-form-item>
         <el-form-item label="组织名称" prop="name">
           <el-input v-model="editForm.name" clearable placeholder="请输入组织名称"></el-input>

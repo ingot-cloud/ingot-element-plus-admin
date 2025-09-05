@@ -11,16 +11,16 @@
     :on-success="handleUploadSuccess"
     :http-request="uploadRequest"
   >
-    <el-icon><i:material-symbols:add /></el-icon>
+    <el-icon><in-icon name="material-symbols:add" /></el-icon>
     <template #file="{ file }">
       <div>
         <img class="el-upload-list__item-thumbnail" :src="handleImageSrc(file)" alt="" />
         <span class="el-upload-list__item-actions">
           <span class="el-upload-list__item-preview" @click="handlePictureCardPreview(file)">
-            <el-icon><i:teenyicons:zoom-in-outline /></el-icon>
+            <el-icon><in-icon name="teenyicons:zoom-in-outline" /></el-icon>
           </span>
           <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleRemove(file)">
-            <el-icon><i:material-symbols:delete /></el-icon>
+            <el-icon><in-icon name="material-symbols:delete" /></el-icon>
           </span>
         </span>
       </div>

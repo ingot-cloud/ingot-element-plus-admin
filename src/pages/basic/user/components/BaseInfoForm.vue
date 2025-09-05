@@ -4,7 +4,7 @@
     <div p-20px>
       <in-form ref="FormRef" :model="editForm" :rules="rules" :disabled="!editFlag">
         <el-form-item label="头像">
-          <in-common-upload-avatar dir="public/user/avatar" v-model="editForm.avatar" />
+          <in-common-upload-avatar :dir="uploadDir" v-model="editForm.avatar" />
         </el-form-item>
         <el-form-item label="姓名" prop="nickname">
           <el-input v-model="editForm.nickname" clearable placeholder="请输入姓名"></el-input>
@@ -37,14 +37,19 @@ const rules = {
 };
 
 const userId = ref("");
+const uploadDir = ref("");
 const editFlag = ref(false);
 const FormRef = ref();
 const editForm = reactive(Object.assign({}, defaultEditForm));
 const rawForm = reactive(Object.assign({}, defaultEditForm));
 
 defineExpose({
+  init() {
+    editFlag.value = false;
+  },
   setData(id: string, params: UserProfileVO) {
     userId.value = id;
+    uploadDir.value = `user/avatar/${userId.value}`;
     copyParamsWithKeys(editForm, params, keys);
     copyParamsWithKeys(rawForm, params, keys);
     nextTick(() => {

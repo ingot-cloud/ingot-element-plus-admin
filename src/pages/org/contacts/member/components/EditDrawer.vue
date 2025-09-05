@@ -9,7 +9,7 @@
       :rules="rules"
     >
       <el-form-item label="头像">
-        <in-common-upload-avatar dir="public/user/avatar" v-model="editForm.avatar" />
+        <in-common-upload-avatar dir="user/avatar" v-model="editForm.avatar" />
       </el-form-item>
 
       <el-form-item label="名称" prop="nickname">

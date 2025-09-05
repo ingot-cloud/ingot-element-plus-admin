@@ -2,7 +2,7 @@
   <in-drawer title="添加用户" v-model="visible">
     <in-form ref="FormRef" :model="editForm" :rules="rules">
       <el-form-item label="头像">
-        <in-common-upload-avatar dir="public/user/avatar" v-model="editForm.avatar" />
+        <in-common-upload-avatar dir="user/avatar" v-model="editForm.avatar" />
       </el-form-item>
       <el-form-item label="姓名" prop="nickname">
         <el-input v-model="editForm.nickname" clearable placeholder="请输入姓名"></el-input>
